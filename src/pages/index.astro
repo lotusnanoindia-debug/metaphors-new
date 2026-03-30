@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Sectors from '../components/Sectors.astro';
+import RiskManagement from '../components/RiskManagement.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Metaphors Design - Architecture for ROI">
+	<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+		<Header />
+		<main class="flex-grow">
+			<Hero />
+			
+			<section class="w-full px-6 lg:px-12 pb-12">
+				<div class="max-w-[1440px] mx-auto h-[60vh] lg:h-[70vh] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 reveal">
+					<img 
+						alt="Modern clean architectural skyscraper facade" 
+						class="w-full h-full object-cover object-center" 
+						src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGQtukqQ06PsXkTKccfR0ARwDCzVNwgWK00RGf6vcU0dKrqg2uY6ck3aQMjiVSjQkoCrYnEbw4B_HU60o4aCPrsZb9EiADisCvgBNlz6Hd5kyjIN4zOAFMRw7SJqIpU7kFIi-rTV36vKR5AvvstDXnXIpm6K7Xr2He8Yvs5hDp69SaM6GwKPQkI9pN0TXvTDUV4OjuEWBtmJggnon-HZ5aR4iJlUXeocCqZEwRMql5s4baq_Opvrd8Vym2dnbmWPhjkPfFqZR1QpI"
+						referrerpolicy="no-referrer"
+					/>
+				</div>
+			</section>
+
+			<Sectors />
+			<RiskManagement />
+		</main>
+		<Footer />
+	</div>
+</Layout>

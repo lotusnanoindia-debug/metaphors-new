@@ -1,0 +1,64 @@
+---
+import { Building2 } from "lucide-react";
+
+const sectors = [
+  {
+    title: "Hotels & Resorts",
+    desc: "Yield maximization strategies focusing on RevPAR enhancement and operational flow efficiency.",
+    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCZMyRk0EoJ388_PORjlVEqYXgN1yyHPXBj_NN6FDy0fF_WGtELChsrKgo68jA62-tFvAIBPS_nblXj4a5jSKHfMr78OepxYcMaxnCa4wCjGCBCgR-2D_VjSoQ_N4-sHxYASvbgPS4eQI4n7IE7JnABwJwmuueEjKtbAjuxhlH8KiJg5SFKaWrMISd6rL-jPgTBWehMkDPFUM0kyh3yr-Yw-NKCGGkxniaAd1ZPykcOb2ACNmLnH90mr83tmt5wns5m_X3XIYH-5J8",
+    label: "Efficiency",
+    metric: "+12% Gain"
+  },
+  {
+    title: "Urban Mixed-Use",
+    desc: "Maximizing leasable square footage while creating destination value for retail and office tenants.",
+    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBaTOQifcMXdEwsEkA6MVKUBrYQkQO1BeHRMzeVx9UgPmjSD2xn5ymAljPSs2u3EyVVdsAHpltnUMkIpiB2wo8Zj3fO2_5H_EEVMFUZ0H9IrEntnWGLMcZLPwDcVJx1j2JprwVKpGsb91MNCT3IU-b0TXDsSI82C2SuUOhEsIfDxJH6QE4ttPUcW5UvK3ETeaGseXhn929k7AgfwuAp5mhZX3wLQwsAAUOCHDu7FUrxc5l7a8U9yvW-s67XNKvck3h6QdjpZNQqNEQ",
+    label: "Lease Velocity",
+    metric: "High Demand"
+  },
+  {
+    title: "Adaptive Reuse",
+    desc: "Converting underutilized assets into high-performing properties through strategic structural interventions.",
+    img: null,
+    label: "Cost Saving",
+    metric: "~25% vs New"
+  }
+];
+---
+
+<section class="w-full py-20 lg:py-24 bg-white">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="editorial-line"></div>
+    <div class="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-8 reveal">
+      <h2 class="text-4xl lg:text-5xl font-serif text-black">Sectors of Focus</h2>
+      <p class="max-w-md text-black/60 font-light text-lg">Where design directly impacts operational efficiency and revenue generation.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-20">
+      {sectors.map((sector) => (
+        <div class="group cursor-pointer reveal">
+          <div class="aspect-[4/5] overflow-hidden grayscale mb-6 bg-gray-100 flex items-center justify-center">
+            {sector.img ? (
+              <img 
+                alt={sector.title} 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                src={sector.img}
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <div class="text-center p-8">
+                <Building2 size={48} className="mx-auto mb-4 text-gray-300" strokeWidth={1} />
+                <p class="text-sm text-gray-400 uppercase tracking-widest">Coming Soon</p>
+              </div>
+            )}
+          </div>
+          <h3 class="text-2xl font-serif font-medium text-black mb-3 group-hover:underline decoration-1 underline-offset-4">{sector.title}</h3>
+          <p class="text-sm text-black/60 leading-relaxed mb-4">{sector.desc}</p>
+          <div class="flex items-center justify-between border-t border-black/10 pt-3">
+            <span class="text-[10px] uppercase tracking-widest font-bold">{sector.label}</span>
+            <span class="text-sm font-serif italic">{sector.metric}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

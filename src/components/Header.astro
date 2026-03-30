@@ -1,0 +1,29 @@
+---
+import { Building2, Menu } from "lucide-react";
+---
+
+<header class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-black/5">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="flex h-20 items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="flex items-center justify-center size-8 bg-black text-white">
+          <Building2 size={20} strokeWidth={1.5} />
+        </div>
+        <span class="text-xl font-bold tracking-tight text-black font-serif italic">Metaphors.</span>
+      </div>
+      <div class="hidden md:flex md:items-center md:gap-12">
+        <nav class="flex gap-8">
+          <a class="text-sm font-medium text-black/60 hover:text-black transition-colors uppercase tracking-widest text-[11px]" href="#">Approach</a>
+          <a class="text-sm font-medium text-black/60 hover:text-black transition-colors uppercase tracking-widest text-[11px]" href="#">Work</a>
+          <a class="text-sm font-medium text-black/60 hover:text-black transition-colors uppercase tracking-widest text-[11px]" href="#">Insights</a>
+        </nav>
+        <button class="inline-flex h-10 items-center justify-center border border-black px-6 text-xs font-bold uppercase tracking-widest text-black transition-all hover:bg-black hover:text-white">
+          Inquire
+        </button>
+      </div>
+      <button class="md:hidden p-2 text-black">
+        <Menu size={24} />
+      </button>
+    </div>
+  </div>
+</header>
