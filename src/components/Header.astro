@@ -1,29 +1,342 @@
 ---
-import { Building2, Menu } from "lucide-react";
+import { Icon } from "astro-icon/components";
+
+const sectors = [
+  {
+    title: "Commercial & Retail.",
+    description: "High-velocity retail destinations.",
+    path: "/sectors/commercial",
+    image: "/phoenix-atrium.png",
+  },
+  {
+    title: "Hospitality & Leisure.",
+    description: "Premium hospitality estates.",
+    path: "/sectors/hospitality",
+    image:
+      "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=2000",
+  },
+  {
+    title: "Private & Collective.",
+    description: "Architected for elevated living.",
+    path: "/sectors/residential",
+    image:
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop",
+  },
+  {
+    title: "Institutional & Corporate.",
+    description: "Structural efficiency at scale.",
+    path: "/sectors/institutional",
+    image: "/wipro-hq.png",
+  },
+];
+
+const menuItems = [
+  { name: "About", path: "/about" },
+  { name: "Approach", path: "/approach" },
+  { name: "Archive", path: "/archive" },
+  { name: "Journal", path: "/journal" },
+  { name: "Contact", path: "/contact" },
+];
 ---
 
-<header class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-black/5">
-  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+<!-- ===========================================================
+     HEADER BAR (always on top of everything)
+     z-[200] so it sits above the mobile overlay (z-[190])
+=========================================================== -->
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-[200] bg-bone/90 backdrop-blur-xl border-b border-charcoal/5 transition-colors duration-500"
+  aria-label="Site Header"
+>
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12 relative">
     <div class="flex h-20 items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="flex items-center justify-center size-8 bg-black text-white">
-          <Building2 size={20} strokeWidth={1.5} />
+
+      <!-- Logo -->
+      <a
+        href="/"
+        class="relative z-10 flex items-center gap-3 group/logo"
+        aria-label="Metaphors Design — Home"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="h-6 w-auto transition-transform duration-700 group-hover/logo:scale-110"
+          src="/metaphors-design-logo.svg"
+        />
+        <span class="text-xl font-semibold tracking-tight text-black lowercase">
+          metaphors design
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav
+        class="hidden lg:flex items-center gap-12 h-full"
+        aria-label="Primary"
+      >
+        <!-- Projects Mega Menu trigger -->
+        <div class="h-full flex items-center group/projects">
+          <button
+            class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/60 hover:text-charcoal transition-colors"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Projects
+            <Icon
+              name="ph:caret-down"
+              class="w-2.5 h-2.5 transition-transform duration-300 group-hover/projects:rotate-180"
+            />
+          </button>
+
+          <!-- Mega Menu Panel -->
+          <div
+            class="absolute top-[80px] left-6 lg:left-12 right-6 lg:right-12
+                   bg-white border border-charcoal/5 shadow-2xl
+                   opacity-0 invisible translate-y-4
+                   group-hover/projects:opacity-100 group-hover/projects:visible group-hover/projects:translate-y-0
+                   transition-all duration-700 [transition-timing-function:cubic-bezier(0.19,1,0.22,1)]
+                   p-12 lg:p-16"
+            role="menu"
+          >
+            <div class="grid grid-cols-4 gap-12">
+              {
+                sectors.map((sector) => (
+                  <a
+                    href={sector.path}
+                    class="group/sector flex flex-col gap-8"
+                    role="menuitem"
+                  >
+                    <div class="aspect-[16/10] overflow-hidden grayscale group-hover/sector:grayscale-0 transition-all duration-1000">
+                      <img
+                        src={sector.image}
+                        alt={sector.title}
+                        class="w-full h-full object-cover group-hover/sector:scale-105 transition-transform duration-[2000ms]"
+                      />
+                    </div>
+                    <div>
+                      <h4 class="text-2xl lg:text-3xl font-serif italic mb-4 text-charcoal group-hover/sector:text-black transition-colors">
+                        {sector.title}
+                      </h4>
+                      <p class="text-[10px] uppercase tracking-[0.3em] text-charcoal/40 font-bold group-hover/sector:text-charcoal/80 transition-colors">
+                        {sector.description}
+                      </p>
+                    </div>
+                  </a>
+                ))
+              }
+            </div>
+
+            <div
+              class="mt-16 pt-10 border-t border-charcoal/5 flex justify-between items-center"
+            >
+              <p
+                class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/20"
+              >
+                Precision in articulation.
+              </p>
+              <a
+                href="/archive"
+                class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal
+                       flex items-center gap-3 group/all
+                       border-b border-charcoal/20 pb-1 hover:border-charcoal transition-colors"
+              >
+                View Full Archive
+                <Icon
+                  name="ph:arrow-right"
+                  class="w-3.5 h-3.5 group-hover/all:translate-x-1.5 transition-transform"
+                />
+              </a>
+            </div>
+          </div>
         </div>
-        <span class="text-xl font-bold tracking-tight text-black font-serif italic">Metaphors.</span>
+
+        {
+          menuItems.map((item) => (
+            <a
+              href={item.path}
+              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/60 hover:text-charcoal transition-colors"
+            >
+              {item.name}
+            </a>
+          ))
+        }
+      </nav>
+
+      <!-- Desktop CTA -->
+      <div class="hidden lg:block">
+        <a
+          href="/contact"
+          class="inline-flex h-11 items-center justify-center
+                 border border-charcoal/20 px-8
+                 text-[11px] font-bold uppercase tracking-[0.3em] text-charcoal
+                 transition-all duration-500 hover:bg-black hover:text-white hover:border-black"
+        >
+          Discuss Strategy
+        </a>
       </div>
-      <div class="hidden md:flex md:items-center md:gap-12">
-        <nav class="flex gap-8">
-          <a class="text-sm font-medium text-black/60 hover:text-black transition-colors uppercase tracking-widest text-[11px]" href="#">Approach</a>
-          <a class="text-sm font-medium text-black/60 hover:text-black transition-colors uppercase tracking-widest text-[11px]" href="#">Work</a>
-          <a class="text-sm font-medium text-black/60 hover:text-black transition-colors uppercase tracking-widest text-[11px]" href="#">Insights</a>
-        </nav>
-        <button class="inline-flex h-10 items-center justify-center border border-black px-6 text-xs font-bold uppercase tracking-widest text-black transition-all hover:bg-black hover:text-white">
-          Inquire
-        </button>
-      </div>
-      <button class="md:hidden p-2 text-black">
-        <Menu size={24} />
+
+      <!-- ═══════════════════════════════════════════════
+           BURGER BUTTON  (mobile only)
+           Simple icon toggle
+      ══════════════════════════════════════════════════ -->
+      <button
+        id="burger-btn"
+        class="lg:hidden relative z-10 w-10 h-10 flex items-center justify-center
+               focus-visible:outline-none"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <Icon name="ph:list" class="w-6 h-6 text-charcoal" />
       </button>
+
     </div>
   </div>
 </header>
+
+<!-- ===========================================================
+     FULL-SCREEN MOBILE OVERLAY
+     Sits BELOW the header bar (z-[190]) so header remains visible,
+     but covers the entire viewport from top-0.
+     Controlled by JS toggling [data-open] attribute.
+=========================================================== -->
+<nav
+  id="mobile-nav"
+  aria-label="Mobile Navigation"
+  aria-hidden="true"
+  class="fixed inset-0 z-[300] bg-bone flex flex-col
+         pointer-events-none
+         opacity-0 
+         transition-opacity duration-500
+         [transition-timing-function:cubic-bezier(0.19,1,0.22,1)]
+         lg:hidden"
+>
+  <!-- Top bar inside overlay (mirrors header height) -->
+  <div class="flex h-20 items-center justify-between px-6 border-b border-charcoal/5 flex-shrink-0">
+    <a href="/" class="text-xl font-semibold tracking-tight text-black lowercase">
+      metaphors design
+    </a>
+    <button
+      id="mobile-nav-close"
+      class="w-10 h-10 flex items-center justify-center focus-visible:outline-none"
+      aria-label="Close navigation menu"
+    >
+      <Icon name="ph:x" class="w-6 h-6 text-charcoal" />
+    </button>
+  </div>
+
+  <!-- Scrollable body -->
+  <div class="flex-1 overflow-y-auto flex flex-col justify-between px-6 py-12">
+    <!-- Left column: Sectors -->
+    <div>
+      <p
+        class="text-[9px] font-bold uppercase tracking-[0.5em] text-charcoal/30 mb-10"
+      >
+        Sectors
+      </p>
+      <ul class="space-y-4" role="list">
+        {
+          sectors.map((sector) => (
+            <li class="mobile-nav-item">
+              <a
+                href={sector.path}
+                class="group block py-2 border-b border-charcoal/5 hover:border-charcoal/20 transition-colors"
+              >
+                <h3 class="text-4xl font-serif italic text-charcoal group-hover:text-black transition-colors leading-tight">
+                  {sector.title}
+                </h3>
+                <span class="text-[9px] font-bold uppercase tracking-[0.4em] text-charcoal/30 group-hover:text-charcoal/60 transition-colors mt-1 block">
+                  {sector.description}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <!-- Secondary links -->
+      <ul class="mt-14 space-y-5" role="list">
+        {
+          menuItems.map((item) => (
+            <li class="mobile-nav-item">
+              <a
+                href={item.path}
+                class="text-base font-medium text-charcoal/60 hover:text-black transition-colors lowercase tracking-wide"
+              >
+                {item.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="mobile-nav-item mt-16">
+      <a
+        href="/contact"
+        class="flex w-full h-14 items-center justify-center
+               bg-charcoal text-bone
+               text-[11px] font-bold uppercase tracking-[0.35em]
+               transition-all duration-500 hover:bg-black"
+      >
+        Discuss Strategy
+      </a>
+
+      <p class="mt-6 text-[9px] font-bold uppercase tracking-[0.4em] text-charcoal/20 text-center">
+        Architecture that articulates intent.
+      </p>
+    </div>
+  </div>
+</nav>
+
+
+<script>
+  (() => {
+    const burgerBtn   = document.getElementById("burger-btn") as HTMLButtonElement;
+    const mobileNav   = document.getElementById("mobile-nav") as HTMLElement;
+    const closeBtn    = document.getElementById("mobile-nav-close") as HTMLButtonElement;
+
+    if (!burgerBtn || !mobileNav || !closeBtn) return;
+
+    function toggleMenu() {
+      const isCurrentlyClosed = mobileNav.classList.contains("opacity-0");
+      
+      if (!isCurrentlyClosed) {
+        // CLOSE
+        mobileNav.classList.add("opacity-0", "pointer-events-none");
+        mobileNav.classList.remove("opacity-100");
+        mobileNav.setAttribute("aria-hidden", "true");
+        burgerBtn.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      } else {
+        // OPEN
+        mobileNav.classList.remove("opacity-0", "pointer-events-none");
+        mobileNav.classList.add("opacity-100");
+        mobileNav.setAttribute("aria-hidden", "false");
+        burgerBtn.setAttribute("aria-expanded", "true");
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+    burgerBtn.addEventListener("click", toggleMenu);
+    closeBtn.addEventListener("click", toggleMenu);
+
+    mobileNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", toggleMenu);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && burgerBtn.getAttribute("aria-expanded") === "true") {
+        toggleMenu();
+        burgerBtn.focus();
+      }
+    });
+  })();
+</script>
+
+<style>
+  /* Ensure header switches to white text when menu is open (optional luxury touch) */
+  #site-header[data-menu-open] {
+    --tw-bg-opacity: 1;
+  }
+</style>

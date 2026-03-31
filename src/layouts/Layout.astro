@@ -1,6 +1,8 @@
 ---
+import { SEO } from "astro-seo";
+
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -8,73 +10,137 @@ const { title } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Architectural precision for the modern hospitality developer. Driven by data, defined by design." />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-	</head>
-	<body class="bg-white text-black antialiased font-sans selection:bg-black selection:text-white">
-		<slot />
-	</body>
+  <head>
+    <SEO
+      title={title}
+      description="Architectural precision for high-stakes Indian developments. ROI-driven design, engineered for execution certainty."
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/logo-v1.png" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;900&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-bone text-charcoal antialiased font-sans selection:bg-black selection:text-white overflow-x-hidden"
+  >
+    <slot />
+  </body>
 </html>
 
 <style is:global>
-	@import "tailwindcss";
+  @import "tailwindcss";
 
-	@theme {
-	  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-	  --font-serif: "Playfair Display", serif;
-	}
+  @theme {
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-serif: "Instrument Serif", serif;
+    --color-charcoal: #111111;
+    --color-bone: #fcfbf8;
+    --color-metaphor: #fd7420;
+    --color-ink: #60a5fa; /* Lighter Architectural Blue for dark backgrounds */
+  }
 
-	@layer base {
-	  h1, h2, h3, h4, h5, h6 {
-	    @apply font-serif;
-	  }
-	}
+  @layer base {
+    body {
+      @apply bg-bone text-charcoal antialiased font-sans;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply font-serif italic tracking-tight;
+    }
+  }
 
-	.editorial-line {
-	  height: 1px;
-	  background: #000;
-	  width: 100%;
-	  margin-bottom: 2rem;
-	}
+  .editorial-line {
+    height: 1px;
+    background: #000;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
 
-	.grayscale-img {
-	  filter: grayscale(100%);
-	  transition: filter 0.5s ease;
-	}
+  /* Extreme Luxury Easing & Transitions */
+  .luxury-transition {
+    transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  }
 
-	.grayscale-img:hover {
-	  filter: grayscale(0%);
-	}
+  .luxury-slow {
+    transition: all 2.4s cubic-bezier(0.19, 1, 0.22, 1);
+  }
 
-	/* Simple scroll animations with CSS */
-	.reveal {
-		opacity: 0;
-		transform: translateY(20px);
-		transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-	}
+  .luxury-reveal {
+    transition:
+      opacity 1.8s cubic-bezier(0.19, 1, 0.22, 1),
+      transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+  }
 
-	.reveal.visible {
-		opacity: 1;
-		transform: translateY(0);
-	}
+  .micro-hover {
+    position: relative;
+    display: inline-block;
+  }
+
+  .micro-hover::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+    opacity: 0.6;
+  }
+
+  .micro-hover:hover::after {
+    width: 100%;
+  }
+
+  /* Grayscale Interplay */
+  .luxury-grayscale {
+    filter: grayscale(100%) brightness(0.9);
+    transition:
+      filter 2s cubic-bezier(0.19, 1, 0.22, 1),
+      transform 2s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .group:hover .luxury-grayscale {
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.05);
+  }
+
+  /* Smooth Scroll Reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+      opacity 2s cubic-bezier(0.19, 1, 0.22, 1),
+      transform 2s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 </style>
 
 <script>
-	const observer = new IntersectionObserver((entries) => {
-		entries.forEach((entry) => {
-			if (entry.isIntersecting) {
-				entry.target.classList.add('visible');
-			}
-		});
-	}, { threshold: 0.1 });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.1 },
+  );
 
-	document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 </script>

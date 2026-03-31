@@ -1,0 +1,88 @@
+---
+const qs = [
+  {
+    q: "What if the regulatory clearance doesn't come through in time?",
+    a: "It will. We've handled RERA and environmental clearances for 30+ years. We begin the compliance audit before the first drawing is pinned — so that when it matters, there's no waiting.",
+    stat: "Zero stalled projects due to compliance",
+    n: "01"
+  },
+  {
+    q: "What if the final building doesn't look like what I imagined?",
+    a: "It will look better. High-fidelity BIM means you walk through your building digitally before a single column is poured. There are no surprises at handover — only clarity from day one.",
+    stat: "100% design intent preserved to completion",
+    n: "02"
+  },
+  {
+    q: "What if the project costs more than planned?",
+    a: "It won't catch you off guard. We treat your capital the way you do — defensively. Cost-calibrated design, yield-mapped floor planning, and real-time budget tracking ensure your margins hold.",
+    stat: "Benchmarked to industry cost tolerance of ±3%",
+    n: "03"
+  }
+];
+---
+
+<section class="bg-charcoal py-24 lg:py-40">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+
+    {/* Header */}
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-24 pb-12 border-b border-white/10">
+      <div>
+        <p class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/30 mb-6">Before You Build Anything</p>
+        <h2 class="text-5xl lg:text-7xl text-bone leading-[0.9] tracking-tight max-w-2xl">
+          Questions every serious developer should be asking.
+        </h2>
+      </div>
+      <p class="text-base text-white/40 font-light max-w-xs leading-relaxed lg:text-right">
+        Every one of these has a direct answer.<br />
+        We've been giving them for 30 years.
+      </p>
+    </div>
+
+    {/* Q&A List */}
+    <div class="divide-y divide-white/10">
+      {qs.map((item) => (
+        <div class="group grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-16 py-16 lg:py-20">
+
+          {/* Number + Question */}
+          <div class="lg:col-span-7 flex gap-8 items-start">
+            <span class="text-[10px] font-bold tracking-[0.3em] text-white/20 mt-2 shrink-0">{item.n}</span>
+            <h3 class="text-3xl lg:text-4xl xl:text-5xl font-serif italic text-bone/70 leading-tight group-hover:text-bone transition-colors duration-700">
+              {item.q}
+            </h3>
+          </div>
+
+          {/* Answer + Stat */}
+          <div class="lg:col-span-5 flex flex-col justify-between gap-12">
+            <p class="text-lg lg:text-xl text-white/40 leading-relaxed font-light group-hover:text-white/70 transition-colors duration-700">
+              {item.a}
+            </p>
+            <div class="border-l-2 border-white/10 pl-8 group-hover:border-white/30 transition-colors duration-700">
+              <p class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20 group-hover:text-white/50 transition-colors duration-700">
+                The record:
+              </p>
+              <p class="text-sm font-medium text-white/50 mt-2 group-hover:text-white/80 transition-colors duration-700">
+                {item.stat}
+              </p>
+            </div>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+    {/* Close / CTA */}
+    <div class="mt-20 pt-12 border-t border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+      <p class="text-2xl lg:text-3xl font-serif italic text-white/30 max-w-md leading-snug">
+        Every concern has a direct answer.<br />Let's have that conversation.
+      </p>
+      <a
+        href="/contact"
+        class="inline-flex h-14 items-center gap-6 border border-white/20 px-10 text-[11px] font-bold uppercase tracking-[0.35em] text-white transition-all duration-500 hover:bg-white hover:text-charcoal shrink-0"
+      >
+        Discuss Your Project
+        <span class="transition-transform duration-300 group-hover:translate-x-2">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>

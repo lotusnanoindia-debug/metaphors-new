@@ -1,64 +1,144 @@
 ---
-import { Building2 } from "lucide-react";
-
+import { Icon } from "astro-icon/components";
 const sectors = [
   {
-    title: "Hotels & Resorts",
-    desc: "Yield maximization strategies focusing on RevPAR enhancement and operational flow efficiency.",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCZMyRk0EoJ388_PORjlVEqYXgN1yyHPXBj_NN6FDy0fF_WGtELChsrKgo68jA62-tFvAIBPS_nblXj4a5jSKHfMr78OepxYcMaxnCa4wCjGCBCgR-2D_VjSoQ_N4-sHxYASvbgPS4eQI4n7IE7JnABwJwmuueEjKtbAjuxhlH8KiJg5SFKaWrMISd6rL-jPgTBWehMkDPFUM0kyh3yr-Yw-NKCGGkxniaAd1ZPykcOb2ACNmLnH90mr83tmt5wns5m_X3XIYH-5J8",
-    label: "Efficiency",
-    metric: "+12% Gain"
+    title: "Commerce & Retail",
+    problem: "Real estate inefficiency and low traffic conversion.",
+    solution:
+      "We architect high-velocity retail and commercial assets engineered for yield.",
+    proof: "Flagship work: Phoenix Mall & Shizusan.",
+    image:
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop",
   },
   {
-    title: "Urban Mixed-Use",
-    desc: "Maximizing leasable square footage while creating destination value for retail and office tenants.",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBaTOQifcMXdEwsEkA6MVKUBrYQkQO1BeHRMzeVx9UgPmjSD2xn5ymAljPSs2u3EyVVdsAHpltnUMkIpiB2wo8Zj3fO2_5H_EEVMFUZ0H9IrEntnWGLMcZLPwDcVJx1j2JprwVKpGsb91MNCT3IU-b0TXDsSI82C2SuUOhEsIfDxJH6QE4ttPUcW5UvK3ETeaGseXhn929k7AgfwuAp5mhZX3wLQwsAAUOCHDu7FUrxc5l7a8U9yvW-s67XNKvck3h6QdjpZNQqNEQ",
-    label: "Lease Velocity",
-    metric: "High Demand"
+    title: "Hospitality & Leisure",
+    problem: "Operational friction and high lifecycle maintenance costs.",
+    solution:
+      "Premium hospitality estates designed for guest loyalty and long-term durability.",
+    proof: "Flagship work: The Corinthians Resort.",
+    image:
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop",
   },
   {
-    title: "Adaptive Reuse",
-    desc: "Converting underutilized assets into high-performing properties through strategic structural interventions.",
-    img: null,
-    label: "Cost Saving",
-    metric: "~25% vs New"
-  }
+    title: "Private & Collective Living",
+    problem:
+      "Generic residential design that lacks bespoke value and desirability.",
+    solution:
+      "From private villas to luxury landmarks, we architect for elevated living and rapid absorption.",
+    proof: "Featured: Premium Villas & Residence Landmarks.",
+    image:
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop",
+  },
+  {
+    title: "Institutional & Corporate",
+    problem: "Technical resilience and operational flow constraints.",
+    solution:
+      "High-precision environments designed for structural efficiency and technical complexity.",
+    proof: "Trusted by Wipro, Pune & Healthcare Providers.",
+    image:
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop",
+  },
 ];
 ---
 
-<section class="w-full py-20 lg:py-24 bg-white">
+<section class="w-full bg-bone py-24 border-t border-charcoal/5">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-    <div class="editorial-line"></div>
-    <div class="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-8 reveal">
-      <h2 class="text-4xl lg:text-5xl font-serif text-black">Sectors of Focus</h2>
-      <p class="max-w-md text-black/60 font-light text-lg">Where design directly impacts operational efficiency and revenue generation.</p>
+    <div
+      class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8"
+    >
+      <div class="max-w-xl">
+        <h2 class="text-4xl lg:text-6xl mb-6 italic tracking-tight">
+          Sector Specialisation.
+        </h2>
+        <p class="text-lg text-charcoal/60 font-light leading-relaxed">
+          We do not just offer architectural services. We deliver strategic
+          results across the most complex asset classes in India.
+        </p>
+      </div>
+      <a
+        href="#"
+        class="text-[10px] font-bold uppercase tracking-[0.2em] pb-1 micro-hover luxury-transition text-charcoal/80 hover:text-charcoal"
+      >
+        View All Sectors
+      </a>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-20">
-      {sectors.map((sector) => (
-        <div class="group cursor-pointer reveal">
-          <div class="aspect-[4/5] overflow-hidden grayscale mb-6 bg-gray-100 flex items-center justify-center">
-            {sector.img ? (
-              <img 
-                alt={sector.title} 
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                src={sector.img}
-                referrerPolicy="no-referrer"
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+      {
+        sectors.map((sector) => (
+          <a
+            href="#"
+            class="bg-bone group flex flex-col lg:flex-row transition-all duration-1000 cubic-bezier(0.19, 1, 0.22, 1) hover:bg-charcoal overflow-hidden border border-charcoal/20 hover:border-charcoal/20 relative cursor-pointer min-h-[440px]"
+          >
+            {/* Architectural Visual Breakup */}
+            <div class="w-full h-48 lg:h-auto lg:w-1/4 relative overflow-hidden luxury-grayscale">
+              <img
+                src={sector.image}
+                alt={sector.title}
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 cubic-bezier(0.19, 1, 0.22, 1) group-hover:scale-110"
               />
-            ) : (
-              <div class="text-center p-8">
-                <Building2 size={48} className="mx-auto mb-4 text-gray-300" strokeWidth={1} />
-                <p class="text-sm text-gray-400 uppercase tracking-widest">Coming Soon</p>
+            </div>
+
+            {/* Strategic Content Block */}
+            <div class="w-full lg:w-3/4 p-8 lg:p-14 flex flex-col justify-between relative">
+              <div class="reveal">
+                <div class="mb-10">
+                  <h3 class="text-3xl lg:text-4xl group-hover:text-bone luxury-transition font-serif italic leading-none">
+                    {sector.title}
+                  </h3>
+                </div>
+                <div class="space-y-8 mb-12 lg:mb-16">
+                  <div>
+                    <div class="flex items-center gap-2 mb-2 lg:mb-3">
+                      <Icon
+                        name="ph:warning-circle"
+                        class="w-4 h-4 text-charcoal/40 group-hover:text-bone/40 luxury-transition"
+                      />
+                      <p class="text-[9px] lg:text-[10px] font-bold uppercase tracking-widest text-charcoal/40 group-hover:text-bone/40 luxury-transition">
+                        The Challenge
+                      </p>
+                    </div>
+                    <p class="text-charcoal/80 group-hover:text-bone/80 font-light leading-snug luxury-transition text-base lg:text-lg">
+                      {sector.problem}
+                    </p>
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2 mb-2 lg:mb-3">
+                      <Icon
+                        name="ph:chart-line-up"
+                        class="w-4 h-4 text-charcoal/40 group-hover:text-bone/40 luxury-transition"
+                      />
+                      <p class="text-[9px] lg:text-[10px] font-bold uppercase tracking-widest text-charcoal/40 group-hover:text-bone/40 luxury-transition">
+                        The Strategic Result
+                      </p>
+                    </div>
+                    <p class="text-charcoal group-hover:text-bone font-medium leading-snug luxury-transition text-base lg:text-lg">
+                      {sector.solution}
+                    </p>
+                  </div>
+                </div>
               </div>
-            )}
-          </div>
-          <h3 class="text-2xl font-serif font-medium text-black mb-3 group-hover:underline decoration-1 underline-offset-4">{sector.title}</h3>
-          <p class="text-sm text-black/60 leading-relaxed mb-4">{sector.desc}</p>
-          <div class="flex items-center justify-between border-t border-black/10 pt-3">
-            <span class="text-[10px] uppercase tracking-widest font-bold">{sector.label}</span>
-            <span class="text-sm font-serif italic">{sector.metric}</span>
-          </div>
-        </div>
-      ))}
+
+              <div class="flex flex-col-reverse lg:flex-row justify-between items-start lg:items-end gap-6 border-t border-charcoal/10 group-hover:border-white/10 pt-6">
+                <p class="text-[10px] lg:text-xs italic font-serif text-charcoal/60 group-hover:text-bone/60 luxury-transition reveal">
+                  {sector.proof}
+                </p>
+
+                {/* Explore Action Button - Responsive Placement */}
+                <div class="lg:absolute lg:bottom-10 lg:right-12 opacity-100 lg:opacity-0 transform lg:translate-x-4 lg:group-hover:opacity-100 lg:group-hover:translate-x-0 luxury-transition">
+                  <span class="flex items-center gap-2 text-ink text-[9px] lg:text-[10px] font-black uppercase tracking-widest transition-all hover:gap-4">
+                    Explore Sector
+                    <Icon
+                      name="ph:caret-right-bold"
+                      class="w-3 h-3 lg:w-4 lg:h-4"
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </a>
+        ))
+      }
     </div>
   </div>
 </section>
