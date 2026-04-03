@@ -1,0 +1,236 @@
+---
+const SCALE_DATA = {
+  total: {
+    ind: "2.5 Crore +",
+    sqft: "25 Million+",
+    sqmt: "2.3 Million+",
+  },
+  unit: {
+    ind: "Square Feet Completed",
+    sqft: "Square Feet (Imperial)",
+    sqmt: "Square Meters (Metric)",
+  },
+  sectors: [
+    {
+      label: "Residential",
+      ind: "56.8L",
+      sqft: "5.68M",
+      sqmt: "0.52M",
+    },
+    {
+      label: "IT & Campus",
+      ind: "53.9L",
+      sqft: "5.39M",
+      sqmt: "0.50M",
+    },
+    {
+      label: "IT Parks",
+      ind: "47.7L",
+      sqft: "4.77M",
+      sqmt: "0.44M",
+    },
+    {
+      label: "Entertainment & Retail",
+      ind: "17.1L",
+      sqft: "1.71M",
+      sqmt: "0.15M",
+    },
+    {
+      label: "Institutional",
+      ind: "11.6L",
+      sqft: "1.16M",
+      sqmt: "0.10M",
+    },
+  ],
+};
+---
+
+<section class="w-full bg-bone py-24 lg:py-32 border-t border-charcoal/5">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 lg:gap-24 items-start">
+      {/* Left Column */}
+      <div class="lg:col-span-6 reveal">
+        <p
+          class="text-[10px] font-medium uppercase tracking-[0.4em] text-charcoal/40 mb-8"
+        >
+          SINCE 1989
+        </p>
+        <h2
+          class="text-5xl lg:text-7xl mb-10 leading-[1.05em] tracking-tight text-charcoal"
+        >
+          Those shaping modern India know whom to call.
+        </h2>
+        <p
+          class="text-lg lg:text-xl text-charcoal/60 font-light leading-relaxed max-w-xl mb-12"
+        >
+          Corporate campuses for some of India's largest technology firms.
+          Retail at Phoenix scale. Civic institutions, luxury residences, IT
+          parks. 2.5 crore square feet spaces completed across every sector that
+          has defined modern India's growth.
+        </p>
+        <a
+          href="/archive"
+          class="inline-flex items-center gap-4 text-[11px] font-medium uppercase tracking-[0.3em] text-charcoal group micro-hover pb-1"
+        >
+          Explore the Archive
+          <span
+            class="transition-transform duration-300 group-hover:translate-x-2"
+            >→</span
+          >
+        </a>
+      </div>
+
+      {/* Right Column */}
+      <div class="lg:col-span-4 flex flex-col items-center reveal">
+        {/* Toggle */}
+        <div class="mb-10 flex justify-center">
+          <div
+            class="inline-flex items-center bg-charcoal/[0.04] p-[3px] rounded-full"
+          >
+            <button
+              id="toggle-ind"
+              class="px-5 py-2 text-[10px] font-medium uppercase tracking-[0.2em] rounded-full transition-all duration-300 bg-charcoal/10 text-charcoal"
+              data-target="ind">INDIA</button
+            >
+            <button
+              id="toggle-sqft"
+              class="px-5 py-2 text-[10px] font-medium uppercase tracking-[0.2em] rounded-full transition-all duration-300 text-charcoal/30 hover:text-charcoal/60"
+              data-target="sqft">Square Feet</button
+            >
+            <button
+              id="toggle-sqmt"
+              class="px-5 py-2 text-[10px] font-medium uppercase tracking-[0.2em] rounded-full transition-all duration-300 text-charcoal/30 hover:text-charcoal/60"
+              data-target="sqmt">Square Meters</button
+            >
+          </div>
+        </div>
+
+        {/* Stat Container */}
+        <div
+          class="w-full text-center"
+          id="stat-container"
+          data-total-ind={SCALE_DATA.total.ind}
+          data-total-sqft={SCALE_DATA.total.sqft}
+          data-total-sqmt={SCALE_DATA.total.sqmt}
+          data-unit-ind={SCALE_DATA.unit.ind}
+          data-unit-sqft={SCALE_DATA.unit.sqft}
+          data-unit-sqmt={SCALE_DATA.unit.sqmt}
+        >
+          <div class="relative w-full h-24 lg:h-32 mb-12">
+            <div
+              id="stat-main-wrapper"
+              class="absolute inset-0 flex items-center justify-center transition-all duration-500"
+            >
+              <span
+                id="stat-main-value"
+                class="text-7xl lg:text-[110px] font-serif italic leading-none tracking-tighter text-charcoal transition-all duration-500 hover:scale-[1.03] cursor-default"
+              >
+                {SCALE_DATA.total.ind}
+              </span>
+            </div>
+          </div>
+          <p
+            id="stat-unit-label"
+            class="text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/30 mb-6 transition-all duration-500"
+          >
+            {SCALE_DATA.unit.ind}
+          </p>
+
+          {/* Breakdown Rows */}
+          <div class="relative w-full border-t border-charcoal/5 pt-8">
+            <div id="breakdown-list" class="space-y-1">
+              {
+                SCALE_DATA.sectors.map((row) => (
+                  <div class="group relative py-2 px-6 rounded-lg transition-all duration-300 hover:bg-charcoal/[0.02] cursor-default">
+                    {/* Tiny hover accent */}
+                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-0 bg-charcoal/20 transition-all duration-300 group-hover:h-1/2" />
+
+                    <div class="grid grid-cols-[110px_1fr] gap-8 max-w-[340px] mx-auto items-baseline">
+                      <span
+                        class="sector-value-cell text-sm font-medium text-charcoal/80 text-right tabular-nums transition-all duration-300 group-hover:translate-x-1 group-hover:text-charcoal"
+                        data-ind={row.ind}
+                        data-sqft={row.sqft}
+                        data-sqmt={row.sqmt}
+                      >
+                        {row.ind}
+                      </span>
+                      <span class="text-[10px] uppercase tracking-widest text-charcoal/40 text-left transition-all duration-300 group-hover:tracking-[0.3em] group-hover:text-charcoal/60">
+                        {row.label}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const container = document.getElementById("stat-container");
+  const buttons = {
+    ind: document.getElementById("toggle-ind"),
+    sqft: document.getElementById("toggle-sqft"),
+    sqmt: document.getElementById("toggle-sqmt"),
+  };
+
+  const mainVal = document.getElementById("stat-main-value");
+  const unitLabel = document.getElementById("stat-unit-label");
+  const sectorCells = document.querySelectorAll(".sector-value-cell");
+
+  function setScale(mode: "ind" | "sqft" | "sqmt") {
+    if (!container || !mainVal || !unitLabel) return;
+
+    // 1. Buttons
+    Object.entries(buttons).forEach(([key, btn]) => {
+      if (!btn) return;
+      if (key === mode) {
+        btn.classList.add("bg-charcoal/10", "text-charcoal");
+        btn.classList.remove("text-charcoal/30");
+      } else {
+        btn.classList.remove("bg-charcoal/10", "text-charcoal");
+        btn.classList.add("text-charcoal/30");
+      }
+    });
+
+    // 2. Main Stat Animation
+    mainVal.style.opacity = "0";
+    mainVal.style.transform = "translateY(10px) scale(0.98)";
+
+    setTimeout(() => {
+      mainVal.textContent = container.getAttribute(`data-total-${mode}`);
+      mainVal.style.opacity = "1";
+      mainVal.style.transform = "translateY(0) scale(1)";
+    }, 300);
+
+    // 3. Unit Label Animation
+    unitLabel.style.opacity = "0";
+    setTimeout(() => {
+      unitLabel.textContent = container.getAttribute(`data-unit-${mode}`);
+      unitLabel.style.opacity = "1";
+    }, 300);
+
+    // 4. Sector Grid Update
+    sectorCells.forEach((cell, i) => {
+      const element = cell as HTMLElement;
+      // Staggered fade out
+      setTimeout(() => {
+        element.style.opacity = "0";
+        element.style.transform = "translateX(-4px)";
+
+        setTimeout(() => {
+          element.textContent = element.getAttribute(`data-${mode}`);
+          element.style.opacity = "1";
+          element.style.transform = "translateX(0)";
+        }, 200);
+      }, i * 20); // Tiny stagger for premium feel
+    });
+  }
+
+  buttons.ind?.addEventListener("click", () => setScale("ind"));
+  buttons.sqft?.addEventListener("click", () => setScale("sqft"));
+  buttons.sqmt?.addEventListener("click", () => setScale("sqmt"));
+</script>

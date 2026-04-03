@@ -3,19 +3,19 @@ import { Icon } from "astro-icon/components";
 
 const footerLinks = {
   sectors: [
-    { name: "Commerce & Retail", href: "#" },
-    { name: "Hospitality & Leisure", href: "#" },
-    { name: "Private & Collective Living", href: "#" },
-    { name: "Institutional & Corporate", href: "#" },
+    { name: "Commerce & Retail", href: "/sectors/commerce-retail" },
+    { name: "Hospitality & Leisure", href: "/sectors/hospitality-leisure" },
+    { name: "Private & Collective Living", href: "/sectors/private-collective-living" },
+    { name: "Institutional & Corporate", href: "/sectors/institutional-corporate" },
   ],
   company: [
-    { name: "Strategic Approach", href: "#" },
-    { name: "Selected Evidence", href: "#" },
-    { name: "The Partnership", href: "#" },
+    { name: "Strategic Approach", href: "/approach" },
+    { name: "Selected Evidence", href: "/archive" },
+    { name: "The Partnership", href: "/partnership" },
   ],
   legal: [
-    { name: "Terms of Engagement", href: "#" },
-    { name: "Privacy Policy", href: "#" },
+    { name: "Terms of Engagement", href: "/legal/terms" },
+    { name: "Privacy Policy", href: "/legal/privacy" },
   ],
 };
 ---
@@ -32,23 +32,25 @@ const footerLinks = {
             alt="Metaphors Design Logo"
             class="h-8 w-auto"
             src="/logo-v1.png"
+            loading="lazy"
+            decoding="async"
           />
-          <span class="text-xl font-semibold tracking-tight lowercase text-bone"
+          <span class="text-xl font-medium tracking-tight lowercase text-bone"
             >metaphors design</span
           >
         </div>
         <p class="text-sm text-bone/40 leading-relaxed max-w-[280px]">
-          Architectural precision and execution certainty for high-stakes Indian
-          developments. Designed for impact, engineered for yield.
+          Modern Indian Architecture. Designed for scale, environmental
+          intelligence, and lasting civic impact.
         </p>
       </div>
 
       {/* Strategic Sectors */}
       <div>
         <h4
-          class="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 mb-8"
+          class="text-[10px] font-medium uppercase tracking-[0.3em] text-white/30 mb-8"
         >
-          Strategic Sectors
+          Sectors
         </h4>
         <ul class="space-y-4">
           {
@@ -69,9 +71,9 @@ const footerLinks = {
       {/* Corporate Strategy */}
       <div>
         <h4
-          class="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 mb-8"
+          class="text-[10px] font-medium uppercase tracking-[0.3em] text-white/30 mb-8"
         >
-          Company Strategy
+          Practice
         </h4>
         <ul class="space-y-4">
           {
@@ -92,19 +94,24 @@ const footerLinks = {
       {/* Global Inquiries */}
       <div>
         <h4
-          class="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 mb-8"
+          class="text-[10px] font-medium uppercase tracking-[0.3em] text-white/30 mb-8"
         >
-          Asset Acquisition
+          Studio
         </h4>
         <p class="text-sm mb-6 leading-relaxed">
-          Office 104, Global Business Hub,<br />
-          Eon IT Park, Kharadi, Pune 411014.
+          Shambhu Vihar Society, Pallod Farms II,<br />
+          Nankude Vasti, Aundh,<br />
+          Pune, Maharashtra 411067<br />
+          India
         </p>
         <div class="flex items-center gap-6">
-          <a href="#" class="text-white/40 hover:text-white transition-colors">
+          <a href="https://linkedin.com/company/metaphors-design" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-white/40 hover:text-white transition-colors">
             <Icon name="mdi:linkedin" class="w-5 h-5" />
           </a>
-          <a href="#" class="text-white/40 hover:text-white transition-colors">
+          <a href="https://facebook.com/metaphorsdesign" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="text-white/40 hover:text-white transition-colors">
+            <Icon name="mdi:facebook" class="w-5 h-5" />
+          </a>
+          <a href="https://instagram.com/metaphorsdesign" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-white/40 hover:text-white transition-colors">
             <Icon name="mdi:instagram" class="w-5 h-5" />
           </a>
         </div>
@@ -130,7 +137,7 @@ const footerLinks = {
       <p
         class="text-[10px] font-medium uppercase tracking-[0.2em] text-white/20 text-center md:text-right"
       >
-        © 2026 Metaphors Design. All rights reserved. British English compliant.
+        © 2026 Metaphors Design. All rights reserved.
       </p>
     </div>
   </div>

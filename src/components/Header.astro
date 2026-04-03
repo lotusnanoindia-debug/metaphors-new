@@ -1,41 +1,20 @@
 ---
 import { Icon } from "astro-icon/components";
+import { client, SECTORS_QUERY, imageUrl } from "../lib/sanity";
 
-const sectors = [
-  {
-    title: "Commercial & Retail.",
-    description: "High-velocity retail destinations.",
-    path: "/sectors/commercial",
-    image: "/phoenix-atrium.png",
-  },
-  {
-    title: "Hospitality & Leisure.",
-    description: "Premium hospitality estates.",
-    path: "/sectors/hospitality",
-    image:
-      "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=2000",
-  },
-  {
-    title: "Private & Collective.",
-    description: "Architected for elevated living.",
-    path: "/sectors/residential",
-    image:
-      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop",
-  },
-  {
-    title: "Institutional & Corporate.",
-    description: "Structural efficiency at scale.",
-    path: "/sectors/institutional",
-    image: "/wipro-hq.png",
-  },
-];
+const sectorsData = await client.fetch(SECTORS_QUERY);
+
+// Map the Sanity data to the structure the header expects
+const sectors = sectorsData.map((sector: any) => ({
+  title: sector.title,
+  description: sector.focus, // Use the focus as the description
+  path: `/sectors/${sector.slug}`,
+  image: sector.image,
+}));
 
 const menuItems = [
-  { name: "About", path: "/about" },
   { name: "Approach", path: "/approach" },
-  { name: "Archive", path: "/archive" },
-  { name: "Journal", path: "/journal" },
-  { name: "Contact", path: "/contact" },
+  { name: "About", path: "/about" },
 ];
 ---
 
@@ -45,12 +24,11 @@ const menuItems = [
 =========================================================== -->
 <header
   id="site-header"
-  class="fixed top-0 left-0 right-0 z-[200] bg-bone/90 backdrop-blur-xl border-b border-charcoal/5 transition-colors duration-500"
+  class="fixed top-0 left-0 right-0 z-200 bg-bone/90 backdrop-blur-xl border-b border-charcoal/5 transition-colors duration-500"
   aria-label="Site Header"
 >
   <div class="max-w-[1440px] mx-auto px-6 lg:px-12 relative">
     <div class="flex h-20 items-center justify-between">
-
       <!-- Logo -->
       <a
         href="/"
@@ -63,7 +41,7 @@ const menuItems = [
           class="h-6 w-auto transition-transform duration-700 group-hover/logo:scale-110"
           src="/metaphors-design-logo.svg"
         />
-        <span class="text-xl font-semibold tracking-tight text-black lowercase">
+        <span class="text-xl font-medium tracking-tight text-black lowercase">
           metaphors design
         </span>
       </a>
@@ -76,11 +54,11 @@ const menuItems = [
         <!-- Projects Mega Menu trigger -->
         <div class="h-full flex items-center group/projects">
           <button
-            class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/60 hover:text-charcoal transition-colors"
+            class="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/60 hover:text-charcoal transition-colors"
             aria-haspopup="true"
             aria-expanded="false"
           >
-            Projects
+            Sectors
             <Icon
               name="ph:caret-down"
               class="w-2.5 h-2.5 transition-transform duration-300 group-hover/projects:rotate-180"
@@ -93,30 +71,30 @@ const menuItems = [
                    bg-white border border-charcoal/5 shadow-2xl
                    opacity-0 invisible translate-y-4
                    group-hover/projects:opacity-100 group-hover/projects:visible group-hover/projects:translate-y-0
-                   transition-all duration-700 [transition-timing-function:cubic-bezier(0.19,1,0.22,1)]
+                   transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]
                    p-12 lg:p-16"
             role="menu"
           >
             <div class="grid grid-cols-4 gap-12">
               {
-                sectors.map((sector) => (
+                sectors.map((sector: any) => (
                   <a
                     href={sector.path}
                     class="group/sector flex flex-col gap-8"
                     role="menuitem"
                   >
-                    <div class="aspect-[16/10] overflow-hidden grayscale group-hover/sector:grayscale-0 transition-all duration-1000">
+                    <div class="aspect-16/10 overflow-hidden grayscale group-hover/sector:grayscale-0 transition-all duration-1000">
                       <img
-                        src={sector.image}
+                        src={imageUrl(sector.image, { width: 800, height: 500 })}
                         alt={sector.title}
-                        class="w-full h-full object-cover group-hover/sector:scale-105 transition-transform duration-[2000ms]"
+                        class="w-full h-full object-cover group-hover/sector:scale-105 transition-transform duration-2000"
                       />
                     </div>
                     <div>
                       <h4 class="text-2xl lg:text-3xl font-serif italic mb-4 text-charcoal group-hover/sector:text-black transition-colors">
                         {sector.title}
                       </h4>
-                      <p class="text-[10px] uppercase tracking-[0.3em] text-charcoal/40 font-bold group-hover/sector:text-charcoal/80 transition-colors">
+                      <p class="text-[10px] uppercase tracking-[0.3em] text-charcoal/40 font-medium group-hover/sector:text-charcoal/80 transition-colors">
                         {sector.description}
                       </p>
                     </div>
@@ -129,13 +107,13 @@ const menuItems = [
               class="mt-16 pt-10 border-t border-charcoal/5 flex justify-between items-center"
             >
               <p
-                class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/20"
+                class="text-[10px] font-medium uppercase tracking-[0.4em] text-charcoal/20"
               >
                 Precision in articulation.
               </p>
               <a
                 href="/archive"
-                class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal
+                class="text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal
                        flex items-center gap-3 group/all
                        border-b border-charcoal/20 pb-1 hover:border-charcoal transition-colors"
               >
@@ -153,7 +131,7 @@ const menuItems = [
           menuItems.map((item) => (
             <a
               href={item.path}
-              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/60 hover:text-charcoal transition-colors"
+              class="text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/60 hover:text-charcoal transition-colors"
             >
               {item.name}
             </a>
@@ -167,10 +145,10 @@ const menuItems = [
           href="/contact"
           class="inline-flex h-11 items-center justify-center
                  border border-charcoal/20 px-8
-                 text-[11px] font-bold uppercase tracking-[0.3em] text-charcoal
+                 text-[11px] font-medium uppercase tracking-[0.3em] text-charcoal
                  transition-all duration-500 hover:bg-black hover:text-white hover:border-black"
         >
-          Discuss Strategy
+          Start a Conversation
         </a>
       </div>
 
@@ -188,7 +166,6 @@ const menuItems = [
       >
         <Icon name="ph:list" class="w-6 h-6 text-charcoal" />
       </button>
-
     </div>
   </div>
 </header>
@@ -203,16 +180,21 @@ const menuItems = [
   id="mobile-nav"
   aria-label="Mobile Navigation"
   aria-hidden="true"
-  class="fixed inset-0 z-[300] bg-bone flex flex-col
+  class="fixed inset-0 z-300 bg-bone flex flex-col
          pointer-events-none
-         opacity-0 
+         opacity-0
          transition-opacity duration-500
-         [transition-timing-function:cubic-bezier(0.19,1,0.22,1)]
+         ease-[cubic-bezier(0.19,1,0.22,1)]
          lg:hidden"
 >
   <!-- Top bar inside overlay (mirrors header height) -->
-  <div class="flex h-20 items-center justify-between px-6 border-b border-charcoal/5 flex-shrink-0">
-    <a href="/" class="text-xl font-semibold tracking-tight text-black lowercase">
+  <div
+    class="flex h-20 items-center justify-between px-6 border-b border-charcoal/5 shrink-0"
+  >
+    <a
+      href="/"
+      class="text-xl font-medium tracking-tight text-black lowercase"
+    >
       metaphors design
     </a>
     <button
@@ -229,13 +211,13 @@ const menuItems = [
     <!-- Left column: Sectors -->
     <div>
       <p
-        class="text-[9px] font-bold uppercase tracking-[0.5em] text-charcoal/30 mb-10"
+        class="text-[9px] font-medium uppercase tracking-[0.5em] text-charcoal/30 mb-10"
       >
         Sectors
       </p>
       <ul class="space-y-4" role="list">
         {
-          sectors.map((sector) => (
+          sectors.map((sector: any) => (
             <li class="mobile-nav-item">
               <a
                 href={sector.path}
@@ -244,7 +226,7 @@ const menuItems = [
                 <h3 class="text-4xl font-serif italic text-charcoal group-hover:text-black transition-colors leading-tight">
                   {sector.title}
                 </h3>
-                <span class="text-[9px] font-bold uppercase tracking-[0.4em] text-charcoal/30 group-hover:text-charcoal/60 transition-colors mt-1 block">
+                <span class="text-[9px] font-medium uppercase tracking-[0.4em] text-charcoal/30 group-hover:text-charcoal/60 transition-colors mt-1 block">
                   {sector.description}
                 </span>
               </a>
@@ -276,31 +258,36 @@ const menuItems = [
         href="/contact"
         class="flex w-full h-14 items-center justify-center
                bg-charcoal text-bone
-               text-[11px] font-bold uppercase tracking-[0.35em]
+               text-[11px] font-medium uppercase tracking-[0.35em]
                transition-all duration-500 hover:bg-black"
       >
-        Discuss Strategy
+        Start a Conversation
       </a>
 
-      <p class="mt-6 text-[9px] font-bold uppercase tracking-[0.4em] text-charcoal/20 text-center">
+      <p
+        class="mt-6 text-[9px] font-medium uppercase tracking-[0.4em] text-charcoal/20 text-center"
+      >
         Architecture that articulates intent.
       </p>
     </div>
   </div>
 </nav>
 
-
 <script>
   (() => {
-    const burgerBtn   = document.getElementById("burger-btn") as HTMLButtonElement;
-    const mobileNav   = document.getElementById("mobile-nav") as HTMLElement;
-    const closeBtn    = document.getElementById("mobile-nav-close") as HTMLButtonElement;
+    const burgerBtn = document.getElementById(
+      "burger-btn",
+    ) as HTMLButtonElement;
+    const mobileNav = document.getElementById("mobile-nav") as HTMLElement;
+    const closeBtn = document.getElementById(
+      "mobile-nav-close",
+    ) as HTMLButtonElement;
 
     if (!burgerBtn || !mobileNav || !closeBtn) return;
 
     function toggleMenu() {
       const isCurrentlyClosed = mobileNav.classList.contains("opacity-0");
-      
+
       if (!isCurrentlyClosed) {
         // CLOSE
         mobileNav.classList.add("opacity-0", "pointer-events-none");
@@ -326,7 +313,10 @@ const menuItems = [
     });
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && burgerBtn.getAttribute("aria-expanded") === "true") {
+      if (
+        e.key === "Escape" &&
+        burgerBtn.getAttribute("aria-expanded") === "true"
+      ) {
         toggleMenu();
         burgerBtn.focus();
       }
