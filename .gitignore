@@ -9,3 +9,12 @@ coverage/
 
 # Local Netlify folder
 .netlify
+
+# Local Project Archive
+_archive/
+
+# Agent Diagnostics & Temporary Scripts
+.gemini/
+.agents/
+AGENTS.md
+metadata.json

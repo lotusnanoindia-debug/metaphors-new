@@ -4,7 +4,7 @@ import { createImageUrlBuilder } from "@sanity/image-url";
 export const client = createClient({
   projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || "h05maah4",
   dataset: import.meta.env.PUBLIC_SANITY_DATASET || "production",
-  useCdn: true, // `false` if you want to ensure fresh data every build
+  useCdn: false, // `false` if you want to ensure fresh data every build
   apiVersion: "2024-03-01",
 });
 
@@ -60,19 +60,47 @@ export const PROJECTS_QUERY = `*[_type == "project"] | order(orderRank asc){
   stats
 }`;
 
-// GROQ Query for MD Sectors
-export const SECTORS_QUERY = `*[_type == "sector"]{
+export const SECTORS_QUERY = `*[_type == "sector"] | order(orderRank asc){
+  _id,
   title,
   "slug": slug.current,
-  focus,
-  approach,
-  proof,
+  "projects": *[_type == "project" && category._ref == ^._id && defined(areaSqFt)]{ areaSqFt },
+  menuTagline,
+  menuCTA,
+  menuImage {
+    ...,
+    asset-> {
+      ...,
+      originalFilename
+    }
+  },
+  homeHeadline,
+  homeIntro,
   image {
     ...,
     asset-> {
       ...,
       originalFilename
     }
+  }
+}`;
+
+export const ALL_DISCIPLINES_WITH_AREA_QUERY = `*[_type == "discipline"] | order(orderRank asc){
+  _id,
+  title,
+  "slug": slug.current,
+  mainImage {
+    asset-> { ..., originalFilename }
+  },
+  "projects": *[_type == "project" && references(^._id) && defined(areaSqFt)]{ areaSqFt }
+}`;
+
+export const DISCIPLINES_QUERY = `*[_type == "discipline"] | order(orderRank asc){
+  title,
+  "slug": slug.current,
+  valueProposition,
+  mainImage {
+    asset-> { ..., originalFilename }
   }
 }`;
 
@@ -85,5 +113,46 @@ export const HOME_SETTINGS_QUERY = `*[_type == "settings"][0]{
   heroPrecisionImage {
      ...,
      asset-> { ..., originalFilename }
+  },
+  statureTagline
+}`;
+
+// GROQ Query for the new Homepage singleton
+export const HOMEPAGE_QUERY = `{
+  "homepage": *[_type == "homepage" && _id == "homepage"][0]{
+    heroEyebrow,
+    heroHeadline,
+    heroHeadlineAccent,
+    heroHeadlineTagline,
+    heroSubheading,
+    heroCtaLabel,
+    heroCtaUrl,
+    statureImage {
+       ...,
+       asset-> { ..., originalFilename }
+    },
+    precisionImage {
+       ...,
+       asset-> { ..., originalFilename }
+    },
+    scaleEyebrow,
+    scaleHeadline,
+    scaleBody,
+    featuredSectionEyebrow,
+    featuredSectionHeadline,
+    featuredProjects[]{
+      ...,
+      image {
+        ...,
+        asset-> { ..., originalFilename }
+      }
+    }
+  },
+  "quotes": *[_type == "pressQuote"] | order(_createdAt desc){
+    ...,
+    logo {
+      ...,
+      asset-> { ..., originalFilename }
+    }
   }
 }`;

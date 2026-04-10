@@ -1,236 +1,285 @@
 ---
-const SCALE_DATA = {
-  total: {
-    ind: "2.5 Crore +",
-    sqft: "25 Million+",
-    sqmt: "2.3 Million+",
-  },
-  unit: {
-    ind: "Square Feet Completed",
-    sqft: "Square Feet (Imperial)",
-    sqmt: "Square Meters (Metric)",
-  },
-  sectors: [
-    {
-      label: "Residential",
-      ind: "56.8L",
-      sqft: "5.68M",
-      sqmt: "0.52M",
-    },
-    {
-      label: "IT & Campus",
-      ind: "53.9L",
-      sqft: "5.39M",
-      sqmt: "0.50M",
-    },
-    {
-      label: "IT Parks",
-      ind: "47.7L",
-      sqft: "4.77M",
-      sqmt: "0.44M",
-    },
-    {
-      label: "Entertainment & Retail",
-      ind: "17.1L",
-      sqft: "1.71M",
-      sqmt: "0.15M",
-    },
-    {
-      label: "Institutional",
-      ind: "11.6L",
-      sqft: "1.16M",
-      sqmt: "0.10M",
-    },
-  ],
-};
+import Cta from "./Cta.astro";
+import {
+  client,
+  SECTORS_QUERY,
+  ALL_DISCIPLINES_WITH_AREA_QUERY,
+  imageUrl,
+} from "../lib/sanity";
+
+const { eyebrow, headline, body } = Astro.props;
+
+// Fetch data at build time
+const [rawSectors, rawDisciplines] = await Promise.all([
+  client.fetch(SECTORS_QUERY),
+  client.fetch(ALL_DISCIPLINES_WITH_AREA_QUERY),
+]);
+
+// 1. Aggregate Sectors
+const sectors = rawSectors
+  .map((s: any) => ({
+    label: s.title,
+    sqft:
+      s.projects?.reduce((sum: number, p: any) => sum + (p.areaSqFt || 0), 0) ??
+      0,
+  }))
+  .filter((s: any) => s.sqft > 0);
+
+// Grand total
+const totalSqFt = sectors.reduce((sum: number, s: any) => sum + s.sqft, 0);
+
+// 2. Aggregate Disciplines
+const disciplines = rawDisciplines
+  .map((d: any) => {
+    const sqft =
+      d.projects?.reduce((sum: number, p: any) => sum + (p.areaSqFt || 0), 0) ??
+      0;
+    const lakhs = sqft / 100_000;
+    const metric =
+      lakhs >= 100
+        ? `${(lakhs / 100).toFixed(1)} Crore`
+        : `${lakhs.toFixed(0)} Lakh`;
+    const intl = `${(sqft / 1_000_000).toFixed(1)}M Sq Ft`;
+
+    return {
+      title: d.title,
+      slug: d.slug,
+      image: d.mainImage,
+      sqft,
+      display: `${metric} / ${intl}`,
+    };
+  })
+  .filter((d: any) => d.sqft > 0)
+  .sort((a, b) => b.sqft - a.sqft);
+
+// Formatting for monumental display
+const totalLakhs = totalSqFt / 100_000;
+const formattedTotal =
+  totalLakhs >= 100
+    ? `${(totalLakhs / 100).toFixed(1)} Crore +`
+    : `${totalLakhs.toFixed(0)} Lakh +`;
+
+const intlTotalSqFt = `${(totalSqFt / 1_000_000).toFixed(1)} Million`;
+const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`;
 ---
 
-<section class="w-full bg-bone py-24 lg:py-32 border-t border-charcoal/5">
-  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-    <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 lg:gap-24 items-start">
-      {/* Left Column */}
-      <div class="lg:col-span-6 reveal">
-        <p
-          class="text-[10px] font-medium uppercase tracking-[0.4em] text-charcoal/40 mb-8"
-        >
-          SINCE 1989
-        </p>
-        <h2
-          class="text-5xl lg:text-7xl mb-10 leading-[1.05em] tracking-tight text-charcoal"
-        >
-          Those shaping modern India know whom to call.
-        </h2>
-        <p
-          class="text-lg lg:text-xl text-charcoal/60 font-light leading-relaxed max-w-xl mb-12"
-        >
-          Corporate campuses for some of India's largest technology firms.
-          Retail at Phoenix scale. Civic institutions, luxury residences, IT
-          parks. 2.5 crore square feet spaces completed across every sector that
-          has defined modern India's growth.
-        </p>
-        <a
-          href="/archive"
-          class="inline-flex items-center gap-4 text-[11px] font-medium uppercase tracking-[0.3em] text-charcoal group micro-hover pb-1"
-        >
-          Explore the Archive
+<section class="relative w-full bg-bone py-32 lg:py-48 overflow-hidden">
+  {/* Architectural Grid Layer */}
+  <div
+    class="absolute inset-0 opacity-[0.03] pointer-events-none"
+    style="background-image: radial-gradient(circle, #222 1px, transparent 1px); background-size: 80px 80px; transform: translateY(var(--grid-y, 0))"
+    id="scale-grid"
+  >
+  </div>
+
+  {/* Ghost Scale: Massive background parallax number */}
+  <div
+    class="absolute inset-x-0 -bottom-20 lg:-bottom-40 flex justify-center pointer-events-none select-none opacity-[0.02] transition-transform duration-1000 ease-out"
+    style="transform: translateY(var(--scroll-y, 0))"
+    id="ghost-scale"
+  >
+    <span
+      class="font-serif italic text-[35vw] leading-none tracking-tighter text-charcoal"
+    >
+      {formattedTotal.split(" ")[0]}
+    </span>
+  </div>
+
+  <div class="max-w-[1800px] mx-auto px-6 lg:px-12 relative z-10">
+    <div class="flex flex-col items-center text-center">
+      <h2
+        class="text-4xl lg:text-7xl font-serif italic capitalize mb-28 leading-[1.1] text-charcoal max-w-5xl reveal"
+        style="transition-delay: 100ms"
+      >
+        {headline}
+      </h2>
+
+      {/* Monumental Counter */}
+      <div class="mb-20 reveal" style="transition-delay: 200ms">
+        <div class="relative inline-block">
           <span
-            class="transition-transform duration-300 group-hover:translate-x-2"
-            >→</span
+            id="monumental-value"
+            class="text-[140px] lg:text-[280px] font-serif italic leading-[0.7] tracking-tighter text-charcoal block"
           >
-        </a>
+            {formattedTotal.split(" ")[0]} +
+          </span>
+
+          <p
+            class="mt-12 text-xs font-semibold uppercase tracking-[0.5em] text-charcoal/50"
+          >
+            {formattedTotal.split(" ").slice(1).join(" ")} Sq Ft Delivered
+          </p>
+        </div>
       </div>
 
-      {/* Right Column */}
-      <div class="lg:col-span-4 flex flex-col items-center reveal">
-        {/* Toggle */}
-        <div class="mb-10 flex justify-center">
-          <div
-            class="inline-flex items-center bg-charcoal/[0.04] p-[3px] rounded-full"
-          >
-            <button
-              id="toggle-ind"
-              class="px-5 py-2 text-[10px] font-medium uppercase tracking-[0.2em] rounded-full transition-all duration-300 bg-charcoal/10 text-charcoal"
-              data-target="ind">INDIA</button
+      <div
+        class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center w-full max-w-7xl mb-32"
+      >
+        <div
+          class="lg:col-span-6 text-left reveal"
+          style="transition-delay: 300ms"
+        >
+          <div class="space-y-8">
+            <p
+              class="text-base lg:text-2xl text-charcoal/60 font-light leading-relaxed max-w-xl"
             >
-            <button
-              id="toggle-sqft"
-              class="px-5 py-2 text-[10px] font-medium uppercase tracking-[0.2em] rounded-full transition-all duration-300 text-charcoal/30 hover:text-charcoal/60"
-              data-target="sqft">Square Feet</button
+              {body}
+            </p>
+            <p
+              class="my-12 text-xs font-semibold uppercase tracking-[0.3em] text-charcoal/50 max-w-xl"
             >
-            <button
-              id="toggle-sqmt"
-              class="px-5 py-2 text-[10px] font-medium uppercase tracking-[0.2em] rounded-full transition-all duration-300 text-charcoal/30 hover:text-charcoal/60"
-              data-target="sqmt">Square Meters</button
-            >
+              Every defining project begins with an idea.
+            </p>
+            <div class="pt-4">
+              <Cta text="Discuss Your Vision" href="/contact" invert={true} />
+            </div>
           </div>
         </div>
 
-        {/* Stat Container */}
         <div
-          class="w-full text-center"
-          id="stat-container"
-          data-total-ind={SCALE_DATA.total.ind}
-          data-total-sqft={SCALE_DATA.total.sqft}
-          data-total-sqmt={SCALE_DATA.total.sqmt}
-          data-unit-ind={SCALE_DATA.unit.ind}
-          data-unit-sqft={SCALE_DATA.unit.sqft}
-          data-unit-sqmt={SCALE_DATA.unit.sqmt}
+          class="lg:col-span-4 flex flex-col items-center lg:items-end gap-12 reveal"
+          style="transition-delay: 450ms"
         >
-          <div class="relative w-full h-24 lg:h-32 mb-12">
-            <div
-              id="stat-main-wrapper"
-              class="absolute inset-0 flex items-center justify-center transition-all duration-500"
-            >
-              <span
-                id="stat-main-value"
-                class="text-7xl lg:text-[110px] font-serif italic leading-none tracking-tighter text-charcoal transition-all duration-500 hover:scale-[1.03] cursor-default"
+          <div class="text-center lg:text-right space-y-4">
+            <div>
+              <p
+                class="text-[10px] uppercase tracking-widest text-charcoal/40 mb-1"
               >
-                {SCALE_DATA.total.ind}
-              </span>
+                Sq Ft + (Imperial)
+              </p>
+              <p
+                class="text-3xl font-serif italic text-charcoal/70 transition-all hover:text-charcoal cursor-default"
+              >
+                {intlTotalSqFt}
+              </p>
             </div>
+            <div>
+              <p
+                class="text-[10px] uppercase tracking-widest text-charcoal/40 mb-1"
+              >
+                Sq Metres + (Metric)
+              </p>
+              <p
+                class="text-3xl font-serif italic text-charcoal/70 transition-all hover:text-charcoal cursor-default"
+              >
+                {intlTotalSqMt}
+              </p>
+            </div>
+          </div>
+          <div class="flex flex-col items-center lg:items-end gap-8">
+            <a
+              href="/studio#partners"
+              class="group/partners flex items-center gap-3 text-base text-charcoal/40 transition-all duration-300 hover:text-charcoal"
+            >
+              Meet the Partners
+              <svg
+                viewBox="0 0 24 24"
+                class="h-4 w-4 fill-none stroke-current stroke-[1.5] transition-transform duration-300 group-hover/partners:translate-x-1.5"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Discipline Header & Transition */}
+      <div class="w-full pt-12 mt-32 reveal" style="transition-delay: 450ms">
+        <div class="flex flex-col items-start gap-3 mb-16">
+          <div class="flex items-center justify-between w-full pb-6">
+            <h3 class="font-serif italic text-3xl lg:text-5xl text-charcoal/80">
+              Studio Disciplines
+            </h3>
+            <p class="text-[10px] font-bold text-charcoal/20 tracking-[0.5em]">
+              (06)
+            </p>
           </div>
           <p
-            id="stat-unit-label"
-            class="text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/30 mb-6 transition-all duration-500"
+            class="text-[10px] sm:text-xs font-semibold leading-loose tracking-[0.2em] text-charcoal/60 uppercase"
           >
-            {SCALE_DATA.unit.ind}
+            From idea to completion — all under one roof
           </p>
-
-          {/* Breakdown Rows */}
-          <div class="relative w-full border-t border-charcoal/5 pt-8">
-            <div id="breakdown-list" class="space-y-1">
-              {
-                SCALE_DATA.sectors.map((row) => (
-                  <div class="group relative py-2 px-6 rounded-lg transition-all duration-300 hover:bg-charcoal/[0.02] cursor-default">
-                    {/* Tiny hover accent */}
-                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-0 bg-charcoal/20 transition-all duration-300 group-hover:h-1/2" />
-
-                    <div class="grid grid-cols-[110px_1fr] gap-8 max-w-[340px] mx-auto items-baseline">
-                      <span
-                        class="sector-value-cell text-sm font-medium text-charcoal/80 text-right tabular-nums transition-all duration-300 group-hover:translate-x-1 group-hover:text-charcoal"
-                        data-ind={row.ind}
-                        data-sqft={row.sqft}
-                        data-sqmt={row.sqmt}
-                      >
-                        {row.ind}
-                      </span>
-                      <span class="text-[10px] uppercase tracking-widest text-charcoal/40 text-left transition-all duration-300 group-hover:tracking-[0.3em] group-hover:text-charcoal/60">
-                        {row.label}
-                      </span>
-                    </div>
-                  </div>
-                ))
-              }
-            </div>
-          </div>
         </div>
+      </div>
+
+      {/* Discipline Cards Grid */}
+      <div
+        class="w-full grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-x-8 gap-y-16 text-left reveal"
+        style="transition-delay: 500ms"
+      >
+        {
+          disciplines.map((d: any) => (
+            <a
+              href={`/disciplines/${d.slug}`}
+              class="group relative block transition-all"
+            >
+              {/* Image Square */}
+              <div class="aspect-square w-full overflow-hidden bg-charcoal/5 mb-8 border border-charcoal/5">
+                {d.image ? (
+                  <img
+                    src={imageUrl(d.image, { width: 600, height: 600 })}
+                    alt={d.title}
+                    class="h-full w-full object-cover transition-all duration-1000 grayscale-65 saturate-88 contrast-104 group-hover:scale-110 group-hover:grayscale-0 group-hover:saturate-100 group-hover:contrast-100"
+                  />
+                ) : (
+                  <div class="flex h-full w-full items-center justify-center text-[10px] italic uppercase tracking-widest text-charcoal/20">
+                    {d.title} Hero
+                  </div>
+                )}
+              </div>
+
+              <div class="border-t border-charcoal/10 pt-8 transition-all group-hover:border-charcoal/40 duration-1000">
+                <p class="mb-4 text-[10px] font-bold uppercase tracking-[0.2em] text-charcoal/50 transition-all group-hover:text-charcoal/80">
+                  {d.display}
+                </p>
+                <h3 class="font-serif italic text-xl lg:text-3xl text-charcoal/80 hover:text-charcoal duration-1000">
+                  {d.title}
+                </h3>
+              </div>
+            </a>
+          ))
+        }
       </div>
     </div>
   </div>
 </section>
 
 <script>
-  const container = document.getElementById("stat-container");
-  const buttons = {
-    ind: document.getElementById("toggle-ind"),
-    sqft: document.getElementById("toggle-sqft"),
-    sqmt: document.getElementById("toggle-sqmt"),
-  };
+  // Advanced Parallax & Kinetic Effects
+  const ghost = document.getElementById("ghost-scale");
+  const grid = document.getElementById("scale-grid");
+  const dash = document.getElementById("drafting-dash");
+  const section = document.querySelector("section");
 
-  const mainVal = document.getElementById("stat-main-value");
-  const unitLabel = document.getElementById("stat-unit-label");
-  const sectorCells = document.querySelectorAll(".sector-value-cell");
+  if (ghost && grid && dash && section) {
+    window.addEventListener(
+      "scroll",
+      () => {
+        const rect = section.getBoundingClientRect();
+        const scrolled = window.scrollY;
 
-  function setScale(mode: "ind" | "sqft" | "sqmt") {
-    if (!container || !mainVal || !unitLabel) return;
+        // Only run when section is in view to save perf
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          // 1. Ghost Big Number Parallax (Slow)
+          const ghostVal = (scrolled * 0.1) % 500;
+          ghost.style.setProperty("--scroll-y", `${ghostVal * -0.3}px`);
 
-    // 1. Buttons
-    Object.entries(buttons).forEach(([key, btn]) => {
-      if (!btn) return;
-      if (key === mode) {
-        btn.classList.add("bg-charcoal/10", "text-charcoal");
-        btn.classList.remove("text-charcoal/30");
-      } else {
-        btn.classList.remove("bg-charcoal/10", "text-charcoal");
-        btn.classList.add("text-charcoal/30");
-      }
-    });
+          // 2. Blueprint Grid Parallax (Fast)
+          grid.style.setProperty("--grid-y", `${scrolled * 0.15}px`);
 
-    // 2. Main Stat Animation
-    mainVal.style.opacity = "0";
-    mainVal.style.transform = "translateY(10px) scale(0.98)";
-
-    setTimeout(() => {
-      mainVal.textContent = container.getAttribute(`data-total-${mode}`);
-      mainVal.style.opacity = "1";
-      mainVal.style.transform = "translateY(0) scale(1)";
-    }, 300);
-
-    // 3. Unit Label Animation
-    unitLabel.style.opacity = "0";
-    setTimeout(() => {
-      unitLabel.textContent = container.getAttribute(`data-unit-${mode}`);
-      unitLabel.style.opacity = "1";
-    }, 300);
-
-    // 4. Sector Grid Update
-    sectorCells.forEach((cell, i) => {
-      const element = cell as HTMLElement;
-      // Staggered fade out
-      setTimeout(() => {
-        element.style.opacity = "0";
-        element.style.transform = "translateX(-4px)";
-
-        setTimeout(() => {
-          element.textContent = element.getAttribute(`data-${mode}`);
-          element.style.opacity = "1";
-          element.style.transform = "translateX(0)";
-        }, 200);
-      }, i * 20); // Tiny stagger for premium feel
-    });
+          // 3. Drafting Dash Progress
+          const progress = Math.min(
+            100,
+            Math.max(
+              0,
+              (Math.abs(rect.top - window.innerHeight) / section.offsetHeight) *
+                100,
+            ),
+          );
+          dash.style.setProperty("--dash-width", `${progress * 0.8}%`);
+        }
+      },
+      { passive: true },
+    );
   }
-
-  buttons.ind?.addEventListener("click", () => setScale("ind"));
-  buttons.sqft?.addEventListener("click", () => setScale("sqft"));
-  buttons.sqmt?.addEventListener("click", () => setScale("sqmt"));
 </script>

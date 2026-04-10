@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@tailwindcss/vite';
-import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 
@@ -10,5 +9,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwind()],
   },
-  integrations: [react(), sitemap(), icon()],
+  integrations: [sitemap(), icon()],
 });

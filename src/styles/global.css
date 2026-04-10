@@ -68,16 +68,17 @@
   width: 100%;
 }
 
-/* Grayscale Interplay */
+/* Muted Archival Filtering */
 .luxury-grayscale {
-  filter: grayscale(100%) brightness(0.9);
+  filter: grayscale(50%) saturate(50%) contrast(104%);
   transition:
-    filter 2s cubic-bezier(0.19, 1, 0.22, 1),
-    transform 2s cubic-bezier(0.19, 1, 0.22, 1);
+    filter 1.8s cubic-bezier(0.19, 1, 0.22, 1),
+    transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.group:hover .luxury-grayscale {
-  filter: grayscale(0%) brightness(1);
+.group:hover .luxury-grayscale,
+.luxury-grayscale:hover {
+  filter: grayscale(0%) saturate(100%) contrast(100%);
   transform: scale(1.05);
 }
 

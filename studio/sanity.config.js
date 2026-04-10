@@ -2,7 +2,7 @@ import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {media} from 'sanity-plugin-media'
-import {schemaTypes} from './schemaTypes'
+import {schemaTypes} from './schemas'
 
 import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 
@@ -19,6 +19,14 @@ export default defineConfig({
         S.list()
           .title('Content')
           .items([
+            // Singleton: Homepage — opens the single document directly
+            S.listItem()
+              .title('Homepage')
+              .id('homepage')
+              .child(S.document().schemaType('homepage').documentId('homepage')),
+
+            S.divider(),
+
             // Custom orderable list for Projects
             orderableDocumentListDeskItem({
               type: 'project',
@@ -26,10 +34,31 @@ export default defineConfig({
               S,
               context,
             }),
+
+            // Custom orderable list for Disciplines
+            orderableDocumentListDeskItem({
+              type: 'discipline',
+              title: 'Disciplines (Ordered)',
+              icon: () => '✨',
+              S,
+              context,
+            }),
+            
+            orderableDocumentListDeskItem({
+              type: 'sector',
+              title: 'Sectors (Ordered)',
+              S,
+              context,
+            }),
+
             S.divider(),
-            // Automatically list all other document types accurately
+
+            // All other document types (excludes project, discipline, sector, homepage, media.tag, settings)
             ...S.documentTypeListItems().filter(
-              (listItem) => !['project', 'media.tag'].includes(listItem.getId()),
+              (listItem) =>
+                !['project', 'discipline', 'sector', 'homepage', 'media.tag'].includes(
+                  listItem.getId(),
+                ),
             ),
           ]),
     }),

@@ -1,92 +1,232 @@
 ---
 import { client, SECTORS_QUERY, imageUrl } from "../lib/sanity";
+import { Icon } from "astro-icon/components";
+import Cta from "./Cta.astro";
 
-const sectors = await client.fetch(SECTORS_QUERY);
+const rawSectors = await client.fetch(SECTORS_QUERY);
+
+function formatSqFt(sqft: number): string | null {
+  if (!sqft) return null;
+  const lakhs = sqft / 100_000;
+  const ind =
+    lakhs >= 100
+      ? `${(lakhs / 100).toFixed(1)} Crore`
+      : `${lakhs.toLocaleString()} Lakh`;
+  return `${ind} / ${(sqft / 1_000_000).toFixed(1)}M Sq Ft`;
+}
+
+const sectors = rawSectors.map((sector: any) => ({
+  ...sector,
+  totalSqFt:
+    sector.projects?.reduce(
+      (sum: number, p: any) => sum + (p.areaSqFt || 0),
+      0,
+    ) ?? 0,
+}));
+
+const total = sectors.length;
 ---
 
-<section class="w-full bg-bone py-24 border-t border-charcoal/5">
-  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-    <div
-      class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8"
-    >
-      <div class="max-w-xl">
-        <h2 class="text-4xl lg:text-6xl mb-6 italic tracking-tight">
-          Sector Expertise.
-        </h2>
-        <p class="text-lg text-charcoal/60 font-light leading-relaxed">
-          Broad architectural reach across India's most significant asset
-          classes, delivered with technical discipline.
+<section
+  class="w-full bg-bone py-40 lg:py-64"
+  aria-labelledby="sectors-heading"
+>
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
+    <div class="mb-24 grid gap-16 lg:mb-40 lg:grid-cols-[1fr_0.6fr] lg:gap-32">
+      <div class="reveal flex flex-col justify-center">
+        <p
+          class="mb-10 text-[10px] font-medium uppercase tracking-[0.5em] text-charcoal/30"
+        >
+          Sectors of Practice
         </p>
+        <h2
+          id="sectors-heading"
+          class="font-serif text-6xl italic leading-[0.99] tracking-tight text-charcoal lg:text-[6rem]"
+        >
+          Depth of Expertise.<br />Precision at Scale.
+        </h2>
       </div>
-      <a
-        href="/sectors"
-        class="text-[10px] font-medium uppercase tracking-[0.2em] pb-1 micro-hover luxury-transition text-charcoal/80 hover:text-charcoal"
+
+      <div
+        class="reveal flex flex-col items-start justify-end gap-10 lg:pt-12"
+        style="transition-delay:120ms"
       >
-        View Sector Portfolios
-      </a>
+        <p
+          class="text-[10px] sm:text-xs font-semibold leading-loose tracking-[0.25em] text-charcoal/60"
+        >
+          OUR TRACKED EXPERTISE SPANS EIGHT KEY SECTORS. REFINED OVER DECADES OF
+          EXECUTION EXCELLENCE ACROSS THE SUB-CONTINENT.
+        </p>
+        <Cta text="Discuss Your Project" href="/contact" invert={true} />
+      </div>
     </div>
+  </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+  <div
+    class="reveal group/slider relative mt-16 lg:mt-24"
+    style="transition-delay:200ms"
+  >
+    <div class="mx-auto w-full lg:max-w-[1800px] relative">
       {
-        sectors.map((sector: any) => (
-          <a
-            href={`/sectors/${sector.slug}`}
-            class="bg-bone group flex flex-col lg:flex-row transition-all duration-1000 cubic-bezier(0.19, 1, 0.22, 1) hover:bg-charcoal overflow-hidden border border-charcoal/20 hover:border-charcoal/20 relative cursor-pointer min-h-[440px]"
+        ["prev", "next"].map((dir) => (
+          <button
+            id={`sector-${dir}`}
+            aria-label={`${dir === "prev" ? "Previous" : "Next"} sector`}
+            disabled={dir === "prev"}
+            class={[
+              "absolute top-0 bottom-0 z-30 flex items-center opacity-0 pointer-events-none",
+              "transition-all duration-500",
+              "group-hover/slider:opacity-100 group-hover/slider:pointer-events-auto",
+              "disabled:opacity-0! disabled:pointer-events-none!",
+              dir === "prev"
+                ? "left-0 w-20 sm:w-32 justify-start px-4 lg:px-8 bg-linear-to-r from-bone/60 to-transparent"
+                : "right-0 w-20 sm:w-32 justify-end px-4 lg:px-8 bg-linear-to-l from-bone/60 to-transparent",
+            ].join(" ")}
           >
-            {/* Architectural Visual Breakup */}
-            <div class="w-full h-48 lg:h-auto lg:w-1/4 relative overflow-hidden luxury-grayscale">
-              {sector.image && (
-                <img
-                  src={imageUrl(sector.image, { width: 162, height: 484 })}
-                  alt={sector.title}
-                  loading="lazy"
-                  decoding="async"
-                  class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 cubic-bezier(0.19, 1, 0.22, 1) group-hover:scale-110"
-                />
-              )}
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-charcoal/90 text-bone shadow-lg backdrop-blur-md transition-all hover:bg-charcoal hover:scale-105 active:scale-95">
+              <Icon
+                name={`ph:arrow-${dir === "prev" ? "left" : "right"}-light`}
+                class="h-5 w-5"
+              />
             </div>
-
-            {/* Strategic Content Block */}
-            <div class="w-full lg:w-3/4 p-8 lg:p-14 flex flex-col justify-between relative">
-              <div class="reveal">
-                <div class="mb-10">
-                  <h3 class="text-3xl lg:text-4xl group-hover:text-bone luxury-transition font-serif italic font-medium leading-none">
-                    {sector.title}
-                  </h3>
-                </div>
-                <div class="space-y-8 mb-12 lg:mb-16">
-                  <div>
-                    <div class="flex items-center gap-2 mb-2 lg:mb-3">
-                      <p class="text-[9px] lg:text-[10px] font-medium uppercase tracking-widest text-charcoal/40 group-hover:text-bone/40 luxury-transition">
-                        Focus
-                      </p>
-                    </div>
-                    <p class="text-charcoal/80 group-hover:text-bone/80 font-light leading-snug luxury-transition text-base lg:text-lg">
-                      {sector.focus}
-                    </p>
-                  </div>
-                  <div>
-                    <div class="flex items-center gap-2 mb-2 lg:mb-3">
-                      <p class="text-[9px] lg:text-[10px] font-medium uppercase tracking-widest text-charcoal/40 group-hover:text-bone/40 luxury-transition">
-                        Our Approach
-                      </p>
-                    </div>
-                    <p class="text-charcoal group-hover:text-bone font-medium leading-snug luxury-transition text-base lg:text-lg">
-                      {sector.approach}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex flex-col-reverse lg:flex-row justify-between items-start lg:items-end gap-6 border-t border-charcoal/10 group-hover:border-white/10 pt-6">
-                <p class="text-[10px] lg:text-xs italic font-serif text-charcoal/60 group-hover:text-bone/60 luxury-transition reveal">
-                  {sector.proof}
-                </p>
-              </div>
-            </div>
-          </a>
+          </button>
         ))
       }
+
+      <div
+        id="sectors-slider"
+        class="flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-12 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:gap-5 sm:px-8 lg:gap-6 lg:px-12 2xl:px-32"
+        aria-label="Sector slider"
+      >
+        {
+          sectors.map((sector: any, index: number) => (
+            <article
+              class="group w-[82vw] shrink-0 snap-center first:snap-start last:snap-end border border-charcoal/10 bg-bone sm:w-[56vw] lg:w-[34vw] xl:w-[28vw] 2xl:w-[24.5vw]"
+              data-index={index}
+              data-first={index === 0 || undefined}
+              data-last={index === total - 1 || undefined}
+            >
+              <a
+                href={`/sectors/${sector.slug}`}
+                class="block h-full"
+                aria-label={`View ${sector.title} sector`}
+              >
+                <div class="relative aspect-7/8 overflow-hidden bg-charcoal">
+                  {sector.image && (
+                    <img
+                      src={imageUrl(sector.image, { width: 800, height: 1143 })}
+                      alt={sector.title}
+                      class="h-full w-full object-cover opacity-80 transition-transform duration-[2.2s] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-[1.04]"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+                  <div class="absolute inset-0 bg-linear-to-t from-charcoal/60 via-charcoal/10 to-transparent" />
+
+                  <p class="absolute left-5 top-5 text-[10px] uppercase tracking-[0.32em] text-bone/50">
+                    {String(index + 1).padStart(2, "0")} /{" "}
+                    {String(total).padStart(2, "0")}
+                  </p>
+
+                  <div class="absolute bottom-8 left-8 p-6 lg:p-7">
+                    {sector.totalSqFt > 0 && (
+                      <p class="mb-4 text-[10px] uppercase tracking-[0.3em] text-white">
+                        {formatSqFt(sector.totalSqFt)} completed
+                      </p>
+                    )}
+                    <h3 class="font-serif italic text-3xl leading-[0.92] text-bone lg:text-[2.25rem]">
+                      {sector.title}
+                    </h3>
+                  </div>
+                </div>
+
+                <div class="border-t border-charcoal/10 px-6 py-8 lg:px-8 lg:py-10">
+                  <div class="flex items-end justify-between gap-6">
+                    <p class="text-sm font-light leading-normal text-charcoal/55 lg:text-base">
+                      {sector.menuTagline || sector.homeHeadline}
+                    </p>
+                    <Icon
+                      name="ph:arrow-up-right"
+                      class="mb-0.5 h-4 w-4 shrink-0 text-charcoal/30 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-charcoal/60"
+                    />
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const slider = document.getElementById("sectors-slider") as HTMLElement;
+    const prevBtn = document.getElementById("sector-prev") as HTMLButtonElement;
+    const nextBtn = document.getElementById("sector-next") as HTMLButtonElement;
+    if (!slider || !prevBtn || !nextBtn) return;
+
+    // Cache scroll amount — recalculate only on resize
+    let scrollAmount = 0;
+    const calcScrollAmount = () => {
+      const card = slider.querySelector("article") as HTMLElement;
+      if (card)
+        scrollAmount =
+          card.offsetWidth + parseFloat(getComputedStyle(slider).gap || "0");
+    };
+    calcScrollAmount();
+    window.addEventListener("resize", calcScrollAmount, { passive: true });
+
+    // Boundary detection via IntersectionObserver
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          const el = e.target as HTMLElement;
+          if ("first" in el.dataset) prevBtn.disabled = e.isIntersecting;
+          if ("last" in el.dataset) nextBtn.disabled = e.isIntersecting;
+        }),
+      { root: slider, threshold: 0.9 },
+    );
+    const firstCard = slider.querySelector("[data-first]");
+    const lastCard = slider.querySelector("[data-last]");
+    if (firstCard) observer.observe(firstCard);
+    if (lastCard) observer.observe(lastCard);
+
+    // Scroll logic with hold-to-scroll
+    const scroll = (dir: "left" | "right") =>
+      slider.scrollBy({
+        left: dir === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+
+    let holdTimeout: ReturnType<typeof setTimeout> | null = null;
+    let scrollInterval: ReturnType<typeof setInterval> | null = null;
+
+    const stop = () => {
+      clearTimeout(holdTimeout!);
+      clearInterval(scrollInterval!);
+      holdTimeout = scrollInterval = null;
+    };
+
+    const start = (dir: "left" | "right") => {
+      stop();
+      scroll(dir);
+      holdTimeout = setTimeout(() => {
+        scrollInterval = setInterval(() => {
+          const btn = dir === "left" ? prevBtn : nextBtn;
+          btn.disabled ? stop() : scroll(dir);
+        }, 300);
+      }, 400);
+    };
+
+    prevBtn.addEventListener("pointerdown", (e) => {
+      if (e.button === 0) start("left");
+    });
+    nextBtn.addEventListener("pointerdown", (e) => {
+      if (e.button === 0) start("right");
+    });
+    window.addEventListener("pointerup", stop);
+    window.addEventListener("pointercancel", stop);
+  });
+</script>

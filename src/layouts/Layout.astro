@@ -7,9 +7,17 @@ import "../styles/global.css";
 
 interface Props {
   title: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
 }
 
-const { title } = Astro.props;
+const { 
+  title, 
+  description = "Architectural precision for high-stakes Indian developments. ROI-driven design, engineered for execution certainty.",
+  image = "/og-default.png",
+  canonicalURL = Astro.url.href
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -17,12 +25,32 @@ const { title } = Astro.props;
   <head>
     <SEO
       title={title}
-      description="Architectural precision for high-stakes Indian developments. ROI-driven design, engineered for execution certainty."
+      description={description}
+      canonical={canonicalURL}
+      openGraph={{
+        basic: {
+          title: title,
+          type: "website",
+          image: image,
+          url: canonicalURL,
+        },
+        image: {
+          alt: title,
+        }
+      }}
+      twitter={{
+        creator: "@metaphor-design",
+        card: "summary_large_image",
+        title: title,
+        description: description,
+        image: image
+      }}
     />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/logo-v1.png" />
     <meta name="generator" content={Astro.generator} />
+    <slot name="head" />
   </head>
   <body
     class="bg-bone text-charcoal antialiased font-sans selection:bg-black selection:text-white overflow-x-hidden"

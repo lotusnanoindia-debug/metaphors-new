@@ -1,85 +1,98 @@
 ---
-import { client, PROJECTS_QUERY, imageUrl } from "../lib/sanity";
+import { imageUrl } from "../lib/sanity";
 
-const projects = await client.fetch(PROJECTS_QUERY);
+const {
+  eyebrow = "Project Archive",
+  headline = "Selected Landmark Deployments.",
+  projects = [],
+} = Astro.props;
 ---
 
-<section class="bg-bone py-24 lg:py-32">
+<section class="w-full bg-bone py-24 lg:py-32">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
     <div
-      class="flex flex-col lg:flex-row justify-between items-end mb-24 gap-8"
+      class="flex flex-col lg:flex-row justify-between items-end mb-20 gap-8"
     >
-      <div class="max-w-xl">
+      <div class="reveal">
         <p
-          class="text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/40 mb-8"
+          class="text-[10px] font-medium uppercase tracking-[0.4em] text-charcoal/40 mb-6"
         >
-          Project Archive
+          {eyebrow}
         </p>
-        <h2 class="text-5xl lg:text-7xl mb-8 leading-[0.9]">
-          Selected Landmark Deployments.
+        <h2 class="text-5xl lg:text-7xl leading-[0.95] tracking-tighter">
+          {headline}
         </h2>
       </div>
-      <a
-        href="/archive"
-        class="text-[10px] font-medium uppercase tracking-[0.2em] border-b border-charcoal pb-1 transition-all hover:border-charcoal/20"
-      >
-        View Full Archive
-      </a>
+      <div class="reveal">
+        <a
+          href="/archive"
+          class="group flex items-center gap-4 text-[11px] font-medium uppercase tracking-[0.3em] text-charcoal/60 hover:text-charcoal transition-colors duration-500"
+        >
+          View Full Archive
+          <span
+            class="transition-transform duration-500 group-hover:translate-x-3"
+            >→</span
+          >
+        </a>
+      </div>
     </div>
 
-    <div class="space-y-48 lg:space-y-64">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {
-        projects.map((project: any, index: number) => (
-          <div
-            class={`flex flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} gap-12 lg:gap-24 items-start`}
-          >
-            <div class="w-full lg:w-3/5 overflow-hidden group relative">
-              {project.mainImage && (
-                <img
-                  src={imageUrl(project.mainImage, { width: 800 })}
-                  alt={project.title}
-                  loading="lazy"
-                  decoding="async"
-                  class="w-full aspect-16/10 object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105"
-                />
-              )}
-              <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-all duration-1000 pointer-events-none" />
+        projects.map((project: any) => (
+          <div class="group reveal flex flex-col h-full bg-charcoal/2 p-6 lg:p-8 hover:bg-charcoal/4 transition-all duration-700">
+            <div class="relative aspect-4/5 overflow-hidden mb-10 luxury-grayscale">
+              <img
+                src={imageUrl(project.image, { width: 800 })}
+                alt={project.title}
+                class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+              />
+              <div class="absolute top-6 left-6">
+                <span class="px-3 py-1.5 bg-bone/90 backdrop-blur-md text-[9px] font-medium uppercase tracking-[0.2em] text-charcoal">
+                  {project.sectorLabel}
+                </span>
+              </div>
             </div>
-            <div class="w-full lg:w-2/5">
-              <span class="text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/40 block mb-6">
-                {project.sector}
-              </span>
-              <h3 class="text-4xl lg:text-5xl mb-8 leading-tight font-serif italic">
-                {project.title}
-              </h3>
-              <p class="text-xl text-charcoal font-light leading-relaxed mb-10">
-                {project.intent}
-              </p>
 
-              <div class="grid grid-cols-2 gap-8 mb-8 border-t border-charcoal/5 pt-4">
-                {project.stats &&
-                  project.stats.map((stat: any) => (
-                    <div>
-                      <p class="text-[10px] font-medium uppercase tracking-widest text-charcoal/40 mb-1">
+            <div class="flex flex-col grow">
+              <div class="flex justify-between items-start mb-6">
+                <div>
+                  <h3 class="text-2xl lg:text-3xl font-medium tracking-tight mb-2">
+                    {project.title}
+                  </h3>
+                  <p class="text-[10px] uppercase tracking-widest text-charcoal/40">
+                    {project.location}
+                  </p>
+                </div>
+                <div class="flex flex-col items-end">
+                  {project.stats?.map((stat: any) => (
+                    <div class="text-right mb-1">
+                      <p class="text-[9px] font-medium text-charcoal/30 uppercase tracking-tighter">
                         {stat.label}
                       </p>
-                      <p class="text-sm font-medium">{stat.value}</p>
+                      <p class="text-[11px] font-medium text-charcoal/70">
+                        {stat.value}
+                      </p>
                     </div>
                   ))}
-                <div>
-                  <p class="text-[10px] font-medium uppercase tracking-widest text-charcoal/40 mb-1">
-                    Location
-                  </p>
-                  <p class="text-sm font-medium">{project.location}</p>
                 </div>
               </div>
 
-              <a
-                href={`/archive/${project.slug}`}
-                class="inline-block text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal border border-charcoal/20 px-8 py-4 luxury-transition hover:bg-charcoal hover:text-bone"
-              >
-                Project Details
-              </a>
+              <p class="text-sm lg:text-base text-charcoal/60 leading-relaxed mb-10 line-clamp-3">
+                {project.intent}
+              </p>
+
+              <div class="mt-auto pt-6 border-t border-charcoal/5">
+                <a
+                  href={project.linkUrl}
+                  class="group/link inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal"
+                >
+                  Project Details
+                  <span class="transition-transform duration-300 group-hover/link:translate-x-2">
+                    →
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
         ))

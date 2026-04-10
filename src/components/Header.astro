@@ -1,15 +1,31 @@
 ---
 import { Icon } from "astro-icon/components";
-import { client, SECTORS_QUERY, imageUrl } from "../lib/sanity";
+import Cta from "./Cta.astro";
+import {
+  client,
+  SECTORS_QUERY,
+  DISCIPLINES_QUERY,
+  imageUrl,
+} from "../lib/sanity";
 
 const sectorsData = await client.fetch(SECTORS_QUERY);
+const disciplinesData = await client.fetch(DISCIPLINES_QUERY);
 
-// Map the Sanity data to the structure the header expects
 const sectors = sectorsData.map((sector: any) => ({
   title: sector.title,
-  description: sector.focus, // Use the focus as the description
+  tagline:
+    sector.menuTagline ||
+    sector.homeHeadline ||
+    "Expert Architectural Solutions",
   path: `/sectors/${sector.slug}`,
-  image: sector.image,
+  image: sector.menuImage || sector.image,
+}));
+
+const disciplines = disciplinesData.map((d: any) => ({
+  title: d.title,
+  path: `/disciplines/${d.slug}`,
+  image: d.mainImage,
+  tagline: d.valueProposition,
 }));
 
 const menuItems = [
@@ -18,13 +34,10 @@ const menuItems = [
 ];
 ---
 
-<!-- ===========================================================
-     HEADER BAR (always on top of everything)
-     z-[200] so it sits above the mobile overlay (z-[190])
-=========================================================== -->
+<!-- HEADER BAR -->
 <header
   id="site-header"
-  class="fixed top-0 left-0 right-0 z-200 bg-bone/90 backdrop-blur-xl border-b border-charcoal/5 transition-colors duration-500"
+  class="fixed top-0 left-0 w-full z-400 transition-all duration-700 bg-white/80 backdrop-blur-md border-b border-charcoal/5"
   aria-label="Site Header"
 >
   <div class="max-w-[1440px] mx-auto px-6 lg:px-12 relative">
@@ -41,9 +54,9 @@ const menuItems = [
           class="h-6 w-auto transition-transform duration-700 group-hover/logo:scale-110"
           src="/metaphors-design-logo.svg"
         />
-        <span class="text-xl font-medium tracking-tight text-black lowercase">
-          metaphors design
-        </span>
+        <span class="text-xl font-medium tracking-tight text-black"
+          >metaphors design</span
+        >
       </a>
 
       <!-- Desktop Navigation -->
@@ -51,89 +64,50 @@ const menuItems = [
         class="hidden lg:flex items-center gap-12 h-full"
         aria-label="Primary"
       >
-        <!-- Projects Mega Menu trigger -->
-        <div class="h-full flex items-center group/projects">
+        <!-- Sectors Trigger -->
+        <div
+          class="h-full flex items-center menu-trigger-container projects"
+          id="sectors-trigger"
+        >
           <button
-            class="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/60 hover:text-charcoal transition-colors"
+            class="relative flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/60 hover:text-black transition-colors duration-300 h-full cursor-pointer"
             aria-haspopup="true"
             aria-expanded="false"
           >
-            Sectors
-            <Icon
-              name="ph:caret-down"
-              class="w-2.5 h-2.5 transition-transform duration-300 group-hover/projects:rotate-180"
-            />
+            Portfolio
+            <Icon name="ph:caret-down" class="w-2.5 h-2.5" />
+            <span
+              class="nav-underline absolute bottom-[28px] left-0 w-full h-[1.5px] bg-black scale-x-0 transition-transform duration-400 origin-left"
+            ></span>
           </button>
+        </div>
 
-          <!-- Mega Menu Panel -->
-          <div
-            class="absolute top-[80px] left-6 lg:left-12 right-6 lg:right-12
-                   bg-white border border-charcoal/5 shadow-2xl
-                   opacity-0 invisible translate-y-4
-                   group-hover/projects:opacity-100 group-hover/projects:visible group-hover/projects:translate-y-0
-                   transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]
-                   p-12 lg:p-16"
-            role="menu"
+        <!-- Disciplines Trigger -->
+        <div
+          class="h-full flex items-center menu-trigger-container disciplines"
+          id="disciplines-trigger"
+        >
+          <button
+            class="relative flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/60 hover:text-black transition-colors duration-300 h-full cursor-pointer"
+            aria-haspopup="true"
+            aria-expanded="false"
           >
-            <div class="grid grid-cols-4 gap-12">
-              {
-                sectors.map((sector: any) => (
-                  <a
-                    href={sector.path}
-                    class="group/sector flex flex-col gap-8"
-                    role="menuitem"
-                  >
-                    <div class="aspect-16/10 overflow-hidden grayscale group-hover/sector:grayscale-0 transition-all duration-1000">
-                      <img
-                        src={imageUrl(sector.image, { width: 800, height: 500 })}
-                        alt={sector.title}
-                        class="w-full h-full object-cover group-hover/sector:scale-105 transition-transform duration-2000"
-                      />
-                    </div>
-                    <div>
-                      <h4 class="text-2xl lg:text-3xl font-serif italic mb-4 text-charcoal group-hover/sector:text-black transition-colors">
-                        {sector.title}
-                      </h4>
-                      <p class="text-[10px] uppercase tracking-[0.3em] text-charcoal/40 font-medium group-hover/sector:text-charcoal/80 transition-colors">
-                        {sector.description}
-                      </p>
-                    </div>
-                  </a>
-                ))
-              }
-            </div>
-
-            <div
-              class="mt-16 pt-10 border-t border-charcoal/5 flex justify-between items-center"
-            >
-              <p
-                class="text-[10px] font-medium uppercase tracking-[0.4em] text-charcoal/20"
-              >
-                Precision in articulation.
-              </p>
-              <a
-                href="/archive"
-                class="text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal
-                       flex items-center gap-3 group/all
-                       border-b border-charcoal/20 pb-1 hover:border-charcoal transition-colors"
-              >
-                View Full Archive
-                <Icon
-                  name="ph:arrow-right"
-                  class="w-3.5 h-3.5 group-hover/all:translate-x-1.5 transition-transform"
-                />
-              </a>
-            </div>
-          </div>
+            Expertise
+            <Icon name="ph:caret-down" class="w-2.5 h-2.5" />
+            <span
+              class="nav-underline absolute bottom-[28px] left-0 w-full h-[1.5px] bg-black scale-x-0 transition-transform duration-400 origin-left"
+            ></span>
+          </button>
         </div>
 
         {
           menuItems.map((item) => (
             <a
               href={item.path}
-              class="text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/60 hover:text-charcoal transition-colors"
+              class="relative text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/60 hover:text-black transition-colors py-2 group/nav h-full flex items-center"
             >
               {item.name}
+              <span class="absolute bottom-[28px] left-0 w-full h-[1.5px] bg-black scale-x-0 group-hover/nav:scale-x-100 transition-transform duration-400 origin-left" />
             </a>
           ))
         }
@@ -141,108 +115,263 @@ const menuItems = [
 
       <!-- Desktop CTA -->
       <div class="hidden lg:block">
-        <a
-          href="/contact"
-          class="inline-flex h-11 items-center justify-center
-                 border border-charcoal/20 px-8
-                 text-[11px] font-medium uppercase tracking-[0.3em] text-charcoal
-                 transition-all duration-500 hover:bg-black hover:text-white hover:border-black"
-        >
-          Start a Conversation
-        </a>
+        <Cta text="Contact Us" href="/contact" />
       </div>
 
-      <!-- ═══════════════════════════════════════════════
-           BURGER BUTTON  (mobile only)
-           Simple icon toggle
-      ══════════════════════════════════════════════════ -->
+      <!-- Custom Drafting Burger Trigger -->
       <button
         id="burger-btn"
-        class="lg:hidden relative z-10 w-10 h-10 flex items-center justify-center
-               focus-visible:outline-none"
+        class="lg:hidden relative z-300 w-10 h-10 flex flex-col items-end justify-center gap-1.5 group/burger"
         aria-label="Open navigation menu"
         aria-expanded="false"
         aria-controls="mobile-nav"
       >
-        <Icon name="ph:list" class="w-6 h-6 text-charcoal" />
+        <span
+          class="w-6 h-px bg-charcoal transition-all duration-500 group-[.is-active]/burger:rotate-45 group-[.is-active]/burger:translate-y-[3.5px]"
+        ></span>
+        <span
+          class="w-4 h-px bg-charcoal transition-all duration-500 group-[.is-active]/burger:w-6 group-[.is-active]/burger:-rotate-45 group-[.is-active]/burger:-translate-y-[3.5px]"
+        ></span>
       </button>
     </div>
   </div>
 </header>
 
-<!-- ===========================================================
-     FULL-SCREEN MOBILE OVERLAY
-     Sits BELOW the header bar (z-[190]) so header remains visible,
-     but covers the entire viewport from top-0.
-     Controlled by JS toggling [data-open] attribute.
-=========================================================== -->
-<nav
-  id="mobile-nav"
-  aria-label="Mobile Navigation"
+<!-- ============================================================
+     SECTORS MEGA MENU
+============================================================ -->
+<div
+  id="mega-menu-sectors"
+  class="fixed top-0 left-0 w-full h-screen z-190 pointer-events-none"
   aria-hidden="true"
-  class="fixed inset-0 z-300 bg-bone flex flex-col
-         pointer-events-none
-         opacity-0
-         transition-opacity duration-500
-         ease-[cubic-bezier(0.19,1,0.22,1)]
-         lg:hidden"
 >
-  <!-- Top bar inside overlay (mirrors header height) -->
+  <!-- Backdrop -->
   <div
-    class="flex h-20 items-center justify-between px-6 border-b border-charcoal/5 shrink-0"
+    class="mm-backdrop absolute inset-0 bg-black/0 transition-colors duration-500"
   >
-    <a
-      href="/"
-      class="text-xl font-medium tracking-tight text-black lowercase"
-    >
-      metaphors design
-    </a>
-    <button
-      id="mobile-nav-close"
-      class="w-10 h-10 flex items-center justify-center focus-visible:outline-none"
-      aria-label="Close navigation menu"
-    >
-      <Icon name="ph:x" class="w-6 h-6 text-charcoal" />
-    </button>
   </div>
 
-  <!-- Scrollable body -->
-  <div class="flex-1 overflow-y-auto flex flex-col justify-between px-6 py-12">
-    <!-- Left column: Sectors -->
-    <div>
-      <p
-        class="text-[9px] font-medium uppercase tracking-[0.5em] text-charcoal/30 mb-10"
-      >
-        Sectors
-      </p>
-      <ul class="space-y-4" role="list">
-        {
-          sectors.map((sector: any) => (
-            <li class="mobile-nav-item">
+  <!-- Panel -->
+  <div
+    class="mm-panel absolute top-[80px] left-0 w-full bg-white shadow-[0_30px_80px_rgba(0,0,0,0.18)]
+              opacity-0 -translate-y-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+  >
+    <div
+      class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-[1fr_1.4fr] py-10 lg:py-16 gap-16"
+    >
+      <!-- Left: Numbered List -->
+      <div class="flex flex-col justify-between">
+        <p
+          class="text-[9px] font-medium uppercase tracking-[0.6em] text-charcoal/30 mb-10"
+        >
+          Work by Industry
+        </p>
+        <nav
+          class="flex flex-col gap-0 group/list flex-1 justify-center"
+          aria-label="Sectors"
+        >
+          {
+            sectors.map((sector: any, i: number) => (
               <a
                 href={sector.path}
-                class="group block py-2 border-b border-charcoal/5 hover:border-charcoal/20 transition-colors"
+                class="sector-item flex items-center gap-6 py-4 border-b border-charcoal/5 last:border-0
+                     text-charcoal/40 transition-all duration-500 group/item
+                     group-hover/list:opacity-50 hover:opacity-100! [&.is-active]:text-black [&.is-active]:opacity-100!"
+                data-image={imageUrl(sector.image)}
+                data-tagline={sector.tagline}
               >
-                <h3 class="text-4xl font-serif italic text-charcoal group-hover:text-black transition-colors leading-tight">
-                  {sector.title}
-                </h3>
-                <span class="text-[9px] font-medium uppercase tracking-[0.4em] text-charcoal/30 group-hover:text-charcoal/60 transition-colors mt-1 block">
-                  {sector.description}
+                <span class="text-[10px] font-medium tracking-[0.2em] w-6 shrink-0 tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
                 </span>
+                <span class="text-[22px] lg:text-[26px] font-medium leading-tight tracking-tight">
+                  {sector.title}
+                </span>
+                <div class="ml-auto flex items-center">
+                  <Icon
+                    name="ph:arrow-right"
+                    class="w-5 h-5 opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-[.is-active]/item:opacity-100 group-[.is-active]/item:translate-x-0 transition-all duration-400 shrink-0"
+                  />
+                </div>
               </a>
-            </li>
-          ))
-        }
-      </ul>
+            ))
+          }
+        </nav>
+      </div>
 
-      <!-- Secondary links -->
-      <ul class="mt-14 space-y-5" role="list">
+      <!-- Right: Large Image (intent-driven, empty by default) -->
+      <div
+        class="mm-image-pane relative overflow-hidden bg-stone-100 group/pane p-4 lg:p-6"
+      >
+        <a
+          id="sectors-preview-link"
+          href="#"
+          class="block w-full h-full relative overflow-hidden bg-stone-200 cursor-pointer"
+        >
+          <img
+            id="sectors-preview-img"
+            src=""
+            alt=""
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-[8s] ease-out scale-100 [&.is-visible]:opacity-100 [&.is-visible]:scale-110"
+          />
+          <div
+            class="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent opacity-0 transition-opacity duration-700 [&.is-visible]:opacity-100"
+            id="sectors-preview-gradient"
+          >
+          </div>
+        </a>
+        <!-- Tagline: Elegant Footnote Style -->
+        <div
+          id="sectors-preview-caption"
+          class="absolute bottom-12 left-12 right-12 z-10 opacity-0 translate-y-2 transition-all duration-700 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+        >
+          <div class="border-l border-white/30 pl-6 py-2">
+            <p
+              class="text-[10px] font-semibold uppercase tracking-[0.5em] text-white/90 leading-relaxed max-w-[80%]"
+              id="sectors-caption-text"
+            >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     DISCIPLINES MEGA MENU
+============================================================ -->
+<div
+  id="mega-menu-disciplines"
+  class="fixed top-0 left-0 w-full h-screen z-190 pointer-events-none"
+  aria-hidden="true"
+>
+  <!-- Backdrop -->
+  <div
+    class="mm-backdrop absolute inset-0 bg-black/0 transition-colors duration-500"
+  >
+  </div>
+
+  <!-- Panel -->
+  <div
+    class="mm-panel absolute top-[80px] left-0 w-full bg-white shadow-[0_30px_80px_rgba(0,0,0,0.18)]
+              opacity-0 -translate-y-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+  >
+    <div
+      class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-[1fr_1.4fr] py-10 lg:py-16 gap-16"
+    >
+      <!-- Left: Numbered List -->
+      <div class="flex flex-col justify-between">
+        <p
+          class="text-[9px] font-medium uppercase tracking-[0.6em] text-charcoal/30 mb-10"
+        >
+          Core Capabilities
+        </p>
+        <nav
+          class="flex flex-col gap-0 group/list flex-1 justify-center"
+          aria-label="Disciplines"
+        >
+          {
+            disciplines.map((d: any, i: number) => (
+              <a
+                href={d.path}
+                class="discipline-item flex items-center gap-6 py-4 border-b border-charcoal/5 last:border-0
+                     text-charcoal/40 transition-all duration-500 group/item
+                     group-hover/list:opacity-50 hover:opacity-100! [&.is-active]:text-black [&.is-active]:opacity-100!"
+                data-image={imageUrl(d.image)}
+                data-tagline={d.tagline}
+              >
+                <span class="text-[10px] font-medium tracking-[0.2em] w-6 shrink-0 tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span class="text-[22px] lg:text-[26px] font-medium leading-tight tracking-tight">
+                  {d.title}
+                </span>
+                <div class="ml-auto flex items-center">
+                  <Icon
+                    name="ph:arrow-right"
+                    class="w-5 h-5 opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-[.is-active]/item:opacity-100 group-[.is-active]/item:translate-x-0 transition-all duration-400 shrink-0"
+                  />
+                </div>
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+
+      <!-- Right: Large Image -->
+      <div
+        class="mm-image-pane relative overflow-hidden bg-stone-100 group/pane p-4 lg:p-6"
+      >
+        <a
+          id="disciplines-preview-link"
+          href="#"
+          class="block w-full h-full relative overflow-hidden bg-stone-200 cursor-pointer"
+        >
+          <img
+            id="disciplines-preview-img"
+            src=""
+            alt=""
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-[8s] ease-out scale-100 [&.is-visible]:opacity-100 [&.is-visible]:scale-110"
+          />
+          <div
+            class="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent opacity-0 transition-opacity duration-700 [&.is-visible]:opacity-100"
+            id="disciplines-preview-gradient"
+          >
+          </div>
+        </a>
+        <!-- Tagline: Elegant Footnote Style -->
+        <div
+          id="disciplines-preview-caption"
+          class="absolute bottom-12 left-12 right-12 z-10 opacity-0 translate-y-2 transition-all duration-700 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+        >
+          <div class="border-l border-white/30 pl-6 py-2">
+            <p
+              class="text-[10px] font-semibold uppercase tracking-[0.5em] text-white/90 leading-relaxed max-w-[80%]"
+              id="disciplines-caption-text"
+            >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE NAV -->
+<nav
+  id="mobile-nav"
+  class="fixed inset-0 z-350 bg-white flex flex-col pointer-events-none opacity-0 transition-opacity duration-500 lg:hidden"
+>
+  <div class="flex h-20 items-center justify-end px-6 shrink-0">
+    <!-- Hidden completely, the main burger in the header stays visible to close it -->
+    <button
+      id="mobile-nav-close"
+      class="hidden"
+      aria-label="Close navigation menu"
+    >
+    </button>
+  </div>
+  <div class="flex-1 overflow-y-auto px-8 py-14">
+    <div class="flex flex-col gap-10">
+      <!-- Core Utility Index -->
+      <ul
+        class="flex flex-wrap gap-x-8 gap-y-4 mb-4 border-b border-charcoal/5 pb-10"
+        role="list"
+      >
+        <li>
+          <a
+            href="/"
+            class="text-[10px] font-semibold uppercase tracking-[0.4em] text-charcoal/40 hover:text-black transition-colors"
+          >
+            Home
+          </a>
+        </li>
         {
           menuItems.map((item) => (
-            <li class="mobile-nav-item">
+            <li>
               <a
                 href={item.path}
-                class="text-base font-medium text-charcoal/60 hover:text-black transition-colors lowercase tracking-wide"
+                class="text-[10px] font-semibold uppercase tracking-[0.4em] text-charcoal/40 hover:text-black transition-colors"
               >
                 {item.name}
               </a>
@@ -250,31 +379,124 @@ const menuItems = [
           ))
         }
       </ul>
-    </div>
 
-    <!-- Bottom CTA -->
-    <div class="mobile-nav-item mt-16">
-      <a
-        href="/contact"
-        class="flex w-full h-14 items-center justify-center
-               bg-charcoal text-bone
-               text-[11px] font-medium uppercase tracking-[0.35em]
-               transition-all duration-500 hover:bg-black"
-      >
-        Start a Conversation
-      </a>
+      <!-- Interactive Taxonomy Accordions -->
+      <div class="flex flex-col gap-6">
+        <div class="mobile-accordion group/accordion" id="mobile-sectors-acc">
+          <button
+            class="flex items-center justify-between w-full text-4xl font-serif italic tracking-tight text-charcoal/40 hover:text-black transition-all duration-500 group-[.is-expanded]/accordion:text-black group-[.is-expanded]/accordion:mb-6"
+          >
+            Portfolio
+            <div class="relative w-4 h-4 flex items-center justify-center">
+              <span
+                class="absolute w-4 h-px bg-current transition-transform duration-500"
+              ></span>
+              <span
+                class="absolute w-px h-4 bg-current transition-transform duration-500 group-[.is-expanded]/accordion:rotate-90"
+              ></span>
+            </div>
+          </button>
+          <div
+            class="hidden group-[.is-expanded]/accordion:block mt-8 animate-in fade-in slide-in-from-top-2 duration-500"
+          >
+            <ul class="flex flex-col gap-1" role="list">
+              {
+                sectors.map((sector: any, i: number) => (
+                  <li
+                    class="animate-in fade-in slide-in-from-left-4 fill-mode-both duration-700"
+                    style={`animation-delay: ${i * 50}ms`}
+                  >
+                    <a
+                      href={sector.path}
+                      class="flex items-center gap-6 py-4 border-b border-charcoal/5 group/mobitem
+                             text-charcoal/60 hover:text-black transition-colors"
+                    >
+                      <span class="text-[9px] font-medium tracking-[0.2em] w-6 shrink-0 tabular-nums opacity-40">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span class="text-2xl font-serif italic font-medium tracking-tight capitalize">
+                        {sector.title}
+                      </span>
+                      <Icon
+                        name="ph:arrow-right"
+                        class="ml-auto w-4 h-4 opacity-0 -translate-x-2 group-hover/mobitem:opacity-100 group-hover/mobitem:translate-x-0 transition-all duration-300"
+                      />
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
 
-      <p
-        class="mt-6 text-[9px] font-medium uppercase tracking-[0.4em] text-charcoal/20 text-center"
-      >
-        Architecture that articulates intent.
-      </p>
+        <!-- Disciplines Accordion -->
+        <div
+          class="mobile-accordion group/accordion"
+          id="mobile-disciplines-acc"
+        >
+          <button
+            class="flex items-center justify-between w-full text-4xl font-serif italic tracking-tight text-charcoal/40 hover:text-black transition-all duration-500 group-[.is-expanded]/accordion:text-black group-[.is-expanded]/accordion:mb-6"
+          >
+            Expertise
+            <div class="relative w-4 h-4 flex items-center justify-center">
+              <span
+                class="absolute w-4 h-px bg-current transition-transform duration-500"
+              ></span>
+              <span
+                class="absolute w-px h-4 bg-current transition-transform duration-500 group-[.is-expanded]/accordion:rotate-90"
+              ></span>
+            </div>
+          </button>
+          <div
+            class="hidden group-[.is-expanded]/accordion:block mt-8 animate-in fade-in slide-in-from-top-2 duration-500"
+          >
+            <ul class="flex flex-col gap-1" role="list">
+              {
+                disciplines.map((d: any, i: number) => (
+                  <li
+                    class="animate-in fade-in slide-in-from-left-4 fill-mode-both duration-700"
+                    style={`animation-delay: ${i * 50}ms`}
+                  >
+                    <a
+                      href={d.path}
+                      class="flex items-center gap-6 py-4 border-b border-charcoal/5 group/mobitem
+                             text-charcoal/60 hover:text-black transition-colors"
+                    >
+                      <span class="text-[9px] font-medium tracking-[0.2em] w-6 shrink-0 tabular-nums opacity-40">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span class="text-2xl font-medium font-serif italic tracking-tight capitalize">
+                        {d.title}
+                      </span>
+                      <Icon
+                        name="ph:arrow-right"
+                        class="ml-auto w-4 h-4 opacity-0 -translate-x-2 group-hover/mobitem:opacity-100 group-hover/mobitem:translate-x-0 transition-all duration-300"
+                      />
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact CTA -->
+      <div class="mt-8 pt-8 border-t border-charcoal/5">
+        <a
+          href="/contact"
+          class="inline-block text-[10px] font-semibold uppercase tracking-[0.4em] w-full text-center text-white bg-black px-10 py-5 hover:bg-charcoal transition-colors"
+        >
+          Contact Us
+        </a>
+      </div>
     </div>
   </div>
 </nav>
 
 <script>
   (() => {
+    // ── Mobile Nav ──────────────────────────────────────────────
     const burgerBtn = document.getElementById(
       "burger-btn",
     ) as HTMLButtonElement;
@@ -283,50 +505,202 @@ const menuItems = [
       "mobile-nav-close",
     ) as HTMLButtonElement;
 
-    if (!burgerBtn || !mobileNav || !closeBtn) return;
+    if (burgerBtn && mobileNav && closeBtn) {
+      const toggle = () => {
+        const isOpen = !mobileNav.classList.contains("opacity-0");
+        mobileNav.classList.toggle("opacity-0", isOpen);
+        mobileNav.classList.toggle("pointer-events-none", isOpen);
 
-    function toggleMenu() {
-      const isCurrentlyClosed = mobileNav.classList.contains("opacity-0");
+        // Toggle active state on the trigger lines
+        burgerBtn.classList.toggle("is-active", !isOpen);
 
-      if (!isCurrentlyClosed) {
-        // CLOSE
-        mobileNav.classList.add("opacity-0", "pointer-events-none");
-        mobileNav.classList.remove("opacity-100");
-        mobileNav.setAttribute("aria-hidden", "true");
-        burgerBtn.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-      } else {
-        // OPEN
-        mobileNav.classList.remove("opacity-0", "pointer-events-none");
-        mobileNav.classList.add("opacity-100");
-        mobileNav.setAttribute("aria-hidden", "false");
-        burgerBtn.setAttribute("aria-expanded", "true");
-        document.body.style.overflow = "hidden";
-      }
+        document.body.style.overflow = isOpen ? "" : "hidden";
+      };
+      burgerBtn.addEventListener("click", toggle);
+      closeBtn.addEventListener("click", toggle);
     }
 
-    burgerBtn.addEventListener("click", toggleMenu);
-    closeBtn.addEventListener("click", toggleMenu);
+    // ── Mobile Accordions ──────────────────────────────────────
+    const setupAccordion = (id: string) => {
+      const acc = document.getElementById(id);
+      const btn = acc?.querySelector("button");
+      if (!acc || !btn) return;
+      btn.addEventListener("click", () => {
+        acc.classList.toggle("is-expanded");
+      });
+    };
 
-    mobileNav.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", toggleMenu);
+    setupAccordion("mobile-sectors-acc");
+    setupAccordion("mobile-disciplines-acc");
+
+    // ── Mega Menu Engine ────────────────────────────────────────
+    interface MenuConfig {
+      triggerId: string;
+      panelId: string;
+      imgId: string;
+      linkId: string;
+      gradientId: string;
+      captionId: string;
+      captionTextId: string;
+      itemSelector: string;
+    }
+
+    const setupMenu = (cfg: MenuConfig) => {
+      const trigger = document.getElementById(cfg.triggerId);
+      const panel = document.getElementById(cfg.panelId);
+      const previewImg = document.getElementById(cfg.imgId) as HTMLImageElement;
+      const previewLink = document.getElementById(
+        cfg.linkId,
+      ) as HTMLAnchorElement;
+      const previewGradient = document.getElementById(
+        cfg.gradientId,
+      ) as HTMLElement;
+      const previewCaption = document.getElementById(
+        cfg.captionId,
+      ) as HTMLElement;
+      const captionText = document.getElementById(
+        cfg.captionTextId,
+      ) as HTMLElement;
+
+      if (!trigger || !panel) return;
+
+      const mmPanel = panel.querySelector(".mm-panel") as HTMLElement;
+      const mmBackdrop = panel.querySelector(".mm-backdrop") as HTMLElement;
+      const items = panel.querySelectorAll(cfg.itemSelector);
+
+      let closeTimer: ReturnType<typeof setTimeout>;
+      let currentImgSrc = "";
+
+      const openMenu = () => {
+        clearTimeout(closeTimer);
+        panel.classList.remove("pointer-events-none");
+        panel.setAttribute("aria-hidden", "false");
+
+        // Underline
+        trigger.querySelector(".nav-underline")?.classList.add("scale-x-100");
+
+        // Panel reveal
+        mmPanel.classList.remove("opacity-0", "-translate-y-3");
+        mmPanel.classList.add("opacity-100", "translate-y-0");
+
+        // Backdrop
+        mmBackdrop.classList.remove("bg-black/0");
+        mmBackdrop.classList.add("bg-black/20");
+
+        // Pre-select the first item
+        const firstItem = items[0] as HTMLElement;
+        if (firstItem && !currentImgSrc) {
+          firstItem.classList.add("is-active");
+          const src = firstItem.dataset.image || "";
+          const tagline = firstItem.dataset.tagline || "";
+          const href = (firstItem as HTMLAnchorElement).href || "";
+          if (src) showImage(src, tagline, href);
+        }
+      };
+
+      const closeMenu = () => {
+        closeTimer = setTimeout(() => {
+          panel.classList.add("pointer-events-none");
+          panel.setAttribute("aria-hidden", "true");
+          // Underline
+          trigger
+            .querySelector(".nav-underline")
+            ?.classList.remove("scale-x-100");
+          // Panel
+          mmPanel.classList.add("opacity-0", "-translate-y-3");
+          mmPanel.classList.remove("opacity-100", "translate-y-0");
+          // Backdrop
+          mmBackdrop.classList.add("bg-black/0");
+          mmBackdrop.classList.remove("bg-black/20");
+          // Hide image & clear active state
+          hideImage();
+        }, 150);
+      };
+
+      const showImage = (src: string, tagline: string, href: string) => {
+        if (src === currentImgSrc) return;
+        currentImgSrc = src;
+
+        // Update link
+        if (previewLink) previewLink.href = href;
+
+        // Remove 'is-visible' first to reset transition if needed
+        [previewImg, previewGradient, previewCaption].forEach((el) =>
+          el.classList.remove("is-visible"),
+        );
+
+        // Minor delay to ensure browser paints the removal if we wanted a per-image reset,
+        // but for now, just swapping src and adding class is usually enough for a fresh transition
+        previewImg.src = src;
+
+        requestAnimationFrame(() => {
+          [previewImg, previewGradient, previewCaption].forEach((el) =>
+            el.classList.add("is-visible"),
+          );
+          if (tagline && captionText) {
+            captionText.textContent = tagline;
+          }
+        });
+      };
+
+      const hideImage = () => {
+        currentImgSrc = "";
+        [previewImg, previewGradient, previewCaption].forEach((el) =>
+          el.classList.remove("is-visible"),
+        );
+        // Also clear active item if image is hidden
+        items.forEach((el) => el.classList.remove("is-active"));
+      };
+
+      // Trigger hover
+      trigger.addEventListener("mouseenter", openMenu);
+      trigger.addEventListener("mouseleave", closeMenu);
+      // Panel hover (keep open)
+      panel.addEventListener("mouseenter", () => clearTimeout(closeTimer));
+      panel.addEventListener("mouseleave", closeMenu);
+
+      // Item hover → show image
+      items.forEach((item) => {
+        item.addEventListener("mouseenter", () => {
+          // Clear others first
+          items.forEach((el) => el.classList.remove("is-active"));
+          // Set active
+          item.classList.add("is-active");
+
+          const src = (item as HTMLElement).dataset.image || "";
+          const tagline = (item as HTMLElement).dataset.tagline || "";
+          const href = (item as HTMLAnchorElement).href || "";
+          if (src) showImage(src, tagline, href);
+        });
+      });
+
+      // Backdrop click → close
+      mmBackdrop.addEventListener("click", () => {
+        clearTimeout(closeTimer);
+        closeMenu();
+      });
+    };
+
+    setupMenu({
+      triggerId: "sectors-trigger",
+      panelId: "mega-menu-sectors",
+      imgId: "sectors-preview-img",
+      linkId: "sectors-preview-link",
+      gradientId: "sectors-preview-gradient",
+      captionId: "sectors-preview-caption",
+      captionTextId: "sectors-caption-text",
+      itemSelector: ".sector-item",
     });
 
-    document.addEventListener("keydown", (e) => {
-      if (
-        e.key === "Escape" &&
-        burgerBtn.getAttribute("aria-expanded") === "true"
-      ) {
-        toggleMenu();
-        burgerBtn.focus();
-      }
+    setupMenu({
+      triggerId: "disciplines-trigger",
+      panelId: "mega-menu-disciplines",
+      imgId: "disciplines-preview-img",
+      linkId: "disciplines-preview-link",
+      gradientId: "disciplines-preview-gradient",
+      captionId: "disciplines-preview-caption",
+      captionTextId: "disciplines-caption-text",
+      itemSelector: ".discipline-item",
     });
   })();
 </script>
-
-<style>
-  /* Ensure header switches to white text when menu is open (optional luxury touch) */
-  #site-header[data-menu-open] {
-    --tw-bg-opacity: 1;
-  }
-</style>

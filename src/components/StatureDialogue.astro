@@ -1,0 +1,158 @@
+---
+import { imageUrl } from "../lib/sanity";
+
+interface Props {
+  homepage: any;
+  homeSettings: any;
+  quotes: any[];
+}
+
+const { homepage, homeSettings, quotes } = Astro.props;
+---
+
+<section class="w-full px-6 lg:px-12 pb-32 lg:pb-48">
+  <div class="max-w-[1440px] mx-auto reveal relative">
+    <div class="grid grid-cols-1 lg:grid-cols-10 gap-6 lg:gap-4">
+      {/* Large Image - Stature */}
+      <div class="lg:col-span-7 flex flex-col gap-12">
+        {/* Studio Intro - Magazine Lead Positioning */}
+        {
+          homepage?.heroSubheading && (
+            <div class="max-w-2xl reveal">
+              <p class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/30 mb-4">
+                Studio Context
+              </p>
+              <p class="text-2xl lg:text-4xl text-charcoal/90 font-sans font-light leading-[1.15] tracking-tight italic">
+                {homepage?.heroSubheading}
+              </p>
+            </div>
+          )
+        }
+
+        <div
+          class="group/stature-lg relative overflow-hidden h-[60vh] lg:h-[60vh] transition-all duration-1000 grayscale-65 saturate-88 contrast-104 hover:grayscale-0 hover:saturate-100 hover:contrast-100"
+        >
+          {/* Footnote */}
+          <div class="absolute left-0 bottom-0 pointer-events-none z-10">
+            <div
+              class="origin-bottom-left translate-x-10 -translate-y-10 bg-bone/50 backdrop-blur-sm px-8 py-4 border border-white/10 transition-all duration-1000 group-hover/stature-lg:bg-bone/90 group-hover/stature-lg:backdrop-blur-xl group-hover/stature-lg:border-white/20"
+            >
+              <p
+                class="text-[10px] font-semibold uppercase tracking-[0.5em] text-charcoal whitespace-nowrap transition-all duration-1000"
+              >
+                {
+                  homeSettings?.statureTagline ||
+                    "Oracle Centre, Pune, India"
+                }
+              </p>
+            </div>
+          </div>
+
+          {
+            homepage?.statureImage && (
+              <img
+                alt={homepage.statureImage?.alt || "Structural Stature"}
+                class="w-full h-full object-cover object-center transition-transform duration-[3s] cubic-bezier(0.19, 1, 0.22, 1) group-hover/stature-lg:scale-[1.02]"
+                loading="lazy"
+                decoding="async"
+                src={imageUrl(homepage.statureImage, { width: 1400 })}
+              />
+            )
+          }
+        </div>
+      </div>
+
+      {/* Secondary Column - Dialogue & Pressed Context */}
+      <div
+        class="group/stature-sm lg:col-span-3 relative overflow-hidden h-[50vh] lg:h-[65vh] bg-charcoal reveal"
+        style="transition-delay: 200ms"
+      >
+        {/* The Image (Backdrop) */}
+        {
+          homepage?.precisionImage && (
+            <img
+              alt={homepage.precisionImage?.alt || "Architectural Detail"}
+              class="absolute inset-0 w-full h-full object-cover object-center grayscale opacity-60 group-hover/stature-sm:opacity-80 group-hover/stature-sm:grayscale-0 group-hover/stature-sm:scale-110 transition-all duration-[2s] cubic-bezier(0.19, 1, 0.22, 1)"
+              loading="lazy"
+              decoding="async"
+              src={imageUrl(homepage.precisionImage, { width: 800 })}
+            />
+          )
+        }
+
+        {/* The Dialogue Overlay */}
+        <div
+          class="absolute inset-0 p-8 lg:p-10 bg-linear-to-t from-charcoal via-charcoal/60 to-transparent flex flex-col justify-end gap-12 z-10"
+        >
+          <div class="relative h-full overflow-hidden">
+            {
+              quotes.map((item: any, idx: number) => (
+                <div
+                  class={`press-quote absolute inset-10 flex flex-col justify-end transition-opacity duration-1000 ${idx === 0 ? "opacity-100" : "opacity-0"}`}
+                  data-index={idx}
+                >
+                  <p class="text-3xl text-white font-serif font-light leading-relaxed italic mb-8">
+                    "{item.quote}"
+                  </p>
+
+                  <div class="h-5">
+                    {item.logo ? (
+                      <img
+                        src={imageUrl(item.logo, { height: 40 })}
+                        alt={item.publication}
+                        class="h-full w-auto opacity-60 grayscale invert brightness-0"
+                      />
+                    ) : (
+                      <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-white/40">
+                        {item.publication}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <div
+            class="pt-8 border-t border-white/10 flex items-center justify-between"
+          >
+            <div>
+              <p
+                class="text-[10px] font-bold uppercase tracking-[0.5em] text-white/30"
+              >
+                Press Perspectives
+              </p>
+              <p class="text-[10px] text-white/50 mt-1 italic">
+                Documented Design Discourse
+              </p>
+            </div>
+
+            <a
+              href="/perspectives"
+              class="group/link flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] text-white/60 hover:text-white transition-colors duration-300"
+            >
+              MORE
+              <span
+                class="block w-4 h-px bg-white/20 group-hover/link:bg-white group-hover/link:w-8 transition-all duration-500"
+              ></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const quotes = document.querySelectorAll(".press-quote");
+  if (quotes.length > 1) {
+    let currentIndex = 0;
+    setInterval(() => {
+      quotes[currentIndex].classList.remove("opacity-100");
+      quotes[currentIndex].classList.add("opacity-0");
+      currentIndex = (currentIndex + 1) % quotes.length;
+      quotes[currentIndex].classList.remove("opacity-0");
+      quotes[currentIndex].classList.add("opacity-100");
+    }, 6000); // 6 second interval for a slow, refined feel
+  }
+</script>

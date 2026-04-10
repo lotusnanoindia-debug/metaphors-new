@@ -2,75 +2,79 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
+import StatureDialogue from "../components/StatureDialogue.astro";
 import Sectors from "../components/Sectors.astro";
 import ScaleOfPractice from "../components/ScaleOfPractice.astro";
 import Evidence from "../components/Evidence.astro";
-import Press from "../components/Press.astro";
 import Footer from "../components/Footer.astro";
-import { client, HOME_SETTINGS_QUERY, imageUrl } from "../lib/sanity";
+import {
+  client,
+  HOMEPAGE_QUERY,
+  HOME_SETTINGS_QUERY,
+  imageUrl,
+} from "../lib/sanity";
 
-const settings = await client.fetch(HOME_SETTINGS_QUERY);
+const data = await client.fetch(HOMEPAGE_QUERY);
+const homepage = data?.homepage;
+const quotes = data?.quotes || [];
+const homeSettings = await client.fetch(HOME_SETTINGS_QUERY);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ArchitecturalStore",
+  "name": "Metaphors Design",
+  "url": "https://metaphors.design",
+  "logo": "https://metaphors.design/logo-v1.png",
+  "description": "Architectural precision for high-stakes Indian developments. ROI-driven design, engineered for execution certainty.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Pune",
+    "addressCountry": "India"
+  },
+  "foundingDate": "1989",
+  "founder": {
+    "@type": "Person",
+    "name": "Metaphors Architects"
+  },
+  "areaServed": "India",
+  "knowsAbout": ["Architectural Design", "Urban Planning", "Corporate Architecture", "Institutional Design"]
+};
 ---
 
-<Layout title="Metaphors Design | Architectural Precision">
+<Layout 
+  title="Metaphors Design | Architectural Precision"
+  description="Defining modern Indian architecture for four decades. Metaphors Design delivers precise, ROI-driven architectural solutions for corporate, civic, and residential environments."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} slot="head" />
   <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
     <Header />
-    <Hero />
+    <Hero
+      eyebrow={homepage?.heroEyebrow}
+      headline={homepage?.heroHeadline}
+      headlineAccent={homepage?.heroHeadlineAccent}
+      headlineTagline={homepage?.heroHeadlineTagline}
+      subheading={homepage?.heroSubheading}
+      ctaLabel={homepage?.heroCtaLabel}
+      ctaUrl={homepage?.heroCtaUrl}
+    />
 
-    <section class="w-full px-6 lg:px-12 pb-32 lg:pb-48">
-      <div class="max-w-[1440px] mx-auto reveal">
-        <div class="grid grid-cols-1 lg:grid-cols-10 gap-6 lg:gap-1">
-          {/* Large Image - Stature */}
-          <div
-            class="lg:col-span-7 relative overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000"
-          >
-            {
-              settings?.heroStatureImage && (
-                <img
-                  alt="Dome, Oracle Building, Pune, India - Structural Stature"
-                  class="w-full h-[60vh] lg:h-[80vh] object-cover object-center luxury-transition hover:scale-105"
-                  loading="lazy"
-                  decoding="async"
-                  src={imageUrl(settings.heroStatureImage, { width: 1000 })}
-                />
-              )
-            }
-          </div>
+    <StatureDialogue 
+      homepage={homepage}
+      homeSettings={homeSettings}
+      quotes={quotes}
+    />
 
-          {/* Small Image - Detail */}
-          <div
-            class="lg:col-span-3 relative overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 flex flex-col"
-          >
-            {
-              settings?.heroPrecisionImage && (
-                <img
-                  alt="Architectural Detail"
-                  class="w-full h-[40vh] lg:h-full object-cover object-center luxury-transition hover:scale-110"
-                  loading="lazy"
-                  decoding="async"
-                  src={imageUrl(settings.heroPrecisionImage, { width: 500 })}
-                />
-              )
-            }
-          </div>
-        </div>
-
-        {/* Architectural Footnote */}
-        <div class="mt-8 px-2 text-center lg:text-left">
-          <p
-            class="text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/30"
-          >
-            Oracle Centre, Pune, India
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <Press />
-    
     <Sectors />
-    <ScaleOfPractice />
-    <Evidence />
+    <ScaleOfPractice
+      eyebrow={homepage?.scaleEyebrow}
+      headline={homepage?.scaleHeadline}
+      body={homepage?.scaleBody}
+    />
+    <Evidence
+      eyebrow={homepage?.featuredSectionEyebrow}
+      headline={homepage?.featuredSectionHeadline}
+      projects={homepage?.featuredProjects}
+    />
   </div>
   <Footer />
 </Layout>
