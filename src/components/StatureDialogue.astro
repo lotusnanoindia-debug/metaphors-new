@@ -18,7 +18,7 @@ const { homepage, homeSettings, quotes } = Astro.props;
         {/* Studio Intro - Magazine Lead Positioning */}
         {
           homepage?.heroSubheading && (
-            <div class="max-w-2xl reveal">
+            <div class="max-w-2xl mx-auto text-center lg:text-left lg:mx-0 reveal">
               <p class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/30 mb-4">
                 Studio Context
               </p>
@@ -40,10 +40,7 @@ const { homepage, homeSettings, quotes } = Astro.props;
               <p
                 class="text-[10px] font-semibold uppercase tracking-[0.5em] text-charcoal whitespace-nowrap transition-all duration-1000"
               >
-                {
-                  homeSettings?.statureTagline ||
-                    "Oracle Centre, Pune, India"
-                }
+                {homeSettings?.statureTagline || "Oracle Centre, Pune, India"}
               </p>
             </div>
           </div>
@@ -91,7 +88,7 @@ const { homepage, homeSettings, quotes } = Astro.props;
                   class={`press-quote absolute inset-10 flex flex-col justify-end transition-opacity duration-1000 ${idx === 0 ? "opacity-100" : "opacity-0"}`}
                   data-index={idx}
                 >
-                  <p class="text-3xl text-white font-serif font-light leading-relaxed italic mb-8">
+                  <p class="text-lg md:text-3xl text-white font-serif font-light leading-relaxed italic mb-8">
                     "{item.quote}"
                   </p>
 

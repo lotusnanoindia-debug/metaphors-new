@@ -1,0 +1,105 @@
+---
+import {
+  client,
+  ALL_DISCIPLINES_WITH_AREA_QUERY,
+  imageUrl,
+} from "../lib/sanity";
+
+// Fetch data at build time
+const rawDisciplines = await client.fetch(ALL_DISCIPLINES_WITH_AREA_QUERY);
+
+// Aggregate Disciplines
+const disciplines = rawDisciplines
+  .map((d: any) => {
+    const sqft =
+      d.projects?.reduce((sum: number, p: any) => sum + (p.areaSqFt || 0), 0) ??
+      0;
+    const lakhs = sqft / 100_000;
+    const metric =
+      lakhs >= 100
+        ? `${(lakhs / 100).toFixed(1)} Cr`
+        : `${lakhs.toFixed(0)} Lakh`;
+    const intl = `${(sqft / 1_000_000).toFixed(1)}M Sq Ft`;
+
+    return {
+      title: d.title,
+      slug: d.slug,
+      image: d.mainImage,
+      sqft,
+      display: `${metric} / ${intl}`,
+    };
+  })
+  .filter((d: any) => d.sqft > 0)
+  .sort((a, b) => b.sqft - a.sqft);
+---
+
+<section class="relative w-full bg-bone pb-24 lg:pb-48 overflow-hidden">
+  <div class="max-w-[1800px] mx-auto px-6 lg:px-12 relative z-10">
+    {/* Discipline Header & Transition */}
+    <div
+      class="w-full pt-12 reveal"
+      style="transition-delay: 450ms"
+    >
+      <div
+        class="flex flex-col items-center lg:items-start gap-3 mb-16 text-center lg:text-left"
+      >
+        <div
+          class="flex items-center justify-center lg:justify-between w-full pb-6"
+        >
+          <h3 class="font-serif italic text-4xl lg:text-5xl text-charcoal/80">
+            Studio Disciplines
+          </h3>
+          <p
+            class="hidden lg:block text-[10px] font-bold text-charcoal/20 tracking-[0.5em]"
+          >
+            ({disciplines.length.toString().padStart(2, '0')})
+          </p>
+        </div>
+        <p
+          class="text-[10px] sm:text-xs font-semibold leading-loose tracking-[0.2em] text-charcoal/60 uppercase"
+        >
+          From idea to completion — all under one roof
+        </p>
+      </div>
+    </div>
+
+    {/* Discipline Cards Grid */}
+    <div
+      class="w-full grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-x-8 gap-y-16 text-left reveal"
+      style="transition-delay: 500ms"
+    >
+      {
+        disciplines.map((d: any) => (
+          <a
+            href={`/disciplines/${d.slug}`}
+            class="group relative block transition-all"
+          >
+            {/* Image Square */}
+            <div class="aspect-square w-full overflow-hidden bg-charcoal/5 mb-8 border border-charcoal/5">
+              {d.image ? (
+                <img
+                  src={imageUrl(d.image, { width: 600, height: 600 })}
+                  alt={d.title}
+                  class="h-full w-full object-cover transition-all duration-1000 grayscale-65 saturate-88 contrast-104 group-hover:scale-110 group-hover:grayscale-0 group-hover:saturate-100 group-hover:contrast-100"
+                />
+              ) : (
+                <div class="flex h-full w-full items-center justify-center text-[10px] italic uppercase tracking-widest text-charcoal/20">
+                  {d.title} Hero
+                </div>
+              )}
+            </div>
+
+            <div class="border-t-0 sm:border-t border-charcoal/10 pt-0 sm:pt-8 transition-all group-hover:border-charcoal/40 duration-1000">
+              <p class="mb-2 sm:text-[11px] text-[10px] font-bold uppercase tracking-widest text-charcoal/30 transition-all group-hover:text-charcoal/80">
+                {d.display}
+              </p>
+              <h3 class="font-serif italic text-xl lg:text-3xl text-charcoal/80 hover:text-charcoal">
+                {d.title}
+              </h3>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,102 +1,338 @@
 ---
-import { imageUrl } from "../lib/sanity";
+import { Icon } from "astro-icon/components";
+import Cta from "./Cta.astro";
+import { client, EVIDENCE_SECTOR_SLIDER_QUERY, imageUrl } from "../lib/sanity";
 
 const {
-  eyebrow = "Project Archive",
-  headline = "Selected Landmark Deployments.",
-  projects = [],
+  eyebrow = "Selected Evidence",
+  headline = "One lead commission per sector.",
 } = Astro.props;
+
+const rawSectors = await client.fetch(EVIDENCE_SECTOR_SLIDER_QUERY);
+
+// Only include sectors that resolved a usable project
+const cards = (rawSectors as any[]).filter((s) => s?.leadProject).slice(0, 8);
+const total = cards.length;
+
+function formatArea(sqft?: number): string | null {
+  if (!sqft) return null;
+  const lakhs = sqft / 100_000;
+  if (lakhs >= 100) return `${(lakhs / 100).toFixed(1)} Cr Sq Ft`;
+  if (lakhs >= 1) return `${lakhs.toFixed(1)} Lakh Sq Ft`;
+  return `${sqft.toLocaleString("en-IN")} Sq Ft`;
+}
+
+function formatLocation(loc?: {
+  city?: string;
+  state?: string;
+  country?: string;
+}): string {
+  return (
+    [loc?.city, loc?.state].filter(Boolean).join(", ") ||
+    loc?.country ||
+    "India"
+  );
+}
+
+function hasUsableImage(image?: any): boolean {
+  return Boolean(image?.asset?._ref || image?.asset?._id || image?.asset?.url);
+}
+
+function leadLine(sector: any): string | null {
+  return (
+    sector?.leadProject?.headline ||
+    sector?.homeHeadline ||
+    sector?.homeIntro ||
+    null
+  );
+}
+
+function evidenceNote(project: any): string | null {
+  return (
+    project?.highlights?.find(Boolean) ||
+    formatArea(project?.areaSqFt) ||
+    project?.projectStatus ||
+    null
+  );
+}
 ---
 
-<section class="w-full bg-bone py-24 lg:py-32">
-  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-    <div
-      class="flex flex-col lg:flex-row justify-between items-end mb-20 gap-8"
-    >
-      <div class="reveal">
+<section
+  class="w-full bg-bone py-24 lg:py-36"
+  aria-labelledby="evidence-heading"
+>
+  {/* Section header */}
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
+    <div class="mb-24 grid gap-16 lg:mb-40 lg:grid-cols-[1fr_0.6fr] lg:gap-32">
+      <div
+        class="reveal flex flex-col items-center text-center lg:items-start lg:text-left justify-center"
+      >
         <p
-          class="text-[10px] font-medium uppercase tracking-[0.4em] text-charcoal/40 mb-6"
+          class="mb-10 text-[10px] font-medium uppercase tracking-[0.5em] text-charcoal/30"
         >
           {eyebrow}
         </p>
-        <h2 class="text-5xl lg:text-7xl leading-[0.95] tracking-tighter">
+        <h2
+          id="evidence-heading"
+          class="font-serif text-6xl italic leading-[0.99] tracking-tight text-charcoal lg:text-[6.5rem]"
+        >
           {headline}
         </h2>
       </div>
-      <div class="reveal">
-        <a
-          href="/archive"
-          class="group flex items-center gap-4 text-[11px] font-medium uppercase tracking-[0.3em] text-charcoal/60 hover:text-charcoal transition-colors duration-500"
+
+      <div
+        class="reveal flex flex-col items-center text-center lg:text-right lg:items-end lg:justify-end gap-10 lg:pt-12"
+        style="transition-delay:120ms"
+      >
+        <p
+          class="text-[10px] sm:text-xs font-semibold leading-loose tracking-[0.25em] text-charcoal/60"
         >
-          View Full Archive
-          <span
-            class="transition-transform duration-500 group-hover:translate-x-3"
-            >→</span
-          >
-        </a>
+          A CURATED TRACK RECORD OF LANDMARK DEPLOYMENTS VALIDATED THROUGH
+          DECADES OF PRECISION AND RESPONSIBLE STEWARDSHIP.
+        </p>
+        <div class="flex justify-center lg:justify-end w-full">
+          <Cta text="Discuss Your Project" href="/contact" invert={true} />
+        </div>
       </div>
     </div>
+  </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {/* Slider */}
+  <div
+    class="reveal group/evidence-slider relative"
+    style="transition-delay:200ms"
+  >
+    <div class="relative mx-auto w-full lg:max-w-[1800px]">
+      {/* Prev / Next buttons */}
       {
-        projects.map((project: any) => (
-          <div class="group reveal flex flex-col h-full bg-charcoal/2 p-6 lg:p-8 hover:bg-charcoal/4 transition-all duration-700">
-            <div class="relative aspect-4/5 overflow-hidden mb-10 luxury-grayscale">
-              <img
-                src={imageUrl(project.image, { width: 800 })}
-                alt={project.title}
-                class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+        ["prev", "next"].map((dir) => (
+          <button
+            id={`evidence-${dir}`}
+            aria-label={`${dir === "prev" ? "Previous" : "Next"} project`}
+            disabled={dir === "prev"}
+            class={[
+              "absolute top-0 bottom-0 z-30 flex items-center opacity-0 pointer-events-none",
+              "transition-all duration-500",
+              "group-hover/evidence-slider:opacity-100 group-hover/evidence-slider:pointer-events-auto",
+              "disabled:opacity-0! disabled:pointer-events-none!",
+              dir === "prev"
+                ? "left-0 w-20 sm:w-32 justify-start px-4 lg:px-8 bg-linear-to-r from-bone/70 to-transparent"
+                : "right-0 w-20 sm:w-32 justify-end px-4 lg:px-8 bg-linear-to-l from-bone/70 to-transparent",
+            ].join(" ")}
+          >
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-charcoal/90 text-bone shadow-lg backdrop-blur-md transition-all hover:scale-105 hover:bg-charcoal active:scale-95">
+              <Icon
+                name={`ph:arrow-${dir === "prev" ? "left" : "right"}-light`}
+                class="h-5 w-5"
               />
-              <div class="absolute top-6 left-6">
-                <span class="px-3 py-1.5 bg-bone/90 backdrop-blur-md text-[9px] font-medium uppercase tracking-[0.2em] text-charcoal">
-                  {project.sectorLabel}
-                </span>
-              </div>
             </div>
-
-            <div class="flex flex-col grow">
-              <div class="flex justify-between items-start mb-6">
-                <div>
-                  <h3 class="text-2xl lg:text-3xl font-medium tracking-tight mb-2">
-                    {project.title}
-                  </h3>
-                  <p class="text-[10px] uppercase tracking-widest text-charcoal/40">
-                    {project.location}
-                  </p>
-                </div>
-                <div class="flex flex-col items-end">
-                  {project.stats?.map((stat: any) => (
-                    <div class="text-right mb-1">
-                      <p class="text-[9px] font-medium text-charcoal/30 uppercase tracking-tighter">
-                        {stat.label}
-                      </p>
-                      <p class="text-[11px] font-medium text-charcoal/70">
-                        {stat.value}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <p class="text-sm lg:text-base text-charcoal/60 leading-relaxed mb-10 line-clamp-3">
-                {project.intent}
-              </p>
-
-              <div class="mt-auto pt-6 border-t border-charcoal/5">
-                <a
-                  href={project.linkUrl}
-                  class="group/link inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal"
-                >
-                  Project Details
-                  <span class="transition-transform duration-300 group-hover/link:translate-x-2">
-                    →
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
+          </button>
         ))
       }
+
+      <div
+        id="evidence-slider"
+        class="flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-12 scroll-smooth scroll-px-6 sm:scroll-px-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:gap-5 sm:px-8 lg:gap-6 lg:px-12 2xl:px-32"
+        aria-label="Evidence project slider"
+      >
+        {
+          cards.map((sector: any, index: number) => {
+            const project = sector.leadProject;
+            const area = formatArea(project?.areaSqFt);
+            const location = formatLocation(project?.location);
+            const note = evidenceNote(project);
+            const lead = leadLine(sector);
+            const href = project?.slug
+              ? `/projects/${project.slug}`
+              : "/archive";
+
+            // Accommodate schema naming variations (coverImage vs mainImage)
+            const imgObj = project?.coverImage?.asset
+              ? project.coverImage
+              : project?.mainImage;
+
+            return (
+              <article
+                class="group w-[86vw] shrink-0 snap-center border border-charcoal/10 bg-bone first:snap-start last:snap-end sm:w-[56vw] lg:w-[31vw] xl:w-[24vw] 2xl:w-[21vw]"
+                data-index={index}
+                data-first={index === 0 || undefined}
+                data-last={index === total - 1 || undefined}
+              >
+                <a
+                  href={href}
+                  class="block h-full"
+                  aria-label={`View ${project?.title || sector.title}`}
+                >
+                  {/* Image */}
+                  <div class="relative aspect-4/5 overflow-hidden bg-charcoal/5">
+                    {hasUsableImage(imgObj) ? (
+                      <img
+                        src={imageUrl(imgObj, { width: 960, height: 1200 })}
+                        alt={
+                          imgObj?.alt ||
+                          project?.title ||
+                          sector.title ||
+                          "Project image"
+                        }
+                        class="h-full w-full object-cover opacity-90 transition-all duration-[2.2s] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-[1.04] group-hover:opacity-100"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      <div class="h-full w-full bg-linear-to-br from-charcoal/10 via-charcoal/5 to-bone" />
+                    )}
+
+                    {/* Gradient overlay */}
+                    <div class="absolute inset-0 bg-linear-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
+
+                    {/* Top: counter + sector badge */}
+                    <div class="absolute inset-x-0 top-0 flex items-start justify-between p-5 lg:p-6">
+                      <p class="text-[10px] uppercase tracking-[0.32em] text-bone/50">
+                        {String(index + 1).padStart(2, "0")} /{" "}
+                        {String(total).padStart(2, "0")}
+                      </p>
+                      <span class="border border-white/15 bg-bone/40 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-charcoal backdrop-blur-md">
+                        {sector.title}
+                      </span>
+                    </div>
+
+                    {/* Bottom: location + title + lead */}
+                    <div class="absolute inset-x-0 bottom-0 p-6 lg:p-7">
+                      {location && (
+                        <p class="mb-2 text-[10px] uppercase tracking-[0.28em] text-bone/55">
+                          {location}
+                        </p>
+                      )}
+                      <h3 class="text-2xl leading-[0.95] text-bone lg:text-[1.9rem]">
+                        {project?.title}
+                      </h3>
+                      {lead && (
+                        <p class="mt-3 line-clamp-2 text-sm leading-relaxed text-bone/70">
+                          {lead}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Footer metadata */}
+                  <div class="px-6 py-5 lg:px-7 lg:py-6">
+                    <div class="mb-4 flex items-start justify-between gap-4">
+                      {note && (
+                        <p class="line-clamp-2 text-[10px] font-semibold leading-snug tracking-wide text-charcoal/65">
+                          {note}
+                        </p>
+                      )}
+                      <Icon
+                        name="ph:arrow-up-right"
+                        class="mb-0.5 h-4 w-4 shrink-0 text-charcoal/30 transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-charcoal/60"
+                      />
+                    </div>
+
+                    <dl class="grid grid-cols-3 gap-x-4 border-t border-charcoal/8 pt-4">
+                      <div>
+                        <dt class="text-[9px] uppercase tracking-[0.26em] text-charcoal/35">
+                          Status
+                        </dt>
+                        <dd class="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-charcoal/70">
+                          {project?.projectStatus || "—"}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt class="text-[9px] uppercase tracking-[0.26em] text-charcoal/35">
+                          Year
+                        </dt>
+                        <dd class="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-charcoal/70">
+                          {project?.completionYear || "—"}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt class="text-[9px] uppercase tracking-[0.26em] text-charcoal/35">
+                          Area
+                        </dt>
+                        <dd class="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-charcoal/70">
+                          {area || "—"}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                </a>
+              </article>
+            );
+          })
+        }
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const slider = document.getElementById("evidence-slider") as HTMLElement;
+    const prevBtn = document.getElementById(
+      "evidence-prev",
+    ) as HTMLButtonElement;
+    const nextBtn = document.getElementById(
+      "evidence-next",
+    ) as HTMLButtonElement;
+    if (!slider || !prevBtn || !nextBtn) return;
+
+    let scrollAmount = 0;
+    const calcScrollAmount = () => {
+      const card = slider.querySelector("article") as HTMLElement;
+      if (card)
+        scrollAmount =
+          card.offsetWidth + parseFloat(getComputedStyle(slider).gap || "0");
+    };
+    calcScrollAmount();
+    window.addEventListener("resize", calcScrollAmount, { passive: true });
+
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          const el = e.target as HTMLElement;
+          if ("first" in el.dataset) prevBtn.disabled = e.isIntersecting;
+          if ("last" in el.dataset) nextBtn.disabled = e.isIntersecting;
+        }),
+      { root: slider, threshold: 0.9 },
+    );
+    const firstCard = slider.querySelector("[data-first]");
+    const lastCard = slider.querySelector("[data-last]");
+    if (firstCard) observer.observe(firstCard);
+    if (lastCard) observer.observe(lastCard);
+
+    const scroll = (dir: "left" | "right") =>
+      slider.scrollBy({
+        left: dir === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+
+    let holdTimeout: ReturnType<typeof setTimeout> | null = null;
+    let scrollInterval: ReturnType<typeof setInterval> | null = null;
+
+    const stop = () => {
+      clearTimeout(holdTimeout!);
+      clearInterval(scrollInterval!);
+      holdTimeout = scrollInterval = null;
+    };
+
+    const start = (dir: "left" | "right") => {
+      stop();
+      scroll(dir);
+      holdTimeout = setTimeout(() => {
+        scrollInterval = setInterval(() => {
+          const btn = dir === "left" ? prevBtn : nextBtn;
+          btn.disabled ? stop() : scroll(dir);
+        }, 300);
+      }, 400);
+    };
+
+    prevBtn.addEventListener("pointerdown", (e) => {
+      if (e.button === 0) start("left");
+    });
+    nextBtn.addEventListener("pointerdown", (e) => {
+      if (e.button === 0) start("right");
+    });
+    window.addEventListener("pointerup", stop);
+    window.addEventListener("pointercancel", stop);
+  });
+</script>

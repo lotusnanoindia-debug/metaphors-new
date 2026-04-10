@@ -56,7 +56,7 @@ export default defineConfig({
             // All other document types (excludes project, discipline, sector, homepage, media.tag, settings)
             ...S.documentTypeListItems().filter(
               (listItem) =>
-                !['project', 'discipline', 'sector', 'homepage', 'media.tag'].includes(
+                !['project', 'discipline', 'sector', 'homepage', 'media.tag', 'settings'].includes(
                   listItem.getId(),
                 ),
             ),

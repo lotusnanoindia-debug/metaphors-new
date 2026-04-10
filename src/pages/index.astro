@@ -5,6 +5,7 @@ import Hero from "../components/Hero.astro";
 import StatureDialogue from "../components/StatureDialogue.astro";
 import Sectors from "../components/Sectors.astro";
 import ScaleOfPractice from "../components/ScaleOfPractice.astro";
+import Disciplines from "../components/Disciplines.astro";
 import Evidence from "../components/Evidence.astro";
 import Footer from "../components/Footer.astro";
 import {
@@ -22,30 +23,40 @@ const homeSettings = await client.fetch(HOME_SETTINGS_QUERY);
 const schema = {
   "@context": "https://schema.org",
   "@type": "ArchitecturalStore",
-  "name": "Metaphors Design",
-  "url": "https://metaphors.design",
-  "logo": "https://metaphors.design/logo-v1.png",
-  "description": "Architectural precision for high-stakes Indian developments. ROI-driven design, engineered for execution certainty.",
-  "address": {
+  name: "Metaphors Design",
+  url: "https://metaphors.design",
+  logo: "https://metaphors.design/logo-v1.png",
+  description:
+    "Architectural precision for high-stakes Indian developments. ROI-driven design, engineered for execution certainty.",
+  address: {
     "@type": "PostalAddress",
-    "addressLocality": "Pune",
-    "addressCountry": "India"
+    addressLocality: "Pune",
+    addressCountry: "India",
   },
-  "foundingDate": "1989",
-  "founder": {
+  foundingDate: "1989",
+  founder: {
     "@type": "Person",
-    "name": "Metaphors Architects"
+    name: "Metaphors Architects",
   },
-  "areaServed": "India",
-  "knowsAbout": ["Architectural Design", "Urban Planning", "Corporate Architecture", "Institutional Design"]
+  areaServed: "India",
+  knowsAbout: [
+    "Architectural Design",
+    "Urban Planning",
+    "Corporate Architecture",
+    "Institutional Design",
+  ],
 };
 ---
 
-<Layout 
+<Layout
   title="Metaphors Design | Architectural Precision"
   description="Defining modern Indian architecture for four decades. Metaphors Design delivers precise, ROI-driven architectural solutions for corporate, civic, and residential environments."
 >
-  <script type="application/ld+json" set:html={JSON.stringify(schema)} slot="head" />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(schema)}
+    slot="head"
+  />
   <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
     <Header />
     <Hero
@@ -58,7 +69,7 @@ const schema = {
       ctaUrl={homepage?.heroCtaUrl}
     />
 
-    <StatureDialogue 
+    <StatureDialogue
       homepage={homepage}
       homeSettings={homeSettings}
       quotes={quotes}
@@ -73,8 +84,8 @@ const schema = {
     <Evidence
       eyebrow={homepage?.featuredSectionEyebrow}
       headline={homepage?.featuredSectionHeadline}
-      projects={homepage?.featuredProjects}
     />
+    <Disciplines />
   </div>
   <Footer />
 </Layout>

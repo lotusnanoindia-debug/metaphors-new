@@ -20,4 +20,9 @@ export default defineType({
       description: 'e.g., MH, KA, DL',
     }),
   ],
+  preview: {
+    select: {
+      title: 'name',
+    },
+  },
 })

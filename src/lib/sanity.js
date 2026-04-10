@@ -85,6 +85,50 @@ export const SECTORS_QUERY = `*[_type == "sector"] | order(orderRank asc){
   }
 }`;
 
+export const EVIDENCE_SECTOR_SLIDER_QUERY = `*[_type == "sector"] | order(orderRank asc)[0...8]{
+  _id,
+  title,
+  "slug": slug.current,
+  homeHeadline,
+  homeIntro,
+  "leadProject": coalesce(
+    *[_type == "project" && isVisible == true && category._ref == ^._id && featured == true] | order(orderRank asc, completionYear desc)[0]{
+      _id,
+      "title": projectName,
+      headline,
+      "slug": slug.current,
+      projectStatus,
+      completionYear,
+      areaSqFt,
+      highlights,
+      "location": {
+        "city": location.city,
+        "state": coalesce(location.indiaState->title, location.otherState),
+        "country": location.country->title
+      },
+      coverImage,
+      mainImage
+    },
+    *[_type == "project" && isVisible == true && category._ref == ^._id] | order(orderRank asc, completionYear desc)[0]{
+      _id,
+      "title": projectName,
+      headline,
+      "slug": slug.current,
+      projectStatus,
+      completionYear,
+      areaSqFt,
+      highlights,
+      "location": {
+        "city": location.city,
+        "state": coalesce(location.indiaState->title, location.otherState),
+        "country": location.country->title
+      },
+      coverImage,
+      mainImage
+    }
+  )
+}`;
+
 export const ALL_DISCIPLINES_WITH_AREA_QUERY = `*[_type == "discipline"] | order(orderRank asc){
   _id,
   title,

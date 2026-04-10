@@ -20,4 +20,9 @@ export default defineType({
       description: 'e.g., IN, US, UK',
     }),
   ],
+  preview: {
+    select: {
+      title: 'name',
+    },
+  },
 })
