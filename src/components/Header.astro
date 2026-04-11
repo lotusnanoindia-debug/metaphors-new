@@ -157,8 +157,20 @@ const menuItems = [
               opacity-0 -translate-y-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
   >
     <div
-      class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-[1fr_1.4fr] py-10 lg:py-16 gap-16"
+      class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-[1fr_1.4fr] py-10 lg:py-16 gap-16 relative"
     >
+      <!-- Close Button -->
+      <button
+        class="absolute top-10 right-12 text-[9px] font-medium uppercase tracking-[0.4em] text-charcoal/20 hover:text-black transition-all duration-300 flex items-center gap-3 mm-close-btn cursor-pointer group/close z-50"
+        aria-label="Close menu"
+      >
+        <span>Close</span>
+        <Icon
+          name="ph:x"
+          class="w-3.5 h-3.5 transition-transform duration-500 group-hover/close:rotate-90"
+        />
+      </button>
+
       <!-- Left: Numbered List -->
       <div class="flex flex-col justify-between">
         <p
@@ -179,11 +191,12 @@ const menuItems = [
                      group-hover/list:opacity-50 hover:opacity-100! [&.is-active]:text-black [&.is-active]:opacity-100!"
                 data-image={imageUrl(sector.image)}
                 data-tagline={sector.tagline}
+                data-title={sector.title}
               >
-                <span class="text-[10px] font-medium tracking-[0.2em] w-6 shrink-0 tabular-nums">
+                <span class="text-[14px] font-serif italic tracking-widest w-8 shrink-0 tabular-nums opacity-20 group-hover/item:opacity-100 group-[.is-active]/item:opacity-100 transition-all duration-500">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span class="text-[22px] lg:text-[26px] font-medium leading-tight tracking-tight">
+                <span class="text-[22px] lg:text-[26px] font-medium leading-tight tracking-tight transition-transform duration-500 group-hover/item:translate-x-3 group-[.is-active]/item:translate-x-3">
                   {sector.title}
                 </span>
                 <div class="ml-auto flex items-center">
@@ -225,6 +238,11 @@ const menuItems = [
           class="absolute bottom-12 left-12 right-12 z-10 opacity-0 translate-y-2 transition-all duration-700 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
         >
           <div class="border-l border-white/30 pl-6 py-2">
+            <h4
+              class="text-3xl lg:text-4xl font-serif italic text-white mb-3 leading-tight opacity-0 transition-opacity duration-700 [&.is-visible]:opacity-100"
+              id="sectors-caption-header"
+            >
+            </h4>
             <p
               class="text-[10px] font-semibold uppercase tracking-[0.5em] text-white/90 leading-relaxed max-w-[80%]"
               id="sectors-caption-text"
@@ -257,8 +275,20 @@ const menuItems = [
               opacity-0 -translate-y-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
   >
     <div
-      class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-[1fr_1.4fr] py-10 lg:py-16 gap-16"
+      class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-[1fr_1.4fr] py-10 lg:py-16 gap-16 relative"
     >
+      <!-- Close Button -->
+      <button
+        class="absolute top-10 right-12 text-[9px] font-medium uppercase tracking-[0.4em] text-charcoal/20 hover:text-black transition-all duration-300 flex items-center gap-3 mm-close-btn cursor-pointer group/close z-50"
+        aria-label="Close menu"
+      >
+        <span>Close</span>
+        <Icon
+          name="ph:x"
+          class="w-3.5 h-3.5 transition-transform duration-500 group-hover/close:rotate-90"
+        />
+      </button>
+
       <!-- Left: Numbered List -->
       <div class="flex flex-col justify-between">
         <p
@@ -279,11 +309,12 @@ const menuItems = [
                      group-hover/list:opacity-50 hover:opacity-100! [&.is-active]:text-black [&.is-active]:opacity-100!"
                 data-image={imageUrl(d.image)}
                 data-tagline={d.tagline}
+                data-title={d.title}
               >
-                <span class="text-[10px] font-medium tracking-[0.2em] w-6 shrink-0 tabular-nums">
+                <span class="text-[14px] font-serif italic tracking-widest w-8 shrink-0 tabular-nums opacity-20 group-hover/item:opacity-100 group-[.is-active]/item:opacity-100 transition-all duration-500">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span class="text-[22px] lg:text-[26px] font-medium leading-tight tracking-tight">
+                <span class="text-[22px] lg:text-[26px] font-medium leading-tight tracking-tight transition-transform duration-500 group-hover/item:translate-x-3 group-[.is-active]/item:translate-x-3">
                   {d.title}
                 </span>
                 <div class="ml-auto flex items-center">
@@ -325,6 +356,11 @@ const menuItems = [
           class="absolute bottom-12 left-12 right-12 z-10 opacity-0 translate-y-2 transition-all duration-700 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
         >
           <div class="border-l border-white/30 pl-6 py-2">
+            <h4
+              class="text-3xl lg:text-4xl font-serif italic text-white mb-3 leading-tight opacity-0 transition-opacity duration-700 [&.is-visible]:opacity-100"
+              id="disciplines-caption-header"
+            >
+            </h4>
             <p
               class="text-[10px] font-semibold uppercase tracking-[0.5em] text-white/90 leading-relaxed max-w-[80%]"
               id="disciplines-caption-text"
@@ -542,6 +578,7 @@ const menuItems = [
       gradientId: string;
       captionId: string;
       captionTextId: string;
+      captionHeaderId: string;
       itemSelector: string;
     }
 
@@ -561,11 +598,15 @@ const menuItems = [
       const captionText = document.getElementById(
         cfg.captionTextId,
       ) as HTMLElement;
+      const captionHeader = document.getElementById(
+        cfg.captionHeaderId,
+      ) as HTMLElement;
 
       if (!trigger || !panel) return;
 
       const mmPanel = panel.querySelector(".mm-panel") as HTMLElement;
       const mmBackdrop = panel.querySelector(".mm-backdrop") as HTMLElement;
+      const closeBtn = panel.querySelector(".mm-close-btn") as HTMLElement;
       const items = panel.querySelectorAll(cfg.itemSelector);
 
       let closeTimer: ReturnType<typeof setTimeout>;
@@ -575,6 +616,12 @@ const menuItems = [
         clearTimeout(closeTimer);
         panel.classList.remove("pointer-events-none");
         panel.setAttribute("aria-hidden", "false");
+
+        // Escape key support
+        const onEsc = (e: KeyboardEvent) => {
+          if (e.key === "Escape") closeMenu();
+        };
+        document.addEventListener("keydown", onEsc, { once: true });
 
         // Underline
         trigger.querySelector(".nav-underline")?.classList.add("scale-x-100");
@@ -593,8 +640,9 @@ const menuItems = [
           firstItem.classList.add("is-active");
           const src = firstItem.dataset.image || "";
           const tagline = firstItem.dataset.tagline || "";
+          const title = firstItem.dataset.title || "";
           const href = (firstItem as HTMLAnchorElement).href || "";
-          if (src) showImage(src, tagline, href);
+          if (src) showImage(src, tagline, title, href);
         }
       };
 
@@ -617,7 +665,12 @@ const menuItems = [
         }, 150);
       };
 
-      const showImage = (src: string, tagline: string, href: string) => {
+      const showImage = (
+        src: string,
+        tagline: string,
+        title: string,
+        href: string,
+      ) => {
         if (src === currentImgSrc) return;
         currentImgSrc = src;
 
@@ -625,8 +678,8 @@ const menuItems = [
         if (previewLink) previewLink.href = href;
 
         // Remove 'is-visible' first to reset transition if needed
-        [previewImg, previewGradient, previewCaption].forEach((el) =>
-          el.classList.remove("is-visible"),
+        [previewImg, previewGradient, previewCaption, captionHeader].forEach(
+          (el) => el?.classList.remove("is-visible"),
         );
 
         // Minor delay to ensure browser paints the removal if we wanted a per-image reset,
@@ -634,19 +687,22 @@ const menuItems = [
         previewImg.src = src;
 
         requestAnimationFrame(() => {
-          [previewImg, previewGradient, previewCaption].forEach((el) =>
-            el.classList.add("is-visible"),
+          [previewImg, previewGradient, previewCaption, captionHeader].forEach(
+            (el) => el?.classList.add("is-visible"),
           );
           if (tagline && captionText) {
             captionText.textContent = tagline;
+          }
+          if (title && captionHeader) {
+            captionHeader.textContent = title;
           }
         });
       };
 
       const hideImage = () => {
         currentImgSrc = "";
-        [previewImg, previewGradient, previewCaption].forEach((el) =>
-          el.classList.remove("is-visible"),
+        [previewImg, previewGradient, previewCaption, captionHeader].forEach(
+          (el) => el?.classList.remove("is-visible"),
         );
         // Also clear active item if image is hidden
         items.forEach((el) => el.classList.remove("is-active"));
@@ -669,13 +725,20 @@ const menuItems = [
 
           const src = (item as HTMLElement).dataset.image || "";
           const tagline = (item as HTMLElement).dataset.tagline || "";
+          const title = (item as HTMLElement).dataset.title || "";
           const href = (item as HTMLAnchorElement).href || "";
-          if (src) showImage(src, tagline, href);
+          if (src) showImage(src, tagline, title, href);
         });
       });
 
       // Backdrop click → close
       mmBackdrop.addEventListener("click", () => {
+        clearTimeout(closeTimer);
+        closeMenu();
+      });
+
+      // Close button click
+      closeBtn?.addEventListener("click", () => {
         clearTimeout(closeTimer);
         closeMenu();
       });
@@ -689,6 +752,7 @@ const menuItems = [
       gradientId: "sectors-preview-gradient",
       captionId: "sectors-preview-caption",
       captionTextId: "sectors-caption-text",
+      captionHeaderId: "sectors-caption-header",
       itemSelector: ".sector-item",
     });
 
@@ -700,6 +764,7 @@ const menuItems = [
       gradientId: "disciplines-preview-gradient",
       captionId: "disciplines-preview-caption",
       captionTextId: "disciplines-caption-text",
+      captionHeaderId: "disciplines-caption-header",
       itemSelector: ".discipline-item",
     });
   })();

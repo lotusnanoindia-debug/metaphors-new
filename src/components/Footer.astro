@@ -1,144 +1,211 @@
 ---
 import { Icon } from "astro-icon/components";
+import { client, SECTORS_QUERY, DISCIPLINES_QUERY } from "../lib/sanity";
 
-const footerLinks = {
-  sectors: [
-    { name: "Commerce & Retail", href: "/sectors/commerce-retail" },
-    { name: "Hospitality & Leisure", href: "/sectors/hospitality-leisure" },
-    {
-      name: "Private & Collective Living",
-      href: "/sectors/private-collective-living",
-    },
-    {
-      name: "Institutional & Corporate",
-      href: "/sectors/institutional-corporate",
-    },
-  ],
-  company: [
-    { name: "Strategic Approach", href: "/approach" },
-    { name: "Selected Evidence", href: "/archive" },
-    { name: "The Partnership", href: "/partnership" },
-  ],
-  legal: [
-    { name: "Terms of Engagement", href: "/legal/terms" },
-    { name: "Privacy Policy", href: "/legal/privacy" },
-  ],
-};
+const sectorsData = await client.fetch(SECTORS_QUERY);
+const disciplinesData = await client.fetch(DISCIPLINES_QUERY);
+
+const Portfolio = sectorsData.map((sector: any) => ({
+  name: sector.title,
+  href: `/sectors/${sector.slug}`,
+}));
+
+const Expertise = disciplinesData.map((d: any) => ({
+  name: d.title,
+  href: `/disciplines/${d.slug}`,
+}));
+
+const Practice = [
+  { name: "Approach", href: "/approach" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+];
+
+const Legal = [
+  { name: "Terms of Engagement", href: "/legal/terms" },
+  { name: "Privacy Policy", href: "/legal/privacy" },
+];
 ---
 
 <footer class="bg-charcoal text-bone pt-24 pb-12">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
     <div
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-24 mb-24"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 lg:gap-8 mb-24"
     >
-      {/* Brand & Mission */}
-      <div class="lg:col-span-1">
+      {/* Column 1: Studio Info */}
+      <div class="lg:col-span-2 pr-12">
         <div class="flex items-center gap-3 mb-8">
           <img
             alt="Metaphors Design Logo"
-            class="h-8 w-auto"
-            src="/logo-v1.png"
+            class="h-7 w-auto transition-transform duration-500 hover:scale-105"
+            src="/metaphors-design-logo.svg"
             loading="lazy"
             decoding="async"
           />
-          <span class="text-xl font-medium tracking-tight lowercase text-bone"
+          <span class="text-xl font-medium tracking-tight text-bone"
             >metaphors design</span
           >
         </div>
-        <p class="text-sm text-bone/40 leading-relaxed max-w-[280px]">
-          Modern Indian Architecture. Designed for scale, environmental
-          intelligence, and lasting civic impact.
+        <p class="text-sm text-bone/40 leading-relaxed max-w-sm mb-8">
+          Four decades of shaping India's corporate, civic, and residential
+          landscape. A practice built on architectural precision, long-term
+          stewardship, and measured ambition.
         </p>
-      </div>
 
-      {/* Strategic Portfolio */}
-      <div>
-        <h4
-          class="text-[10px] font-medium uppercase tracking-[0.3em] text-white/30 mb-8"
-        >
-          Portfolio
-        </h4>
-        <ul class="space-y-4">
-          {
-            footerLinks.sectors.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  class="text-sm text-bone/60 hover:text-white luxury-transition micro-hover pb-0.5"
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+        <div class="space-y-3 mb-8 mt-[2px]">
+          <div class="flex items-start gap-3">
+            <Icon
+              name="ph:map-pin-light"
+              class="w-[18px] h-[18px] text-bone/40 shrink-0"
+            />
+            <a
+              href="https://maps.app.goo.gl/Pp2mLdzqZynSaU5b9"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-[13px] text-bone/60 hover:text-white transition-colors cursor-pointer"
+            >
+              Studio: Pune, India
+            </a>
+          </div>
 
-      {/* Corporate Strategy */}
-      <div>
-        <h4
-          class="text-[10px] font-medium uppercase tracking-[0.3em] text-white/30 mb-8"
-        >
-          Practice
-        </h4>
-        <ul class="space-y-4">
-          {
-            footerLinks.company.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  class="text-sm text-bone/60 hover:text-white luxury-transition micro-hover pb-0.5"
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+          <div class="flex items-start gap-3">
+            <Icon
+              name="ph:envelope-light"
+              class="w-[18px] h-[18px] text-bone/40 shrink-0"
+            />
+            <a
+              href="#"
+              onclick="window.location.href='mailto:' + 'moc.ngised-srohpatem@ofni'.split('').reverse().join(''); return false;"
+              class="text-[13px] text-bone/60 hover:text-white inline-block transition-colors"
+              aria-label="Email us"
+            >
+              <span style="unicode-bidi: bidi-override; direction: rtl;"
+                >moc.ngised-srohpatem@ofni</span
+              >
+            </a>
+          </div>
 
-      {/* Global Inquiries */}
-      <div>
-        <h4
-          class="text-[10px] font-medium uppercase tracking-[0.3em] text-white/30 mb-8"
-        >
-          Studio
-        </h4>
-        <p class="text-sm mb-6 leading-relaxed">
-          Shambhu Vihar Society, Pallod Farms II,<br />
-          Nankude Vasti, Aundh,<br />
-          Pune, Maharashtra 411067<br />
-          India
-        </p>
+          <div class="flex items-start gap-3">
+            <Icon
+              name="ph:phone-light"
+              class="w-[18px] h-[18px] text-bone/40 shrink-0"
+            />
+            <div class="text-[13px] text-bone/60 flex flex-wrap gap-x-2">
+              <a
+                href="tel:+919665355522"
+                class="hover:text-white transition-colors"
+              >
+                (+91) 96653 55522
+              </a>
+              <span class="text-bone/20">/</span>
+              <a
+                href="tel:+919822279173"
+                class="hover:text-white transition-colors"
+              >
+                (+91) 98222 79173
+              </a>
+            </div>
+          </div>
+        </div>
+
         <div class="flex items-center gap-6">
+          <a
+            href="https://www.facebook.com/metaphorsdesign/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            class="text-white/80 transition-colors duration-300 hover:text-[#1877F2]"
+          >
+            <Icon name="ph:facebook-logo-fill" class="w-8 h-8" />
+          </a>
           <a
             href="https://linkedin.com/company/metaphors-design"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            class="text-white/40 hover:text-white transition-colors"
+            class="text-white/80 transition-colors duration-300 hover:text-[#0077B5]"
           >
-            <Icon name="mdi:linkedin" class="w-5 h-5" />
+            <Icon name="ph:linkedin-logo-fill" class="w-8 h-8" />
           </a>
           <a
-            href="https://facebook.com/metaphorsdesign"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Facebook"
-            class="text-white/40 hover:text-white transition-colors"
-          >
-            <Icon name="mdi:facebook" class="w-5 h-5" />
-          </a>
-          <a
-            href="https://instagram.com/metaphorsdesign"
+            href="https://instagram.com/metaphorspune"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
-            class="text-white/40 hover:text-white transition-colors"
+            class="text-white/80 transition-colors duration-300 hover:text-[#E4405F]"
           >
-            <Icon name="mdi:instagram" class="w-5 h-5" />
+            <Icon name="ph:instagram-logo-fill" class="w-8 h-8" />
           </a>
         </div>
+      </div>
+
+      {/* Column 2: Portfolio (Sectors) */}
+      <div>
+        <h4
+          class="text-[10px] font-medium uppercase tracking-[0.4em] text-white/50 mb-8"
+        >
+          Portfolio
+        </h4>
+        <ul class="space-y-4">
+          {
+            Portfolio.map((link: any) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-sm text-bone/60 hover:text-white transition-colors duration-300 inline-block"
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      {/* Column 3: Expertise (Disciplines) */}
+      <div>
+        <h4
+          class="text-[10px] font-medium uppercase tracking-[0.4em] text-white/50 mb-8"
+        >
+          Studio Disciplines
+        </h4>
+        <ul class="space-y-4">
+          {
+            Expertise.map((link: any) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-sm text-bone/60 hover:text-white transition-colors duration-300 inline-block"
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      {/* Column 4: Practice */}
+      <div>
+        <h4
+          class="text-[10px] font-medium uppercase tracking-[0.4em] text-white/50 mb-8"
+        >
+          Practice
+        </h4>
+        <ul class="space-y-4">
+          {
+            Practice.map((link: any) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-sm text-bone/60 hover:text-white transition-colors duration-300 inline-block"
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </div>
 
@@ -148,7 +215,7 @@ const footerLinks = {
     >
       <div class="flex gap-8">
         {
-          footerLinks.legal.map((link) => (
+          Legal.map((link) => (
             <a
               href={link.href}
               class="text-[10px] font-medium uppercase tracking-[0.2em] text-white/30 hover:text-white/60 luxury-transition micro-hover pb-1"
@@ -161,7 +228,7 @@ const footerLinks = {
       <p
         class="text-[10px] font-medium uppercase tracking-[0.2em] text-white/20 text-center md:text-right"
       >
-        © 2026 Metaphors Design. All rights reserved.
+        © 2026 Metaphors Design.
       </p>
     </div>
   </div>

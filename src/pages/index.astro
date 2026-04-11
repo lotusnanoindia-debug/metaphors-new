@@ -7,6 +7,7 @@ import Sectors from "../components/Sectors.astro";
 import ScaleOfPractice from "../components/ScaleOfPractice.astro";
 import Disciplines from "../components/Disciplines.astro";
 import Evidence from "../components/Evidence.astro";
+import MainCta from "../components/MainCta.astro";
 import Footer from "../components/Footer.astro";
 import {
   client,
@@ -86,6 +87,7 @@ const schema = {
       headline={homepage?.featuredSectionHeadline}
     />
     <Disciplines />
+    <MainCta />
   </div>
   <Footer />
 </Layout>

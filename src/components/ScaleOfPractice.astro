@@ -36,7 +36,7 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
 ---
 
 <section
-  class="relative w-full bg-bone py-20 md:pb-24 lg:pb-48 overflow-hidden"
+  class="relative w-full bg-[#f2f1ec] py-24 md:py-40 lg:py-56 overflow-hidden"
 >
   {/* Architectural Grid Layer */}
   <div
@@ -46,18 +46,7 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
   >
   </div>
 
-  {/* Ghost Scale: Massive background parallax number */}
-  <div
-    class="absolute inset-x-0 -bottom-20 lg:-bottom-40 flex justify-center pointer-events-none select-none opacity-[0.02] transition-transform duration-1000 ease-out"
-    style="transform: translateY(var(--scroll-y, 0))"
-    id="ghost-scale"
-  >
-    <span
-      class="font-serif italic text-[35vw] leading-none tracking-tighter text-charcoal"
-    >
-      {formattedTotal.split(" ")[0]}
-    </span>
-  </div>
+
 
   <div class="max-w-[1800px] mx-auto px-6 lg:px-12 relative z-10">
     <div class="flex flex-col items-center text-center">
