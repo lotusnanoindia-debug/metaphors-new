@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import {defineType, defineField} from 'sanity'
 
 /**
  * homepage — singleton document
@@ -22,10 +22,10 @@ export default defineType({
   type: 'document',
 
   groups: [
-    { name: 'hero', title: 'Hero' },
-    { name: 'featureImages', title: 'Feature Images' },
-    { name: 'scale', title: 'Scale of Practice' },
-    { name: 'featured', title: 'Featured Projects' },
+    {name: 'hero', title: 'Hero'},
+    {name: 'featureImages', title: 'Feature Images'},
+    {name: 'scale', title: 'Scale of Practice'},
+    {name: 'featured', title: 'Featured Projects'},
   ],
 
   fields: [
@@ -100,11 +100,16 @@ export default defineType({
       name: 'statureImage',
       title: 'Stature Image (large, left)',
       type: 'image',
-      options: { hotspot: true },
+      options: {hotspot: true},
       fields: [
-        { name: 'alt', title: 'Alt Text', type: 'string' },
-        { name: 'caption', title: 'Architectural Caption', type: 'string',
-          description: 'Displayed as a tiny footnote below the image pair. e.g. "Oracle Centre, Pune, India"' },
+        {name: 'alt', title: 'Alt Text', type: 'string'},
+        {
+          name: 'caption',
+          title: 'Architectural Caption',
+          type: 'string',
+          description:
+            'Displayed as a tiny footnote below the image pair. e.g. "Oracle Centre, Pune, India"',
+        },
       ],
       group: 'featureImages',
     }),
@@ -113,10 +118,8 @@ export default defineType({
       name: 'precisionImage',
       title: 'Precision Image (small, right)',
       type: 'image',
-      options: { hotspot: true },
-      fields: [
-        { name: 'alt', title: 'Alt Text', type: 'string' },
-      ],
+      options: {hotspot: true},
+      fields: [{name: 'alt', title: 'Alt Text', type: 'string'}],
       group: 'featureImages',
     }),
 
@@ -163,7 +166,7 @@ export default defineType({
       name: 'featuredSectionHeadline',
       title: 'Section Headline',
       type: 'string',
-      initialValue: 'Selected Landmark Deployments.',
+      initialValue: 'Selected Deployments.',
       group: 'featured',
     }),
 
@@ -188,7 +191,8 @@ export default defineType({
               name: 'sectorLabel',
               title: 'Sector Label',
               type: 'string',
-              description: 'Displayed in small caps above the title. e.g. "Institutional & Corporate"',
+              description:
+                'Displayed in small caps above the title. e.g. "Institutional & Corporate"',
             }),
             defineField({
               name: 'location',
@@ -207,10 +211,8 @@ export default defineType({
               name: 'image',
               title: 'Project Image',
               type: 'image',
-              options: { hotspot: true },
-              fields: [
-                { name: 'alt', title: 'Alt Text', type: 'string' },
-              ],
+              options: {hotspot: true},
+              fields: [{name: 'alt', title: 'Alt Text', type: 'string'}],
             }),
             defineField({
               name: 'stats',
@@ -220,10 +222,10 @@ export default defineType({
                 {
                   type: 'object',
                   fields: [
-                    { name: 'label', title: 'Label', type: 'string' },
-                    { name: 'value', title: 'Value', type: 'string' },
+                    {name: 'label', title: 'Label', type: 'string'},
+                    {name: 'value', title: 'Value', type: 'string'},
                   ],
-                  preview: { select: { title: 'label', subtitle: 'value' } },
+                  preview: {select: {title: 'label', subtitle: 'value'}},
                 },
               ],
               validation: (Rule) => Rule.max(2),
@@ -232,11 +234,12 @@ export default defineType({
               name: 'linkUrl',
               title: 'Card Link URL',
               type: 'string',
-              description: 'Where "Project Details" links to. Can be a /projects/[slug] or /archive/[slug].',
+              description:
+                'Where "Project Details" links to. Can be a /projects/[slug] or /archive/[slug].',
             }),
           ],
           preview: {
-            select: { title: 'title', subtitle: 'sectorLabel', media: 'image' },
+            select: {title: 'title', subtitle: 'sectorLabel', media: 'image'},
           },
         },
       ],
@@ -246,7 +249,7 @@ export default defineType({
 
   preview: {
     prepare() {
-      return { title: 'Homepage' }
+      return {title: 'Homepage'}
     },
   },
 })

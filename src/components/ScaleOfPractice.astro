@@ -51,7 +51,7 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
   <div class="max-w-[1800px] mx-auto px-6 lg:px-12 relative z-10">
     <div class="flex flex-col items-center text-center">
       <h2
-        class="text-4xl lg:text-7xl font-serif italic capitalize mb-28 leading-[1.1] text-charcoal max-w-5xl reveal"
+        class="text-6xl leading-[0.99] tracking-tight text-charcoal lg:text-[6.5rem] mb-28 max-w-5xl reveal"
         style="transition-delay: 100ms"
       >
         {headline}
@@ -65,7 +65,7 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
         <div class="relative inline-block">
           <span
             id="monumental-value"
-            class="text-[140px] lg:text-[280px] font-serif italic leading-[0.7] tracking-tighter text-charcoal block"
+            class="text-[140px] lg:text-[280px] font-sans not-italic leading-[0.7] tracking-tighter text-charcoal block"
           >
             {formattedTotal.split(" ")[0]} +
           </span>
@@ -126,7 +126,7 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
                 Sq Ft + (Imperial)
               </p>
               <p
-                class="text-3xl font-serif italic text-charcoal/70 transition-all hover:text-charcoal cursor-default"
+                class="text-3xl font-sans not-italic text-charcoal/70 transition-all hover:text-charcoal cursor-default"
               >
                 {intlTotalSqFt}
               </p>
@@ -138,7 +138,7 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
                 Sq Metres + (Metric)
               </p>
               <p
-                class="text-3xl font-serif italic text-charcoal/70 transition-all hover:text-charcoal cursor-default"
+                class="text-3xl font-sans not-italic text-charcoal/70 transition-all hover:text-charcoal cursor-default"
               >
                 {intlTotalSqMt}
               </p>

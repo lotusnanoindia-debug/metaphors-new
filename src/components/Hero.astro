@@ -1,44 +1,29 @@
 ---
-import Cta from "./Cta.astro";
-
-const {
-  eyebrow,
-  headline,
-  headlineAccent,
-  headlineTagline,
-  ctaLabel,
-  ctaUrl,
-} = Astro.props;
+const { eyebrow, headline, headlineAccent, headlineTagline, ctaLabel, ctaUrl } =
+  Astro.props;
 ---
 
 <section class="relative w-full pt-48 pb-24 lg:pt-56 lg:pb-32">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
     <div class="max-w-5xl mx-auto flex flex-col items-center text-center">
-      {
-        eyebrow && (
-          <p class="text-[10px] font-medium uppercase tracking-[0.3em] text-black/30 mb-8 reveal">
-            {eyebrow}
-          </p>
-        )
-      }
+      <h1
+        class="font-medium leading-[0.88] tracking-[-0.045em] text-[clamp(3.8rem,11vw,9rem)] lg:text-[clamp(3.8rem,9vw,8rem)] select-none mb-16 reveal"
+      >
+        <span class="block text-neutral-950">{headline}</span>
 
-      <h1 class="text-6xl sm:text-7xl lg:text-[120px] font-medium leading-[0.99] tracking-tighter text-black mb-16 reveal">
-        {headline}<br />
-        <span class="italic font-normal text-black/60">{headlineAccent}</span>
+        <span
+          class="block text-transparent bg-clip-text animate-sheen will-change-[background-position] bg-[linear-gradient(105deg,#6b6b67_0%,#6b6b67_40%,#a8a8a2_48%,#a8a8a2_52%,#6b6b67_60%,#6b6b67_100%)] bg-size-[200%_auto]"
+          >{headlineAccent}</span
+        >
+
         {
           headlineTagline && (
-            <span class="block text-2xl lg:text-4xl font-serif italic text-black/30 tracking-normal mt-8">
+            <span class="block text-2xl lg:text-4xl font-semibold text-black/30 tracking-normal mt-8">
               {headlineTagline}
             </span>
           )
         }
       </h1>
-
-      <div
-        class="reveal flex flex-wrap items-center justify-center gap-10 mb-24"
-      >
-        <Cta text={ctaLabel} href={ctaUrl} invert={true} />
-      </div>
     </div>
   </div>
 </section>

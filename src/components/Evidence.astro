@@ -74,7 +74,7 @@ function evidenceNote(project: any): string | null {
         </p>
         <h2
           id="evidence-heading"
-          class="font-serif text-6xl italic leading-[0.99] tracking-tight text-charcoal lg:text-[6.5rem]"
+          class="text-6xl leading-[0.99] tracking-tight text-charcoal lg:text-[6.5rem]"
         >
           {headline}
         </h2>
@@ -87,8 +87,8 @@ function evidenceNote(project: any): string | null {
         <p
           class="text-[10px] sm:text-xs font-semibold leading-loose tracking-[0.25em] text-charcoal/60"
         >
-          A CURATED TRACK RECORD OF LANDMARK DEPLOYMENTS VALIDATED THROUGH
-          DECADES OF PRECISION AND RESPONSIBLE STEWARDSHIP.
+          A TRACK RECORD OF KEY DEPLOYMENTS VALIDATED THROUGH DECADES OF
+          PRECISION AND RESPONSIBLE STEWARDSHIP.
         </p>
         <div class="flex justify-center lg:justify-end w-full">
           <Cta text="Discuss Your Project" href="/contact" invert={true} />
@@ -191,7 +191,7 @@ function evidenceNote(project: any): string | null {
                         {String(index + 1).padStart(2, "0")} /{" "}
                         {String(total).padStart(2, "0")}
                       </p>
-                      <span class="border border-white/15 bg-bone/40 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-charcoal backdrop-blur-md">
+                      <span class="border border-white/15 bg-bone/90 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-charcoal backdrop-blur-md">
                         {sector.title}
                       </span>
                     </div>
@@ -233,7 +233,7 @@ function evidenceNote(project: any): string | null {
                         <dt class="text-[9px] uppercase tracking-[0.26em] text-charcoal/35">
                           Status
                         </dt>
-                        <dd class="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-charcoal/70">
+                        <dd class="mt-0.5 text-[10px] font-semibold uppercase tracking-widest text-charcoal/70">
                           {project?.projectStatus || "—"}
                         </dd>
                       </div>
@@ -241,7 +241,7 @@ function evidenceNote(project: any): string | null {
                         <dt class="text-[9px] uppercase tracking-[0.26em] text-charcoal/35">
                           Year
                         </dt>
-                        <dd class="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-charcoal/70">
+                        <dd class="mt-0.5 text-[10px] font-semibold uppercase tracking-widest text-charcoal/70">
                           {project?.completionYear || "—"}
                         </dd>
                       </div>
@@ -249,7 +249,7 @@ function evidenceNote(project: any): string | null {
                         <dt class="text-[9px] uppercase tracking-[0.26em] text-charcoal/35">
                           Area
                         </dt>
-                        <dd class="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-charcoal/70">
+                        <dd class="mt-0.5 text-[10px] font-semibold uppercase tracking-widest text-charcoal/70">
                           {area || "—"}
                         </dd>
                       </div>

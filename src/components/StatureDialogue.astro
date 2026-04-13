@@ -10,7 +10,7 @@ interface Props {
 const { homepage, homeSettings, quotes } = Astro.props;
 ---
 
-<section class="w-full px-6 lg:px-12 pb-32 lg:pb-48">
+<section class="w-full px-6 lg:px-12 pb-32 lg:pb-48 -mt-12 lg:mt-0">
   <div class="max-w-[1440px] mx-auto reveal relative">
     <div class="grid grid-cols-1 lg:grid-cols-10 gap-6 lg:gap-4">
       {/* Large Image - Stature */}
@@ -19,10 +19,10 @@ const { homepage, homeSettings, quotes } = Astro.props;
         {
           homepage?.heroSubheading && (
             <div class="max-w-2xl mx-auto text-center lg:text-left lg:mx-0 reveal">
-              <p class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/30 mb-4">
+              <p class="hidden lg:block text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/30 mb-4">
                 Studio Context
               </p>
-              <p class="text-2xl lg:text-4xl text-charcoal/90 font-sans font-light leading-[1.15] tracking-tight italic">
+              <p class="text-2xl lg:text-4xl text-charcoal/90 font-sans font-light leading-[1.15] tracking-tight">
                 {homepage?.heroSubheading}
               </p>
             </div>
@@ -88,7 +88,7 @@ const { homepage, homeSettings, quotes } = Astro.props;
                   class={`press-quote absolute inset-10 flex flex-col justify-end transition-opacity duration-1000 ${idx === 0 ? "opacity-100" : "opacity-0"}`}
                   data-index={idx}
                 >
-                  <p class="text-lg md:text-3xl text-white font-serif font-light leading-relaxed italic mb-8">
+                  <p class="text-lg md:text-3xl text-white font-sans font-light leading-relaxed mb-8">
                     "{item.quote}"
                   </p>
 
@@ -115,12 +115,12 @@ const { homepage, homeSettings, quotes } = Astro.props;
           >
             <div>
               <p
-                class="text-[10px] font-bold uppercase tracking-[0.5em] text-white/30"
+                class="text-[10px] font-bold uppercase tracking-[0.3 em] text-white/30"
               >
                 Press Perspectives
               </p>
-              <p class="text-[10px] text-white/50 mt-1 italic">
-                Documented Design Discourse
+              <p class="text-[10px] text-white/50 mt-1">
+                Independent Assessment
               </p>
             </div>
 
@@ -128,7 +128,7 @@ const { homepage, homeSettings, quotes } = Astro.props;
               href="/perspectives"
               class="group/link flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] text-white/60 hover:text-white transition-colors duration-300"
             >
-              MORE
+              MORE VOICES
               <span
                 class="block w-4 h-px bg-white/20 group-hover/link:bg-white group-hover/link:w-8 transition-all duration-500"
               ></span>
