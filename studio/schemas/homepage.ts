@@ -23,227 +23,272 @@ export default defineType({
 
   groups: [
     {name: 'hero', title: 'Hero'},
-    {name: 'featureImages', title: 'Feature Images'},
+    {name: 'stature', title: 'Studio Context'},
+    {name: 'sectors', title: 'Sectors of Practice'},
     {name: 'scale', title: 'Scale of Practice'},
-    {name: 'featured', title: 'Featured Projects'},
+    {name: 'disciplines', title: 'Disciplines'},
+    {name: 'mainCta', title: 'Editorial Closure'},
   ],
 
   fields: [
     // ── HERO ────────────────────────────────────────────────────────────────
-
     defineField({
-      name: 'heroEyebrow',
-      title: 'Eyebrow',
-      type: 'string',
-      description: 'Small label above the headline. e.g. "Metaphors Design • Est. 1989"',
-      initialValue: 'Metaphors Design • Est. 1989',
+      name: 'heroSection',
+      title: 'Hero Configuration',
+      type: 'object',
       group: 'hero',
-    }),
-
-    defineField({
-      name: 'heroHeadline',
-      title: 'Headline',
-      type: 'string',
-      description: 'First line of the large hero heading.',
-      initialValue: 'Defining Modern',
-      validation: (Rule) => Rule.required(),
-      group: 'hero',
-    }),
-
-    defineField({
-      name: 'heroHeadlineAccent',
-      title: 'Headline Accent (italic line)',
-      type: 'string',
-      description: 'Second italic line of the heading. e.g. "Indian Architecture."',
-      initialValue: 'Indian Architecture.',
-      group: 'hero',
-    }),
-
-    defineField({
-      name: 'heroHeadlineTagline',
-      title: 'Headline Tagline (bottom text)',
-      type: 'string',
-      description: 'Optional third line below the accent. e.g. "- since 1989"',
-      initialValue: '- since 1989',
-      group: 'hero',
-    }),
-
-    defineField({
-      name: 'heroSubheading',
-      title: 'Subheading',
-      type: 'text',
-      rows: 2,
-      initialValue:
-        'Four decades of shaping the corporate, institutional, civic, and residential environments of modern India.',
-      group: 'hero',
-    }),
-
-    defineField({
-      name: 'heroCtaLabel',
-      title: 'CTA Button Label',
-      type: 'string',
-      initialValue: 'START A CONVERSATION',
-      group: 'hero',
-    }),
-
-    defineField({
-      name: 'heroCtaUrl',
-      title: 'CTA Button URL',
-      type: 'string',
-      initialValue: '/contact',
-      group: 'hero',
-    }),
-
-    // ── FEATURE IMAGES ──────────────────────────────────────────────────────
-
-    defineField({
-      name: 'statureImage',
-      title: 'Stature Image (large, left)',
-      type: 'image',
-      options: {hotspot: true},
+      options: { collapsible: true, collapsed: false },
       fields: [
-        {name: 'alt', title: 'Alt Text', type: 'string'},
-        {
-          name: 'caption',
-          title: 'Architectural Caption',
+        defineField({
+          name: 'headline',
+          title: 'Headline',
           type: 'string',
-          description:
-            'Displayed as a tiny footnote below the image pair. e.g. "Oracle Centre, Pune, India"',
-        },
-      ],
-      group: 'featureImages',
+          initialValue: 'Defining Modern',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'headlineAccent',
+          title: 'Headline Accent (italic line)',
+          type: 'string',
+          initialValue: 'Indian Architecture.',
+        }),
+        defineField({
+          name: 'headlineTagline',
+          title: 'Headline Tagline (bottom text)',
+          type: 'string',
+          initialValue: '- since 1989',
+        }),
+        defineField({
+          name: 'subheading',
+          title: 'Subheading',
+          type: 'text',
+          rows: 2,
+          initialValue:
+            'Four decades of shaping the corporate, institutional, civic, and residential environments of modern India.',
+        }),
+      ]
     }),
 
+    // ── STUDIO CONTEXT ──────────────────────────────────────────────────────
     defineField({
-      name: 'precisionImage',
-      title: 'Precision Image (small, right)',
-      type: 'image',
-      options: {hotspot: true},
-      fields: [{name: 'alt', title: 'Alt Text', type: 'string'}],
-      group: 'featureImages',
-    }),
-
-    // ── SCALE OF PRACTICE ───────────────────────────────────────────────────
-
-    defineField({
-      name: 'scaleEyebrow',
-      title: 'Section Eyebrow',
-      type: 'string',
-      initialValue: 'SINCE 1989',
-      group: 'scale',
-    }),
-
-    defineField({
-      name: 'scaleHeadline',
-      title: 'Section Headline',
-      type: 'string',
-      initialValue: 'Those shaping modern India know whom to call.',
-      group: 'scale',
-    }),
-
-    defineField({
-      name: 'scaleBody',
-      title: 'Body Copy',
-      type: 'text',
-      rows: 3,
-      group: 'scale',
-    }),
-
-    // Stats are now dynamically derived from Sector documents to avoid duplication
-    // and ensure accurate cumulative tracking.
-
-    // ── FEATURED PROJECTS ───────────────────────────────────────────────────
-
-    defineField({
-      name: 'featuredSectionEyebrow',
-      title: 'Section Eyebrow',
-      type: 'string',
-      initialValue: 'Project Archive',
-      group: 'featured',
-    }),
-
-    defineField({
-      name: 'featuredSectionHeadline',
-      title: 'Section Headline',
-      type: 'string',
-      initialValue: 'Selected Deployments.',
-      group: 'featured',
-    }),
-
-    defineField({
-      name: 'featuredProjects',
-      title: 'Featured Project Cards',
-      description: 'These are bespoke editorial cards — independent from the projects database.',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          name: 'featuredProject',
-          title: 'Featured Project',
+      name: 'statureSection',
+      title: 'Studio Context Configuration',
+      type: 'object',
+      group: 'stature',
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        defineField({
+          name: 'contextEyebrow',
+          title: 'Studio Context Eyebrow',
+          type: 'string',
+          initialValue: 'Studio Context',
+        }),
+        defineField({
+          name: 'statureImage',
+          title: 'Stature Image (large, left)',
+          type: 'image',
+          options: {hotspot: true},
           fields: [
-            defineField({
-              name: 'title',
-              title: 'Project Title',
+            {name: 'alt', title: 'Alt Text', type: 'string'},
+            {
+              name: 'caption',
+              title: 'Architectural Caption',
               type: 'string',
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: 'sectorLabel',
-              title: 'Sector Label',
-              type: 'string',
-              description:
-                'Displayed in small caps above the title. e.g. "Institutional & Corporate"',
-            }),
-            defineField({
-              name: 'location',
-              title: 'Location',
-              type: 'string',
-              description: 'e.g. "Pune, India"',
-            }),
-            defineField({
-              name: 'intent',
-              title: 'Design Intent',
-              type: 'text',
-              rows: 2,
-              description: 'One or two sentences. The hook copy shown on the card.',
-            }),
-            defineField({
-              name: 'image',
-              title: 'Project Image',
-              type: 'image',
-              options: {hotspot: true},
-              fields: [{name: 'alt', title: 'Alt Text', type: 'string'}],
-            }),
-            defineField({
-              name: 'stats',
-              title: 'Project Stats (max 2)',
-              type: 'array',
-              of: [
-                {
-                  type: 'object',
-                  fields: [
-                    {name: 'label', title: 'Label', type: 'string'},
-                    {name: 'value', title: 'Value', type: 'string'},
-                  ],
-                  preview: {select: {title: 'label', subtitle: 'value'}},
-                },
-              ],
-              validation: (Rule) => Rule.max(2),
-            }),
-            defineField({
-              name: 'linkUrl',
-              title: 'Card Link URL',
-              type: 'string',
-              description:
-                'Where "Project Details" links to. Can be a /projects/[slug] or /archive/[slug].',
-            }),
+              description: 'Tiny footnote below the image e.g. "Oracle Centre, Pune, India"'
+            },
           ],
-          preview: {
-            select: {title: 'title', subtitle: 'sectorLabel', media: 'image'},
-          },
-        },
-      ],
-      group: 'featured',
+        }),
+        defineField({
+          name: 'precisionImage',
+          title: 'Precision Image (small, right)',
+          type: 'image',
+          options: {hotspot: true},
+          fields: [{name: 'alt', title: 'Alt Text', type: 'string'}],
+        }),
+        defineField({
+          name: 'pressEyebrow',
+          title: 'Press Perspectives Eyebrow',
+          type: 'string',
+          initialValue: 'Press Perspectives',
+        }),
+        defineField({
+          name: 'pressSubEyebrow',
+          title: 'Press Perspectives Sub-Eyebrow',
+          type: 'string',
+          initialValue: 'Independent Assessment',
+        }),
+        defineField({
+          name: 'pressCtaLabel',
+          title: 'Press Perspectives CTA Label',
+          type: 'string',
+          initialValue: 'MORE VOICES',
+        }),
+        defineField({
+          name: 'pressCtaUrl',
+          title: 'Press Perspectives CTA URL',
+          type: 'string',
+          initialValue: '/perspectives',
+        }),
+      ]
+    }),
+
+    // ── SECTORS ─────────────────────────────────────────────────────────────
+    defineField({
+      name: 'sectorsSection',
+      title: 'Sectors Configuration',
+      type: 'object',
+      group: 'sectors',
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        defineField({
+          name: 'eyebrow',
+          title: 'Section Eyebrow',
+          type: 'string',
+          initialValue: 'Sectors of Practice',
+        }),
+        defineField({
+          name: 'headline',
+          title: 'Section Headline',
+          type: 'string',
+          initialValue: 'Refined by Experience.',
+        }),
+        defineField({
+          name: 'subheading',
+          title: 'Section Subheading',
+          type: 'text',
+          rows: 2,
+          initialValue: 'OUR PRACTICE SPANS EIGHT SECTORS. BUILT ACROSS FOUR DECADES OF DEMANDING COMMISSIONS ON THE SUB-CONTINENT.',
+        }),
+        defineField({
+          name: 'ctaLabel',
+          title: 'CTA Label',
+          type: 'string',
+          initialValue: 'Consult Our Sector Experts',
+        }),
+        defineField({
+          name: 'ctaUrl',
+          title: 'CTA URL',
+          type: 'string',
+          initialValue: '/contact',
+        }),
+      ]
+    }),
+
+    // ── SCALE ─────────────────────────────────────────────────────────────
+    defineField({
+      name: 'scaleSection',
+      title: 'Scale of Practice Configuration',
+      type: 'object',
+      group: 'scale',
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        defineField({
+          name: 'scaleEyebrow',
+          title: 'Section Eyebrow',
+          type: 'string',
+          initialValue: 'SINCE 1989',
+        }),
+        defineField({
+          name: 'scaleHeadline',
+          title: 'Section Headline',
+          type: 'string',
+          initialValue: 'Those shaping modern India know whom to call.',
+        }),
+        defineField({
+          name: 'scaleBody',
+          title: 'Body Copy',
+          type: 'text',
+          rows: 3,
+        }),
+      ]
+    }),
+
+
+    defineField({
+      name: 'disciplinesSection',
+      title: 'Studio Disciplines Configuration',
+      type: 'object',
+      group: 'disciplines',
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        defineField({
+          name: 'eyebrow',
+          title: 'Section Eyebrow',
+          type: 'string',
+          initialValue: 'Capability Spectrum',
+        }),
+        defineField({
+          name: 'headline',
+          title: 'Section Headline',
+          type: 'string',
+          description: 'Use <br /> tags for line breaks.',
+          initialValue: 'Studio<br />Disciplines',
+        }),
+        defineField({
+          name: 'subheading',
+          title: 'Section Subheading',
+          type: 'text',
+          rows: 2,
+          description: 'Use <br /> tags for line breaks.',
+          initialValue: 'From idea to completion.<br />AN INTEGRATED STUDIO APPROACH.',
+        }),
+        defineField({
+          name: 'ctaLabel',
+          title: 'CTA Label',
+          type: 'string',
+          initialValue: 'Enquire About a Discipline',
+        }),
+        defineField({
+          name: 'ctaUrl',
+          title: 'CTA URL',
+          type: 'string',
+          initialValue: '/contact',
+        }),
+      ]
+    }),
+
+    // ── MAIN CTA ────────────────────────────────────────────────────────────
+    defineField({
+      name: 'mainCtaSection',
+      title: 'Editorial Closure Configuration',
+      type: 'object',
+      group: 'mainCta',
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        defineField({
+          name: 'eyebrow',
+          title: 'Section Eyebrow',
+          type: 'string',
+          initialValue: 'COMMISSION STEWARDSHIP',
+        }),
+        defineField({
+          name: 'headline',
+          title: 'Section Headline',
+          type: 'text',
+          description: 'Use <br class="md:hidden" /> or similar HTML for tailored wrapping if needed.',
+          rows: 2,
+          initialValue: 'Your next landmark <br class="md:hidden" />begins here.',
+        }),
+        defineField({
+          name: 'tagline',
+          title: 'Section Tagline',
+          type: 'text',
+          rows: 2,
+          initialValue: 'Precision-led architecture for clients who refuse to compromise.<br class=\'hidden md:block\' /> Every project begins with a focused conversation.',
+        }),
+        defineField({
+          name: 'ctaLabel',
+          title: 'CTA Label',
+          type: 'string',
+          initialValue: 'Start a Dialogue',
+        }),
+        defineField({
+          name: 'ctaUrl',
+          title: 'CTA URL',
+          type: 'string',
+          initialValue: '/contact',
+        }),
+      ]
     }),
   ],
 

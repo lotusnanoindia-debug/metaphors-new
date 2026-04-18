@@ -1,11 +1,12 @@
 ---
 import Cta from "./Cta.astro";
-import {
-  client,
-  SECTORS_QUERY,
-} from "../lib/sanity";
+import { client, SECTORS_QUERY } from "../lib/sanity";
 
-const { eyebrow, headline, body } = Astro.props;
+interface Props {
+  section?: any;
+}
+
+const { section } = Astro.props;
 
 // Fetch data at build time
 const rawSectors = await client.fetch(SECTORS_QUERY);
@@ -23,13 +24,12 @@ const sectors = rawSectors
 // Grand total
 const totalSqFt = sectors.reduce((sum: number, s: any) => sum + s.sqft, 0);
 
-
 // Formatting for monumental display
 const totalLakhs = totalSqFt / 100_000;
 const formattedTotal =
   totalLakhs >= 100
-    ? `${(totalLakhs / 100).toFixed(1)} Crore +`
-    : `${totalLakhs.toFixed(0)} Lakh +`;
+    ? `${(totalLakhs / 100).toFixed(2)} Crore`
+    : `${totalLakhs.toFixed(0)} Lakh`;
 
 const intlTotalSqFt = `${(totalSqFt / 1_000_000).toFixed(1)} Million`;
 const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`;
@@ -46,16 +46,13 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
   >
   </div>
 
-
-
   <div class="max-w-[1800px] mx-auto px-6 lg:px-12 relative z-10">
     <div class="flex flex-col items-center text-center">
       <h2
         class="text-6xl leading-[0.99] tracking-tight text-charcoal lg:text-[6.5rem] mb-28 max-w-5xl reveal"
         style="transition-delay: 100ms"
-      >
-        {headline}
-      </h2>
+        set:html={section?.scaleHeadline}
+      />
 
       {/* Monumental Counter */}
       <div
@@ -65,7 +62,7 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
         <div class="relative inline-block">
           <span
             id="monumental-value"
-            class="text-[140px] lg:text-[280px] font-sans not-italic leading-[0.7] tracking-tighter text-charcoal block"
+            class="text-[140px] lg:text-[280px] leading-[0.7] tracking-tighter text-charcoal block"
           >
             {formattedTotal.split(" ")[0]} +
           </span>
@@ -73,7 +70,7 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
           <p
             class="mt-12 text-xs font-semibold uppercase tracking-[0.5em] text-charcoal/50"
           >
-            {formattedTotal.split(" ").slice(1).join(" ")} Sq Ft Delivered
+            {formattedTotal.split(" ").slice(1).join(" ")} Sq Ft - Delivered
           </p>
         </div>
       </div>
@@ -88,14 +85,8 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
           <div class="space-y-8">
             <p
               class="text-base lg:text-2xl text-charcoal/60 font-light leading-relaxed max-w-2xl mx-auto lg:mx-0"
-            >
-              {body}
-            </p>
-            <p
-              class="my-12 text-xs font-semibold uppercase tracking-[0.3em] text-charcoal/50 max-w-xl mx-auto lg:mx-0"
-            >
-              Every defining project begins with an idea.
-            </p>
+              set:html={section?.scaleBody}
+            />
             <div class="pt-4 flex flex-col items-center lg:items-start gap-8">
               <a
                 href="/studio#partners"
@@ -109,7 +100,6 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
                   <path d="M5 12h14M12 5l7 7-7 7"></path>
                 </svg>
               </a>
-              <Cta text="Discuss Your Vision" href="/contact" invert={true} />
             </div>
           </div>
         </div>
@@ -123,10 +113,10 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
               <p
                 class="text-[10px] uppercase tracking-widest text-charcoal/40 mb-1"
               >
-                Sq Ft + (Imperial)
+                = Sq Ft + (Imperial)
               </p>
               <p
-                class="text-3xl font-sans not-italic text-charcoal/70 transition-all hover:text-charcoal cursor-default"
+                class="text-3xl text-charcoal/70 transition-all hover:text-charcoal cursor-default"
               >
                 {intlTotalSqFt}
               </p>
@@ -135,10 +125,10 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
               <p
                 class="text-[10px] uppercase tracking-widest text-charcoal/40 mb-1"
               >
-                Sq Metres + (Metric)
+                = Sq Metres + (Metric)
               </p>
               <p
-                class="text-3xl font-sans not-italic text-charcoal/70 transition-all hover:text-charcoal cursor-default"
+                class="text-3xl text-charcoal/70 transition-all hover:text-charcoal cursor-default"
               >
                 {intlTotalSqMt}
               </p>
@@ -161,6 +151,23 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
         </div>
       </div>
 
+      {/* Philosophy & CTA (Underneath all, Centred) */}
+      <div
+        class="flex flex-col items-center text-center space-y-12 reveal"
+        style="transition-delay: 500ms"
+      >
+        <p
+          class="text-xs font-semibold uppercase tracking-[0.3em] text-charcoal/50 max-w-xl"
+        >
+          Every defining project begins with an idea.
+        </p>
+        <Cta
+          text="Discuss Your Idea"
+          invert={true}
+          isContact={true}
+          contactContext="How can we assist you?"
+        />
+      </div>
     </div>
   </div>
 </section>

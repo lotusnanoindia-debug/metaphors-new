@@ -1,17 +1,31 @@
 ---
 interface Props {
   text: string;
-  href: string;
+  href?: string;
   className?: string;
   invert?: boolean;
+  isContact?: boolean;
+  contactContext?: string;
 }
 
-const { text, href, className = "", invert = false } = Astro.props;
+const {
+  text,
+  href = "#",
+  className = "",
+  invert = false,
+  isContact = false,
+  contactContext = "General Inquiry",
+} = Astro.props;
+
+const Tag = isContact ? "button" : "a";
+const extraProps = isContact
+  ? { "data-contact-modal": true, "data-contact-context": contactContext }
+  : { href };
 ---
 
-<a
-  href={href}
-  class={`group relative inline-flex h-12 items-center justify-center px-10 text-[11px] font-medium uppercase transition-all duration-1500 ease-[cubic-bezier(0.19,1,0.22,1)] ${className} ${invert ? "text-bone hover:text-charcoal" : "text-charcoal hover:text-bone"}`}
+<Tag
+  {...extraProps}
+  class={`group relative inline-flex h-12 items-center justify-center px-10 text-[11px] font-medium uppercase transition-all duration-1500 ease-[cubic-bezier(0.19,1,0.22,1)] cursor-pointer ${className} ${invert ? "text-bone hover:text-charcoal" : "text-charcoal hover:text-bone"}`}
 >
   {/* The Static Base Border */}
   <div
@@ -31,4 +45,4 @@ const { text, href, className = "", invert = false } = Astro.props;
   >
     {text}
   </span>
-</a>
+</Tag>

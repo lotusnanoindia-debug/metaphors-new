@@ -8,10 +8,12 @@ import indiaState from './indiaState'
 import pressQuote from './press-quotes'
 
 import settings from './settings'
+import employee from './employee'
 
 export const schemaTypes = [
   homepage,
   sector,
+  employee,
   discipline,
   locationCountry,
   indiaState,

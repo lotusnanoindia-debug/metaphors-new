@@ -82,51 +82,14 @@ export const SECTORS_QUERY = `*[_type == "sector"] | order(orderRank asc){
       ...,
       originalFilename
     }
-  }
-}`;
-
-export const EVIDENCE_SECTOR_SLIDER_QUERY = `*[_type == "sector"] | order(orderRank asc)[0...8]{
-  _id,
-  title,
-  "slug": slug.current,
-  homeHeadline,
-  homeIntro,
-  "leadProject": coalesce(
-    *[_type == "project" && isVisible == true && category._ref == ^._id && featured == true] | order(orderRank asc, completionYear desc)[0]{
-      _id,
-      "title": projectName,
-      headline,
-      "slug": slug.current,
-      projectStatus,
-      completionYear,
-      areaSqFt,
-      highlights,
-      "location": {
-        "city": location.city,
-        "state": coalesce(location.indiaState->title, location.otherState),
-        "country": location.country->title
-      },
-      coverImage,
-      mainImage
-    },
-    *[_type == "project" && isVisible == true && category._ref == ^._id] | order(orderRank asc, completionYear desc)[0]{
-      _id,
-      "title": projectName,
-      headline,
-      "slug": slug.current,
-      projectStatus,
-      completionYear,
-      areaSqFt,
-      highlights,
-      "location": {
-        "city": location.city,
-        "state": coalesce(location.indiaState->title, location.otherState),
-        "country": location.country->title
-      },
-      coverImage,
-      mainImage
-    }
-  )
+  },
+  "starredProjects": *[_type == "project" && category._ref == ^._id && featured == true && isVisible != false] | order(orderRank asc)[0...3]{
+    "title": coalesce(projectName, title, headline),
+    "slug": slug.current,
+    "city": location.city,
+    completionYear
+  },
+  "teaser": coalesce(teaser, homeIntro)
 }`;
 
 export const ALL_DISCIPLINES_WITH_AREA_QUERY = `*[_type == "discipline"] | order(orderRank asc){
@@ -161,36 +124,24 @@ export const HOME_SETTINGS_QUERY = `*[_type == "settings"][0]{
   statureTagline
 }`;
 
-// GROQ Query for the new Homepage singleton
 export const HOMEPAGE_QUERY = `{
   "homepage": *[_type == "homepage" && _id == "homepage"][0]{
-    heroEyebrow,
-    heroHeadline,
-    heroHeadlineAccent,
-    heroHeadlineTagline,
-    heroSubheading,
-    heroCtaLabel,
-    heroCtaUrl,
-    statureImage {
-       ...,
-       asset-> { ..., originalFilename }
-    },
-    precisionImage {
-       ...,
-       asset-> { ..., originalFilename }
-    },
-    scaleEyebrow,
-    scaleHeadline,
-    scaleBody,
-    featuredSectionEyebrow,
-    featuredSectionHeadline,
-    featuredProjects[]{
+    heroSection,
+    statureSection {
       ...,
-      image {
+      statureImage {
+        ...,
+        asset-> { ..., originalFilename }
+      },
+      precisionImage {
         ...,
         asset-> { ..., originalFilename }
       }
-    }
+    },
+    sectorsSection,
+    scaleSection,
+    disciplinesSection,
+    mainCtaSection
   },
   "quotes": *[_type == "pressQuote"] | order(_createdAt desc){
     ...,
@@ -199,4 +150,26 @@ export const HOMEPAGE_QUERY = `{
       asset-> { ..., originalFilename }
     }
   }
+}`;
+
+export const EMPLOYEES_QUERY = `*[_type == "employee" && status != "alumni"] | order(orderRank asc){
+  _id,
+  name,
+  "slug": slug.current,
+  role,
+  experience,
+  image,
+  body,
+  classification,
+  status,
+  "sectors": sectors[]->{ title, "slug": slug.current },
+  "disciplines": disciplines[]->{ title, "slug": slug.current },
+  linkedinUrl
+}`;
+
+export const PRESS_QUOTES_QUERY = `*[_type == "pressQuote"] | order(_createdAt desc){
+  publication,
+  quote,
+  "logo": logo.asset->,
+  sourceType
 }`;

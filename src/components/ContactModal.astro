@@ -1,0 +1,605 @@
+---
+import { Icon } from "astro-icon/components";
+import { client, SECTORS_QUERY, DISCIPLINES_QUERY } from "../lib/sanity";
+
+const sectorsData = await client.fetch(SECTORS_QUERY);
+const disciplinesData = await client.fetch(DISCIPLINES_QUERY);
+
+const sectors = sectorsData.map((s: any) => s.title);
+const disciplines = disciplinesData.map((d: any) => d.title);
+---
+
+<dialog
+  id="contact-modal"
+  class="fixed inset-0 z-500 m-auto h-full w-full bg-transparent p-0 backdrop:bg-charcoal/90 backdrop:backdrop-blur-2xl open:flex open:items-center open:justify-center"
+>
+  <div
+    class="relative w-full h-full sm:h-auto sm:min-h-[750px] sm:max-h-[90vh] sm:w-[95vw] sm:max-w-[1280px] bg-bone overflow-y-auto sm:overflow-hidden flex flex-col lg:flex-row luxury-reveal reveal border-none sm:border sm:border-charcoal/10 sm:shadow-2xl"
+    id="modal-content"
+  >
+    {/* Close Button */}
+    <button
+      id="close-modal"
+      class="absolute top-6 right-6 z-30 group flex items-center justify-center h-10 w-10 transition-all duration-500 hover:rotate-90 cursor-pointer"
+      aria-label="Close modal"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        class="h-5 w-5 fill-none stroke-current stroke-[1.2] text-charcoal/40 group-hover:text-charcoal transition-colors"
+      >
+        <path d="M18 6L6 18M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    {/* Branding & Info Section */}
+    <div
+      class="w-full lg:w-[35%] bg-[#f2f1ec] p-8 lg:p-14 border-b lg:border-b-0 lg:border-r border-charcoal/5 flex shrink-0 lg:shrink flex-col justify-between"
+    >
+      <div class="space-y-12">
+        <div class="flex items-center gap-3">
+          <img
+            alt=""
+            aria-hidden="true"
+            class="h-6 w-auto grayscale-30"
+            src="/metaphors-design-logo.svg"
+          />
+          <span class="text-xl font-medium tracking-tight text-black"
+            >metaphors design</span
+          >
+        </div>
+
+        <div class="space-y-4">
+          <h2
+            class="text-3xl lg:text-4xl font-light tracking-tighter leading-[1.1] text-charcoal"
+          >
+            Connect with us.
+          </h2>
+        </div>
+
+        <p
+          class="text-[11px] font-medium text-charcoal/50 leading-relaxed uppercase tracking-widest max-w-[240px]"
+        >
+          Four decades of architectural precision and long-term stewardship.
+        </p>
+      </div>
+
+      <div class="space-y-6 pt-10 border-t border-charcoal/10">
+        <div class="space-y-2">
+          <p
+            class="text-[9px] font-bold uppercase tracking-[0.3em] text-charcoal/30 flex items-center gap-2"
+          >
+            <Icon name="ph:map-pin-light" class="w-3 h-3 text-charcoal/40" />
+            Studio
+          </p>
+          <p class="text-[13px] font-light tracking-tight text-charcoal">
+            Pune, India
+          </p>
+        </div>
+
+        <div class="space-y-2">
+          <p
+            class="text-[9px] font-bold uppercase tracking-[0.3em] text-charcoal/30 flex items-center gap-2"
+          >
+            <Icon name="ph:envelope-light" class="w-3 h-3 text-charcoal/40" />
+            Liaison
+          </p>
+          <a
+            href="mailto:info@metaphors-design.com"
+            class="text-[13px] font-light tracking-tight text-charcoal hover:underline"
+            >info@metaphors-design.com</a
+          >
+        </div>
+
+        <div class="space-y-2">
+          <p
+            class="text-[9px] font-bold uppercase tracking-[0.3em] text-charcoal/30 flex items-center gap-2"
+          >
+            <Icon name="ph:phone-light" class="w-3 h-3 text-charcoal/40" />
+            Engage
+          </p>
+          <div class="flex flex-col gap-1.5">
+            <a
+              href="tel:+919665355522"
+              class="text-[13px] font-light tracking-tight text-charcoal hover:underline"
+            >
+              (+91) 96653 55522
+            </a>
+            <a
+              href="tel:+919822279173"
+              class="text-[13px] font-light tracking-tight text-charcoal hover:underline"
+            >
+              (+91) 98222 79173
+            </a>
+          </div>
+        </div>
+
+        <p
+          class="text-[8px] font-bold uppercase tracking-[0.3em] text-charcoal/20"
+        >
+          Established 1989
+        </p>
+      </div>
+    </div>
+
+    {/* Form Section */}
+    <div
+      class="flex-1 p-8 lg:p-12 lg:px-20 bg-bone flex flex-col justify-center overflow-visible"
+    >
+      <div class="mb-10">
+        <p
+          class="text-3xl lg:text-4xl tracking-tight text-charcoal"
+          id="modal-eyebrow"
+        >
+          Direct Enquiry
+        </p>
+      </div>
+
+      <form
+        id="contact-form"
+        class="flex flex-col gap-8"
+        action="#"
+        method="POST"
+      >
+        <input type="hidden" name="context" id="form-context" value="General" />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
+          <div class="flex flex-col gap-2">
+            <label
+              for="full-name"
+              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40 flex justify-between items-center"
+            >
+              Your Name
+              <span class="text-charcoal/20">*</span>
+            </label>
+            <input
+              type="text"
+              id="full-name"
+              name="full-name"
+              required
+              class="w-full bg-white border border-charcoal/10 px-5 py-3 text-base font-light text-charcoal outline-none focus:border-charcoal/40 transition-colors"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label
+              for="email"
+              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40 flex justify-between items-center"
+            >
+              Your Email
+              <span class="text-charcoal/20">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full bg-white border border-charcoal/10 px-5 py-3 text-base font-light text-charcoal outline-none focus:border-charcoal/40 transition-colors"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
+          {/* Custom Sector Dropdown */}
+          <div class="flex flex-col gap-2 relative z-30">
+            <label
+              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40"
+            >
+              Sector of Interest
+            </label>
+            <div class="relative custom-dropdown" id="sector-dropdown">
+              <button
+                type="button"
+                class="dropdown-trigger w-full bg-white border border-charcoal/10 px-5 py-3 text-base font-light text-charcoal flex items-center justify-between transition-colors hover:border-charcoal/30 cursor-pointer"
+              >
+                <span class="selected-value"></span>
+                <svg
+                  viewBox="0 0 24 24"
+                  class="w-4 h-4 fill-none stroke-current stroke-1 transition-transform duration-300"
+                >
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </button>
+              <div
+                class="dropdown-menu absolute top-full left-0 w-full bg-white border border-charcoal/10 border-t-0 opacity-0 invisible translate-y-2 transition-all duration-300 z-50 shadow-xl overflow-hidden"
+              >
+                <div class="max-h-60 overflow-y-auto custom-scrollbar">
+                  <div
+                    class="px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-charcoal/20 border-b border-charcoal/5"
+                  >
+                    Which Sector are you enquiring about?
+                  </div>
+                  {
+                    sectors.map((s: string) => (
+                      <button
+                        type="button"
+                        class="option w-full text-left px-5 py-3.5 text-sm font-light text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 transition-colors"
+                        data-value={s}
+                      >
+                        {s}
+                      </button>
+                    ))
+                  }
+                  <button
+                    type="button"
+                    class="option w-full text-left px-5 py-3.5 text-sm font-light text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 transition-colors border-t border-charcoal/5"
+                    data-value="Other"
+                  >
+                    Other
+                  </button>
+                </div>
+              </div>
+              <input type="hidden" name="sector" value="" />
+            </div>
+          </div>
+
+          {/* Custom Discipline Dropdown */}
+          <div class="flex flex-col gap-2 relative z-20">
+            <label
+              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40"
+            >
+              Discipline of Interest
+            </label>
+            <div class="relative custom-dropdown" id="discipline-dropdown">
+              <button
+                type="button"
+                class="dropdown-trigger w-full bg-white border border-charcoal/10 px-5 py-3 text-base font-light text-charcoal flex items-center justify-between transition-colors hover:border-charcoal/30 cursor-pointer"
+              >
+                <span class="selected-value"></span>
+                <svg
+                  viewBox="0 0 24 24"
+                  class="w-4 h-4 fill-none stroke-current stroke-1 transition-transform duration-300"
+                >
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </button>
+              <div
+                class="dropdown-menu absolute top-full left-0 w-full bg-white border border-charcoal/10 border-t-0 opacity-0 invisible translate-y-2 transition-all duration-300 z-50 shadow-xl overflow-hidden"
+              >
+                <div class="max-h-60 overflow-y-auto custom-scrollbar">
+                  <div
+                    class="px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-charcoal/20 border-b border-charcoal/5"
+                  >
+                    Which Discipline are you enquiring about?
+                  </div>
+                  {
+                    disciplines.map((d: string) => (
+                      <button
+                        type="button"
+                        class="option w-full text-left px-5 py-3.5 text-sm font-light text-charcoal/60 hover:text-charcoal hover:bg-charcoal/2 transition-colors"
+                        data-value={d}
+                      >
+                        {d}
+                      </button>
+                    ))
+                  }
+                </div>
+              </div>
+              <input type="hidden" name="discipline" value="" />
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
+          <div class="flex flex-col gap-2">
+            <label
+              for="phone"
+              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40 flex justify-between items-center"
+            >
+              Contact Number
+              <span class="text-charcoal/20">*</span>
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              required
+              class="w-full bg-white border border-charcoal/10 px-5 py-3 text-base font-light text-charcoal outline-none focus:border-charcoal/40 transition-colors"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label
+              for="organisation"
+              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40 flex justify-between items-center"
+            >
+              Organisation
+              <span class="text-charcoal/20">*</span>
+            </label>
+            <input
+              type="text"
+              id="organisation"
+              name="organisation"
+              required
+              class="w-full bg-white border border-charcoal/10 px-5 py-3 text-base font-light text-charcoal outline-none focus:border-charcoal/40 transition-colors"
+            />
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <label
+            for="message"
+            class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40 flex justify-between items-center"
+          >
+            Your Enquiry
+            <span class="text-charcoal/20">*</span>
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows="3"
+            required
+            class="w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-light text-charcoal outline-none focus:border-charcoal/40 transition-colors resize-none"
+          ></textarea>
+        </div>
+
+        <div
+          class="flex flex-col sm:flex-row items-center justify-between gap-10 pt-4"
+        >
+          <p
+            class="text-[9px] font-medium tracking-[0.2em] text-charcoal/30 uppercase max-w-xs"
+          >
+            A partner will review your enquiry and respond within two working
+            days.
+          </p>
+          <div id="submit-wrapper" class="relative w-full sm:w-[240px]">
+            <div
+              id="submit-overlay"
+              class="absolute inset-0 z-10 cursor-not-allowed"
+            >
+            </div>
+            <button
+              type="submit"
+              id="submit-enquiry"
+              disabled
+              class="group relative inline-flex h-14 w-full items-center justify-center bg-charcoal text-bone text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-black transition-all duration-500 shrink-0 cursor-pointer disabled:cursor-not-allowed"
+            >
+              Send Enquiry
+            </button>
+
+            {/* Validation Tooltip */}
+            <div
+              id="validation-tooltip"
+              class="absolute -top-12 left-1/2 -translate-x-1/2 px-4 py-2 bg-charcoal text-white text-[9px] font-bold uppercase tracking-widest whitespace-nowrap opacity-0 pointer-events-none transition-all duration-300 translate-y-2 z-200 shadow-2xl"
+            >
+              Pls enter all required info
+              <div
+                class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-charcoal rotate-45"
+              >
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const modal = document.getElementById("contact-modal") as HTMLDialogElement;
+  const closeBtn = document.getElementById("close-modal");
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const content = document.getElementById("modal-content");
+  const modalEyebrow = document.getElementById("modal-eyebrow");
+  const formHiddenContext = document.getElementById(
+    "form-context",
+  ) as HTMLInputElement;
+
+  function openModal(context = "General") {
+    if (!modal) return;
+
+    // Handle broad section contexts or specific slugs
+    let label = context;
+    if (context === "Disciplines") label = "Studio Disciplines";
+    if (context === "Sectors" || context === "Specialised Sectors")
+      label = "Specialised Sectors";
+    if (context === "General" || !context) label = "Direct Enquiry";
+
+    if (modalEyebrow) {
+      modalEyebrow.textContent = label.includes("Enquiry") ? label : `${label}`;
+    }
+
+    if (formHiddenContext) formHiddenContext.value = context;
+
+    modal.showModal();
+    setTimeout(() => content?.classList.add("visible"), 10);
+  }
+
+  function closeModal() {
+    content?.classList.remove("visible");
+    setTimeout(() => modal?.close(), 500);
+  }
+
+  modal?.addEventListener("click", (e) => {
+    const rect = modal.getBoundingClientRect();
+    if (
+      e.clientX < rect.left ||
+      e.clientX > rect.right ||
+      e.clientY < rect.top ||
+      e.clientY > rect.bottom
+    )
+      closeModal();
+  });
+
+  closeBtn?.addEventListener("click", closeModal);
+  (window as any).openContactModal = openModal;
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    if (btn) btn.textContent = "Acknowledged...";
+
+    setTimeout(() => {
+      closeModal();
+      form.reset();
+      if (btn) btn.textContent = "Send Enquiry";
+    }, 1500);
+  });
+
+  document.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest("[data-contact-modal]");
+    if (btn) {
+      e.preventDefault();
+      openModal(btn.getAttribute("data-contact-context") || "Direct Enquiry");
+    }
+  });
+
+  // Custom Dropdown Logic
+  const dropdowns = document.querySelectorAll(".custom-dropdown");
+
+  dropdowns.forEach((dropdown) => {
+    const trigger = dropdown.querySelector(".dropdown-trigger");
+    const menu = dropdown.querySelector(".dropdown-menu");
+    const options = dropdown.querySelectorAll(".option");
+    const selectedText = dropdown.querySelector(".selected-value");
+    const hiddenInput = dropdown.querySelector(
+      'input[type="hidden"]',
+    ) as HTMLInputElement;
+    const arrow = trigger?.querySelector("svg");
+
+    trigger?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isOpen = dropdown.classList.contains("active");
+
+      // Close all other dropdowns
+      dropdowns.forEach((d) => {
+        d.classList.remove("active");
+        d.querySelector("svg")?.classList.remove("rotate-180");
+      });
+
+      if (!isOpen) {
+        dropdown.classList.add("active");
+        arrow?.classList.add("rotate-180");
+      }
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const value = (option as HTMLElement).dataset.value || "";
+        const text = option.textContent || "";
+
+        // Use empty string for general selection
+        if (selectedText) {
+          selectedText.textContent = text.includes("General") ? "" : text;
+        }
+        if (hiddenInput) hiddenInput.value = value;
+
+        dropdown.classList.remove("active");
+        arrow?.classList.remove("rotate-180");
+
+        // Trigger validation check on selection
+        checkFormValidity();
+      });
+    });
+  });
+
+  // Form Validation Logic
+  const submitBtn = document.getElementById(
+    "submit-enquiry",
+  ) as HTMLButtonElement;
+  const tooltip = document.getElementById("validation-tooltip");
+
+  function checkFormValidity() {
+    if (!form || !submitBtn) return;
+    const isValid = form.checkValidity();
+    submitBtn.disabled = !isValid;
+
+    const overlay = document.getElementById("submit-overlay");
+    if (overlay) {
+      if (isValid) overlay.classList.add("hidden");
+      else overlay.classList.remove("hidden");
+    }
+
+    // Reset tooltip if enabled
+    if (isValid && tooltip) {
+      tooltip.classList.remove("opacity-100", "-translate-y-1");
+      tooltip.classList.add("opacity-0", "translate-y-2");
+    }
+  }
+
+  // Tooltip Logic for Disabled State (Handled on wrapper to ensure reliability)
+  const submitWrapper = document.getElementById("submit-wrapper");
+
+  submitWrapper?.addEventListener("click", (e) => {
+    if (submitBtn && submitBtn.disabled && tooltip) {
+      tooltip.classList.remove("opacity-0", "translate-y-2");
+      tooltip.classList.add("opacity-100", "-translate-y-2");
+
+      // Auto-hide after delay
+      setTimeout(() => {
+        tooltip.classList.remove("opacity-100", "-translate-y-2");
+        tooltip.classList.add("opacity-0", "translate-y-2");
+      }, 2000);
+    }
+  });
+
+  // Monitor all inputs for real-time validation
+  form?.addEventListener("input", checkFormValidity);
+
+  // Initial check in case of browser autocomplete
+  checkFormValidity();
+
+  document.addEventListener("click", () => {
+    dropdowns.forEach((d) => {
+      d.classList.remove("active");
+      d.querySelector("svg")?.classList.remove("rotate-180");
+    });
+  });
+</script>
+
+<style>
+  #contact-modal {
+    z-index: 9999;
+  }
+  #contact-modal::backdrop {
+    background: rgba(17, 17, 17, 0.85);
+    backdrop-filter: blur(20px);
+    animation: fade-in 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  dialog:not([open]) {
+    display: none;
+  }
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  /* Submit Button States */
+  button[type="submit"]:disabled {
+    background-color: #c5c5c5;
+    color: #737373;
+    cursor: not-allowed;
+    opacity: 1;
+  }
+
+  /* Custom Dropdown Styles */
+  .custom-dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Enhanced Option Hover State */
+  .custom-dropdown .option:hover {
+    background-color: rgba(17, 17, 17, 0.1); /* Even more visible hover */
+    color: #000;
+  }
+
+  /* Darker Scrollbar Thumb */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px; /* Slightly wider */
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(17, 17, 17, 0.25); /* Darker for better visibility */
+    border-radius: 2px;
+  }
+</style>

@@ -2,22 +2,11 @@
 import Cta from "./Cta.astro";
 
 interface Props {
-  eyebrow?: string;
-  headline?: string;
-  tagline?: string;
-  ctaText?: string;
-  ctaUrl?: string;
+  section?: any;
   className?: string;
 }
 
-const {
-  eyebrow = "COMMISSION STEWARDSHIP",
-  headline = 'Your next landmark <br class="md:hidden" />begins here.',
-  tagline = "Precision-led architecture for clients who refuse to compromise.<br class='hidden md:block' /> Every project begins with a focused conversation.",
-  ctaText = "Start a Dialogue",
-  ctaUrl = "/contact",
-  className = "",
-} = Astro.props;
+const { section, className = "" } = Astro.props;
 ---
 
 <section
@@ -28,9 +17,9 @@ const {
   >
     <div class="max-w-3xl flex flex-col items-center text-center">
       {
-        eyebrow && (
+        section?.eyebrow && (
           <p class="text-[10px] font-medium uppercase tracking-[0.6em] text-charcoal/40 mb-10 reveal">
-            {eyebrow}
+            {section?.eyebrow}
           </p>
         )
       }
@@ -38,7 +27,7 @@ const {
       <h2
         class="text-6xl leading-[0.99] tracking-tight text-charcoal lg:text-[6.5rem] mb-12 reveal capitalize"
         style="animation-delay: 200ms;"
-        set:html={headline}
+        set:html={section?.headline}
       />
 
       <div
@@ -46,12 +35,12 @@ const {
         style="animation-delay: 400ms;"
       >
         <p
-          class="text-xl text-charcoal/60 leading-relaxed font-sans not-italic"
-          set:html={tagline}
+          class="text-xl text-charcoal/60 leading-relaxed"
+          set:html={section?.tagline}
         />
 
         <div class="shrink-0 flex justify-center">
-          <Cta text={ctaText} href={ctaUrl} invert={true} />
+          <Cta text={section?.ctaLabel} href={section?.ctaUrl} invert={true} />
         </div>
       </div>
     </div>

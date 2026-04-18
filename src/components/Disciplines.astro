@@ -6,6 +6,12 @@ import {
   imageUrl,
 } from "../lib/sanity";
 
+interface Props {
+  section?: any;
+}
+
+const { section } = Astro.props;
+
 // Fetch data at build time
 const rawDisciplines = await client.fetch(ALL_DISCIPLINES_WITH_AREA_QUERY);
 
@@ -34,7 +40,7 @@ const disciplines = rawDisciplines
   .sort((a, b) => b.sqft - a.sqft);
 ---
 
-<section class="relative w-full bg-bone pb-24 lg:pb-48 overflow-hidden">
+<section class="relative w-full bg-bone py-24 lg:py-48 overflow-hidden">
   {
     /* Discipline Header - Constrained to 1440px to match Evidence/Sectors pattern */
   }
@@ -51,13 +57,12 @@ const disciplines = rawDisciplines
         <p
           class="mb-10 text-[10px] font-medium uppercase tracking-[0.5em] text-charcoal/30"
         >
-          Capability Spectrum ({disciplines.length.toString().padStart(2, "0")})
+          {section?.eyebrow} ({disciplines.length.toString().padStart(2, "0")})
         </p>
         <h2
           class="text-6xl leading-[0.99] tracking-tight text-charcoal lg:text-[6.5rem]"
-        >
-          Studio<br />Disciplines
-        </h2>
+          set:html={section?.headline}
+        />
       </div>
 
       <div
@@ -65,14 +70,14 @@ const disciplines = rawDisciplines
       >
         <p
           class="text-[10px] sm:text-xs font-semibold leading-loose tracking-[0.25em] text-charcoal/60 uppercase"
-        >
-          From idea to completion.<br />All under one roof.
-        </p>
+          set:html={section?.subheading}
+        />
         <div class="flex justify-center lg:justify-end w-full">
           <Cta
-            text="Enquire About a Discipline"
-            href="/contact"
+            text={section?.ctaLabel}
             invert={true}
+            isContact={true}
+            contactContext="Queries about our Disciplines?"
           />
         </div>
       </div>
@@ -91,12 +96,12 @@ const disciplines = rawDisciplines
             class="group relative block transition-all"
           >
             {/* Image Box - Square on mobile/tablet for improved verticality in 2-column grid, 16:9 on desktop */}
-            <div class="aspect-square lg:aspect-video w-full overflow-hidden bg-charcoal/5 mb-8 border border-charcoal/5">
+            <div class="aspect-square w-full overflow-hidden bg-charcoal/5 mb-8 border border-charcoal/5">
               {d.image ? (
                 <img
-                  src={imageUrl(d.image, { width: 800, height: 450 })}
+                  src={imageUrl(d.image, { width: 800, height: 800 })}
                   alt={d.title}
-                  class="h-full w-full object-cover transition-all duration-1000 grayscale-65 saturate-88 contrast-104 group-hover:scale-110 group-hover:grayscale-0 group-hover:saturate-100 group-hover:contrast-100"
+                  class="h-full w-full object-cover transition-all duration-1000 grayscale-65 saturate-88 contrast-104 group-hover:scale-105 group-hover:grayscale-0 group-hover:saturate-100 group-hover:contrast-100"
                 />
               ) : (
                 <div class="flex h-full w-full items-center justify-center text-[10px] italic uppercase tracking-widest text-charcoal/20">

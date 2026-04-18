@@ -51,12 +51,19 @@ export default defineConfig({
               context,
             }),
 
+            orderableDocumentListDeskItem({
+              type: 'employee',
+              title: 'Bench / Staff (Ordered)',
+              S,
+              context,
+            }),
+
             S.divider(),
 
-            // All other document types (excludes project, discipline, sector, homepage, media.tag, settings)
+            // All other document types (excludes project, discipline, sector, employee, homepage, media.tag, settings)
             ...S.documentTypeListItems().filter(
               (listItem) =>
-                !['project', 'discipline', 'sector', 'homepage', 'media.tag', 'settings'].includes(
+                !['project', 'discipline', 'sector', 'employee', 'homepage', 'media.tag', 'settings'].includes(
                   listItem.getId(),
                 ),
             ),

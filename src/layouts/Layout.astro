@@ -1,8 +1,7 @@
 ---
+import ContactModal from "../components/ContactModal.astro";
 import { SEO } from "astro-seo";
 import "@fontsource-variable/inter";
-import "@fontsource/instrument-serif/400.css";
-import "@fontsource/instrument-serif/400-italic.css";
 import "../styles/global.css";
 
 interface Props {
@@ -12,11 +11,11 @@ interface Props {
   canonicalURL?: string;
 }
 
-const { 
-  title, 
+const {
+  title,
   description = "Architectural precision for high-stakes Indian developments. ROI-driven design, engineered for execution certainty.",
   image = "/og-default.png",
-  canonicalURL = Astro.url.href
+  canonicalURL = Astro.url.href,
 } = Astro.props;
 ---
 
@@ -36,14 +35,14 @@ const {
         },
         image: {
           alt: title,
-        }
+        },
       }}
       twitter={{
         creator: "@metaphor-design",
         card: "summary_large_image",
         title: title,
         description: description,
-        image: image
+        image: image,
       }}
     />
     <meta charset="UTF-8" />
@@ -53,10 +52,11 @@ const {
     <slot name="head" />
   </head>
   <body
-    class="bg-bone text-charcoal antialiased font-sans selection:bg-black selection:text-white overflow-x-hidden"
+    class="bg-bone text-charcoal antialiased selection:bg-black selection:text-white overflow-x-hidden"
   >
     <slot />
-    
+    <ContactModal />
+
     <script>
       // Global intersection observer for reveal animations
       const observer = new IntersectionObserver(
@@ -72,7 +72,9 @@ const {
 
       // Initialize on load and re-initialize after ViewTransitions (if ever added)
       document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+        document
+          .querySelectorAll(".reveal")
+          .forEach((el) => observer.observe(el));
       });
     </script>
   </body>

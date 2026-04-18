@@ -1,108 +1,79 @@
 ---
 import { imageUrl } from "../lib/sanity";
 
-const { quotes = [] } = Astro.props;
+interface Props {
+  quotes: any[];
+  layout?: "grid" | "sidebar" | "stack" | "ledger" | "minimal";
+}
 
-// Default fallback content in case no quotes are in Sanity yet
-const defaultQuotes = [
-  {
-    publication: "Forbes India",
-    logoSrc: "/Forbes-Black.svg",
-    quote:
-      "Decades of shaping skylines and spaces with intentional design & responsible architecture",
-    sourceType: "Business & Economics",
-  },
-  {
-    publication: "Designboom",
-    logoSrc: "/Designboom-logo.svg",
-    quote:
-      "Technical precision alongside a deep respect for user experience and environment.",
-    sourceType: "Architecture & Innovation",
-  },
-  {
-    publication: "Surfaces Reporter",
-    logoSrc: "/Surfaces_logo.svg",
-    quote:
-      "A solid and visionary presence across the country with outstanding projects.",
-    sourceType: "Materials & Design",
-  },
-];
+const { quotes = [], layout = "minimal" } = Astro.props;
 
-const quotesToDisplay = (quotes.length > 0 ? quotes : defaultQuotes).map(
-  (q: any) => {
-    // Map specific publications to their descriptive labels
-    const mapping: Record<string, string> = {
-      "Forbes India": "Business & Economics",
-      Designboom: "Architecture & Innovation",
-      "Surfaces Reporter": "Materials & Design",
-    };
+if (!quotes || quotes.length === 0) return null;
 
-    return {
-      ...q,
-      sourceType: mapping[q.publication] || q.sourceType,
-    };
-  },
-);
+// Layout-specific container
+const containerClass =
+  layout === "minimal" || layout === "grid"
+    ? "grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-24"
+    : "flex flex-col gap-12 lg:gap-24";
 ---
 
-<section class="w-full bg-bone py-24 lg:py-48 my-32">
-  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-    <!-- Section Header -->
-    <div
-      class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 reveal"
-    >
-      <div class="max-w-xl">
-        <h2
-          class="text-4xl lg:text-6xl mb-6 tracking-tight text-charcoal"
-        >
-          Voices from the Press
-        </h2>
-        <p class="text-lg text-charcoal/60 font-light leading-relaxed">
-          Metaphors Design's architectural achievements, documented and
-          discussed through the lens of industry journals and notable press.
-        </p>
-      </div>
-    </div>
-
-    <!-- Quotes Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-24 lg:gap-x-20">
-      {
-        quotesToDisplay.map((item: any, index: number) => (
+<div class={containerClass}>
+  {
+    quotes.map((item: any, index: number) => {
+      // --- MINIMAL / FOOTNOTE LAYOUT (THE SUBTLE RECORD) ---
+      if (layout === "minimal" || layout === "grid") {
+        return (
           <div
-            class="flex flex-col gap-12 group cursor-default reveal"
+            class="flex flex-col gap-6 group reveal items-center text-center"
             style={`transition-delay: ${index * 150}ms`}
           >
-            {/* Logo Container */}
-            <div class="h-8 flex items-center opacity-40 group-hover:opacity-100 transition-all duration-1000">
-              <img
-                src={
-                  item.logo ? imageUrl(item.logo, { height: 32 }) : item.logoSrc
-                }
-                alt={item.publication}
-                class="h-full w-auto object-contain grayscale group-hover:grayscale-0 transition-all duration-1000"
-              />
+            {/* Logo/Source — Barely visible anchor */}
+            <div class="h-5 flex items-center justify-center opacity-20 grayscale group-hover:opacity-60 transition-all duration-700">
+              {item.logo ? (
+                <img
+                  src={imageUrl(item.logo, { height: 16 })}
+                  alt={item.publication}
+                  class="h-full w-auto object-contain"
+                />
+              ) : (
+                <span class="text-[8px] font-bold uppercase tracking-[0.4em] text-charcoal/40">
+                  {item.publication}
+                </span>
+              )}
             </div>
 
-            {/* Quote */}
-            <div class="relative">
-              <div class="absolute -left-6 -top-2 text-7xl text-charcoal/3 pointer-events-none group-hover:text-charcoal/6 transition-colors">
-                &ldquo;
-              </div>
-              <p class="text-2xl lg:text-[1.8rem] leading-[1.3] text-charcoal/70 group-hover:text-charcoal transition-all duration-700 relative z-10 tracking-tight">
-                "{item.quote}"
-              </p>
-            </div>
-
-            {/* Attribution Footer */}
-            <div class="flex items-center gap-4 mt-auto pt-8">
-              <div class="h-px flex-1 bg-charcoal/10 origin-left transition-transform duration-1000 scale-x-50 group-hover:scale-x-100 group-hover:bg-charcoal/30" />
-              <span class="text-[9px] font-medium uppercase tracking-[0.5em] text-charcoal/30 group-hover:text-charcoal/70 transition-colors">
-                {item.sourceType}
-              </span>
-            </div>
+            {/* The Quote — Technical Caps */}
+            <p class="text-[12px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] leading-relaxed text-charcoal/40 group-hover:text-charcoal/70 transition-colors duration-500 font-serif italic">
+              “{item.quote}”
+            </p>
           </div>
-        ))
+        );
       }
-    </div>
-  </div>
-</section>
+
+      // --- LEGGER / STACK / SIDEBAR (LEGACY SUPPORT) ---
+      return (
+        <div
+          class="flex flex-col gap-8 group reveal"
+          style={`transition-delay: ${index * 150}ms`}
+        >
+          <div class="h-5 flex items-center opacity-30 grayscale group-hover:opacity-100 transition-all">
+            {item.logo ? (
+              <img
+                src={imageUrl(item.logo, { height: 20 })}
+                alt={item.publication}
+                class="h-full w-auto object-contain"
+              />
+            ) : (
+              <span class="text-[9px] font-bold uppercase tracking-[0.3em] text-charcoal/40">
+                {item.publication}
+              </span>
+            )}
+          </div>
+          <p class="text-xl lg:text-3xl font-light italic tracking-tight leading-relaxed text-charcoal/60 group-hover:text-charcoal transition-all">
+            “{item.quote}”
+          </p>
+        </div>
+      );
+    })
+  }
+</div>

@@ -3,10 +3,11 @@ import { Icon } from "astro-icon/components";
 import Cta from "./Cta.astro";
 import { client, EVIDENCE_SECTOR_SLIDER_QUERY, imageUrl } from "../lib/sanity";
 
-const {
-  eyebrow = "Selected Evidence",
-  headline = "One lead commission per sector.",
-} = Astro.props;
+interface Props {
+  section?: any;
+}
+
+const { section } = Astro.props;
 
 const rawSectors = await client.fetch(EVIDENCE_SECTOR_SLIDER_QUERY);
 
@@ -58,26 +59,25 @@ function evidenceNote(project: any): string | null {
 ---
 
 <section
-  class="w-full bg-bone py-24 lg:py-36"
+  class="w-full bg-bone py-40 lg:py-60"
   aria-labelledby="evidence-heading"
 >
   {/* Section header */}
   <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
-    <div class="mb-24 grid gap-16 lg:mb-40 lg:grid-cols-[1fr_0.6fr] lg:gap-32">
+    <div class="mb-32 grid gap-16 lg:mb-56 lg:grid-cols-[1fr_0.6fr] lg:gap-32">
       <div
         class="reveal flex flex-col items-center text-center lg:items-start lg:text-left justify-center"
       >
         <p
           class="mb-10 text-[10px] font-medium uppercase tracking-[0.5em] text-charcoal/30"
         >
-          {eyebrow}
+          {section?.eyebrow}
         </p>
         <h2
           id="evidence-heading"
           class="text-6xl leading-[0.99] tracking-tight text-charcoal lg:text-[6.5rem]"
-        >
-          {headline}
-        </h2>
+          set:html={section?.headline}
+        />
       </div>
 
       <div
@@ -85,19 +85,59 @@ function evidenceNote(project: any): string | null {
         style="transition-delay:120ms"
       >
         <p
-          class="text-[10px] sm:text-xs font-semibold leading-loose tracking-[0.25em] text-charcoal/60"
-        >
-          A TRACK RECORD OF KEY DEPLOYMENTS VALIDATED THROUGH DECADES OF
-          PRECISION AND RESPONSIBLE STEWARDSHIP.
-        </p>
+          class="text-[10px] sm:text-xs font-semibold leading-loose tracking-[0.25em] text-charcoal/60 uppercase"
+          set:html={section?.subheading}
+        />
         <div class="flex justify-center lg:justify-end w-full">
-          <Cta text="Discuss Your Project" href="/contact" invert={true} />
+          <Cta text={section?.ctaLabel} href={section?.ctaUrl} invert={true} />
         </div>
       </div>
     </div>
   </div>
 
+  {/* Practice Directory: Quick Links Hub */}
+  <div class="max-w-[1800px] mx-auto px-6 lg:px-12 mb-32 lg:mb-48">
+    <p
+      class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/30 flex items-center gap-4 mb-8"
+    >
+      <span class="h-px w-10 bg-charcoal/10"></span>
+      Practice Index
+    </p>
+
+    <div
+      class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-y-10 gap-x-6 border-y border-charcoal/10 py-12"
+    >
+      {
+        rawSectors.map((s: any, idx: number) => (
+          <a
+            href={`/sectors/${s.slug}`}
+            class="reveal group flex flex-col gap-3"
+            style={`transition-delay: ${idx * 40}ms`}
+          >
+            <span class="text-[9px] font-bold tracking-[0.4em] text-charcoal/30 flex items-center gap-2">
+              {String(idx + 1).padStart(2, "0")}
+              <span class="h-px w-4 bg-charcoal/10 transition-all group-hover:w-8 group-hover:bg-charcoal/30" />
+            </span>
+            <h4 class="text-[12px] font-bold uppercase tracking-[0.2em] text-charcoal/70 transition-colors group-hover:text-charcoal leading-tight w-32">
+              {s.title}
+            </h4>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
   {/* Slider */}
+  {/* Slider Bridge Label */}
+  <div class="max-w-[1800px] mx-auto px-6 lg:px-12 mb-12">
+    <p
+      class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/30 flex items-center gap-4"
+    >
+      <span class="h-px w-10 bg-charcoal/10"></span>
+      Lead Commissions
+    </p>
+  </div>
+
   <div
     class="reveal group/evidence-slider relative"
     style="transition-delay:200ms"
@@ -191,7 +231,7 @@ function evidenceNote(project: any): string | null {
                         {String(index + 1).padStart(2, "0")} /{" "}
                         {String(total).padStart(2, "0")}
                       </p>
-                      <span class="border border-white/15 bg-bone/90 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-charcoal backdrop-blur-md">
+                      <span class="bg-charcoal px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.24em] text-bone">
                         {sector.title}
                       </span>
                     </div>

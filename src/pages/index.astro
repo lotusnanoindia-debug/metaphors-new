@@ -6,7 +6,6 @@ import StatureDialogue from "../components/StatureDialogue.astro";
 import Sectors from "../components/Sectors.astro";
 import ScaleOfPractice from "../components/ScaleOfPractice.astro";
 import Disciplines from "../components/Disciplines.astro";
-import Evidence from "../components/Evidence.astro";
 import MainCta from "../components/MainCta.astro";
 import Footer from "../components/Footer.astro";
 import {
@@ -50,7 +49,7 @@ const schema = {
 ---
 
 <Layout
-  title="Metaphors Design | Architectural Precision"
+  title="Metaphors Design | Architectural Precision from Pune, India"
   description="Defining modern Indian architecture for four decades. Metaphors Design delivers precise, ROI-driven architectural solutions for corporate, civic, and residential environments."
 >
   <script
@@ -61,33 +60,25 @@ const schema = {
   <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
     <Header />
     <Hero
-      eyebrow={homepage?.heroEyebrow}
-      headline={homepage?.heroHeadline}
-      headlineAccent={homepage?.heroHeadlineAccent}
-      headlineTagline={homepage?.heroHeadlineTagline}
-      subheading={homepage?.heroSubheading}
-      ctaLabel={homepage?.heroCtaLabel}
-      ctaUrl={homepage?.heroCtaUrl}
+      headline={homepage?.heroSection?.headline}
+      headlineAccent={homepage?.heroSection?.headlineAccent}
+      headlineTagline={homepage?.heroSection?.headlineTagline}
+      subheading={homepage?.heroSection?.subheading}
     />
 
     <StatureDialogue
-      homepage={homepage}
-      homeSettings={homeSettings}
+      section={homepage?.statureSection}
+      subheading={homepage?.heroSection?.subheading}
       quotes={quotes}
     />
 
-    <Sectors />
-    <ScaleOfPractice
-      eyebrow={homepage?.scaleEyebrow}
-      headline={homepage?.scaleHeadline}
-      body={homepage?.scaleBody}
-    />
-    <Evidence
-      eyebrow={homepage?.featuredSectionEyebrow}
-      headline={homepage?.featuredSectionHeadline}
-    />
-    <Disciplines />
-    <MainCta />
+    <Sectors section={homepage?.sectorsSection} />
+
+    <ScaleOfPractice section={homepage?.scaleSection} />
+
+    <Disciplines section={homepage?.disciplinesSection} />
+
+    <MainCta section={homepage?.mainCtaSection} />
   </div>
   <Footer />
 </Layout>

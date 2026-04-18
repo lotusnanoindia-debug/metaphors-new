@@ -2,33 +2,32 @@
 import { imageUrl } from "../lib/sanity";
 
 interface Props {
-  homepage: any;
-  homeSettings: any;
+  section: any;
+  subheading?: string;
   quotes: any[];
 }
 
-const { homepage, homeSettings, quotes } = Astro.props;
+const { section, subheading, quotes } = Astro.props;
 ---
 
 <section class="w-full px-6 lg:px-12 pb-32 lg:pb-48 -mt-12 lg:mt-0">
   <div class="max-w-[1440px] mx-auto reveal relative">
     <div class="grid grid-cols-1 lg:grid-cols-10 gap-6 lg:gap-4">
-      {/* Large Image - Stature */}
+      {/* Large Image column */}
       <div class="lg:col-span-7 flex flex-col gap-12">
-        {/* Studio Intro - Magazine Lead Positioning */}
+        {/* Studio Intro — big editorial lead */}
         {
-          homepage?.heroSubheading && (
+          subheading && (
             <div class="max-w-2xl mx-auto text-center lg:text-left lg:mx-0 reveal">
               <p class="hidden lg:block text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/30 mb-4">
-                Studio Context
+                {section?.contextEyebrow}
               </p>
-              <p class="text-2xl lg:text-4xl text-charcoal/90 font-sans font-light leading-[1.15] tracking-tight">
-                {homepage?.heroSubheading}
+              <p class="text-2xl lg:text-4xl text-charcoal/90 font-light leading-[1.15] tracking-tight">
+                {subheading}
               </p>
             </div>
           )
         }
-
         <div
           class="group/stature-lg relative overflow-hidden h-[60vh] lg:h-[60vh] transition-all duration-1000 grayscale-65 saturate-88 contrast-104 hover:grayscale-0 hover:saturate-100 hover:contrast-100"
         >
@@ -40,19 +39,19 @@ const { homepage, homeSettings, quotes } = Astro.props;
               <p
                 class="text-[10px] font-semibold uppercase tracking-[0.5em] text-charcoal whitespace-nowrap transition-all duration-1000"
               >
-                {homeSettings?.statureTagline || "Oracle Centre, Pune, India"}
+                {section?.statureImage?.caption}
               </p>
             </div>
           </div>
 
           {
-            homepage?.statureImage && (
+            section?.statureImage && (
               <img
-                alt={homepage.statureImage?.alt || "Structural Stature"}
+                alt={section.statureImage?.alt}
                 class="w-full h-full object-cover object-center transition-transform duration-[3s] cubic-bezier(0.19, 1, 0.22, 1) group-hover/stature-lg:scale-[1.02]"
                 loading="lazy"
                 decoding="async"
-                src={imageUrl(homepage.statureImage, { width: 1400 })}
+                src={imageUrl(section.statureImage, { width: 1400 })}
               />
             )
           }
@@ -66,13 +65,13 @@ const { homepage, homeSettings, quotes } = Astro.props;
       >
         {/* The Image (Backdrop) */}
         {
-          homepage?.precisionImage && (
+          section?.precisionImage && (
             <img
-              alt={homepage.precisionImage?.alt || "Architectural Detail"}
+              alt={section.precisionImage?.alt}
               class="absolute inset-0 w-full h-full object-cover object-center grayscale opacity-60 group-hover/stature-sm:opacity-80 group-hover/stature-sm:grayscale-0 group-hover/stature-sm:scale-110 transition-all duration-[2s] cubic-bezier(0.19, 1, 0.22, 1)"
               loading="lazy"
               decoding="async"
-              src={imageUrl(homepage.precisionImage, { width: 800 })}
+              src={imageUrl(section.precisionImage, { width: 800 })}
             />
           )
         }
@@ -88,7 +87,7 @@ const { homepage, homeSettings, quotes } = Astro.props;
                   class={`press-quote absolute inset-10 flex flex-col justify-end transition-opacity duration-1000 ${idx === 0 ? "opacity-100" : "opacity-0"}`}
                   data-index={idx}
                 >
-                  <p class="text-lg md:text-3xl text-white font-sans font-light leading-relaxed mb-8">
+                  <p class="text-lg md:text-3xl text-white font-light leading-relaxed mb-8">
                     "{item.quote}"
                   </p>
 
@@ -117,18 +116,18 @@ const { homepage, homeSettings, quotes } = Astro.props;
               <p
                 class="text-[10px] font-bold uppercase tracking-[0.3 em] text-white/30"
               >
-                Press Perspectives
+                {section?.pressEyebrow}
               </p>
               <p class="text-[10px] text-white/50 mt-1">
-                Independent Assessment
+                {section?.pressSubEyebrow}
               </p>
             </div>
 
             <a
-              href="/perspectives"
-              class="group/link flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] text-white/60 hover:text-white transition-colors duration-300"
+              href={section?.pressCtaUrl}
+              class="group/link flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] text-white/60 hover:text-white transition-colors duration-300 uppercase"
             >
-              MORE VOICES
+              {section?.pressCtaLabel}
               <span
                 class="block w-4 h-px bg-white/20 group-hover/link:bg-white group-hover/link:w-8 transition-all duration-500"
               ></span>
