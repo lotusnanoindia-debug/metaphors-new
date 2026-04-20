@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@tailwindcss/vite';
+import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 import cloudflare from '@astrojs/cloudflare';
@@ -9,18 +9,15 @@ export default defineConfig({
   site: 'https://metaphors.design',
   output: 'server',
   adapter: cloudflare({
-    platformProxy: {
-      enabled: true,
-    },
     imageService: 'passthrough'
   }),
-  image: {
-    service: {
-      entrypoint: 'astro/assets/services/noop',
-    },
-  },
   vite: {
-    plugins: [tailwind()],
+    plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@': '/src',
+      },
+    },
   },
   integrations: [sitemap(), icon()],
 });
