@@ -1,0 +1,693 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { client, SECTORS_QUERY, DISCIPLINES_QUERY } from "../lib/sanity";
+
+/**
+ * CONTACT PAGE - METAPHOR DESIGN
+ *
+ * Final Refinement:
+ * Left Side: Precise Headers (3xl-4xl)
+ * Right Side: Content & Form
+ * Top: Monumental Hero
+ */
+
+const title = "Contact | Metaphors Design";
+const description = "Begin the dialogue with Metaphors Design. Pune, India.";
+
+const sectorsData = await client.fetch(SECTORS_QUERY);
+const disciplinesData = await client.fetch(DISCIPLINES_QUERY);
+const sectors = sectorsData.map((s: any) => s.title);
+const disciplines = disciplinesData.map((d: any) => d.title);
+
+const email = "info@metaphors-design.com";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL="https://metaphors.design/contact"
+>
+  <div class="relative min-h-screen bg-bone">
+    <Header />
+
+    <main>
+      <!-- ─── 1. HERO ─────────────────────────────────────────── -->
+      <section class="relative w-full py-48 lg:py-56">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+          <div class="max-w-5xl mx-auto flex flex-col items-center text-center">
+            <h1
+              class="font-medium leading-[0.9] tracking-[-0.045em] text-[clamp(3.5rem,11vw,9rem)] lg:text-[clamp(3.5rem,9vw,8rem)] select-none reveal"
+            >
+              <span class="block text-charcoal">Begin The</span>
+              <span
+                class="block mt-4 lg:mt-6 text-transparent bg-clip-text animate-sheen will-change-[background-position] bg-[linear-gradient(105deg,#6b6b67_0%,#6b6b67_40%,#a8a8a2_48%,#a8a8a2_52%,#6b6b67_60%,#6b6b67_100%)] bg-size-[200%_auto] text-[clamp(1.5rem,6vw,3.5rem)] lg:text-[clamp(2rem,4.5vw,4.5rem)] tracking-[-0.03em] leading-tight"
+              >
+                Dialogue.
+              </span>
+            </h1>
+          </div>
+        </div>
+      </section>
+
+      <div class="max-w-7xl mx-auto px-6 lg:px-12 mb-24">
+        <!-- ─── 02 THE ENQUIRY ─────────────────────────────────── -->
+        <section
+          class="grid grid-cols-1 lg:grid-cols-12 gap-12 py-16 lg:py-32 border-t border-charcoal/10 reveal"
+          id="enquiry"
+        >
+          <div class="lg:col-span-4">
+            <h2
+              class="text-4xl lg:text-5xl tracking-tight text-charcoal lg:sticky lg:top-40"
+            >
+              Enquiry
+            </h2>
+          </div>
+          <div class="lg:col-span-8">
+            <form
+              id="contact-form"
+              class="flex flex-col gap-10 lg:gap-14"
+              action="#"
+              method="POST"
+            >
+              <input type="hidden" name="contactContext" value="Contact Form" />
+              <input
+                type="hidden"
+                name="originatingPage"
+                id="form-origin"
+                value=""
+              />
+
+              <!-- Spam Prevention -->
+              <div style="display:none" aria-hidden="true">
+                <input
+                  type="text"
+                  name="_gotcha"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
+                <div class="flex flex-col gap-3">
+                  <label
+                    for="full-name"
+                    class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
+                    >Full Name *</label
+                  >
+                  <input
+                    type="text"
+                    id="full-name"
+                    name="full-name"
+                    required
+                    class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal outline-none focus:border-charcoal transition-all"
+                  />
+                </div>
+                <div class="flex flex-col gap-3">
+                  <label
+                    for="email"
+                    class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
+                    >Email Address *</label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal outline-none focus:border-charcoal transition-all"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
+                <div class="flex flex-col gap-3">
+                  <label
+                    for="phone"
+                    class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
+                    >Contact Number *</label
+                  >
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    required
+                    class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal outline-none focus:border-charcoal transition-all"
+                  />
+                </div>
+                <div class="flex flex-col gap-3">
+                  <label
+                    for="organisation"
+                    class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
+                    >Organisation *</label
+                  >
+                  <input
+                    type="text"
+                    id="organisation"
+                    name="organisation"
+                    required
+                    class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal outline-none focus:border-charcoal transition-all"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
+                <div class="flex flex-col gap-3 relative z-30">
+                  <label
+                    class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
+                    >Sector of Interest</label
+                  >
+                  <div
+                    class="relative"
+                    id="sector-dropdown"
+                    data-page-dropdown
+                    data-open="false"
+                  >
+                    <button
+                      type="button"
+                      data-page-trigger
+                      class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal flex items-center justify-between transition-colors hover:border-charcoal cursor-pointer"
+                    >
+                      <span data-page-selected class="text-charcoal/40"></span>
+                      <svg
+                        viewBox="0 0 24 24"
+                        class="w-5 h-5 fill-none stroke-current stroke-1 transition-transform duration-300 shrink-0"
+                      >
+                        <path d="M6 9l6 6 6-6"></path>
+                      </svg>
+                    </button>
+                    <div
+                      data-page-menu
+                      class="absolute top-full left-0 w-full bg-bone border border-charcoal/10 border-t-0 z-50 shadow-xl overflow-hidden"
+                    >
+                      <div class="max-h-60 overflow-y-auto custom-scrollbar">
+                        <div
+                          class="px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-charcoal/30 border-b border-charcoal/5"
+                        >
+                          Which Sector are you enquiring about?
+                        </div>
+                        {
+                          sectors.map((s: string) => (
+                            <button
+                              type="button"
+                              data-page-option
+                              class="w-full text-left px-5 py-4 text-base font-light text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 transition-colors"
+                              data-value={s}
+                            >
+                              {s}
+                            </button>
+                          ))
+                        }
+                        <button
+                          type="button"
+                          data-page-option
+                          class="w-full text-left px-5 py-4 text-base font-light text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 transition-colors border-t border-charcoal/5"
+                          data-value="Other"
+                        >
+                          Other
+                        </button>
+                      </div>
+                    </div>
+                    <input type="hidden" name="sector" value="" />
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-3 relative z-20">
+                  <label
+                    class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
+                    >Discipline of Interest</label
+                  >
+                  <div
+                    class="relative"
+                    id="discipline-dropdown"
+                    data-page-dropdown
+                    data-open="false"
+                  >
+                    <button
+                      type="button"
+                      data-page-trigger
+                      class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal flex items-center justify-between transition-colors hover:border-charcoal cursor-pointer"
+                    >
+                      <span data-page-selected class="text-charcoal/40"></span>
+                      <svg
+                        viewBox="0 0 24 24"
+                        class="w-5 h-5 fill-none stroke-current stroke-1 transition-transform duration-300 shrink-0"
+                      >
+                        <path d="M6 9l6 6 6-6"></path>
+                      </svg>
+                    </button>
+                    <div
+                      data-page-menu
+                      class="absolute top-full left-0 w-full bg-bone border border-charcoal/10 border-t-0 z-50 shadow-xl overflow-hidden"
+                    >
+                      <div class="max-h-60 overflow-y-auto custom-scrollbar">
+                        <div
+                          class="px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-charcoal/30 border-b border-charcoal/5"
+                        >
+                          Which Discipline are you enquiring about?
+                        </div>
+                        {
+                          disciplines.map((d: string) => (
+                            <button
+                              type="button"
+                              data-page-option
+                              class="w-full text-left px-5 py-4 text-base font-light text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 transition-colors"
+                              data-value={d}
+                            >
+                              {d}
+                            </button>
+                          ))
+                        }
+                      </div>
+                    </div>
+                    <input type="hidden" name="discipline" value="" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <label
+                  for="message"
+                  class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
+                  >How can we assist you? *</label
+                >
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="2"
+                  required
+                  class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal outline-none focus:border-charcoal transition-all resize-none"
+                ></textarea>
+              </div>
+
+              <div
+                class="flex flex-col sm:flex-row items-center justify-between gap-12 pt-8"
+              >
+                <p
+                  class="text-xs font-bold text-charcoal/50 tracking-widest uppercase max-w-[380px] leading-relaxed"
+                >
+                  - We respond within two working days.<br />- Your data is safe
+                  with us.
+                  <br />- Confidentiality assured.
+                </p>
+                <div id="submit-wrapper" class="relative w-full sm:w-auto">
+                  <div
+                    id="submit-overlay"
+                    class="absolute inset-0 z-10 cursor-not-allowed"
+                  >
+                  </div>
+                  <button
+                    type="submit"
+                    id="submit-enquiry"
+                    disabled
+                    class="flex items-center justify-center h-16 lg:h-20 px-16 bg-charcoal text-white text-[11px] font-bold uppercase tracking-[0.5em] w-full sm:w-auto disabled:opacity-60 disabled:pointer-events-none transition-opacity duration-300 cursor-pointer"
+                  >
+                    Submit
+                  </button>
+
+                  <div
+                    id="validation-tooltip"
+                    class="absolute -top-12 left-1/2 -translate-x-1/2 px-4 py-2 bg-charcoal text-white text-[9px] font-bold uppercase tracking-widest whitespace-nowrap opacity-0 pointer-events-none transition-all duration-300 translate-y-2 z-20 shadow-2xl"
+                  >
+                    Please enter all required info
+                    <div
+                      class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-charcoal rotate-45"
+                    >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <!-- Success State -->
+            <div
+              id="contact-success"
+              class="hidden flex-col items-start gap-12 py-12 reveal"
+            >
+              <div class="space-y-6">
+                <h3
+                  class="text-4xl lg:text-5xl tracking-tight text-charcoal font-light leading-[1.1]"
+                >
+                  The dialogue has begun.
+                </h3>
+                <p
+                  class="text-xl text-charcoal/60 font-light max-w-xl leading-relaxed"
+                >
+                  Thank you for reaching out. We have received your project
+                  intent and a confirmation has been sent to the email address
+                  you provided. A senior member of our team will review the
+                  details and respond within two working days.
+                </p>
+              </div>
+              <button
+                id="reset-form"
+                class="text-[11px] font-bold uppercase tracking-[0.4em] text-charcoal hover:text-black border-b border-charcoal/20 pb-2 transition-all cursor-pointer"
+              >
+                Send another message
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ─── 03 CONTACT ─────────────────────────── -->
+        <section
+          class="grid grid-cols-1 lg:grid-cols-12 gap-12 py-16 lg:py-32 border-t border-charcoal/10 reveal"
+        >
+          <div class="lg:col-span-4">
+            <h2
+              class="text-4xl lg:text-5xl tracking-tight text-charcoal lg:sticky lg:top-40"
+            >
+              Contact
+            </h2>
+          </div>
+          <div class="lg:col-span-8 flex flex-col gap-12 lg:gap-16">
+            <div class="space-y-4">
+              <p
+                class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/30"
+              >
+                Email Liaison
+              </p>
+              <a
+                href={`mailto:${email}`}
+                class="text-xl lg:text-2xl font-light text-charcoal/60 hover:text-charcoal transition-colors"
+              >
+                {email}
+              </a>
+            </div>
+            <div class="space-y-4">
+              <p
+                class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/30"
+              >
+                Call Us
+              </p>
+              <div class="flex flex-col gap-6">
+                <div class="flex flex-wrap gap-x-12 gap-y-4">
+                  <div
+                    class="text-xl lg:text-2xl font-light text-charcoal/60 hover:text-charcoal transition-colors"
+                  >
+                    +91 96653 55522<br />+91 98222 79173
+                  </div>
+                </div>
+                <p
+                  class="text-[14px] font-light text-charcoal/40 tracking-tight italic"
+                >
+                  9am - 6pm • Mon - Sat • IST
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ─── 04 ADDRESS ─────────────────────────────────── -->
+        <section
+          class="grid grid-cols-1 lg:grid-cols-12 gap-12 py-16 lg:py-32 border-t border-charcoal/10 reveal"
+        >
+          <div class="lg:col-span-4">
+            <h2
+              class="text-4xl lg:text-5xl tracking-tight text-charcoal lg:sticky lg:top-40"
+            >
+              Address
+            </h2>
+          </div>
+          <div class="lg:col-span-8">
+            <p
+              class="text-xl lg:text-2xl font-light text-charcoal/60 hover:text-charcoal transition-colors"
+            >
+              Pallod Farms 2<br />Shambhu Vihar Society<br />Nankude Vasti,
+              Aundh<br />Pune 411067<br />Maharashtra <br />India
+            </p>
+          </div>
+        </section>
+
+        <!-- ─── 05 DIRECTIONS ──────────────────────────────── -->
+        <section
+          class="grid grid-cols-1 lg:grid-cols-12 gap-12 py-16 lg:py-32 border-t border-charcoal/10 reveal"
+        >
+          <div class="lg:col-span-4">
+            <h2
+              class="text-4xl lg:text-5xl tracking-tight text-charcoal lg:sticky lg:top-40"
+            >
+              Directions
+            </h2>
+          </div>
+          <div class="lg:col-span-8">
+            <div
+              class="w-full h-[450px] lg:h-[550px] bg-stone-100 overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-1000"
+            >
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.3961421117187!2d73.8018891!3d18.556170899999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf779e0b9591%3A0x466769acab1adc5d!2sMetaphors%20Design!5e0!3m2!1sen!2sin!4v1776595619357!5m2!1sen!2sin"
+                class="w-full h-full border-0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Studio Directions"></iframe>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+</Layout>
+
+<script>
+  // ─── Reveal Observer ───────────────────────────────────────────────────────
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    },
+    { threshold: 0.1 },
+  );
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+  // ─── Origin tracking ───────────────────────────────────────────────────────
+  const formHiddenOrigin = document.getElementById(
+    "form-origin",
+  ) as HTMLInputElement;
+  if (formHiddenOrigin) formHiddenOrigin.value = window.location.pathname;
+
+  // ─── Contact Page Dropdowns (scoped to #contact-form, not .custom-dropdown) ─
+  // ContactModal's script also manages .custom-dropdown globally. We use
+  // [data-page-dropdown] to isolate the contact page dropdowns entirely.
+  const pageDropdowns = document.querySelectorAll("[data-page-dropdown]");
+
+  function closeAllPageDropdowns() {
+    pageDropdowns.forEach((dd) => {
+      const menu = dd.querySelector("[data-page-menu]") as HTMLElement;
+      const arrow = dd.querySelector("svg");
+      if (menu) {
+        menu.style.opacity = "0";
+        menu.style.visibility = "hidden";
+        menu.style.transform = "translateY(8px)";
+      }
+      dd.setAttribute("data-open", "false");
+      arrow?.classList.remove("rotate-180");
+    });
+  }
+
+  pageDropdowns.forEach((dd) => {
+    const trigger = dd.querySelector("[data-page-trigger]") as HTMLElement;
+    const menu = dd.querySelector("[data-page-menu]") as HTMLElement;
+    const options = dd.querySelectorAll("[data-page-option]");
+    const selectedText = dd.querySelector("[data-page-selected]");
+    const hiddenInput = dd.querySelector(
+      "input[type=hidden]",
+    ) as HTMLInputElement;
+    const arrow = trigger?.querySelector("svg");
+
+    if (!trigger || !menu) return;
+
+    // Set closed state via inline styles (bypasses any CSS scoping conflicts)
+    menu.style.transition =
+      "opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease";
+    menu.style.opacity = "0";
+    menu.style.visibility = "hidden";
+    menu.style.transform = "translateY(8px)";
+
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isOpen = dd.getAttribute("data-open") === "true";
+      closeAllPageDropdowns();
+      if (!isOpen) {
+        menu.style.opacity = "1";
+        menu.style.visibility = "visible";
+        menu.style.transform = "translateY(0)";
+        dd.setAttribute("data-open", "true");
+        arrow?.classList.add("rotate-180");
+      }
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const value = (option as HTMLElement).dataset.value || "";
+        const text = (option as HTMLElement).textContent?.trim() || "";
+        if (selectedText) {
+          selectedText.textContent = text;
+          selectedText.classList.remove("text-charcoal/40");
+          selectedText.classList.add("text-charcoal");
+        }
+        if (hiddenInput) {
+          hiddenInput.value = value;
+          // Trigger input event for validation
+          form?.dispatchEvent(new Event("input"));
+        }
+        closeAllPageDropdowns();
+      });
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener("click", closeAllPageDropdowns);
+
+  // ─── Form Validation ────────────────────────────────────────────────────────
+  const submitBtn = document.getElementById(
+    "submit-enquiry",
+  ) as HTMLButtonElement;
+  const tooltip = document.getElementById("validation-tooltip");
+  const submitOverlay = document.getElementById("submit-overlay");
+
+  function checkFormValidity() {
+    if (!form || !submitBtn) return;
+    const isValid = form.checkValidity();
+
+    submitBtn.disabled = !isValid;
+
+    if (submitOverlay) {
+      if (isValid) submitOverlay.classList.add("hidden");
+      else submitOverlay.classList.remove("hidden");
+    }
+
+    // Reset tooltip if form becomes valid
+    if (isValid && tooltip) {
+      tooltip.classList.remove("opacity-100", "-translate-y-2");
+      tooltip.classList.add("opacity-0", "translate-y-2");
+    }
+  }
+
+  // Tooltip Logic for Disabled State (Handled on wrapper to capture clicks)
+  const submitWrapper = document.getElementById("submit-wrapper");
+
+  submitWrapper?.addEventListener("click", () => {
+    if (submitBtn && submitBtn.disabled && tooltip) {
+      tooltip.classList.remove("opacity-0", "translate-y-2");
+      tooltip.classList.add("opacity-100", "-translate-y-2");
+
+      // Auto-hide after delay
+      setTimeout(() => {
+        tooltip.classList.remove("opacity-100", "-translate-y-2");
+        tooltip.classList.add("opacity-0", "translate-y-2");
+      }, 2000);
+    }
+  });
+
+  form?.addEventListener("input", checkFormValidity);
+
+  // ─── Form Submission ────────────────────────────────────────────────────────
+  const successState = document.getElementById("contact-success");
+  const resetBtn = document.getElementById("reset-form");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    if (btn)
+      btn.innerHTML =
+        '<span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.5em]">Sending...</span>';
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        if (form) form.classList.add("hidden");
+        if (successState) {
+          successState.classList.remove("hidden");
+          successState.classList.add("flex");
+          successState.classList.add("reveal", "visible");
+        }
+
+        form.reset();
+        document.querySelectorAll("[data-page-selected]").forEach((el) => {
+          el.textContent = "";
+          el.classList.add("text-charcoal/40");
+          el.classList.remove("text-charcoal");
+        });
+        document
+          .querySelectorAll("[data-page-dropdown] input[type=hidden]")
+          .forEach((input) => {
+            (input as HTMLInputElement).value = "";
+          });
+
+        checkFormValidity();
+
+        if (btn)
+          btn.innerHTML =
+            '<span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.5em]">Submit</span>';
+      } else {
+        if (btn)
+          btn.innerHTML =
+            '<span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.5em]">Error</span>';
+        setTimeout(() => {
+          if (btn)
+            btn.innerHTML =
+              '<span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.5em]">Submit</span>';
+        }, 3000);
+      }
+    } catch (err) {
+      if (btn)
+        btn.innerHTML =
+          '<span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.5em]">Error</span>';
+      setTimeout(() => {
+        if (btn)
+          btn.innerHTML =
+            '<span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.5em]">Submit</span>';
+      }, 3000);
+    }
+  });
+
+  resetBtn?.addEventListener("click", () => {
+    if (form) form.classList.remove("hidden");
+    if (successState) {
+      successState.classList.add("hidden");
+      successState.classList.remove("flex");
+    }
+    checkFormValidity();
+  });
+
+  // Initial check
+  checkFormValidity();
+</script>
+
+<style is:global>
+  /* Custom Dropdown Styles */
+  .custom-dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .custom-dropdown .option:hover {
+    background-color: rgba(17, 17, 17, 0.1);
+    color: #111111;
+  }
+
+  /* Enhanced Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(17, 17, 17, 0.25);
+    border-radius: 2px;
+  }
+</style>

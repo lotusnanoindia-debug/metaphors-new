@@ -173,3 +173,21 @@ export const PRESS_QUOTES_QUERY = `*[_type == "pressQuote"] | order(_createdAt d
   "logo": logo.asset->,
   sourceType
 }`;
+
+export const EVIDENCE_SECTOR_SLIDER_QUERY = `*[_type == "sector"] | order(orderRank asc){
+  _id,
+  title,
+  "slug": slug.current,
+  "leadProject": *[_type == "project" && references(^._id) && featured == true][0]{
+     title,
+     "slug": slug.current,
+     location,
+     areaSqFt,
+     projectStatus,
+     completionYear,
+     mainImage { ..., asset-> { ..., originalFilename } },
+     coverImage { ..., asset-> { ..., originalFilename } },
+     headline,
+     highlights
+  }
+}`;

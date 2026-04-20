@@ -1,0 +1,9 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "metaphors-design"
+compatibility_date = "2025-02-14"
+compatibility_flags = [ "nodejs_compat" ]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "metaphors-db"
+database_id = "1fdd72aa-3d22-4348-9e14-261db2602cb0"

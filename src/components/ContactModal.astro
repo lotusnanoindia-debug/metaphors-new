@@ -125,13 +125,40 @@ const disciplines = disciplinesData.map((d: any) => d.title);
     <div
       class="flex-1 p-8 lg:p-12 lg:px-20 bg-bone flex flex-col justify-center overflow-visible"
     >
-      <div class="mb-10">
+      <div class="mb-10" id="form-header">
         <p
-          class="text-3xl lg:text-4xl tracking-tight text-charcoal"
+          class="text-3xl lg:text-4xl tracking-tight text-charcoal/90 font-light"
           id="modal-eyebrow"
         >
           Direct Enquiry
         </p>
+      </div>
+
+      <!-- Success State -->
+      <div
+        id="contact-success"
+        class="hidden flex-col items-start gap-8 py-10 reveal"
+      >
+        <div class="space-y-4">
+          <h3
+            class="text-3xl lg:text-4xl tracking-tight text-charcoal font-light"
+          >
+            Acknowledged.
+          </h3>
+          <p
+            class="text-base text-charcoal/60 font-light max-w-md leading-relaxed"
+          >
+            Your enquiry has been received and a confirmation has been sent to
+            the email address you provided. A senior member of our team will
+            review the details and respond within two working days.
+          </p>
+        </div>
+        <button
+          id="reset-form"
+          class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal hover:text-black border-b border-charcoal/20 pb-1 transition-all cursor-pointer"
+        >
+          Send another message
+        </button>
       </div>
 
       <form
@@ -140,40 +167,51 @@ const disciplines = disciplinesData.map((d: any) => d.title);
         action="#"
         method="POST"
       >
-        <input type="hidden" name="context" id="form-context" value="General" />
+        <input
+          type="hidden"
+          name="contactContext"
+          id="form-context"
+          value="Contact Modal"
+        />
+        <input type="hidden" name="originatingPage" id="form-origin" value="" />
+
+        <!-- Spam Prevention -->
+        <div style="display:none" aria-hidden="true">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
           <div class="flex flex-col gap-2">
             <label
               for="full-name"
-              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40 flex justify-between items-center"
+              class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/60 flex justify-between items-center"
             >
-              Your Name
-              <span class="text-charcoal/20">*</span>
+              Name
+              <span class="text-charcoal/30">*</span>
             </label>
             <input
               type="text"
               id="full-name"
               name="full-name"
               required
-              class="w-full bg-white border border-charcoal/10 px-5 py-3 text-base font-light text-charcoal outline-none focus:border-charcoal/40 transition-colors"
+              class="w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-normal text-charcoal/90 outline-none focus:border-charcoal/40 transition-colors"
             />
           </div>
 
           <div class="flex flex-col gap-2">
             <label
               for="email"
-              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40 flex justify-between items-center"
+              class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/60 flex justify-between items-center"
             >
-              Your Email
-              <span class="text-charcoal/20">*</span>
+              Email
+              <span class="text-charcoal/30">*</span>
             </label>
             <input
               type="email"
               id="email"
               name="email"
               required
-              class="w-full bg-white border border-charcoal/10 px-5 py-3 text-base font-light text-charcoal outline-none focus:border-charcoal/40 transition-colors"
+              class="w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-normal text-charcoal/90 outline-none focus:border-charcoal/40 transition-colors"
             />
           </div>
         </div>
@@ -182,14 +220,14 @@ const disciplines = disciplinesData.map((d: any) => d.title);
           {/* Custom Sector Dropdown */}
           <div class="flex flex-col gap-2 relative z-30">
             <label
-              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40"
+              class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/50"
             >
               Sector of Interest
             </label>
             <div class="relative custom-dropdown" id="sector-dropdown">
               <button
                 type="button"
-                class="dropdown-trigger w-full bg-white border border-charcoal/10 px-5 py-3 text-base font-light text-charcoal flex items-center justify-between transition-colors hover:border-charcoal/30 cursor-pointer"
+                class="dropdown-trigger w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-normal text-charcoal/90 flex items-center justify-between transition-colors hover:border-charcoal/30 cursor-pointer"
               >
                 <span class="selected-value"></span>
                 <svg
@@ -235,14 +273,14 @@ const disciplines = disciplinesData.map((d: any) => d.title);
           {/* Custom Discipline Dropdown */}
           <div class="flex flex-col gap-2 relative z-20">
             <label
-              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40"
+              class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/50"
             >
               Discipline of Interest
             </label>
             <div class="relative custom-dropdown" id="discipline-dropdown">
               <button
                 type="button"
-                class="dropdown-trigger w-full bg-white border border-charcoal/10 px-5 py-3 text-base font-light text-charcoal flex items-center justify-between transition-colors hover:border-charcoal/30 cursor-pointer"
+                class="dropdown-trigger w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-normal text-charcoal/90 flex items-center justify-between transition-colors hover:border-charcoal/30 cursor-pointer"
               >
                 <span class="selected-value"></span>
                 <svg
@@ -283,33 +321,33 @@ const disciplines = disciplinesData.map((d: any) => d.title);
           <div class="flex flex-col gap-2">
             <label
               for="phone"
-              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40 flex justify-between items-center"
+              class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/50 flex justify-between items-center"
             >
               Contact Number
-              <span class="text-charcoal/20">*</span>
+              <span class="text-charcoal/30">*</span>
             </label>
             <input
               type="tel"
               id="phone"
               name="phone"
               required
-              class="w-full bg-white border border-charcoal/10 px-5 py-3 text-base font-light text-charcoal outline-none focus:border-charcoal/40 transition-colors"
+              class="w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-normal text-charcoal/90 outline-none focus:border-charcoal/40 transition-colors"
             />
           </div>
           <div class="flex flex-col gap-2">
             <label
               for="organisation"
-              class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40 flex justify-between items-center"
+              class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/60 flex justify-between items-center"
             >
               Organisation
-              <span class="text-charcoal/20">*</span>
+              <span class="text-charcoal/30">*</span>
             </label>
             <input
               type="text"
               id="organisation"
               name="organisation"
               required
-              class="w-full bg-white border border-charcoal/10 px-5 py-3 text-base font-light text-charcoal outline-none focus:border-charcoal/40 transition-colors"
+              class="w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-normal text-charcoal/90 outline-none focus:border-charcoal/40 transition-colors"
             />
           </div>
         </div>
@@ -317,17 +355,18 @@ const disciplines = disciplinesData.map((d: any) => d.title);
         <div class="flex flex-col gap-3">
           <label
             for="message"
-            class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40 flex justify-between items-center"
+            class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/60 flex justify-between items-center"
           >
             Your Enquiry
-            <span class="text-charcoal/20">*</span>
+            <span class="text-charcoal/30">*</span>
           </label>
           <textarea
             id="message"
             name="message"
-            rows="3"
+            rows="4"
             required
-            class="w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-light text-charcoal outline-none focus:border-charcoal/40 transition-colors resize-none"
+            placeholder="Briefly describe your project intent..."
+            class="w-full bg-white border border-charcoal/10 px-5 py-5 text-base font-normal text-charcoal/90 outline-none focus:border-charcoal/40 transition-colors resize-none placeholder:text-charcoal/20"
           ></textarea>
         </div>
 
@@ -382,6 +421,9 @@ const disciplines = disciplinesData.map((d: any) => d.title);
   const formHiddenContext = document.getElementById(
     "form-context",
   ) as HTMLInputElement;
+  const formHiddenOrigin = document.getElementById(
+    "form-origin",
+  ) as HTMLInputElement;
 
   function openModal(context = "General") {
     if (!modal) return;
@@ -398,6 +440,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
     }
 
     if (formHiddenContext) formHiddenContext.value = context;
+    if (formHiddenOrigin) formHiddenOrigin.value = window.location.pathname;
 
     modal.showModal();
     setTimeout(() => content?.classList.add("visible"), 10);
@@ -422,16 +465,55 @@ const disciplines = disciplinesData.map((d: any) => d.title);
   closeBtn?.addEventListener("click", closeModal);
   (window as any).openContactModal = openModal;
 
-  form?.addEventListener("submit", (e) => {
+  const formHeader = document.getElementById("form-header");
+  const successState = document.getElementById("contact-success");
+  const resetBtn = document.getElementById("reset-form");
+
+  form?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const btn = form.querySelector('button[type="submit"]');
-    if (btn) btn.textContent = "Acknowledged...";
+    if (btn) btn.textContent = "Sending...";
 
-    setTimeout(() => {
-      closeModal();
-      form.reset();
-      if (btn) btn.textContent = "Send Enquiry";
-    }, 1500);
+    try {
+      const formData = new FormData(form);
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Show success state
+        if (form) form.classList.add("hidden");
+        if (formHeader) formHeader.classList.add("hidden");
+        if (successState) successState.classList.remove("hidden");
+        if (successState) successState.classList.add("flex");
+
+        form.reset();
+        if (btn) btn.textContent = "Send Enquiry";
+      } else {
+        if (btn) btn.textContent = "Error Sending";
+        setTimeout(() => {
+          if (btn) btn.textContent = "Send Enquiry";
+        }, 2000);
+      }
+    } catch (err) {
+      if (btn) btn.textContent = "Connection Error";
+      setTimeout(() => {
+        if (btn) btn.textContent = "Send Enquiry";
+      }, 2000);
+    }
+  });
+
+  resetBtn?.addEventListener("click", () => {
+    if (form) form.classList.remove("hidden");
+    if (formHeader) formHeader.classList.remove("hidden");
+    if (successState) {
+      successState.classList.add("hidden");
+      successState.classList.remove("flex");
+    }
+    checkFormValidity();
   });
 
   document.addEventListener("click", (e) => {
