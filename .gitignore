@@ -18,3 +18,7 @@ _archive/
 .agents/
 AGENTS.md
 metadata.json
+
+# Local configurations
+.wrangler/
+.astro/
