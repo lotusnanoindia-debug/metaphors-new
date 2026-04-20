@@ -66,7 +66,7 @@ const email = "info@metaphors-design.com";
           </div>
           <div class="lg:col-span-8">
             <form
-              id="contact-form"
+              id="contact-page-form"
               class="flex flex-col gap-10 lg:gap-14"
               action="#"
               method="POST"
@@ -452,6 +452,8 @@ const email = "info@metaphors-design.com";
 </Layout>
 
 <script>
+  const form = document.getElementById("contact-page-form") as HTMLFormElement;
+
   // ─── Reveal Observer ───────────────────────────────────────────────────────
   const observer = new IntersectionObserver(
     (entries) => {
@@ -533,7 +535,7 @@ const email = "info@metaphors-design.com";
         if (hiddenInput) {
           hiddenInput.value = value;
           // Trigger input event for validation
-          form?.dispatchEvent(new Event("input"));
+          if (form) form.dispatchEvent(new Event("input"));
         }
         closeAllPageDropdowns();
       });
