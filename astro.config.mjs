@@ -7,7 +7,7 @@ import cloudflare from '@astrojs/cloudflare';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://metaphors.design',
-  output: 'static',
+  output: 'server',
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
