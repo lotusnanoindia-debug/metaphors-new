@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev --host 0.0.0.0",
     "start": "astro dev --host 0.0.0.0",
-    "build": "astro build && rm -f dist/server/wrangler.json",
+    "build": "astro build && rm -f dist/server/wrangler.json && rm -f .wrangler/deploy/config.json",
     "preview": "astro preview",
     "preview:cf": "astro build && wrangler dev",
     "deploy": "astro build && wrangler deploy",
