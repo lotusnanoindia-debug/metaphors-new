@@ -1,5 +1,7 @@
 import type { APIRoute } from "astro";
 import { Resend } from "resend";
+// @ts-ignore - Valid in Cloudflare context
+import { env } from "cloudflare:workers";
 
 export const prerender = false;
 
@@ -7,13 +9,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const data = await request.formData();
     
-    // Access Cloudflare bindings through Astro locals
-    const runtime = (locals as any).runtime;
-    const cloudflareEnv = runtime?.env || import.meta.env;
-    const db = cloudflareEnv?.DB;
+    // Access Cloudflare bindings natively for v13
+    const cloudflareEnv = typeof env !== "undefined" ? env : {};
+    const db = (cloudflareEnv as any).DB;
+    const resendKey = (cloudflareEnv as any).RESEND_API_KEY || import.meta.env.RESEND_API_KEY;
 
     // Create Resend instance using Cloudflare environment variable
-    const resend = new Resend(cloudflareEnv?.RESEND_API_KEY || import.meta.env.RESEND_API_KEY);
+    const resend = new Resend(resendKey);
 
     // SPAM / BOT PROTECTION (Honeypot)
     const gotcha = data.get("_gotcha");
