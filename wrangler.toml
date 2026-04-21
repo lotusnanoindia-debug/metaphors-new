@@ -1,7 +1,10 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "metaphors-design"
 compatibility_date = "2025-02-14"
-compatibility_flags = [ "nodejs_compat" ]
+compatibility_flags = ["nodejs_compat"]
+
+# Required for Cloudflare Pages to recognise this file
+pages_build_output_dir = "./dist"
 
 [[d1_databases]]
 binding = "DB"
