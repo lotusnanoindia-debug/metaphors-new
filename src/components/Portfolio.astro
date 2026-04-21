@@ -161,10 +161,11 @@ function evidenceNote(project: any): string | null {
             ].join(" ")}
           >
             <div class="flex h-12 w-12 items-center justify-center rounded-full bg-charcoal/90 text-bone shadow-lg backdrop-blur-md transition-all hover:scale-105 hover:bg-charcoal active:scale-95">
-              <Icon
-                name={`ph:arrow-${dir === "prev" ? "left" : "right"}-light`}
-                class="h-5 w-5"
-              />
+              {dir === "prev" ? (
+                <Icon name="ph:arrow-left-light" class="h-5 w-5" />
+              ) : (
+                <Icon name="ph:arrow-right-light" class="h-5 w-5" />
+              )}
             </div>
           </button>
         ))
