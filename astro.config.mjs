@@ -10,7 +10,6 @@ export default defineConfig({
   output: 'server',
   adapter: cloudflare({
     imageService: 'passthrough',
-    mode: 'directory',
   }),
   vite: {
     plugins: [tailwindcss()],
@@ -20,5 +19,25 @@ export default defineConfig({
       },
     },
   },
-  integrations: [sitemap(), icon()],
+  integrations: [
+    sitemap(),
+    icon({
+      include: {
+        ph: [
+          'arrow-left-light',
+          'arrow-right-light',
+          'arrow-up-right',
+          'map-pin-light',
+          'envelope-light',
+          'phone-light',
+          'facebook-logo-fill',
+          'linkedin-logo-fill',
+          'instagram-logo-fill',
+          'caret-down',
+          'x',
+          'arrow-right'
+        ],
+      },
+    }),
+  ],
 });
