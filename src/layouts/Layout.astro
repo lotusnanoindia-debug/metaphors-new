@@ -1,6 +1,5 @@
 ---
 import ContactModal from "../components/ContactModal.astro";
-import { SEO } from "astro-seo";
 import "@fontsource-variable/inter";
 import "../styles/global.css";
 
@@ -22,33 +21,29 @@ const {
 <!doctype html>
 <html lang="en">
   <head>
-    <SEO
-      title={title}
-      description={description}
-      canonical={canonicalURL}
-      openGraph={{
-        basic: {
-          title: title,
-          type: "website",
-          image: image,
-          url: canonicalURL,
-        },
-        image: {
-          alt: title,
-        },
-      }}
-      twitter={{
-        creator: "@metaphor-design",
-        card: "summary_large_image",
-        title: title,
-        description: description,
-        image: image,
-      }}
-    />
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/png" href="/logo-v1.png" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:alt" content={title} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@metaphorsdesign" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
     <slot name="head" />
   </head>
   <body

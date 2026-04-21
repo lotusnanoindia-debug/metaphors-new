@@ -1,5 +1,5 @@
 ---
-import { Icon } from "astro-icon/components";
+import Icon from "./Icon.astro";
 import { client, SECTORS_QUERY, DISCIPLINES_QUERY } from "../lib/sanity";
 
 const sectorsData = await client.fetch(SECTORS_QUERY);

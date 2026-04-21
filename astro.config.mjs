@@ -1,43 +1,25 @@
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
-import sitemap from '@astrojs/sitemap';
-import icon from 'astro-icon';
-import cloudflare from '@astrojs/cloudflare';
+import { defineConfig } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
+import sitemap from "@astrojs/sitemap";
+import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://metaphors.design',
-  output: 'server',
+  site: "https://metaphors.design",
+  output: "server",
   adapter: cloudflare({
-    imageService: 'passthrough',
+    imageService: "passthrough",
   }),
   vite: {
     plugins: [tailwindcss()],
     resolve: {
       alias: {
-        '@': '/src',
+        "@": "/src",
       },
     },
+    ssr: {
+      noExternal: ["resend", "@sanity/client", "@sanity/image-url"],
+    },
   },
-  integrations: [
-    sitemap(),
-    icon({
-      include: {
-        ph: [
-          'arrow-left-light',
-          'arrow-right-light',
-          'arrow-up-right',
-          'map-pin-light',
-          'envelope-light',
-          'phone-light',
-          'facebook-logo-fill',
-          'linkedin-logo-fill',
-          'instagram-logo-fill',
-          'caret-down',
-          'x',
-          'arrow-right'
-        ],
-      },
-    }),
-  ],
+  integrations: [sitemap()],
 });

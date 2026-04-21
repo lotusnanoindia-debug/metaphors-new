@@ -184,7 +184,11 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
             applied to every brief, regardless of scale, sector, or complexity.
           </p>
           <div class="mt-12">
-            <Cta text="Explore Our Engagement" href="/engagement" invert={true} />
+            <Cta
+              text="Explore Our Engagement"
+              href="/engagement"
+              invert={true}
+            />
           </div>
         </div>
 
@@ -310,20 +314,6 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
                 </p>
 
                 <div class="flex flex-wrap items-center gap-6 mb-12">
-                  {member.linkedinUrl && (
-                    <a
-                      href={member.linkedinUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="flex items-center gap-2 group/linkedin"
-                    >
-                      <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/40 group-hover/linkedin:text-charcoal transition-colors">
-                        LinkedIn
-                      </span>
-                      <span class="block w-4 h-px bg-charcoal/10 group-hover/linkedin:bg-charcoal group-hover/linkedin:w-8 transition-all duration-500" />
-                    </a>
-                  )}
-
                   {((member.sectors && member.sectors.length > 0) ||
                     (member.disciplines && member.disciplines.length > 0)) && (
                     <div class="h-px w-8 bg-charcoal/5 hidden lg:block" />
@@ -396,6 +386,11 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
                     )}
                   </div>
                   <div>
+                    {member.experience && (
+                      <p class="text-[11px] font-bold uppercase tracking-widest text-charcoal/40 mb-2">
+                        {member.experience}
+                      </p>
+                    )}
                     <p class="text-xl font-medium text-charcoal mb-2">
                       {member.name}
                     </p>
@@ -405,42 +400,44 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
                     <p class="text-sm leading-relaxed text-charcoal/50 mb-6">
                       {member.body}
                     </p>
-
-                    {member.linkedinUrl && (
-                      <a
-                        href={member.linkedinUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center gap-2 group/linkedin"
-                      >
-                        <span class="text-[9px] font-bold uppercase tracking-[0.2em] text-charcoal/30 group-hover/linkedin:text-charcoal transition-colors">
-                          LinkedIn
-                        </span>
-                        <span class="block w-3 h-px bg-charcoal/10 group-hover/linkedin:bg-charcoal group-hover/linkedin:w-6 transition-all duration-500" />
-                      </a>
-                    )}
                   </div>
                 </div>
 
                 {((member.sectors && member.sectors.length > 0) ||
                   (member.disciplines && member.disciplines.length > 0)) && (
-                  <div class="flex flex-wrap gap-2 pt-6 border-t border-charcoal/5">
-                    {member.sectors?.filter(Boolean).map((s: any) => (
-                      <a
-                        href={`/sectors/${s.slug}`}
-                        class="text-[8px] font-bold uppercase tracking-[0.2em] text-charcoal/30 bg-charcoal/5 px-2.5 py-1.5 rounded-sm hover:bg-charcoal/10 transition-colors"
-                      >
-                        {s.title}
-                      </a>
-                    ))}
-                    {member.disciplines?.filter(Boolean).map((d: any) => (
-                      <a
-                        href={`/disciplines/${d.slug}`}
-                        class="text-[8px] font-bold uppercase tracking-[0.2em] text-charcoal/30 bg-charcoal/5 px-2.5 py-1.5 rounded-sm hover:bg-charcoal/10 transition-colors"
-                      >
-                        {d.title}
-                      </a>
-                    ))}
+                  <div class="pt-6 border-t border-charcoal/5 space-y-4">
+                    {member.sectors && member.sectors.length > 0 && (
+                      <div class="flex flex-wrap gap-2">
+                        {member.sectors.filter(Boolean).map((s: any) => (
+                          <a
+                            href={`/sectors/${s.slug}`}
+                            class="text-[8px] font-bold uppercase tracking-[0.2em] text-charcoal/60 bg-charcoal/5 px-2.5 py-1.5 rounded-sm hover:bg-charcoal/10 transition-colors"
+                          >
+                            {s.title}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+
+                    {member.sectors &&
+                      member.sectors.length > 0 &&
+                      member.disciplines &&
+                      member.disciplines.length > 0 && (
+                        <div class="h-[1px] w-12 bg-charcoal/5" />
+                      )}
+
+                    {member.disciplines && member.disciplines.length > 0 && (
+                      <div class="flex flex-wrap gap-2">
+                        {member.disciplines.filter(Boolean).map((d: any) => (
+                          <a
+                            href={`/disciplines/${d.slug}`}
+                            class="text-[8px] font-bold uppercase tracking-[0.2em] text-charcoal/60 bg-charcoal/5 px-2.5 py-1.5 rounded-sm hover:bg-charcoal/10 transition-colors"
+                          >
+                            {d.title}
+                          </a>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </article>
