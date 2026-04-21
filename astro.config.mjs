@@ -8,7 +8,6 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   site: 'https://metaphors.design',
   output: 'server',
-  session: false,
   adapter: cloudflare({
     imageService: 'passthrough',
     mode: 'directory',
