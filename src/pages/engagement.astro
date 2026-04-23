@@ -10,25 +10,21 @@ const description =
   "What working with Metaphors Design means for your project. Six defined stages from brief to handover, with the architectural discipline and sustained involvement your commission requires.";
 ---
 
-<Layout
-  title={title}
-  description={description}
-  canonicalURL="https://metaphors.design/engagement"
->
-  <div class="relative min-h-screen overflow-clip bg-bone">
+<Layout title={title} description={description} canonicalURL="https://metaphors.design/engagement">
+  <div class="bg-bone relative min-h-screen overflow-clip">
     <Header />
 
     <main>
       <!-- ─── 1. HERO ─────────────────────────────────────────── -->
       <section class="relative w-full py-48 lg:py-56">
-        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div class="max-w-5xl mx-auto flex flex-col items-center text-center">
+        <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
+          <div class="mx-auto flex max-w-5xl flex-col items-center text-center">
             <h1
-              class="font-medium leading-[0.9] tracking-[-0.045em] text-[clamp(3.5rem,11vw,9rem)] lg:text-[clamp(3.5rem,9vw,8rem)] select-none reveal"
+              class="reveal text-[clamp(3.5rem,11vw,9rem)] leading-[0.9] font-medium tracking-[-0.045em] select-none lg:text-[clamp(3.5rem,9vw,8rem)]"
             >
-              <span class="block text-charcoal">Decisions of Consequence.</span>
+              <span class="text-charcoal block">Decisions of Consequence.</span>
               <span
-                class="block mt-4 lg:mt-6 text-transparent bg-clip-text animate-sheen will-change-[background-position] bg-[linear-gradient(105deg,#6b6b67_0%,#6b6b67_40%,#a8a8a2_48%,#a8a8a2_52%,#6b6b67_60%,#6b6b67_100%)] bg-size-[200%_auto] text-[clamp(1.5rem,6vw,3.5rem)] lg:text-[clamp(2rem,4.5vw,4.5rem)] tracking-[-0.03em] leading-tight"
+                class="animate-sheen mt-4 block bg-[linear-gradient(105deg,#6b6b67_0%,#6b6b67_40%,#a8a8a2_48%,#a8a8a2_52%,#6b6b67_60%,#6b6b67_100%)] bg-size-[200%_auto] bg-clip-text text-[clamp(1.5rem,6vw,3.5rem)] leading-tight tracking-[-0.03em] text-transparent will-change-[background-position] lg:mt-6 lg:text-[clamp(2rem,4.5vw,4.5rem)]"
               >
                 Executed with Rigour.
               </span>
@@ -39,42 +35,41 @@ const description =
     </main>
 
     <!-- ─── 2. STATURE IMAGE GRID (mirrors About page) ─────── -->
-    <section class="w-full px-6 lg:px-12 pb-32">
-      <div class="max-w-[1440px] mx-auto reveal relative">
-        <div class="grid grid-cols-1 lg:grid-cols-10 gap-6 lg:gap-8">
+    <section class="w-full px-6 pb-32 lg:px-12">
+      <div class="reveal relative mx-auto max-w-[1440px]">
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-10 lg:gap-8">
           <!-- Large image + intro text -->
-          <div class="lg:col-span-7 flex flex-col gap-12">
-            <div class="max-w-3xl reveal">
+          <div class="flex flex-col gap-12 lg:col-span-7">
+            <div class="reveal max-w-3xl">
               <p
-                class="hidden lg:block text-[12px] font-bold uppercase tracking-[0.3em] text-charcoal/40 mb-8"
+                class="text-charcoal/40 mb-8 hidden text-[12px] font-bold tracking-[0.3em] uppercase lg:block"
               >
                 The Engagement — Pune, Est. 1989
               </p>
               <p
-                class="text-2xl lg:text-4xl text-charcoal/90 font-light leading-[1.15] tracking-tight"
+                class="text-charcoal/90 text-2xl leading-[1.15] font-light tracking-tight lg:text-4xl"
               >
-                Spaces of significance, once created, cannot be undone or
-                replaced without consequence. <br /><br />Choosing your
-                architect is never a mere transactional decision; its
-                foundations lie in perfectly aligned intent and mutual trust.
+                Spaces of significance, once created, cannot be undone or replaced without
+                consequence. <br /><br />Choosing your architect is never a mere transactional
+                decision; its foundations lie in perfectly aligned intent and mutual trust.
               </p>
             </div>
 
             <div
-              class="group/stature-lg relative overflow-hidden h-[60vh] lg:h-[70vh] transition-all duration-1000 grayscale-65 saturate-88 contrast-104 hover:grayscale-0 hover:saturate-100 hover:contrast-100"
+              class="group/stature-lg relative h-[60vh] overflow-hidden contrast-104 grayscale-65 saturate-88 transition-all duration-1000 hover:contrast-100 hover:grayscale-0 hover:saturate-100 lg:h-[70vh]"
             >
               <img
                 src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=2000&q=85"
                 alt="Metaphors Design — Studio Engagement"
-                class="w-full h-full object-cover transition-transform duration-[3s] cubic-bezier(0.19, 1, 0.22, 1) group-hover/stature-lg:scale-[1.02]"
+                class="cubic-bezier(0.19, 1, 0.22, 1) h-full w-full object-cover transition-transform duration-[3s] group-hover/stature-lg:scale-[1.02]"
                 loading="eager"
               />
-              <div class="absolute left-0 bottom-0 pointer-events-none z-10">
+              <div class="pointer-events-none absolute bottom-0 left-0 z-10">
                 <div
-                  class="origin-bottom-left translate-x-10 -translate-y-10 bg-bone/50 backdrop-blur-sm px-8 py-4 border border-white/10 transition-all duration-1000 group-hover/stature-lg:bg-bone/90 group-hover/stature-lg:backdrop-blur-xl group-hover/stature-lg:border-white/20"
+                  class="bg-bone/50 group-hover/stature-lg:bg-bone/90 origin-bottom-left translate-x-10 -translate-y-10 border border-white/10 px-8 py-4 backdrop-blur-sm transition-all duration-1000 group-hover/stature-lg:border-white/20 group-hover/stature-lg:backdrop-blur-xl"
                 >
                   <p
-                    class="text-[10px] font-semibold uppercase tracking-[0.5em] text-charcoal whitespace-nowrap transition-all duration-1000"
+                    class="text-charcoal text-[10px] font-semibold tracking-[0.5em] whitespace-nowrap uppercase transition-all duration-1000"
                   >
                     Metaphors Design Studio — Pune
                   </p>
@@ -85,41 +80,35 @@ const description =
 
           <!-- Dark secondary column -->
           <div
-            class="group/stature-sm lg:col-span-3 relative overflow-hidden h-[50vh] lg:h-[80vh] bg-charcoal reveal mt-12 lg:mt-0"
+            class="group/stature-sm bg-charcoal reveal relative mt-12 h-[50vh] overflow-hidden lg:col-span-3 lg:mt-0 lg:h-[80vh]"
             style="transition-delay: 200ms"
           >
             <img
               src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80"
               alt="Precision Backdrop"
-              class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover/stature-sm:opacity-60 transition-all duration-[2s]"
+              class="absolute inset-0 h-full w-full object-cover opacity-40 grayscale transition-all duration-[2s] group-hover/stature-sm:opacity-60"
             />
             <div
-              class="absolute inset-0 p-8 lg:p-12 bg-linear-to-t from-charcoal via-charcoal/60 to-transparent flex flex-col justify-end z-10"
+              class="from-charcoal via-charcoal/60 absolute inset-0 z-10 flex flex-col justify-end bg-linear-to-t to-transparent p-8 lg:p-12"
             >
-              <div class="space-y-12 mb-12">
+              <div class="mb-12 space-y-12">
                 <div class="h-px w-12 bg-white/20"></div>
-                <p
-                  class="text-2xl lg:text-4xl text-white font-light tracking-tight"
-                >
-                  One partner leads your project from first brief to final
-                  handover. <p class="italic text-white/40 text-2xl">
-                    Every detail is executed with precision, guided by hands-on
-                    founder direction.
+                <p class="text-2xl font-light tracking-tight text-white lg:text-4xl">
+                  One partner leads your project from first brief to final handover. <p
+                    class="text-2xl text-white/40 italic"
+                  >
+                    Every detail is executed with precision, guided by hands-on founder direction.
                   </p>
                 </p>
               </div>
 
-              <div class="pt-8 border-t border-white/10">
-                <p
-                  class="text-[12px] font-bold uppercase tracking-[0.2em] text-white/30 mb-3"
-                >
+              <div class="border-t border-white/10 pt-8">
+                <p class="mb-3 text-[12px] font-bold tracking-[0.2em] text-white/30 uppercase">
                   The Commitment
                 </p>
-                <p
-                  class="text-[12px] text-white/50 leading-relaxed max-w-[240px]"
-                >
-                  Full involvement from first site visit through to final
-                  handover — without exception.
+                <p class="max-w-[240px] text-[12px] leading-relaxed text-white/50">
+                  Full involvement from first site visit through to final handover — without
+                  exception.
                 </p>
               </div>
             </div>
@@ -129,80 +118,69 @@ const description =
     </section>
 
     <!-- ─── 3. CONDITIONS OF PRACTICE ─────────────────────── -->
-    <section class="max-w-[1440px] mx-auto px-6 lg:px-12 pb-32 lg:pb-48">
+    <section class="mx-auto max-w-[1440px] px-6 pb-32 lg:px-12 lg:pb-48">
       <div
-        class="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-32 border-t border-charcoal/10 pt-16 lg:pt-24"
+        class="border-charcoal/10 grid grid-cols-1 gap-16 border-t pt-16 md:grid-cols-2 lg:gap-32 lg:pt-24"
       >
         <div class="reveal">
           <p
-            class="text-[12px] font-bold uppercase tracking-[0.3em] text-charcoal/40 mb-8 font-inter"
+            class="text-charcoal/40 font-inter mb-8 text-[12px] font-bold tracking-[0.3em] uppercase"
           >
             01 — The Threshold
           </p>
-          <h3
-            class="text-3xl lg:text-4xl font-light tracking-tight text-charcoal mb-6"
-          >
+          <h3 class="text-charcoal mb-6 text-3xl font-light tracking-tight lg:text-4xl">
             Selective by Necessity.
           </h3>
-          <p class="text-base text-charcoal/60 leading-relaxed max-w-md">
-            We do not accept every commission, nor do we participate in
-            speculative pitches or ideas without support funding. The level of
-            rigour we apply to a project demands a disproportionate investment
-            of studio resources. We partner exclusively with clients who
-            understand that architecture is a primary vehicle for value
-            creation, not a line item to be minimised.
+          <p class="text-charcoal/60 max-w-md text-base leading-relaxed">
+            We do not accept every commission, nor do we participate in speculative pitches or ideas
+            without support funding. The level of rigour we apply to a project demands a
+            disproportionate investment of studio resources. We partner exclusively with clients who
+            understand that architecture is a primary vehicle for value creation, not a line item to
+            be minimised.
           </p>
         </div>
 
         <div class="reveal">
           <p
-            class="text-[12px] font-bold uppercase tracking-[0.3em] text-charcoal/40 mb-8 font-inter"
+            class="text-charcoal/40 font-inter mb-8 text-[12px] font-bold tracking-[0.3em] uppercase"
           >
             02 — The Authorship
           </p>
-          <h3
-            class="text-3xl lg:text-4xl font-light tracking-tight text-charcoal mb-6"
-          >
+          <h3 class="text-charcoal mb-6 text-3xl font-light tracking-tight lg:text-4xl">
             No Delegation of Intent.
           </h3>
-          <p class="text-base text-charcoal/60 leading-relaxed max-w-md">
-            Traditional architectural studios often rely on partners winning the
-            work and juniors executing it. We reject it. The principals who
-            interrogate your commercial logic and establish the conceptual
-            direction are the same authors who will stand on site to enforce the
-            execution of the final detail. All our projects are hands-on
-            directed by our principals.
+          <p class="text-charcoal/60 max-w-md text-base leading-relaxed">
+            Traditional architectural studios often rely on partners winning the work and juniors
+            executing it. We reject it. The principals who interrogate your commercial logic and
+            establish the conceptual direction are the same authors who will stand on site to
+            enforce the execution of the final detail. All our projects are hands-on directed by our
+            principals.
           </p>
         </div>
       </div>
     </section>
 
     <!-- ─── 4. PROCESS TIMELINE ───────────────────────────── -->
-    <section
-      class="px-6 py-24 lg:px-12 lg:py-48 bg-[#f2f1ec] text-charcoal relative"
-    >
+    <section class="text-charcoal relative bg-[#f2f1ec] px-6 py-24 lg:px-12 lg:py-48">
       <div class="mx-auto max-w-[1440px]">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 relative">
+        <div class="relative grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-24">
           <!-- Left: Sticky Context & CTA -->
           <div class="lg:col-span-5">
             <div class="lg:sticky lg:top-40">
               <p
-                class="text-[12px] font-bold uppercase tracking-[0.3em] text-charcoal/40 mb-10 font-inter"
+                class="text-charcoal/40 font-inter mb-10 text-[12px] font-bold tracking-[0.3em] uppercase"
               >
                 Six Stages. One Standard.
               </p>
-              <h2
-                class="text-4xl lg:text-7xl font-light leading-[1.05] tracking-tight mb-8"
-              >
+              <h2 class="mb-8 text-4xl leading-[1.05] font-light tracking-tight lg:text-7xl">
                 Resolved.<br />
                 At Every Stage.
               </h2>
               <p
-                class="text-xl text-charcoal/70 font-light leading-relaxed tracking-tight max-w-md mb-12"
+                class="text-charcoal/70 mb-12 max-w-md text-xl leading-relaxed font-light tracking-tight"
               >
-                Every project follows six invariant stages. Each one exists to
-                protect your interests — not because the process demands it, but
-                because the outcome requires it.
+                Every project follows six invariant stages. Each one exists to protect your
+                interests — not because the process demands it, but because the outcome requires it.
               </p>
 
               <!-- Section Specific Inverted CTA -->
@@ -218,48 +196,41 @@ const description =
           </div>
 
           <!-- Right: Vertical Timeline -->
-          <div class="lg:col-span-7 relative pt-24 lg:pt-0">
+          <div class="relative pt-24 lg:col-span-7 lg:pt-0">
             <!-- Timeline vertical hairline -->
-            <div class="absolute left-0 top-3 bottom-0 w-px bg-charcoal/10">
-            </div>
+            <div class="bg-charcoal/10 absolute top-3 bottom-0 left-0 w-px"></div>
 
-            <div
-              class="flex flex-col space-y-24 pl-12 sm:space-y-32 sm:pl-16 lg:pl-24"
-            >
+            <div class="flex flex-col space-y-24 pl-12 sm:space-y-32 sm:pl-16 lg:pl-24">
               <!-- Timeline Node 01 -->
-              <article class="relative group reveal">
+              <article class="group reveal relative">
                 <!-- Timeline dot -->
                 <div
-                  class="absolute -left-[52px] sm:-left-[68px] lg:-left-[100px] top-1.5 w-2 h-2 rounded-full bg-charcoal ring-[6px] ring-[#f2f1ec] group-hover:scale-[1.8] group-hover:bg-charcoal/80 transition-all duration-700"
+                  class="bg-charcoal group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] ring-[#f2f1ec] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
                 >
                 </div>
 
                 <div
-                  class="-mx-6 p-6 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10 rounded-2xl transition-colors duration-700 group-hover:bg-charcoal/4"
+                  class="group-hover:bg-charcoal/4 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
                 >
                   <p
-                    class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/40 mb-4 font-inter group-hover:text-charcoal/80 transition-colors duration-500"
+                    class="text-charcoal/40 font-inter group-hover:text-charcoal/80 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500"
                   >
                     STAGE 01
                   </p>
-                  <h3
-                    class="text-3xl lg:text-4xl font-light tracking-tight mb-6"
-                  >
+                  <h3 class="mb-6 text-3xl font-light tracking-tight lg:text-4xl">
                     Brief & Alignment
                   </h3>
-                  <div
-                    class="space-y-5 text-base leading-relaxed text-charcoal/60 max-w-xl"
-                  >
+                  <div class="text-charcoal/60 max-w-xl space-y-5 text-base leading-relaxed">
                     <p>
-                      Your commercial logic and long-range ambitions must
-                      precede the architecture. A brief is never treated as a
-                      wish list; it acts as the singular metric for success.
+                      Your commercial logic and long-range ambitions must precede the architecture.
+                      A brief is never treated as a wish list; it acts as the singular metric for
+                      success.
                     </p>
                     <p>
-                      <span class="font-medium text-charcoal"
-                        >It is the immovable foundation upon which all
-                        financial, structural, and creative decisions will be
-                        tested throughout the lifespan of the development.</span
+                      <span class="text-charcoal font-medium"
+                        >It is the immovable foundation upon which all financial, structural, and
+                        creative decisions will be tested throughout the lifespan of the
+                        development.</span
                       >
                     </p>
                   </div>
@@ -267,40 +238,35 @@ const description =
               </article>
 
               <!-- Timeline Node 02 -->
-              <article class="relative group reveal">
+              <article class="group reveal relative">
                 <!-- Timeline dot -->
                 <div
-                  class="absolute -left-[52px] sm:-left-[68px] lg:-left-[100px] top-1.5 w-2 h-2 rounded-full bg-charcoal ring-[6px] ring-[#f2f1ec] group-hover:scale-[1.8] group-hover:bg-charcoal/80 transition-all duration-700"
+                  class="bg-charcoal group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] ring-[#f2f1ec] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
                 >
                 </div>
 
                 <div
-                  class="-mx-6 p-6 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10 rounded-2xl transition-colors duration-700 group-hover:bg-charcoal/4"
+                  class="group-hover:bg-charcoal/4 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
                 >
                   <p
-                    class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/40 mb-4 font-inter group-hover:text-charcoal/80 transition-colors duration-500"
+                    class="text-charcoal/40 font-inter group-hover:text-charcoal/80 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500"
                   >
                     STAGE 02
                   </p>
-                  <h3
-                    class="text-3xl lg:text-4xl font-light tracking-tight mb-6"
-                  >
+                  <h3 class="mb-6 text-3xl font-light tracking-tight lg:text-4xl">
                     Concept Design
                   </h3>
-                  <div
-                    class="space-y-5 text-base leading-relaxed text-charcoal/60 max-w-xl"
-                  >
+                  <div class="text-charcoal/60 max-w-xl space-y-5 text-base leading-relaxed">
                     <p>
-                      The spatial idea is formed here — synthesised from the
-                      site's environmental data, your programme, and the
-                      architectural logic that will govern the project from this
-                      point forward.
+                      The spatial idea is formed here — synthesised from the site's environmental
+                      data, your programme, and the architectural logic that will govern the project
+                      from this point forward.
                     </p>
                     <p>
-                      <span class="font-medium text-charcoal"
-                        >You will see the reasoning behind every decision.
-                        Orientation, proportion, and materiality are established
-                        and presented for your review before anything proceeds.</span
+                      <span class="text-charcoal font-medium"
+                        >You will see the reasoning behind every decision. Orientation, proportion,
+                        and materiality are established and presented for your review before
+                        anything proceeds.</span
                       >
                     </p>
                   </div>
@@ -308,39 +274,34 @@ const description =
               </article>
 
               <!-- Timeline Node 03 -->
-              <article class="relative group reveal">
+              <article class="group reveal relative">
                 <!-- Timeline dot -->
                 <div
-                  class="absolute -left-[52px] sm:-left-[68px] lg:-left-[100px] top-1.5 w-2 h-2 rounded-full bg-charcoal ring-[6px] ring-[#f2f1ec] group-hover:scale-[1.8] group-hover:bg-charcoal/80 transition-all duration-700"
+                  class="bg-charcoal group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] ring-[#f2f1ec] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
                 >
                 </div>
 
                 <div
-                  class="-mx-6 p-6 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10 rounded-2xl transition-colors duration-700 group-hover:bg-charcoal/4"
+                  class="group-hover:bg-charcoal/4 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
                 >
                   <p
-                    class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/40 mb-4 font-inter group-hover:text-charcoal/80 transition-colors duration-500"
+                    class="text-charcoal/40 font-inter group-hover:text-charcoal/80 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500"
                   >
                     STAGE 03
                   </p>
-                  <h3
-                    class="text-3xl lg:text-4xl font-light tracking-tight mb-6"
-                  >
+                  <h3 class="mb-6 text-3xl font-light tracking-tight lg:text-4xl">
                     Design Development
                   </h3>
-                  <div
-                    class="space-y-5 text-base leading-relaxed text-charcoal/60 max-w-xl"
-                  >
+                  <div class="text-charcoal/60 max-w-xl space-y-5 text-base leading-relaxed">
                     <p>
-                      The concept is tested against structural, mechanical, and
-                      regulatory requirements. Every technical ambiguity is
-                      resolved here — not discovered later on site.
+                      The concept is tested against structural, mechanical, and regulatory
+                      requirements. Every technical ambiguity is resolved here — not discovered
+                      later on site.
                     </p>
                     <p>
-                      <span class="font-medium text-charcoal"
-                        >Consultants are coordinated, geometry refined, and the
-                        design locked to a level of certainty that protects your
-                        budget and timeline.</span
+                      <span class="text-charcoal font-medium"
+                        >Consultants are coordinated, geometry refined, and the design locked to a
+                        level of certainty that protects your budget and timeline.</span
                       >
                     </p>
                   </div>
@@ -348,39 +309,34 @@ const description =
               </article>
 
               <!-- Timeline Node 04 -->
-              <article class="relative group reveal">
+              <article class="group reveal relative">
                 <!-- Timeline dot -->
                 <div
-                  class="absolute -left-[52px] sm:-left-[68px] lg:-left-[100px] top-1.5 w-2 h-2 rounded-full bg-charcoal ring-[6px] ring-[#f2f1ec] group-hover:scale-[1.8] group-hover:bg-charcoal/80 transition-all duration-700"
+                  class="bg-charcoal group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] ring-[#f2f1ec] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
                 >
                 </div>
 
                 <div
-                  class="-mx-6 p-6 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10 rounded-2xl transition-colors duration-700 group-hover:bg-charcoal/4"
+                  class="group-hover:bg-charcoal/4 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
                 >
                   <p
-                    class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/40 mb-4 font-inter group-hover:text-charcoal/80 transition-colors duration-500"
+                    class="text-charcoal/40 font-inter group-hover:text-charcoal/80 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500"
                   >
                     STAGE 04
                   </p>
-                  <h3
-                    class="text-3xl lg:text-4xl font-light tracking-tight mb-6"
-                  >
+                  <h3 class="mb-6 text-3xl font-light tracking-tight lg:text-4xl">
                     Detailed Documentation
                   </h3>
-                  <div
-                    class="space-y-5 text-base leading-relaxed text-charcoal/60 max-w-xl"
-                  >
+                  <div class="text-charcoal/60 max-w-xl space-y-5 text-base leading-relaxed">
                     <p>
-                      The full set of construction drawings and specifications
-                      is produced — the binding technical record of the design.
-                      Nothing is left to the contractor's interpretation.
+                      The full set of construction drawings and specifications is produced — the
+                      binding technical record of the design. Nothing is left to the contractor's
+                      interpretation.
                     </p>
                     <p>
-                      <span class="font-medium text-charcoal"
-                        >Precise documentation means accurate pricing, fewer
-                        variations, and a construction process that proceeds as
-                        planned.</span
+                      <span class="text-charcoal font-medium"
+                        >Precise documentation means accurate pricing, fewer variations, and a
+                        construction process that proceeds as planned.</span
                       >
                     </p>
                   </div>
@@ -388,40 +344,34 @@ const description =
               </article>
 
               <!-- Timeline Node 05 -->
-              <article class="relative group reveal">
+              <article class="group reveal relative">
                 <!-- Timeline dot -->
                 <div
-                  class="absolute -left-[52px] sm:-left-[68px] lg:-left-[100px] top-1.5 w-2 h-2 rounded-full bg-charcoal ring-[6px] ring-[#f2f1ec] group-hover:scale-[1.8] group-hover:bg-charcoal/80 transition-all duration-700"
+                  class="bg-charcoal group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] ring-[#f2f1ec] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
                 >
                 </div>
 
                 <div
-                  class="-mx-6 p-6 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10 rounded-2xl transition-colors duration-700 group-hover:bg-charcoal/4"
+                  class="group-hover:bg-charcoal/4 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
                 >
                   <p
-                    class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/40 mb-4 font-inter group-hover:text-charcoal/80 transition-colors duration-500"
+                    class="text-charcoal/40 font-inter group-hover:text-charcoal/80 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500"
                   >
                     STAGE 05
                   </p>
-                  <h3
-                    class="text-3xl lg:text-4xl font-light tracking-tight mb-6"
-                  >
+                  <h3 class="mb-6 text-3xl font-light tracking-tight lg:text-4xl">
                     Site Coordination
                   </h3>
-                  <div
-                    class="space-y-5 text-base leading-relaxed text-charcoal/60 max-w-xl"
-                  >
+                  <div class="text-charcoal/60 max-w-xl space-y-5 text-base leading-relaxed">
                     <p>
-                      Architectural intent cannot be compromised during
-                      execution. The authors of the design remain heavily
-                      involved on site to enforce standard, not merely observe
-                      progress.
+                      Architectural intent cannot be compromised during execution. The authors of
+                      the design remain heavily involved on site to enforce standard, not merely
+                      observe progress.
                     </p>
                     <p>
-                      <span class="font-medium text-charcoal"
-                        >Involvement is maintained to handle rapid technical
-                        responses. Your investment is protected against
-                        deviation — at every decision made on site.</span
+                      <span class="text-charcoal font-medium"
+                        >Involvement is maintained to handle rapid technical responses. Your
+                        investment is protected against deviation — at every decision made on site.</span
                       >
                     </p>
                   </div>
@@ -429,38 +379,33 @@ const description =
               </article>
 
               <!-- Timeline Node 06 -->
-              <article class="relative group reveal">
+              <article class="group reveal relative">
                 <!-- Timeline dot -->
                 <div
-                  class="absolute -left-[52px] sm:-left-[68px] lg:-left-[100px] top-1.5 w-2 h-2 rounded-full bg-charcoal ring-[6px] ring-[#f2f1ec] group-hover:scale-[1.8] group-hover:bg-charcoal/80 transition-all duration-700"
+                  class="bg-charcoal group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] ring-[#f2f1ec] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
                 >
                 </div>
 
                 <div
-                  class="-mx-6 p-6 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10 rounded-2xl transition-colors duration-700 group-hover:bg-charcoal/4"
+                  class="group-hover:bg-charcoal/4 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
                 >
                   <p
-                    class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/40 mb-4 font-inter group-hover:text-charcoal/80 transition-colors duration-500"
+                    class="text-charcoal/40 font-inter group-hover:text-charcoal/80 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500"
                   >
                     STAGE 06
                   </p>
-                  <h3
-                    class="text-3xl lg:text-4xl font-light tracking-tight mb-6"
-                  >
+                  <h3 class="mb-6 text-3xl font-light tracking-tight lg:text-4xl">
                     Completion & Handover
                   </h3>
-                  <div
-                    class="space-y-5 text-base leading-relaxed text-charcoal/60 max-w-xl"
-                  >
+                  <div class="text-charcoal/60 max-w-xl space-y-5 text-base leading-relaxed">
                     <p>
-                      The project is formally inspected, snagged, and handed
-                      over. The built reality is measured against the original
-                      proposition.
+                      The project is formally inspected, snagged, and handed over. The built reality
+                      is measured against the original proposition.
                     </p>
                     <p>
-                      <span class="font-medium text-charcoal"
-                        >We close the engagement only when the standard has been
-                        met — not approximated.</span
+                      <span class="text-charcoal font-medium"
+                        >We close the engagement only when the standard has been met — not
+                        approximated.</span
                       >
                     </p>
                   </div>

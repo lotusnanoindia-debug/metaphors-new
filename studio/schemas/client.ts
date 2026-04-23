@@ -1,5 +1,5 @@
-import { defineType, defineField } from 'sanity'
-import { UsersIcon } from '@sanity/icons'
+import {defineType, defineField} from 'sanity'
+import {UsersIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'client',
@@ -26,7 +26,7 @@ export default defineType({
       name: 'category',
       title: 'Sector',
       type: 'reference',
-      to: { type: 'sector' },
+      to: {type: 'sector'},
       description: 'Which industry/sector does this client belong to?',
     }),
     defineField({

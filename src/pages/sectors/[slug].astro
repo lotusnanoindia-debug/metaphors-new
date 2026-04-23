@@ -1,0 +1,636 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import MainCta from "../../components/MainCta.astro";
+import Cta from "../../components/Cta.astro";
+import Icon from "../../components/Icon.astro";
+import {
+  client,
+  SECTOR_DETAIL_QUERY,
+  ALL_SECTORS_SLUGS_QUERY,
+  imageUrl,
+} from "../../lib/sanity.js";
+
+export async function getStaticPaths() {
+  const sectors = await client.fetch(ALL_SECTORS_SLUGS_QUERY);
+  return sectors.map((sector: any) => ({
+    params: { slug: sector.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const data = await client.fetch(SECTOR_DETAIL_QUERY, { slug });
+const sector = data?.sector;
+const homepage = data?.homepage;
+
+if (!sector) {
+  return Astro.redirect("/404");
+}
+
+const precisionImage = homepage?.statureSection?.precisionImage;
+
+const title = `${sector.title} Architecture | Metaphors Design`;
+const description =
+  sector.pageHeroSub ||
+  sector.homeIntro ||
+  sector.valueProposition ||
+  `Specialised ${sector.title} architectural expertise by Metaphors Design, Pune.`;
+
+// Extract unique disciplines from allProjects for the filter bar
+const projectDisciplines = Array.from(
+  new Set(
+    sector.allProjects
+      ?.flatMap((p: any) => p.disciplines || [])
+      .map((d: any) => JSON.stringify({ title: d.title, slug: d.slug })) || [],
+  ),
+).map((s: any) => JSON.parse(s));
+
+const heroImageUrl = sector.image
+  ? imageUrl(sector.image, { width: 1200, height: 900 })
+  : undefined;
+
+const canonicalURL = `https://metaphors.design/sectors/${slug}`;
+
+// JSON-LD structured data
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://metaphors.design",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Sectors",
+          item: "https://metaphors.design/about#sectors",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: sector.title,
+          item: canonicalURL,
+        },
+      ],
+    },
+    {
+      "@type": "ProfessionalService",
+      name: `Metaphors Design — ${sector.title}`,
+      description: description,
+      url: canonicalURL,
+      areaServed: "India",
+      knowsAbout: sector.title,
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} image={heroImageUrl} canonicalURL={canonicalURL}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <div class="bg-bone relative min-h-screen overflow-x-hidden">
+    <Header />
+
+    <main>
+      <!-- ─── 1. MONUMENTAL HERO ──────────────────────────────── -->
+      <section class="relative w-full py-48 lg:py-56" aria-labelledby="sector-hero-heading">
+        <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
+          <div class="mx-auto flex max-w-5xl flex-col items-center text-center">
+            <!-- Breadcrumbs -->
+            <nav class="reveal mb-12" aria-label="Breadcrumb">
+              <ol
+                class="text-charcoal/30 flex items-center justify-center gap-3 text-[9px] font-bold tracking-[0.25em] uppercase"
+              >
+                <li>
+                  <a href="/" class="hover:text-charcoal transition-all duration-500">Home</a>
+                </li>
+                <li class="bg-charcoal/50 h-px w-1.5"></li>
+                <li>
+                  <a href="/about#sectors" class="hover:text-charcoal transition-all duration-500"
+                    >Sectors</a
+                  >
+                </li>
+                <li class="bg-charcoal/50 h-px w-1.5"></li>
+                <li class="text-charcoal/60">{sector.title}</li>
+              </ol>
+            </nav>
+            <h1
+              id="sector-hero-heading"
+              class="reveal text-[clamp(3.5rem,11vw,9rem)] leading-[0.9] font-medium tracking-[-0.045em] select-none lg:text-[clamp(3.5rem,9vw,7rem)]"
+            >
+              <span class="text-charcoal block">
+                {sector.homeHeadline}
+              </span>
+              {
+                sector.menuTagline && (
+                  <span class="animate-sheen mt-4 block bg-[linear-gradient(105deg,#6b6b67_0%,#6b6b67_40%,#a8a8a2_48%,#a8a8a2_52%,#6b6b67_60%,#6b6b67_100%)] bg-size-[200%_auto] bg-clip-text text-[clamp(1.5rem,6vw,3.5rem)] leading-tight tracking-[-0.03em] text-transparent will-change-[background-position] lg:mt-6 lg:text-[clamp(2rem,4.5vw,4.5rem)]">
+                    {sector.menuTagline}
+                  </span>
+                )
+              }
+            </h1>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 2. STATURE IMAGE GRID ──────────────────────────── -->
+      <section
+        class="-mt-12 w-full px-6 pb-32 lg:mt-0 lg:px-12 lg:pb-48"
+        aria-label="Sector stature imagery"
+      >
+        <div class="reveal relative mx-auto max-w-[1440px]">
+          <div class="grid grid-cols-1 gap-6 lg:grid-cols-10 lg:gap-4">
+            <!-- Left: Sector Image + Sub-headline -->
+            <div class="flex flex-col gap-12 lg:col-span-7">
+              {
+                sector.pageHeroSub && (
+                  <div class="reveal mx-auto max-w-4xl text-center lg:mx-0 lg:text-left">
+                    <p class="text-charcoal/30 mb-4 hidden text-[10px] font-bold tracking-[0.4em] uppercase lg:block">
+                      {sector.title} — Metaphors Design, Pune
+                    </p>
+                    <p class="text-charcoal/90 text-2xl leading-[1.15] font-light tracking-tight lg:text-4xl">
+                      {sector.pageHeroSub}
+                    </p>
+                  </div>
+                )
+              }
+
+              <div
+                class="group/stature-lg relative h-[60vh] overflow-hidden contrast-104 grayscale-65 saturate-88 transition-all duration-1000 hover:contrast-100 hover:grayscale-0 hover:saturate-100 lg:h-[80vh]"
+              >
+                {
+                  sector.image ? (
+                    <img
+                      src={imageUrl(sector.image, { width: 1200 })}
+                      alt={sector.image?.alt || `${sector.title} — Metaphors Design`}
+                      class="cubic-bezier(0.19, 1, 0.22, 1) h-full w-full object-cover transition-transform duration-[3s] group-hover/stature-lg:scale-[1.02]"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div class="bg-charcoal/8 flex h-full w-full items-center justify-center">
+                      <p class="text-charcoal/20 text-[10px] font-bold tracking-[0.5em] uppercase">
+                        {sector.title}
+                      </p>
+                    </div>
+                  )
+                }
+
+                <!-- Footnote Badge -->
+                <div class="pointer-events-none absolute bottom-0 left-0 z-10">
+                  <div
+                    class="bg-bone/50 group-hover/stature-lg:bg-bone/90 origin-bottom-left translate-x-10 -translate-y-10 border border-white/10 px-8 py-4 backdrop-blur-sm transition-all duration-1000 group-hover/stature-lg:border-white/20 group-hover/stature-lg:backdrop-blur-xl"
+                  >
+                    <p
+                      class="text-charcoal text-[10px] font-semibold tracking-[0.5em] whitespace-nowrap uppercase transition-all duration-1000"
+                    >
+                      {sector.title}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Fixed Dark Column (consistent across all sector pages) -->
+            <div
+              class="group/stature-sm bg-charcoal reveal relative mt-12 h-[50vh] overflow-hidden delay-200 lg:col-span-3 lg:mt-0 lg:h-[80vh]"
+            >
+              <!-- Fixed architectural backdrop image from Sanity -->
+              {
+                precisionImage ? (
+                  <img
+                    src={imageUrl(precisionImage, { width: 1000 })}
+                    alt="Architectural precision — Metaphors Design Studio, Pune, India"
+                    class="cubic-bezier(0.19, 1, 0.22, 1) absolute inset-0 h-full w-full object-cover opacity-40 grayscale transition-all duration-[2s] group-hover/stature-sm:opacity-60"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <img
+                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80"
+                    alt="Architectural precision — Metaphors Design Studio"
+                    class="absolute inset-0 h-full w-full object-cover opacity-40 grayscale transition-all duration-[2s] group-hover/stature-sm:opacity-60"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )
+              }
+              <div
+                class="from-charcoal via-charcoal/60 absolute inset-0 z-10 flex flex-col justify-end bg-linear-to-t to-transparent p-8 lg:p-12"
+              >
+                <div class="mb-12 space-y-12">
+                  <div class="h-px w-12 bg-white/20"></div>
+                  <p class="text-2xl leading-snug font-light tracking-tight text-white lg:text-3xl">
+                    {
+                      sector.homeIntro ||
+                        sector.valueProposition?.slice(0, 180) ||
+                        `Deep ${sector.title} sector expertise, applied with architectural rigour from first brief to final handover.`
+                    }
+                    {
+                      (sector.homeIntro || sector.valueProposition) && (
+                        <span class="text-white/40 italic"> One standard. No exceptions.</span>
+                      )
+                    }
+                  </p>
+                </div>
+
+                <div class="border-t border-white/10 pt-8">
+                  <p class="mb-3 text-[12px] font-bold tracking-[0.2em] text-white/30 uppercase">
+                    The Commitment
+                  </p>
+                  <p class="max-w-[240px] text-[12px] leading-relaxed text-white/50">
+                    Full principal involvement from site survey through to final handover — without
+                    exception.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 3. VALUE PROPOSITION ───────────────────────────── -->
+      {
+        sector.valueProposition && (
+          <section
+            class="text-charcoal relative overflow-hidden bg-[#f2f1ec] px-6 py-24 lg:px-12 lg:py-48"
+            aria-labelledby="value-prop-heading"
+          >
+            <div class="mx-auto max-w-[1440px]">
+              <div class="grid grid-cols-1 items-start gap-16 lg:grid-cols-12 lg:gap-24">
+                {/* Left sticky label */}
+                <div class="reveal lg:col-span-5">
+                  <div class="lg:sticky lg:top-40">
+                    <p class="text-charcoal/40 mb-10 text-center text-[12px] font-bold tracking-[0.3em] uppercase lg:text-left">
+                      Sector Expertise
+                    </p>
+                    <h2
+                      id="value-prop-heading"
+                      class="mb-8 text-center text-4xl leading-[1.05] font-light tracking-tight lg:text-left lg:text-6xl"
+                    >
+                      Strategic Intent.
+                      <br />
+                      <span class="text-charcoal/40">Meticulous Execution.</span>
+                    </h2>
+                    <div class="flex justify-center lg:justify-start">
+                      <Cta
+                        text="Begin the Dialogue"
+                        isContact={true}
+                        contactContext={`Your ${sector.title} Enquiry`}
+                        sector={sector.title}
+                        invert={true}
+                        className="mt-8"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right: Proposition text + two editorial pillars */}
+                <div class="reveal delay-150 lg:col-span-7">
+                  <div class="bg-charcoal/10 mb-16 h-px w-full" />
+                  <p class="text-charcoal/80 mb-20 text-xl leading-snug font-light tracking-tight lg:text-2xl">
+                    {sector.valueProposition}
+                  </p>
+
+                  <div class="border-charcoal/8 mt-12 grid grid-cols-1 gap-12 border-t pt-12 md:grid-cols-2 lg:gap-16">
+                    <div class="group space-y-5">
+                      <p class="text-charcoal/30 group-hover:text-charcoal text-[10px] font-bold tracking-[0.4em] uppercase transition-colors">
+                        Scale &amp; Complexity
+                      </p>
+                      <div class="bg-charcoal/8 h-px w-full" />
+                      <p class="text-charcoal/50 text-base leading-relaxed font-light">
+                        Managing intricate complexity at scale — from expansive urban masterplans to
+                        the focused intimacy of bespoke commissions.
+                      </p>
+                    </div>
+                    <div class="group space-y-5">
+                      <p class="text-charcoal/30 group-hover:text-charcoal text-[10px] font-bold tracking-[0.4em] uppercase transition-colors">
+                        Enduring Stewardship
+                      </p>
+                      <div class="bg-charcoal/8 h-px w-full" />
+                      <p class="text-charcoal/50 text-base leading-relaxed font-light">
+                        Approaching four decades of principal-led practice ensuring that the original
+                        architectural conviction survives the rigours of site reality.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )
+      }
+
+      <!-- ─── 4. KEY PILLARS ─────────────────────────────────── -->
+      {
+        sector.keyPillars && sector.keyPillars.length > 0 && (
+          <section
+            class="bg-bone border-charcoal/5 border-t py-24 lg:py-48"
+            aria-labelledby="pillars-heading"
+          >
+            <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
+              <div class="relative grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-24">
+                {/* Left: Sticky Context & CTA */}
+                <div class="lg:col-span-5">
+                  <div class="lg:sticky lg:top-40">
+                    <p class="text-charcoal/30 mb-8 flex items-center justify-center gap-4 text-[10px] font-bold tracking-[0.4em] uppercase lg:justify-start">
+                      <span class="bg-charcoal/20 h-px w-8" />
+                      Strategic Framework
+                    </p>
+                    <h2
+                      id="pillars-heading"
+                      class="text-charcoal mb-8 text-center text-4xl leading-[0.95] font-light tracking-tighter lg:text-left lg:text-7xl"
+                    >
+                      Success Parameters
+                      <br />
+                      in {sector.title}.
+                    </h2>
+                    <p class="text-charcoal/40 mb-12 max-w-md text-center text-xl font-light tracking-tight lg:text-left">
+                      The non-negotiable conditions of architectural excellence in this sector.
+                    </p>
+                    <div class="flex justify-center lg:justify-start">
+                      <Cta
+                        text="Discuss your success parameters"
+                        invert={true}
+                        isContact={true}
+                        contactContext={`Which specific Success Parameters interest you?`}
+                        sector={sector.title}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right: Vertical Timeline */}
+                <div class="relative pt-24 lg:col-span-7 lg:pt-0">
+                  {/* Timeline vertical hairline */}
+                  <div class="bg-charcoal/10 absolute top-3 bottom-0 left-0 w-px"></div>
+
+                  <div class="flex flex-col space-y-24 pl-12 sm:space-y-32 sm:pl-16 lg:pl-24">
+                    {sector.keyPillars.map((pillar: any, idx: number) => (
+                      <article class="group reveal relative">
+                        {/* Timeline dot */}
+                        <div
+                          class="bg-charcoal group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] ring-bone transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
+                        >
+                        </div>
+
+                        <div
+                          class="group-hover:bg-charcoal/4 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
+                        >
+                          <p
+                            class="text-charcoal/40 font-inter group-hover:text-charcoal/80 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500"
+                          >
+                            PARAMETER {String(idx + 1).padStart(2, "0")}
+                          </p>
+                          <h3 class="mb-6 text-3xl font-light tracking-tight lg:text-4xl">
+                            {pillar.title}
+                          </h3>
+                          <div class="text-charcoal/60 max-w-xl space-y-5 text-base leading-relaxed font-light lg:text-lg">
+                            <p>{pillar.description}</p>
+                          </div>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )
+      }
+
+      <!-- ─── 5. CURATED PROJECTS ────────────────────────────── -->
+      {
+        ((sector.curatedProjects && sector.curatedProjects.length > 0) ||
+          (sector.allProjects && sector.allProjects.length > 0)) && (
+          <section
+            class="border-charcoal/5 border-t bg-[#f2f1ec] py-10 lg:py-24"
+            aria-labelledby="projects-heading"
+          >
+            <div class="mx-auto max-w-[1800px] px-6 lg:px-12">
+              <div class="reveal mb-20 flex flex-col justify-between gap-12 lg:mb-32 lg:flex-row lg:items-end">
+                <div>
+                  <p class="text-charcoal/30 mb-8 flex items-center justify-center gap-4 text-[10px] font-bold tracking-[0.4em] uppercase lg:justify-start">
+                    <span class="bg-charcoal/20 h-px w-8" />
+                    Proven Stature
+                  </p>
+                  <h2
+                    id="projects-heading"
+                    class="text-charcoal text-center text-4xl leading-[0.95] font-light tracking-tighter lg:text-left lg:text-[5rem]"
+                  >
+                    {sector.title}
+                    <br />
+                    Commissions.
+                  </h2>
+                </div>
+                <div class="flex flex-col items-center gap-10 lg:items-end">
+                  <p class="text-charcoal/60 max-w-md text-center text-[10px] leading-loose font-semibold tracking-[0.25em] uppercase sm:text-xs lg:text-right">
+                    A curated list of recent commissions demonstrating rigour and commitment to
+                    delivering bespoke architectural solutions
+                  </p>
+                  <Cta
+                    text="Start a Conversation"
+                    invert={true}
+                    isContact={true}
+                    contactContext={`Your ${sector.title} Enquiry`}
+                    sector={sector.title}
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="bg-[#f2f1ec] pb-24 lg:pb-48">
+              {/* Filter Bar — High-Stature Editorial Style */}
+              {projectDisciplines.length > 0 && (
+                <div class="mx-auto mb-12 max-w-[1800px] px-4 md:px-8 lg:mb-20">
+                  <div class="border-charcoal/5 flex flex-col justify-between gap-6 border-t border-b py-8 lg:flex-row lg:items-center">
+                    <p class="text-charcoal/30 text-center text-[10px] font-bold tracking-[0.4em] uppercase lg:text-left">
+                      Filter by Discipline
+                    </p>
+                    <div
+                      class="flex flex-wrap justify-center gap-3 lg:justify-start lg:gap-4"
+                      id="project-filters"
+                    >
+                      <button
+                        data-filter="all"
+                        class="filter-btn active border-charcoal/10 hover:border-charcoal cursor-pointer border px-5 py-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-500"
+                      >
+                        All
+                      </button>
+                      {projectDisciplines.map((d: any) => (
+                        <button
+                          data-filter={d.slug}
+                          class="filter-btn border-charcoal/10 hover:border-charcoal cursor-pointer border px-5 py-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-500"
+                        >
+                          {d.title}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* High-Stature Image Grid (Max Width 1800px) */}
+              {sector.allProjects?.length > 0 && (
+                <div class="mx-auto max-w-[1800px] px-4 md:px-8">
+                  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8" id="project-grid">
+                    {sector.allProjects.map((project: any, idx: number) => (
+                      <article
+                        class="project-item group/project bg-charcoal/5 relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]"
+                        data-disciplines={JSON.stringify(
+                          project.disciplines?.map((d: any) => d.slug) || [],
+                        )}
+                      >
+                        <a
+                          href={`/projects/${project.slug}`}
+                          class="block aspect-square h-full w-full lg:aspect-4/3"
+                        >
+                          {/* Image wrapper — filter transition replicates Section 2 stature-lg container */}
+                          <div class="absolute inset-0 contrast-104 grayscale-65 saturate-88 transition-all duration-1000 group-hover/project:contrast-100 group-hover/project:grayscale-0 group-hover/project:saturate-100">
+                            {project.coverImage ? (
+                              <img
+                                src={imageUrl(project.coverImage, { width: 850 })}
+                                alt={project.title}
+                                class="cubic-bezier(0.19, 1, 0.22, 1) h-full w-full object-cover transition-transform duration-[3s] group-hover/project:scale-[1.02]"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            ) : (
+                              <div class="bg-charcoal/10 h-full w-full" />
+                            )}
+                          </div>
+
+                          {/* Dramatic Gradient Overlay */}
+                          <div class="from-charcoal/90 via-charcoal/20 absolute inset-0 bg-linear-to-t to-transparent opacity-60 transition-opacity duration-1000 group-hover/project:opacity-90" />
+
+                          {/* Disciplines Pills (Top Left) */}
+                          {project.disciplines && project.disciplines.length > 0 && (
+                            <div class="absolute top-6 left-6 z-20 flex flex-wrap gap-2 lg:top-10 lg:left-10">
+                              {project.disciplines.map((d: any) => (
+                                <span class="text-charcoal bg-white/90 px-3 py-1 text-[8px] font-bold tracking-[0.2em] uppercase backdrop-blur-sm">
+                                  {d.title}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* Content Overlay */}
+                          <div class="cubic-bezier(0.19, 1, 0.22, 1) absolute bottom-0 left-0 w-full translate-y-4 p-8 transition-transform duration-[2s] group-hover/project:translate-y-0 lg:p-14">
+                            <div class="flex flex-col">
+                              {project.client && (
+                                <span class="text-bone/80 mb-2 text-[12px] font-bold tracking-[0.4em] uppercase">
+                                  {project.client}
+                                </span>
+                              )}
+                              <h3 class="text-bone max-w-[85%] text-3xl leading-[1.1] font-light tracking-tight drop-shadow-md lg:text-5xl">
+                                {project.title}
+                              </h3>
+                              <div class="mt-6 flex flex-wrap items-center gap-6 lg:gap-8">
+                                {project.areaSqFt && (
+                                  <span class="text-bone/80 text-[10px] font-bold tracking-[0.4em] uppercase">
+                                    {project.areaSqFt} SQFT
+                                  </span>
+                                )}
+                                <span class="text-bone/80 text-[10px] font-bold tracking-[0.4em] uppercase">
+                                  {project.location?.city || "India"}
+                                </span>
+                                <span class="text-bone/80 ml-auto hidden text-[10px] font-bold tracking-[0.4em] uppercase md:block">
+                                  {project.completionYear || "—"}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )
+      }
+
+      <!-- ─── 6. CLOSING CTA ─────────────────────────────────── -->
+      <MainCta
+        section={{
+          eyebrow: sector.title,
+          headline: sector.customCTA || `Architect your ${sector.title} Vision.`,
+          tagline: `You do not need a finished brief. Intent and ambition are sufficient. We bring the strategic clarity to carry your ${sector.title.toLowerCase()} commission from first conversation to final handover.`,
+          ctaLabel: "Initiate Dialogue",
+          ctaUrl: "/contact",
+        }}
+        className="bg-bone"
+      />
+    </main>
+
+    <Footer />
+  </div>
+</Layout>
+
+<style>
+  .filter-btn.active {
+    background-color: var(--color-charcoal);
+    color: var(--color-bone);
+    border-color: var(--color-charcoal);
+  }
+</style>
+
+<script>
+  function initFilters() {
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const projectItems = document.querySelectorAll(".project-item");
+
+    if (!filterBtns.length || !projectItems.length) return;
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = (btn as HTMLElement).dataset.filter;
+
+        // Update active state
+        filterBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        projectItems.forEach((item) => {
+          const itemEl = item as HTMLElement;
+          const disciplines = JSON.parse(itemEl.dataset.disciplines || "[]");
+
+          if (filter === "all" || disciplines.includes(filter)) {
+            // Show item with animation
+            itemEl.style.display = "block";
+            // Wait for display:block to take effect
+            setTimeout(() => {
+              itemEl.style.opacity = "1";
+              itemEl.style.transform = "scale(1)";
+              itemEl.style.pointerEvents = "auto";
+            }, 10);
+          } else {
+            // Hide item with animation
+            itemEl.style.opacity = "0";
+            itemEl.style.transform = "scale(0.95)";
+            itemEl.style.pointerEvents = "none";
+            // Set display none after transition ends
+            setTimeout(() => {
+              if (itemEl.style.opacity === "0") {
+                itemEl.style.display = "none";
+              }
+            }, 700);
+          }
+        });
+      });
+    });
+  }
+
+  // Initial execution
+  initFilters();
+
+  // Support for Astro View Transitions
+  document.addEventListener("astro:after-swap", initFilters);
+</script>

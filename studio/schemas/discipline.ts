@@ -1,6 +1,6 @@
-import { defineType, defineField } from 'sanity'
-import { SparklesIcon } from '@sanity/icons'
-import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list'
+import {defineType, defineField} from 'sanity'
+import {SparklesIcon} from '@sanity/icons'
+import {orderRankField, orderRankOrdering} from '@sanity/orderable-document-list'
 
 export default defineType({
   name: 'discipline',
@@ -9,7 +9,7 @@ export default defineType({
   icon: SparklesIcon,
   orderings: [orderRankOrdering],
   fields: [
-    orderRankField({ type: 'discipline' }),
+    orderRankField({type: 'discipline'}),
     defineField({
       name: 'title',
       title: 'Discipline Name',

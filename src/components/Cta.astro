@@ -6,6 +6,7 @@ interface Props {
   invert?: boolean;
   isContact?: boolean;
   contactContext?: string;
+  sector?: string;
 }
 
 const {
@@ -15,11 +16,16 @@ const {
   invert = false,
   isContact = false,
   contactContext = "General Inquiry",
+  sector,
 } = Astro.props;
 
 const Tag = isContact ? "button" : "a";
 const extraProps = isContact
-  ? { "data-contact-modal": true, "data-contact-context": contactContext }
+  ? {
+      "data-contact-modal": true,
+      "data-contact-context": contactContext,
+      ...(sector && { "data-contact-sector": sector }),
+    }
   : { href };
 ---
 

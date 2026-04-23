@@ -20,5 +20,5 @@ export const schemaTypes = [
   client,
   project,
   pressQuote,
-  settings
+  settings,
 ]

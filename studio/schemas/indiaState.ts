@@ -1,5 +1,5 @@
-import { defineType, defineField } from 'sanity'
-import { PinIcon } from '@sanity/icons'
+import {defineType, defineField} from 'sanity'
+import {PinIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'indiaState',

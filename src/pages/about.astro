@@ -19,9 +19,7 @@ const description =
   "Defining modern Indian architecture for four decades. Metaphors Design delivers precise, strategic architectural solutions for corporate, civic, and residential environments.";
 
 const employees = await client.fetch(EMPLOYEES_QUERY);
-const leadership = employees.filter(
-  (e: any) => e.classification === "leadership",
-);
+const leadership = employees.filter((e: any) => e.classification === "leadership");
 const team = employees.filter((e: any) => e.classification === "senior");
 
 const rawSectors = await client.fetch(SECTORS_QUERY);
@@ -36,25 +34,21 @@ const sectors = rawSectors.map((s: any, idx: number) => ({
 const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
 ---
 
-<Layout
-  title={title}
-  description={description}
-  canonicalURL="https://metaphors.design/about"
->
-  <div class="relative min-h-screen overflow-x-hidden bg-bone">
+<Layout title={title} description={description} canonicalURL="https://metaphors.design/about">
+  <div class="bg-bone relative min-h-screen overflow-x-hidden">
     <Header />
 
     <main>
       <!-- ─── HERO HEADER (DIRECT HERO.ASTRO MIRROR) ─────── -->
       <section class="relative w-full py-48 lg:py-56">
-        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div class="max-w-5xl mx-auto flex flex-col items-center text-center">
+        <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
+          <div class="mx-auto flex max-w-5xl flex-col items-center text-center">
             <h1
-              class="font-medium leading-[0.9] tracking-[-0.045em] text-[clamp(3.5rem,11vw,9rem)] lg:text-[clamp(3.5rem,9vw,8rem)] select-none reveal"
+              class="reveal text-[clamp(3.5rem,11vw,9rem)] leading-[0.9] font-medium tracking-[-0.045em] select-none lg:text-[clamp(3.5rem,9vw,8rem)]"
             >
-              <span class="block text-charcoal">Architectural Conviction</span>
+              <span class="text-charcoal block">Architectural Conviction</span>
               <span
-                class="block mt-4 lg:mt-6 text-transparent bg-clip-text animate-sheen will-change-[background-position] bg-[linear-gradient(105deg,#6b6b67_0%,#6b6b67_40%,#a8a8a2_48%,#a8a8a2_52%,#6b6b67_60%,#6b6b67_100%)] bg-size-[200%_auto] text-[clamp(1.5rem,6vw,3.5rem)] lg:text-[clamp(2rem,4.5vw,4.5rem)] tracking-[-0.03em] leading-tight"
+                class="animate-sheen mt-4 block bg-[linear-gradient(105deg,#6b6b67_0%,#6b6b67_40%,#a8a8a2_48%,#a8a8a2_52%,#6b6b67_60%,#6b6b67_100%)] bg-size-[200%_auto] bg-clip-text text-[clamp(1.5rem,6vw,3.5rem)] leading-tight tracking-[-0.03em] text-transparent will-change-[background-position] lg:mt-6 lg:text-[clamp(2rem,4.5vw,4.5rem)]"
               >
                 Across Every Brief.
               </span>
@@ -65,42 +59,41 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
     </main>
 
     <!-- ─── STATURE CONTENT GRID ────────────────────────── -->
-    <section class="w-full px-6 lg:px-12 pb-32">
-      <div class="max-w-[1440px] mx-auto reveal relative">
-        <div class="grid grid-cols-1 lg:grid-cols-10 gap-6 lg:gap-8">
+    <section class="w-full px-6 pb-32 lg:px-12">
+      <div class="reveal relative mx-auto max-w-[1440px]">
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-10 lg:gap-8">
           <!-- Large Image column -->
-          <div class="lg:col-span-7 flex flex-col gap-12">
-            <div class="max-w-3xl reveal">
+          <div class="flex flex-col gap-12 lg:col-span-7">
+            <div class="reveal max-w-3xl">
               <p
-                class="hidden lg:block text-[12px] font-bold uppercase tracking-[0.3em] text-charcoal/40 mb-8"
+                class="text-charcoal/40 mb-8 hidden text-[12px] font-bold tracking-[0.3em] uppercase lg:block"
               >
                 The Practice — Pune, Est. 1989
               </p>
               <p
-                class="text-2xl lg:text-4xl text-charcoal/90 font-light leading-[1.15] tracking-tight"
+                class="text-charcoal/90 text-2xl leading-[1.15] font-light tracking-tight lg:text-4xl"
               >
-                A dynamic Pune‑based studio of 80+ architects and designers,
-                practising for nearly four decades across commercial,
-                residential, retail, healthcare, hospitality, industrial, civic,
-                and private residential sectors.
+                A dynamic Pune‑based studio of 80+ architects and designers, practising for nearly
+                four decades across commercial, residential, retail, healthcare, hospitality,
+                industrial, civic, and private residential sectors.
               </p>
             </div>
 
             <div
-              class="group/stature-lg relative overflow-hidden h-[60vh] lg:h-[70vh] transition-all duration-1000 grayscale-65 saturate-88 contrast-104 hover:grayscale-0 hover:saturate-100 hover:contrast-100"
+              class="group/stature-lg relative h-[60vh] overflow-hidden contrast-104 grayscale-65 saturate-88 transition-all duration-1000 hover:contrast-100 hover:grayscale-0 hover:saturate-100 lg:h-[70vh]"
             >
               <img
                 src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=2000&q=85"
                 alt="Metaphors Design — Architectural Space"
-                class="w-full h-full object-cover transition-transform duration-[3s] cubic-bezier(0.19, 1, 0.22, 1) group-hover/stature-lg:scale-[1.02]"
+                class="cubic-bezier(0.19, 1, 0.22, 1) h-full w-full object-cover transition-transform duration-[3s] group-hover/stature-lg:scale-[1.02]"
                 loading="eager"
               />
-              <div class="absolute left-0 bottom-0 pointer-events-none z-10">
+              <div class="pointer-events-none absolute bottom-0 left-0 z-10">
                 <div
-                  class="origin-bottom-left translate-x-10 -translate-y-10 bg-bone/50 backdrop-blur-sm px-8 py-4 border border-white/10 transition-all duration-1000 group-hover/stature-lg:bg-bone/90 group-hover/stature-lg:backdrop-blur-xl group-hover/stature-lg:border-white/20"
+                  class="bg-bone/50 group-hover/stature-lg:bg-bone/90 origin-bottom-left translate-x-10 -translate-y-10 border border-white/10 px-8 py-4 backdrop-blur-sm transition-all duration-1000 group-hover/stature-lg:border-white/20 group-hover/stature-lg:backdrop-blur-xl"
                 >
                   <p
-                    class="text-[10px] font-semibold uppercase tracking-[0.5em] text-charcoal whitespace-nowrap transition-all duration-1000"
+                    class="text-charcoal text-[10px] font-semibold tracking-[0.5em] whitespace-nowrap uppercase transition-all duration-1000"
                   >
                     Metaphors Design Studio - Pune
                   </p>
@@ -111,39 +104,32 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
 
           <!-- Secondary Column (Dialogue Style) -->
           <div
-            class="group/stature-sm lg:col-span-3 relative overflow-hidden h-[50vh] lg:h-[80vh] bg-charcoal reveal mt-12 lg:mt-0"
+            class="group/stature-sm bg-charcoal reveal relative mt-12 h-[50vh] overflow-hidden lg:col-span-3 lg:mt-0 lg:h-[80vh]"
             style="transition-delay: 200ms"
           >
             <img
               src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80"
               alt="Precision Backdrop"
-              class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover/stature-sm:opacity-60 transition-all duration-[2s]"
+              class="absolute inset-0 h-full w-full object-cover opacity-40 grayscale transition-all duration-[2s] group-hover/stature-sm:opacity-60"
             />
             <div
-              class="absolute inset-0 p-8 lg:p-12 bg-linear-to-t from-charcoal via-charcoal/60 to-transparent flex flex-col justify-end z-10"
+              class="from-charcoal via-charcoal/60 absolute inset-0 z-10 flex flex-col justify-end bg-linear-to-t to-transparent p-8 lg:p-12"
             >
-              <div class="space-y-12 mb-12">
+              <div class="mb-12 space-y-12">
                 <div class="h-px w-12 bg-white/20"></div>
-                <p
-                  class="text-2xl lg:text-4xl text-white font-light leading-normal tracking-tight"
-                >
+                <p class="text-2xl leading-normal font-light tracking-tight text-white lg:text-4xl">
                   Our expertise lies not in a single type of space - <span
-                    class="italic text-white/40"
-                    >but in the deep architectural thinking we bring to those we
-                    create.</span
+                    class="text-white/40 italic"
+                    >but in the deep architectural thinking we bring to those we create.</span
                   >
                 </p>
               </div>
 
-              <div class="pt-8 border-t border-white/10">
-                <p
-                  class="text-[12px] font-bold uppercase tracking-[0.2em] text-white/30 mb-3"
-                >
+              <div class="border-t border-white/10 pt-8">
+                <p class="mb-3 text-[12px] font-bold tracking-[0.2em] text-white/30 uppercase">
                   The Stewardship
                 </p>
-                <p
-                  class="text-[12px] text-white/50 leading-relaxed max-w-[240px]"
-                >
+                <p class="max-w-[240px] text-[12px] leading-relaxed text-white/50">
                   Strategic clarity from initial thought to final handover.
                 </p>
               </div>
@@ -155,21 +141,19 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
   </div>
 
   <!-- ─── THE PHILOSOPHY (EDITORIAL ASYMMETRY) ────────── -->
-  <section class="px-6 py-24 lg:px-12 lg:py-48 mt-24 lg:mt-48 bg-[#f2f1ec]">
+  <section class="mt-24 bg-[#f2f1ec] px-6 py-24 lg:mt-48 lg:px-12 lg:py-48">
     <div class="mx-auto max-w-[1440px]">
-      <div
-        class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start"
-      >
+      <div class="grid grid-cols-1 items-start gap-16 lg:grid-cols-12 lg:gap-24">
         <!-- Left Column: Core Conviction -->
-        <div class="lg:col-span-12 xl:col-span-7 reveal">
+        <div class="reveal lg:col-span-12 xl:col-span-7">
           <p
-            class="text-[12px] font-bold uppercase tracking-[0.3em] text-charcoal/40 mb-10 font-inter"
+            class="text-charcoal/40 font-inter mb-10 text-[12px] font-bold tracking-[0.3em] uppercase"
           >
             ONE METHOD. ACROSS SECTORS.
           </p>
 
           <h2
-            class="text-4xl lg:text-7xl font-light leading-[1.05] tracking-tight text-charcoal mb-12"
+            class="text-charcoal mb-12 text-4xl leading-[1.05] font-light tracking-tight lg:text-7xl"
           >
             Collaborative.<br />
             Rigorous.<br />
@@ -177,110 +161,137 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
           </h2>
 
           <p
-            class="text-xl lg:text-2xl text-charcoal/60 font-light leading-relaxed tracking-tight max-w-xl"
+            class="text-charcoal/60 max-w-xl text-xl leading-relaxed font-light tracking-tight lg:text-2xl"
           >
-            Our expertise lies in architectural discipline. Across four decades,
-            we have proven that the same meticulous method can — and should be —
-            applied to every brief, regardless of scale, sector, or complexity.
+            Our expertise lies in architectural discipline. Across four decades, we have proven that
+            the same meticulous method can — and should be — applied to every brief, regardless of
+            scale, sector, or complexity.
           </p>
           <div class="mt-12">
-            <Cta
-              text="Explore Our Engagement"
-              href="/engagement"
-              invert={true}
-            />
+            <Cta text="How We Work" href="/engagement" invert={true} />
           </div>
         </div>
 
-        <!-- Right Column: Stacked Rigour -->
-        <div class="lg:col-span-12 xl:col-span-5 flex flex-col space-y-16">
-          <article class="reveal" style="transition-delay: 150ms">
-            <p
-              class="text-xs font-bold uppercase tracking-[0.2em] text-charcoal/40 mb-8"
-            >
-              CLEAN SLATE RIGOUR
-            </p>
+        <!-- Right Column: Stacked Rigour (Timeline Feel) -->
+        <div class="relative lg:col-span-12 xl:col-span-5">
+          <!-- Vertical timeline hairline -->
+          <div class="bg-charcoal/10 absolute top-3 bottom-0 left-0 w-px"></div>
 
-            <div class="space-y-4">
-              <p class="text-base leading-relaxed text-charcoal/60">
-                Every project starts with an empty sheet. Nothing is assumed,
-                everything reset to zero. Client brief defines our direction.
-                Site and context inform, inspire and challenge our decisions.
-              </p>
+          <div class="flex flex-col space-y-16 pl-12 sm:pl-16 lg:space-y-24 lg:pl-24">
+            <article class="group reveal relative" style="transition-delay: 150ms">
+              <!-- Timeline dot -->
+              <div
+                class="bg-charcoal ring-bone group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
+              >
+              </div>
 
-              <p class="text-base leading-relaxed text-charcoal/60">
-                We immerse ourselves in the site and the programme to create
-                <span class="italic">the space that needs to be there</span>,
-                without ever imposing a signature style upon it.
-              </p>
-            </div>
-          </article>
+              <div
+                class="group-hover:bg-charcoal/5 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
+              >
+                <p class="text-charcoal/90 mb-8 text-xs font-bold tracking-[0.2em] uppercase">
+                  ZERO ASSUMPTION
+                </p>
+                <div class="space-y-4">
+                  <p class="text-charcoal/60 text-base leading-relaxed">
+                    Every site is different. Every brief is different. Every client is different.
+                    The worst thing an architect can bring to that is a predetermined answer.
+                  </p>
+                  <p class="text-charcoal text-base leading-relaxed font-bold">
+                    We start from zero. Every time.
+                  </p>
+                </div>
+              </div>
+            </article>
 
-          <article
-            class="reveal pt-16 border-t border-charcoal/10"
-            style="transition-delay: 300ms"
-          >
-            <p
-              class="text-xs font-bold uppercase tracking-[0.2em] text-charcoal/40 mb-8"
-            >
-              COLLABORATIVE STEWARDSHIP
-            </p>
+            <article class="group reveal relative" style="transition-delay: 300ms">
+              <!-- Timeline dot -->
+              <div
+                class="bg-charcoal ring-bone group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
+              >
+              </div>
 
-            <div class="space-y-4">
-              <p class="text-base leading-relaxed text-charcoal/60">
-                An idea that cannot survive construction and the test of time
-                simply never leaves the drawing board. We intently engage with
-                our clients from concept design to final handover in close
-                collaboration.
-              </p>
+              <div
+                class="group-hover:bg-charcoal/5 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
+              >
+                <p class="text-charcoal/90 mb-8 text-xs font-bold tracking-[0.2em] uppercase">
+                  COLLABORATIVE INTENT
+                </p>
+                <div class="space-y-4">
+                  <p class="text-charcoal/60 text-base leading-relaxed">
+                    The gap between a great design and a great finished space is almost always the
+                    same thing: a breakdown in alignment somewhere between concept and completion.
+                  </p>
+                  <p class="text-charcoal text-base leading-relaxed font-bold">
+                    We stay in the room. From first brief to final handover.
+                  </p>
+                </div>
+              </div>
+            </article>
 
-              <p class="text-base leading-relaxed text-charcoal/60">
-                Original spatial logic and commercial aspects are never
-                compromised. The results speak for themselves.
-              </p>
-            </div>
-          </article>
+            <article class="group reveal relative" style="transition-delay: 450ms">
+              <!-- Timeline dot -->
+              <div
+                class="bg-charcoal ring-bone group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
+              >
+              </div>
 
-          <article
-            class="reveal pt-16 border-t border-charcoal/10"
-            style="transition-delay: 450ms"
-          >
-            <p
-              class="text-xs font-bold uppercase tracking-[0.2em] text-charcoal/40 mb-8"
-            >
-              CONTEMPORARY INSTINCT
-            </p>
+              <div
+                class="group-hover:bg-charcoal/5 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
+              >
+                <p class="text-charcoal/90 mb-8 text-xs font-bold tracking-[0.2em] uppercase">
+                  CONTEMPORARY INSTINCT
+                </p>
+                <div class="space-y-4">
+                  <p class="text-charcoal/60 text-base leading-relaxed">
+                    Experience is only valuable if it does not harden into habit. Knowing what has
+                    worked before is useful. Assuming it will work again is how practices stop being
+                    relevant.
+                  </p>
+                  <p class="text-charcoal text-base leading-relaxed font-bold">
+                    We apply what we know. We question everything else.
+                  </p>
+                </div>
+              </div>
+            </article>
 
-            <div class="space-y-4">
-              <p class="text-base leading-relaxed text-charcoal/60">
-                Architecture demands constant reinvention. Our knowledge runs
-                deep, but our thinking stays young, dynamic and fresh. We are
-                fiercely dedicated to progressive design and technological
-                innovation.
-              </p>
+            <article class="group reveal relative" style="transition-delay: 600ms">
+              <!-- Timeline dot -->
+              <div
+                class="bg-charcoal ring-bone group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
+              >
+              </div>
 
-              <p class="text-base leading-relaxed text-charcoal/60">
-                We leverage past insights to pioneer new spatial creations,
-                ensuring the practice never stands still.
-              </p>
-            </div>
-          </article>
+              <div
+                class="group-hover:bg-charcoal/5 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
+              >
+                <p class="text-charcoal/90 mb-8 text-xs font-bold tracking-[0.2em] uppercase">
+                  SUSTAINABLE RIGOUR
+                </p>
+                <div class="space-y-4">
+                  <p class="text-charcoal/60 text-base leading-relaxed">
+                    Sustainability is not a feature added at the end of a design process. It runs
+                    through every decision we make — from how we read a brief, to what we specify,
+                    to how a space is built and how long it remains relevant.
+                  </p>
+                  <p class="text-charcoal text-base leading-relaxed font-bold">
+                    For us, responsible execution is not a credential. It is understood.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </div>
   </section>
   <!-- ─── LEADERSHIP (EDITORIAL PROFILE) ──────────────── -->
-  <section class="px-6 py-24 lg:px-12 lg:py-40 border-t border-charcoal/5">
+  <section class="border-charcoal/5 border-t px-6 py-24 lg:px-12 lg:py-40">
     <div class="mx-auto max-w-[1440px]">
       <div class="reveal mb-30 max-w-5xl">
-        <p
-          class="text-[12px] font-bold uppercase tracking-[0.3em] text-charcoal/40 mb-8"
-        >
+        <p class="text-charcoal/40 mb-8 text-[12px] font-bold tracking-[0.3em] uppercase">
           Stewardship
         </p>
-        <h2
-          class="text-4xl lg:text-6xl font-light tracking-tight text-charcoal leading-none"
-        >
+        <h2 class="text-charcoal text-4xl leading-none font-light tracking-tight lg:text-6xl">
           The Practice<br />Foundations.
         </h2>
       </div>
@@ -301,37 +312,34 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
               idx: number,
             ) => (
               <div
-                class={`reveal grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start ${idx % 2 !== 0 ? "lg:flex-row-reverse" : ""}`}
+                class={`reveal grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-24 ${idx % 2 !== 0 ? "lg:flex-row-reverse" : ""}`}
               >
-                <div
-                  class={`lg:col-span-4 ${idx % 2 !== 0 ? "lg:order-2" : ""}`}
-                >
-                  <div class="relative overflow-hidden aspect-4/5 bg-charcoal/5 group">
+                <div class={`lg:col-span-4 ${idx % 2 !== 0 ? "lg:order-2" : ""}`}>
+                  <div class="bg-charcoal/5 group relative aspect-4/5 overflow-hidden">
                     {member.image && (
                       <img
                         src={imageUrl(member.image, { width: 1000 })}
                         alt={member.name}
-                        class="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-1000 group-hover:scale-105 group-hover:grayscale-0"
+                        class="absolute inset-0 h-full w-full object-cover grayscale transition-all duration-1000 group-hover:scale-105 group-hover:grayscale-0"
                       />
                     )}
                   </div>
                 </div>
-                <div class="lg:col-span-7 flex flex-col justify-center pt-8">
-                  <p class="text-[12px] font-bold uppercase tracking-[0.2em] text-charcoal/40 mb-6">
+                <div class="flex flex-col justify-center pt-8 lg:col-span-7">
+                  <p class="text-charcoal/40 mb-6 text-[12px] font-bold tracking-[0.2em] uppercase">
                     {member.role} — {member.experience}
                   </p>
-                  <h3 class="text-5xl lg:text-7xl font-light tracking-tighter text-charcoal mb-10">
+                  <h3 class="text-charcoal mb-10 text-5xl font-light tracking-tighter lg:text-7xl">
                     {member.name}
                   </h3>
-                  <p class="text-lg lg:text-xl text-charcoal/60 leading-relaxed max-w-2xl mb-12">
+                  <p class="text-charcoal/60 mb-12 max-w-2xl text-lg leading-relaxed lg:text-xl">
                     {member.body}
                   </p>
 
-                  <div class="flex flex-wrap items-center gap-6 mb-12">
+                  <div class="mb-12 flex flex-wrap items-center gap-6">
                     {((member.sectors && member.sectors.length > 0) ||
-                      (member.disciplines &&
-                        member.disciplines.length > 0)) && (
-                      <div class="h-px w-8 bg-charcoal/5 hidden lg:block" />
+                      (member.disciplines && member.disciplines.length > 0)) && (
+                      <div class="bg-charcoal/5 hidden h-px w-8 lg:block" />
                     )}
                   </div>
 
@@ -341,7 +349,7 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
                       {member.sectors?.filter(Boolean).map((s: any) => (
                         <a
                           href={`/sectors/${s.slug}`}
-                          class="text-[9px] font-bold uppercase tracking-[0.2em] text-charcoal/40 bg-charcoal/5 px-3 py-2 rounded-sm hover:bg-charcoal/10 transition-colors"
+                          class="text-charcoal/40 bg-charcoal/5 hover:bg-charcoal/10 rounded-sm px-3 py-2 text-[9px] font-bold tracking-[0.2em] uppercase transition-colors"
                         >
                           {s.title}
                         </a>
@@ -349,7 +357,7 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
                       {member.disciplines?.filter(Boolean).map((d: any) => (
                         <a
                           href={`/disciplines/${d.slug}`}
-                          class="text-[9px] font-bold uppercase tracking-[0.2em] text-charcoal/40 bg-charcoal/5 px-3 py-2 rounded-sm hover:bg-charcoal/10 transition-colors"
+                          class="text-charcoal/40 bg-charcoal/5 hover:bg-charcoal/10 rounded-sm px-3 py-2 text-[9px] font-bold tracking-[0.2em] uppercase transition-colors"
                         >
                           {d.title}
                         </a>
@@ -366,24 +374,18 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
   </section>
 
   <!-- ─── TEAM (MINIMAL GRID) ────────────────────────── -->
-  <section class="px-6 py-24 lg:px-12 lg:py-48 bg-[#f2f1ec]">
+  <section class="bg-[#f2f1ec] px-6 py-24 lg:px-12 lg:py-48">
     <div class="mx-auto max-w-[1440px]">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+      <div class="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-24">
         <div class="lg:col-span-4">
-          <p
-            class="text-[12px] font-bold uppercase tracking-[0.3em] text-charcoal/40 mb-8"
-          >
+          <p class="text-charcoal/40 mb-8 text-[12px] font-bold tracking-[0.3em] uppercase">
             Senior Bench
           </p>
-          <h2
-            class="text-4xl lg:text-6xl font-light tracking-tight text-charcoal leading-none"
-          >
+          <h2 class="text-charcoal text-4xl leading-none font-light tracking-tight lg:text-6xl">
             Specialists in Rigour.
           </h2>
         </div>
-        <div
-          class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12"
-        >
+        <div class="grid grid-cols-1 gap-x-16 gap-y-12 md:grid-cols-2 lg:col-span-8">
           {
             team.map(
               (member: {
@@ -395,9 +397,9 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
                 sectors: any[];
                 disciplines: any[];
               }) => (
-                <article class="reveal border-t border-charcoal/10 pt-10">
-                  <div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-8 items-start">
-                    <div class="aspect-square bg-charcoal/5 overflow-hidden">
+                <article class="reveal border-charcoal/10 border-t pt-10">
+                  <div class="grid grid-cols-1 items-start gap-8 md:grid-cols-[120px_1fr]">
+                    <div class="bg-charcoal/5 aspect-square overflow-hidden">
                       {member.image && (
                         <img
                           src={imageUrl(member.image, {
@@ -406,37 +408,33 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
                             fit: "crop",
                           })}
                           alt={member.name}
-                          class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                          class="h-full w-full object-cover grayscale transition-all duration-700 hover:grayscale-0"
                         />
                       )}
                     </div>
                     <div>
                       {member.experience && (
-                        <p class="text-[11px] font-bold uppercase tracking-widest text-charcoal/40 mb-2">
+                        <p class="text-charcoal/40 mb-2 text-[11px] font-bold tracking-widest uppercase">
                           {member.experience}
                         </p>
                       )}
-                      <p class="text-xl font-medium text-charcoal mb-2">
-                        {member.name}
-                      </p>
-                      <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-charcoal/40 mb-4">
+                      <p class="text-charcoal mb-2 text-xl font-medium">{member.name}</p>
+                      <p class="text-charcoal/40 mb-4 text-[11px] font-bold tracking-[0.2em] uppercase">
                         {member.role}
                       </p>
-                      <p class="text-sm leading-relaxed text-charcoal/50 mb-6">
-                        {member.body}
-                      </p>
+                      <p class="text-charcoal/50 mb-6 text-sm leading-relaxed">{member.body}</p>
                     </div>
                   </div>
 
                   {((member.sectors && member.sectors.length > 0) ||
                     (member.disciplines && member.disciplines.length > 0)) && (
-                    <div class="pt-6 border-t border-charcoal/5 space-y-4">
+                    <div class="border-charcoal/5 space-y-4 border-t pt-6">
                       {member.sectors && member.sectors.length > 0 && (
                         <div class="flex flex-wrap gap-2">
                           {member.sectors.filter(Boolean).map((s: any) => (
                             <a
                               href={`/sectors/${s.slug}`}
-                              class="text-[8px] font-bold uppercase tracking-[0.2em] text-charcoal/60 bg-charcoal/5 px-2.5 py-1.5 rounded-sm hover:bg-charcoal/10 transition-colors"
+                              class="text-charcoal/60 bg-charcoal/5 hover:bg-charcoal/10 rounded-sm px-2.5 py-1.5 text-[8px] font-bold tracking-[0.2em] uppercase transition-colors"
                             >
                               {s.title}
                             </a>
@@ -447,16 +445,14 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
                       {member.sectors &&
                         member.sectors.length > 0 &&
                         member.disciplines &&
-                        member.disciplines.length > 0 && (
-                          <div class="h-px w-12 bg-charcoal/5" />
-                        )}
+                        member.disciplines.length > 0 && <div class="bg-charcoal/5 h-px w-12" />}
 
                       {member.disciplines && member.disciplines.length > 0 && (
                         <div class="flex flex-wrap gap-2">
                           {member.disciplines.filter(Boolean).map((d: any) => (
                             <a
                               href={`/disciplines/${d.slug}`}
-                              class="text-[8px] font-bold uppercase tracking-[0.2em] text-charcoal/60 bg-charcoal/5 px-2.5 py-1.5 rounded-sm hover:bg-charcoal/10 transition-colors"
+                              class="text-charcoal/60 bg-charcoal/5 hover:bg-charcoal/10 rounded-sm px-2.5 py-1.5 text-[8px] font-bold tracking-[0.2em] uppercase transition-colors"
                             >
                               {d.title}
                             </a>
@@ -475,34 +471,30 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
   </section>
 
   <!-- ─── THE INDUSTRY RECORD (CINEMATIC RECORD) ──────── -->
-  <section class="w-full bg-bone py-32 lg:py-48 border-t border-charcoal/5">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-      <div
-        class="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-30"
-      >
-        <div class="text-center lg:text-left w-full">
+  <section class="bg-bone border-charcoal/5 w-full border-t py-32 lg:py-48">
+    <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
+      <div class="mb-30 flex flex-col justify-between gap-12 lg:flex-row lg:items-end">
+        <div class="w-full text-center lg:text-left">
           <p
-            class="text-[12px] font-bold uppercase tracking-[0.3em] text-charcoal/30 mb-8 reveal font-inter"
+            class="text-charcoal/30 reveal font-inter mb-8 text-[12px] font-bold tracking-[0.3em] uppercase"
           >
             The Industry Record
           </p>
-          <h2
-            class="text-4xl lg:text-6xl font-light tracking-tight text-charcoal reveal"
-          >
+          <h2 class="text-charcoal reveal text-4xl font-light tracking-tight lg:text-6xl">
             Observed.<br />Analysed.<br />Acclaimed.
           </h2>
         </div>
 
         <div
-          class="reveal flex flex-col items-center text-center lg:text-right lg:items-end lg:justify-end gap-10 lg:pt-12"
+          class="reveal flex flex-col items-center gap-10 text-center lg:items-end lg:justify-end lg:pt-12 lg:text-right"
         >
           <p
-            class="text-[10px] sm:text-xs font-semibold leading-loose tracking-[0.25em] text-charcoal/60 uppercase max-w-2xl"
+            class="text-charcoal/60 max-w-2xl text-[10px] leading-loose font-semibold tracking-[0.25em] uppercase sm:text-xs"
           >
-            Metaphors Design is consistently recognised across for it's work.
-            Discover our insights, awards and media coverage.
+            Metaphors Design is consistently recognised across for it's work. Discover our insights,
+            awards and media coverage.
           </p>
-          <div class="flex justify-center lg:justify-end w-full">
+          <div class="flex w-full justify-center lg:justify-end">
             <Cta text="View Full Record" href="/press" invert={true} />
           </div>
         </div>
@@ -515,29 +507,23 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
   <!-- ─── SECTORS (ASYMMETRICAL TILES) ────────────────── -->
   <section class="bg-charcoal px-6 py-24 lg:px-12 lg:py-48">
     <div class="mx-auto max-w-[1440px]">
-      <div class="grid lg:grid-cols-2 gap-16 lg:gap-32 mb-24 items-end">
+      <div class="mb-24 grid items-end gap-16 lg:grid-cols-2 lg:gap-32">
         <div>
-          <p
-            class="text-[12px] font-bold uppercase tracking-[0.3em] text-bone/40 mb-10"
-          >
+          <p class="text-bone/40 mb-10 text-[12px] font-bold tracking-[0.3em] uppercase">
             Where we practise
           </p>
-          <h2
-            class="text-5xl lg:text-8xl font-light tracking-tighter text-bone leading-[0.9]"
-          >
+          <h2 class="text-bone text-5xl leading-[0.9] font-light tracking-tighter lg:text-8xl">
             One Method.<br />Eight Sectors.
           </h2>
         </div>
-        <p
-          class="text-lg lg:text-2xl text-bone/50 font-light leading-snug max-w-lg lg:ml-auto"
-        >
-          Our method is rigour. Our experience taught us that a resort and a
-          corporate campus require the same architectural discipline as a
-          residential project or a healthcare facility.
+        <p class="text-bone/50 max-w-lg text-lg leading-snug font-light lg:ml-auto lg:text-2xl">
+          Our method is rigour. Our experience taught us that a resort and a corporate campus
+          require the same architectural discipline as a residential project or a healthcare
+          facility.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
         {
           sectors.map(
             (
@@ -552,7 +538,7 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
             ) => (
               <a
                 href={`/sectors/${s.slug}`}
-                class="group relative block aspect-4/5 overflow-hidden border border-bone/10 reveal"
+                class="group border-bone/10 reveal relative block aspect-4/5 overflow-hidden border"
                 style={`transition-delay: ${idx * 100}ms`}
               >
                 {/* Background Image */}
@@ -562,17 +548,15 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
                 />
 
                 {/* Overlay */}
-                <div class="absolute inset-0 bg-linear-to-t from-charcoal/90 via-charcoal/40 to-transparent transition-opacity duration-700 group-hover:opacity-80" />
+                <div class="from-charcoal/90 via-charcoal/40 absolute inset-0 bg-linear-to-t to-transparent transition-opacity duration-700 group-hover:opacity-80" />
 
                 {/* Content */}
-                <div class="relative h-full p-8 flex flex-col justify-end">
-                  <p class="text-[10px] font-bold uppercase tracking-[0.4em] text-bone/40 mb-4">
+                <div class="relative flex h-full flex-col justify-end p-8">
+                  <p class="text-bone/40 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase">
                     {s.index}
                   </p>
-                  <h3 class="text-2xl font-light tracking-tight text-bone mb-3">
-                    {s.title}
-                  </h3>
-                  <p class="text-xs leading-relaxed text-bone/60 line-clamp-3 group-hover:text-bone/80 transition-colors">
+                  <h3 class="text-bone mb-3 text-2xl font-light tracking-tight">{s.title}</h3>
+                  <p class="text-bone/60 group-hover:text-bone/80 line-clamp-3 text-xs leading-relaxed transition-colors">
                     {s.body}
                   </p>
                 </div>

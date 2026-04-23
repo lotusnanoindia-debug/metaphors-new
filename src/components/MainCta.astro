@@ -12,34 +12,26 @@ const { section, className = "" } = Astro.props;
 <section
   class={`relative pb-32 pt-24 lg:pb-56 lg:pt-32 overflow-hidden bg-white border-t border-charcoal/5 ${className}`}
 >
-  <div
-    class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 flex justify-center"
-  >
-    <div class="max-w-3xl flex flex-col items-center text-center">
+  <div class="relative z-10 mx-auto flex max-w-7xl justify-center px-6 lg:px-12">
+    <div class="flex max-w-3xl flex-col items-center text-center">
       {
         section?.eyebrow && (
-          <p class="text-[10px] font-medium uppercase tracking-[0.6em] text-charcoal/40 mb-10 reveal">
+          <p class="text-charcoal/40 reveal mb-10 text-[10px] font-medium tracking-[0.6em] uppercase">
             {section?.eyebrow}
           </p>
         )
       }
 
       <h2
-        class="text-6xl leading-[0.99] tracking-tight text-charcoal lg:text-[6.5rem] mb-12 reveal capitalize"
+        class="text-charcoal reveal mb-12 text-6xl leading-[0.99] tracking-tight capitalize lg:text-[6.5rem]"
         style="animation-delay: 200ms;"
         set:html={section?.headline}
       />
 
-      <div
-        class="flex flex-col items-center gap-12 w-full reveal"
-        style="animation-delay: 400ms;"
-      >
-        <p
-          class="text-xl text-charcoal/60 leading-relaxed"
-          set:html={section?.tagline}
-        />
+      <div class="reveal flex w-full flex-col items-center gap-12" style="animation-delay: 400ms;">
+        <p class="text-charcoal/60 text-xl leading-relaxed" set:html={section?.tagline} />
 
-        <div class="shrink-0 flex justify-center">
+        <div class="flex shrink-0 justify-center">
           <Cta text={section?.ctaLabel} href={section?.ctaUrl} invert={true} />
         </div>
       </div>
@@ -47,8 +39,5 @@ const { section, className = "" } = Astro.props;
   </div>
 
   {/* Subtle Background Accent */}
-  <div
-    class="absolute top-0 right-0 w-1/3 h-full bg-charcoal/2 z-0 pointer-events-none"
-  >
-  </div>
+  <div class="bg-charcoal/2 pointer-events-none absolute top-0 right-0 z-0 h-full w-1/3"></div>
 </section>

@@ -1,6 +1,6 @@
-import { defineType, defineField } from 'sanity'
-import { UserIcon } from '@sanity/icons'
-import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list'
+import {defineType, defineField} from 'sanity'
+import {UserIcon} from '@sanity/icons'
+import {orderRankField, orderRankOrdering} from '@sanity/orderable-document-list'
 
 export default defineType({
   name: 'employee',
@@ -9,13 +9,13 @@ export default defineType({
   icon: UserIcon,
   orderings: [orderRankOrdering],
   groups: [
-    { name: 'identity', title: 'Identity', default: true },
-    { name: 'expertise', title: 'Expertise & Relations' },
-    { name: 'editorial', title: 'Editorial Narrative' },
-    { name: 'settings', title: 'Operational Settings' },
+    {name: 'identity', title: 'Identity', default: true},
+    {name: 'expertise', title: 'Expertise & Relations'},
+    {name: 'editorial', title: 'Editorial Narrative'},
+    {name: 'settings', title: 'Operational Settings'},
   ],
   fields: [
-    orderRankField({ type: 'employee' }),
+    orderRankField({type: 'employee'}),
 
     // --- IDENTITY ---
     defineField({
@@ -29,7 +29,7 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: { source: 'name', maxLength: 96 },
+      options: {source: 'name', maxLength: 96},
       group: 'identity',
       validation: (Rule) => Rule.required(),
     }),
@@ -55,7 +55,7 @@ export default defineType({
       title: 'Sector Specialisations',
       description: 'Assign this member to one or more practice sectors.',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'sector' }] }],
+      of: [{type: 'reference', to: [{type: 'sector'}]}],
       group: 'expertise',
     }),
     defineField({
@@ -63,7 +63,7 @@ export default defineType({
       title: 'Disciplines',
       description: 'The core disciplines this member leads.',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'discipline' }] }],
+      of: [{type: 'reference', to: [{type: 'discipline'}]}],
       group: 'expertise',
     }),
 
@@ -72,7 +72,7 @@ export default defineType({
       name: 'image',
       title: 'Editorial Portrait',
       type: 'image',
-      options: { hotspot: true },
+      options: {hotspot: true},
       group: 'editorial',
     }),
     defineField({
@@ -91,9 +91,9 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Leadership / Founders', value: 'leadership' },
-          { title: 'Senior Bench', value: 'senior' },
-          { title: 'Associates', value: 'associate' },
+          {title: 'Leadership / Founders', value: 'leadership'},
+          {title: 'Senior Bench', value: 'senior'},
+          {title: 'Associates', value: 'associate'},
         ],
         layout: 'radio',
       },
@@ -107,9 +107,9 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Active', value: 'active' },
-          { title: 'In Memoriam / Legacy', value: 'legacy' },
-          { title: 'Alumni', value: 'alumni' },
+          {title: 'Active', value: 'active'},
+          {title: 'In Memoriam / Legacy', value: 'legacy'},
+          {title: 'Alumni', value: 'alumni'},
         ],
       },
       initialValue: 'active',
@@ -130,7 +130,7 @@ export default defineType({
       media: 'image',
       status: 'status',
     },
-    prepare({ title, subtitle, media, status }) {
+    prepare({title, subtitle, media, status}) {
       const statusIcon = status === 'legacy' ? '🕯️' : status === 'alumni' ? '🎓' : '🟢'
       return {
         title: `${statusIcon} ${title}`,

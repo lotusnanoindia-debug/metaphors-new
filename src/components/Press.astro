@@ -24,11 +24,11 @@ const containerClass =
       if (layout === "minimal" || layout === "grid") {
         return (
           <div
-            class="flex flex-col gap-6 group reveal items-center text-center"
+            class="group reveal flex flex-col items-center gap-6 text-center"
             style={`transition-delay: ${index * 150}ms`}
           >
             {/* Logo/Source — Barely visible anchor */}
-            <div class="h-5 flex items-center justify-center opacity-20 grayscale group-hover:opacity-60 transition-all duration-700">
+            <div class="flex h-5 items-center justify-center opacity-20 grayscale transition-all duration-700 group-hover:opacity-60">
               {item.logo ? (
                 <img
                   src={imageUrl(item.logo, { height: 16 })}
@@ -36,14 +36,14 @@ const containerClass =
                   class="h-full w-auto object-contain"
                 />
               ) : (
-                <span class="text-[8px] font-bold uppercase tracking-[0.4em] text-charcoal/40">
+                <span class="text-charcoal/40 text-[8px] font-bold tracking-[0.4em] uppercase">
                   {item.publication}
                 </span>
               )}
             </div>
 
             {/* The Quote — Technical Caps */}
-            <p class="text-[12px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] leading-relaxed text-charcoal/40 group-hover:text-charcoal/70 transition-colors duration-500 font-serif italic">
+            <p class="text-charcoal/40 group-hover:text-charcoal/70 font-serif text-[12px] leading-relaxed font-semibold tracking-[0.25em] uppercase italic transition-colors duration-500 sm:text-[11px]">
               “{item.quote}”
             </p>
           </div>
@@ -52,11 +52,8 @@ const containerClass =
 
       // --- LEGGER / STACK / SIDEBAR (LEGACY SUPPORT) ---
       return (
-        <div
-          class="flex flex-col gap-8 group reveal"
-          style={`transition-delay: ${index * 150}ms`}
-        >
-          <div class="h-5 flex items-center opacity-30 grayscale group-hover:opacity-100 transition-all">
+        <div class="group reveal flex flex-col gap-8" style={`transition-delay: ${index * 150}ms`}>
+          <div class="flex h-5 items-center opacity-30 grayscale transition-all group-hover:opacity-100">
             {item.logo ? (
               <img
                 src={imageUrl(item.logo, { height: 20 })}
@@ -64,12 +61,12 @@ const containerClass =
                 class="h-full w-auto object-contain"
               />
             ) : (
-              <span class="text-[9px] font-bold uppercase tracking-[0.3em] text-charcoal/40">
+              <span class="text-charcoal/40 text-[9px] font-bold tracking-[0.3em] uppercase">
                 {item.publication}
               </span>
             )}
           </div>
-          <p class="text-xl lg:text-3xl font-light italic tracking-tight leading-relaxed text-charcoal/60 group-hover:text-charcoal transition-all">
+          <p class="text-charcoal/60 group-hover:text-charcoal text-xl leading-relaxed font-light tracking-tight italic transition-all lg:text-3xl">
             “{item.quote}”
           </p>
         </div>

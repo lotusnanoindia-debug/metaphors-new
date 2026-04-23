@@ -23,7 +23,7 @@ export const projectCategoriesQuery = `
       slug
     }
   }
-`
+`;
 
 // ─── 2) Project listing page: /projects ──────────────────────────────────────
 // Excludes heavy narrative fields and full gallery intentionally.
@@ -64,7 +64,7 @@ export const projectsListingQuery = `
       "caption": coverImage.caption
     }
   }
-`
+`;
 
 // ─── 3) Single project detail page: /projects/[slug] ─────────────────────────
 
@@ -151,7 +151,7 @@ export const projectBySlugQuery = `
       caption
     }
   }
-`
+`;
 
 // ─── 4) Static paths for Astro getStaticPaths() ──────────────────────────────
 
@@ -159,4 +159,4 @@ export const visibleProjectSlugsQuery = `
   *[_type == "project" && isVisible == true && defined(slug.current)]{
     "slug": slug.current
   }
-`
+`;

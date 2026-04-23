@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import {defineType, defineField} from 'sanity'
 
 export default defineType({
   name: 'pressQuote',
@@ -16,9 +16,7 @@ export default defineType({
       name: 'logo',
       title: 'Publication Logo (SVG or PNG)',
       type: 'image',
-      fields: [
-        { name: 'alt', title: 'Alt Text', type: 'string' },
-      ],
+      fields: [{name: 'alt', title: 'Alt Text', type: 'string'}],
     }),
     defineField({
       name: 'quote',
@@ -39,7 +37,7 @@ export default defineType({
     select: {
       title: 'publication',
       subtitle: 'quote',
-      media: 'logo'
+      media: 'logo',
     },
   },
 })

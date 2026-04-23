@@ -191,3 +191,55 @@ export const EVIDENCE_SECTOR_SLIDER_QUERY = `*[_type == "sector"] | order(orderR
      highlights
   }
 }`;
+export const SECTOR_DETAIL_QUERY = `{
+  "sector": *[_type == "sector" && slug.current == $slug][0]{
+    title,
+    "slug": slug.current,
+    menuTagline,
+    menuCTA,
+    homeHeadline,
+    homeIntro,
+    "teaser": coalesce(teaser, homeIntro),
+    pageHeroHeadline,
+    pageHeroSub,
+    valueProposition,
+    keyPillars[] {
+      title,
+      description
+    },
+    "curatedProjects": curatedProjects[]-> {
+      "title": coalesce(projectName, title, headline),
+      "slug": slug.current,
+      location,
+      areaSqFt,
+      projectStatus,
+      headline,
+      highlights,
+      "client": select(showClientPublicly != false => client->name, null),
+      "disciplines": disciplines[]->{ title, "slug": slug.current },
+      mainImage { ..., asset-> { ..., originalFilename } },
+      coverImage { ..., asset-> { ..., originalFilename } },
+      completionYear,
+      "sector": sector->title
+    },
+    "allProjects": *[_type == "project" && references(^._id) && isVisible != false] | order(completionYear desc) {
+      "title": coalesce(projectName, title, headline),
+      "slug": slug.current,
+      "client": select(showClientPublicly != false => client->name, null),
+      "disciplines": disciplines[]->{ title, "slug": slug.current },
+      location,
+      areaSqFt,
+      coverImage { ..., asset-> { ..., originalFilename } },
+      completionYear
+    },
+    customCTA,
+    image { ..., asset-> { ..., originalFilename } }
+  },
+  "homepage": *[_type == "homepage" && _id == "homepage"][0]{
+    statureSection {
+      precisionImage { ..., asset-> { ..., originalFilename } }
+    }
+  }
+}`;
+
+export const ALL_SECTORS_SLUGS_QUERY = `*[_type == "sector"]{ "slug": slug.current }`;

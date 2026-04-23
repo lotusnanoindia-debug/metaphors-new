@@ -1,14 +1,15 @@
-node_modules/
-build/
-dist/
-coverage/
+**/node_modules/
+**/build/
+**/dist/
+**/coverage/
 .DS_Store
+Thumbs.db
 *.log
 .env*
 !.env.example
 
 # Local Netlify folder
-.netlify
+**/.netlify
 
 # Local Project Archive
 _archive/
@@ -22,3 +23,22 @@ metadata.json
 # Local configurations
 .wrangler/
 .astro/
+.history/
+.vscode/
+.idea/
+
+# Data & Exports
+*.ndjson
+*.pdf
+test-keys.mjs
+bench-data.ndjson
+
+# Security & Keys
+*.pem
+*.key
+*.pub
+*.cert
+
+# Yarn PnP
+.pnp.*
+.pnp/

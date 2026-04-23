@@ -10,34 +10,34 @@ interface Props {
 const { section, subheading, quotes } = Astro.props;
 ---
 
-<section class="w-full px-6 lg:px-12 pb-32 lg:pb-48 -mt-12 lg:mt-0">
-  <div class="max-w-[1440px] mx-auto reveal relative">
-    <div class="grid grid-cols-1 lg:grid-cols-10 gap-6 lg:gap-4">
+<section class="-mt-12 w-full px-6 pb-32 lg:mt-0 lg:px-12 lg:pb-48">
+  <div class="reveal relative mx-auto max-w-[1440px]">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-10 lg:gap-4">
       {/* Large Image column */}
-      <div class="lg:col-span-7 flex flex-col gap-12">
+      <div class="flex flex-col gap-12 lg:col-span-7">
         {/* Studio Intro — big editorial lead */}
         {
           subheading && (
-            <div class="max-w-2xl mx-auto text-center lg:text-left lg:mx-0 reveal">
-              <p class="hidden lg:block text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/30 mb-4">
+            <div class="reveal mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
+              <p class="text-charcoal/30 mb-4 hidden text-[10px] font-bold tracking-[0.4em] uppercase lg:block">
                 {section?.contextEyebrow}
               </p>
-              <p class="text-2xl lg:text-4xl text-charcoal/90 font-light leading-[1.15] tracking-tight">
+              <p class="text-charcoal/90 text-2xl leading-[1.15] font-light tracking-tight lg:text-4xl">
                 {subheading}
               </p>
             </div>
           )
         }
         <div
-          class="group/stature-lg relative overflow-hidden h-[60vh] lg:h-[60vh] transition-all duration-1000 grayscale-65 saturate-88 contrast-104 hover:grayscale-0 hover:saturate-100 hover:contrast-100"
+          class="group/stature-lg relative h-[60vh] overflow-hidden contrast-104 grayscale-65 saturate-88 transition-all duration-1000 hover:contrast-100 hover:grayscale-0 hover:saturate-100 lg:h-[60vh]"
         >
           {/* Footnote */}
-          <div class="absolute left-0 bottom-0 pointer-events-none z-10">
+          <div class="pointer-events-none absolute bottom-0 left-0 z-10">
             <div
-              class="origin-bottom-left translate-x-10 -translate-y-10 bg-bone/50 backdrop-blur-sm px-8 py-4 border border-white/10 transition-all duration-1000 group-hover/stature-lg:bg-bone/90 group-hover/stature-lg:backdrop-blur-xl group-hover/stature-lg:border-white/20"
+              class="bg-bone/50 group-hover/stature-lg:bg-bone/90 origin-bottom-left translate-x-10 -translate-y-10 border border-white/10 px-8 py-4 backdrop-blur-sm transition-all duration-1000 group-hover/stature-lg:border-white/20 group-hover/stature-lg:backdrop-blur-xl"
             >
               <p
-                class="text-[10px] font-semibold uppercase tracking-[0.5em] text-charcoal whitespace-nowrap transition-all duration-1000"
+                class="text-charcoal text-[10px] font-semibold tracking-[0.5em] whitespace-nowrap uppercase transition-all duration-1000"
               >
                 {section?.statureImage?.caption}
               </p>
@@ -48,7 +48,7 @@ const { section, subheading, quotes } = Astro.props;
             section?.statureImage && (
               <img
                 alt={section.statureImage?.alt}
-                class="w-full h-full object-cover object-center transition-transform duration-[3s] cubic-bezier(0.19, 1, 0.22, 1) group-hover/stature-lg:scale-[1.02]"
+                class="cubic-bezier(0.19, 1, 0.22, 1) h-full w-full object-cover object-center transition-transform duration-[3s] group-hover/stature-lg:scale-[1.02]"
                 loading="lazy"
                 decoding="async"
                 src={imageUrl(section.statureImage, { width: 1000 })}
@@ -60,7 +60,7 @@ const { section, subheading, quotes } = Astro.props;
 
       {/* Secondary Column - Dialogue & Pressed Context */}
       <div
-        class="group/stature-sm lg:col-span-3 relative overflow-hidden h-[50vh] lg:h-[65vh] bg-charcoal reveal"
+        class="group/stature-sm bg-charcoal reveal relative h-[50vh] overflow-hidden lg:col-span-3 lg:h-[65vh]"
         style="transition-delay: 200ms"
       >
         {/* The Image (Backdrop) */}
@@ -68,7 +68,7 @@ const { section, subheading, quotes } = Astro.props;
           section?.precisionImage && (
             <img
               alt={section.precisionImage?.alt}
-              class="absolute inset-0 w-full h-full object-cover object-center grayscale opacity-60 group-hover/stature-sm:opacity-80 group-hover/stature-sm:grayscale-0 group-hover/stature-sm:scale-110 transition-all duration-[2s] cubic-bezier(0.19, 1, 0.22, 1)"
+              class="cubic-bezier(0.19, 1, 0.22, 1) absolute inset-0 h-full w-full object-cover object-center opacity-60 grayscale transition-all duration-[2s] group-hover/stature-sm:scale-110 group-hover/stature-sm:opacity-80 group-hover/stature-sm:grayscale-0"
               loading="lazy"
               decoding="async"
               src={imageUrl(section.precisionImage, { width: 800 })}
@@ -78,7 +78,7 @@ const { section, subheading, quotes } = Astro.props;
 
         {/* The Dialogue Overlay */}
         <div
-          class="absolute inset-0 p-8 lg:p-10 bg-linear-to-t from-charcoal via-charcoal/60 to-transparent flex flex-col justify-end gap-12 z-10"
+          class="from-charcoal via-charcoal/60 absolute inset-0 z-10 flex flex-col justify-end gap-12 bg-linear-to-t to-transparent p-8 lg:p-10"
         >
           <div class="relative h-full overflow-hidden">
             {
@@ -87,7 +87,7 @@ const { section, subheading, quotes } = Astro.props;
                   class={`press-quote absolute inset-10 flex flex-col justify-end transition-opacity duration-1000 ${idx === 0 ? "opacity-100" : "opacity-0"}`}
                   data-index={idx}
                 >
-                  <p class="text-lg md:text-3xl text-white font-light leading-relaxed mb-8">
+                  <p class="mb-8 text-lg leading-relaxed font-light text-white md:text-3xl">
                     "{item.quote}"
                   </p>
 
@@ -96,10 +96,10 @@ const { section, subheading, quotes } = Astro.props;
                       <img
                         src={imageUrl(item.logo, { height: 40 })}
                         alt={item.publication}
-                        class="h-full w-auto opacity-60 grayscale invert brightness-0"
+                        class="h-full w-auto opacity-60 brightness-0 grayscale invert"
                       />
                     ) : (
-                      <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-white/40">
+                      <span class="text-[10px] font-bold tracking-[0.25em] text-white/40 uppercase">
                         {item.publication}
                       </span>
                     )}
@@ -109,27 +109,23 @@ const { section, subheading, quotes } = Astro.props;
             }
           </div>
 
-          <div
-            class="pt-8 border-t border-white/10 flex items-center justify-between"
-          >
+          <div class="flex items-center justify-between border-t border-white/10 pt-8">
             <div>
-              <p
-                class="text-[10px] font-bold uppercase tracking-[0.3 em] text-white/30"
-              >
+              <p class="tracking-[0.3 em] text-[10px] font-bold text-white/30 uppercase">
                 {section?.pressEyebrow}
               </p>
-              <p class="text-[10px] text-white/50 mt-1">
+              <p class="mt-1 text-[10px] text-white/50">
                 {section?.pressSubEyebrow}
               </p>
             </div>
 
             <a
               href={section?.pressCtaUrl}
-              class="group/link flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] text-white/60 hover:text-white transition-colors duration-300 uppercase"
+              class="group/link flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] text-white/60 uppercase transition-colors duration-300 hover:text-white"
             >
               {section?.pressCtaLabel}
               <span
-                class="block w-4 h-px bg-white/20 group-hover/link:bg-white group-hover/link:w-8 transition-all duration-500"
+                class="block h-px w-4 bg-white/20 transition-all duration-500 group-hover/link:w-8 group-hover/link:bg-white"
               ></span>
             </a>
           </div>

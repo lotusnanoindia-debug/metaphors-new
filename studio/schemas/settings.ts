@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import {defineType, defineField} from 'sanity'
 
 export default defineType({
   name: 'settings',
@@ -14,7 +14,7 @@ export default defineType({
       name: 'heroStatureImage',
       title: 'Hero Stature Image (Large)',
       type: 'image',
-      options: { hotspot: true },
+      options: {hotspot: true},
     }),
     defineField({
       name: 'statureTagline',
@@ -27,7 +27,7 @@ export default defineType({
       name: 'heroPrecisionImage',
       title: 'Hero Precision Image (Small)',
       type: 'image',
-      options: { hotspot: true },
+      options: {hotspot: true},
     }),
   ],
 })

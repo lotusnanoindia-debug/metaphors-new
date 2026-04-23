@@ -11,21 +11,21 @@ const disciplines = disciplinesData.map((d: any) => d.title);
 
 <dialog
   id="contact-modal"
-  class="fixed inset-0 z-500 m-auto h-full w-full bg-transparent p-0 backdrop:bg-charcoal/90 backdrop:backdrop-blur-2xl open:flex open:items-center open:justify-center"
+  class="backdrop:bg-charcoal/90 fixed inset-0 z-500 m-auto h-full w-full bg-transparent p-0 backdrop:backdrop-blur-2xl open:flex open:items-center open:justify-center"
 >
   <div
-    class="relative w-full h-full sm:h-auto sm:min-h-[750px] sm:max-h-[90vh] sm:w-[95vw] sm:max-w-[1280px] bg-bone overflow-y-auto sm:overflow-hidden flex flex-col lg:flex-row luxury-reveal reveal border-none sm:border sm:border-charcoal/10 sm:shadow-2xl"
+    class="bg-bone luxury-reveal reveal sm:border-charcoal/10 relative flex h-full w-full flex-col overflow-y-auto border-none sm:h-auto sm:max-h-[90vh] sm:min-h-[750px] sm:w-[95vw] sm:max-w-[1280px] sm:overflow-hidden sm:border sm:shadow-2xl lg:flex-row"
     id="modal-content"
   >
     {/* Close Button */}
     <button
       id="close-modal"
-      class="absolute top-6 right-6 z-30 group flex items-center justify-center h-10 w-10 transition-all duration-500 hover:rotate-90 cursor-pointer"
+      class="group absolute top-6 right-6 z-30 flex h-10 w-10 cursor-pointer items-center justify-center transition-all duration-500 hover:rotate-90"
       aria-label="Close modal"
     >
       <svg
         viewBox="0 0 24 24"
-        class="h-5 w-5 fill-none stroke-current stroke-[1.2] text-charcoal/40 group-hover:text-charcoal transition-colors"
+        class="text-charcoal/40 group-hover:text-charcoal h-5 w-5 fill-none stroke-current stroke-[1.2] transition-colors"
       >
         <path d="M18 6L6 18M6 6l12 12"></path>
       </svg>
@@ -33,7 +33,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
 
     {/* Branding & Info Section */}
     <div
-      class="w-full lg:w-[35%] bg-[#f2f1ec] p-8 lg:p-14 border-b lg:border-b-0 lg:border-r border-charcoal/5 flex shrink-0 lg:shrink flex-col justify-between"
+      class="border-charcoal/5 flex w-full shrink-0 flex-col justify-between border-b bg-[#f2f1ec] p-8 lg:w-[35%] lg:shrink lg:border-r lg:border-b-0 lg:p-14"
     >
       <div class="space-y-12">
         <div class="flex items-center gap-3">
@@ -43,91 +43,81 @@ const disciplines = disciplinesData.map((d: any) => d.title);
             class="h-6 w-auto grayscale-30"
             src="/metaphors-design-logo.svg"
           />
-          <span class="text-xl font-medium tracking-tight text-black"
-            >metaphors design</span
-          >
+          <span class="text-xl font-medium tracking-tight text-black">metaphors design</span>
         </div>
 
         <div class="space-y-4">
-          <h2
-            class="text-3xl lg:text-4xl font-light tracking-tighter leading-[1.1] text-charcoal"
-          >
+          <h2 class="text-charcoal text-3xl leading-[1.1] font-light tracking-tighter lg:text-4xl">
             Connect with us.
           </h2>
         </div>
 
         <p
-          class="text-[11px] font-medium text-charcoal/50 leading-relaxed uppercase tracking-widest max-w-[240px]"
+          class="text-charcoal/50 max-w-[240px] text-[11px] leading-relaxed font-medium tracking-widest uppercase"
         >
           Four decades of architectural precision and long-term stewardship.
         </p>
       </div>
 
-      <div class="space-y-6 pt-10 border-t border-charcoal/10">
+      <div class="border-charcoal/10 space-y-6 border-t pt-10">
         <div class="space-y-2">
           <p
-            class="text-[9px] font-bold uppercase tracking-[0.3em] text-charcoal/30 flex items-center gap-2"
+            class="text-charcoal/30 flex items-center gap-2 text-[9px] font-bold tracking-[0.3em] uppercase"
           >
-            <Icon name="ph:map-pin-light" class="w-3 h-3 text-charcoal/40" />
+            <Icon name="ph:map-pin-light" class="text-charcoal/40 h-3 w-3" />
             Studio
           </p>
-          <p class="text-[13px] font-light tracking-tight text-charcoal">
-            Pune, India
-          </p>
+          <p class="text-charcoal text-[13px] font-light tracking-tight">Pune, India</p>
         </div>
 
         <div class="space-y-2">
           <p
-            class="text-[9px] font-bold uppercase tracking-[0.3em] text-charcoal/30 flex items-center gap-2"
+            class="text-charcoal/30 flex items-center gap-2 text-[9px] font-bold tracking-[0.3em] uppercase"
           >
-            <Icon name="ph:envelope-light" class="w-3 h-3 text-charcoal/40" />
+            <Icon name="ph:envelope-light" class="text-charcoal/40 h-3 w-3" />
             Liaison
           </p>
           <a
             href="mailto:info@metaphors-design.com"
-            class="text-[13px] font-light tracking-tight text-charcoal hover:underline"
+            class="text-charcoal text-[13px] font-light tracking-tight hover:underline"
             >info@metaphors-design.com</a
           >
         </div>
 
         <div class="space-y-2">
           <p
-            class="text-[9px] font-bold uppercase tracking-[0.3em] text-charcoal/30 flex items-center gap-2"
+            class="text-charcoal/30 flex items-center gap-2 text-[9px] font-bold tracking-[0.3em] uppercase"
           >
-            <Icon name="ph:phone-light" class="w-3 h-3 text-charcoal/40" />
+            <Icon name="ph:phone-light" class="text-charcoal/40 h-3 w-3" />
             Engage
           </p>
           <div class="flex flex-col gap-1.5">
             <a
               href="tel:+919665355522"
-              class="text-[13px] font-light tracking-tight text-charcoal hover:underline"
+              class="text-charcoal text-[13px] font-light tracking-tight hover:underline"
             >
               (+91) 96653 55522
             </a>
             <a
               href="tel:+919822279173"
-              class="text-[13px] font-light tracking-tight text-charcoal hover:underline"
+              class="text-charcoal text-[13px] font-light tracking-tight hover:underline"
             >
               (+91) 98222 79173
             </a>
           </div>
         </div>
 
-        <p
-          class="text-[8px] font-bold uppercase tracking-[0.3em] text-charcoal/20"
-        >
+        <p class="text-charcoal/20 text-[8px] font-bold tracking-[0.3em] uppercase">
           Established 1989
         </p>
       </div>
     </div>
 
     {/* Form Section */}
-    <div
-      class="flex-1 p-8 lg:p-12 lg:px-20 bg-bone flex flex-col justify-center overflow-visible"
-    >
+    <div class="bg-bone flex flex-1 flex-col justify-center overflow-visible p-8 lg:p-12 lg:px-20">
       <div class="mb-10" id="form-header">
         <p
-          class="text-3xl lg:text-4xl tracking-tight text-charcoal/90 font-light"
+          class="text-charcoal/90 text-3xl font-light tracking-tight lg:text-4xl"
           id="modal-eyebrow"
         >
           Direct Enquiry
@@ -135,56 +125,39 @@ const disciplines = disciplinesData.map((d: any) => d.title);
       </div>
 
       <!-- Success State -->
-      <div
-        id="contact-success"
-        class="hidden flex-col items-start gap-8 py-10 reveal"
-      >
+      <div id="contact-modal-success" class="reveal hidden flex-col items-start gap-8 py-10">
         <div class="space-y-4">
-          <h3
-            class="text-3xl lg:text-4xl tracking-tight text-charcoal font-light"
-          >
+          <h3 class="text-charcoal text-3xl font-light tracking-tight lg:text-4xl">
             Acknowledged.
           </h3>
-          <p
-            class="text-base text-charcoal/60 font-light max-w-md leading-relaxed"
-          >
-            Your enquiry has been received and a confirmation has been sent to
-            the email address you provided. A senior member of our team will
-            review the details and respond within two working days.
+          <p class="text-charcoal/60 max-w-md text-base leading-relaxed font-light">
+            Your enquiry has been received and a confirmation has been sent to the email address you
+            provided. A senior member of our team will review the details and respond within two
+            working days.
           </p>
         </div>
         <button
-          id="reset-form"
-          class="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal hover:text-black border-b border-charcoal/20 pb-1 transition-all cursor-pointer"
+          id="contact-modal-reset"
+          class="text-charcoal border-charcoal/20 cursor-pointer border-b pb-1 text-[10px] font-bold tracking-[0.3em] uppercase transition-all hover:text-black"
         >
           Send another message
         </button>
       </div>
 
-      <form
-        id="contact-form"
-        class="flex flex-col gap-8"
-        action="#"
-        method="POST"
-      >
-        <input
-          type="hidden"
-          name="contactContext"
-          id="form-context"
-          value="Contact Modal"
-        />
-        <input type="hidden" name="originatingPage" id="form-origin" value="" />
+      <form id="contact-form" class="flex flex-col gap-8" action="#" method="POST" novalidate>
+        <input type="hidden" name="contactContext" id="form-context" value="Contact Modal" />
+        <input type="hidden" name="originatingPage" id="contact-modal-origin" value="" />
 
         <!-- Spam Prevention -->
-        <div style="display:none" aria-hidden="true">
+        <div class="hidden" aria-hidden="true">
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
-          <div class="flex flex-col gap-2">
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-10">
+          <div class="flex flex-col gap-2" data-field>
             <label
               for="full-name"
-              class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/60 flex justify-between items-center"
+              class="text-charcoal/60 flex items-center justify-between text-[12px] font-bold tracking-[0.25em] uppercase"
             >
               Name
               <span class="text-charcoal/30">*</span>
@@ -194,14 +167,19 @@ const disciplines = disciplinesData.map((d: any) => d.title);
               id="full-name"
               name="full-name"
               required
-              class="w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-normal text-charcoal/90 outline-none focus:border-charcoal/40 transition-colors"
+              class="border-charcoal/20 text-charcoal focus:border-charcoal w-full border-b bg-transparent py-4 text-xl font-light transition-all outline-none"
             />
+            <p
+              class="error-msg text-ink mt-1 hidden text-[10px] font-medium tracking-widest uppercase"
+            >
+              Please enter your full name
+            </p>
           </div>
 
-          <div class="flex flex-col gap-2">
+          <div class="flex flex-col gap-2" data-field>
             <label
               for="email"
-              class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/60 flex justify-between items-center"
+              class="text-charcoal/60 flex items-center justify-between text-[12px] font-bold tracking-[0.25em] uppercase"
             >
               Email
               <span class="text-charcoal/30">*</span>
@@ -211,38 +189,42 @@ const disciplines = disciplinesData.map((d: any) => d.title);
               id="email"
               name="email"
               required
-              class="w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-normal text-charcoal/90 outline-none focus:border-charcoal/40 transition-colors"
+              pattern="[^@\\s]+@[^@\\s]+\\.[^@\\s]+"
+              class="border-charcoal/20 text-charcoal focus:border-charcoal w-full border-b bg-transparent py-4 text-xl font-light transition-all outline-none"
             />
+            <p
+              class="error-msg text-ink mt-1 hidden text-[10px] font-medium tracking-widest uppercase"
+            >
+              Please enter a valid email address
+            </p>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-10">
           {/* Custom Sector Dropdown */}
-          <div class="flex flex-col gap-2 relative z-30">
-            <label
-              class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/50"
-            >
+          <div class="relative z-30 flex flex-col gap-2">
+            <label class="text-charcoal/50 text-[12px] font-bold tracking-[0.25em] uppercase">
               Sector of Interest
             </label>
-            <div class="relative custom-dropdown" id="sector-dropdown">
+            <div class="custom-dropdown relative" id="sector-dropdown">
               <button
                 type="button"
-                class="dropdown-trigger w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-normal text-charcoal/90 flex items-center justify-between transition-colors hover:border-charcoal/30 cursor-pointer"
+                class="dropdown-trigger border-charcoal/20 text-charcoal hover:border-charcoal flex w-full cursor-pointer items-center justify-between border-b bg-transparent py-4 text-xl font-light transition-colors"
               >
-                <span class="selected-value"></span>
+                <span class="selected-value text-charcoal/40"></span>
                 <svg
                   viewBox="0 0 24 24"
-                  class="w-4 h-4 fill-none stroke-current stroke-1 transition-transform duration-300"
+                  class="h-5 w-5 fill-none stroke-current stroke-1 transition-transform duration-300"
                 >
                   <path d="M6 9l6 6 6-6"></path>
                 </svg>
               </button>
               <div
-                class="dropdown-menu absolute top-full left-0 w-full bg-white border border-charcoal/10 border-t-0 opacity-0 invisible translate-y-2 transition-all duration-300 z-50 shadow-xl overflow-hidden"
+                class="dropdown-menu border-charcoal/10 invisible absolute top-full left-0 z-50 w-full translate-y-2 overflow-hidden border border-t-0 bg-white opacity-0 shadow-xl transition-all duration-300"
               >
-                <div class="max-h-60 overflow-y-auto custom-scrollbar">
+                <div class="custom-scrollbar max-h-60 overflow-y-auto">
                   <div
-                    class="px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-charcoal/20 border-b border-charcoal/5"
+                    class="text-charcoal/20 border-charcoal/5 border-b px-5 py-3 text-[10px] font-bold tracking-widest uppercase"
                   >
                     Which Sector are you enquiring about?
                   </div>
@@ -250,7 +232,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
                     sectors.map((s: string) => (
                       <button
                         type="button"
-                        class="option w-full text-left px-5 py-3.5 text-sm font-light text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 transition-colors"
+                        class="option text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 w-full px-5 py-3.5 text-left text-sm font-light transition-colors"
                         data-value={s}
                       >
                         {s}
@@ -259,7 +241,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
                   }
                   <button
                     type="button"
-                    class="option w-full text-left px-5 py-3.5 text-sm font-light text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 transition-colors border-t border-charcoal/5"
+                    class="option text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 border-charcoal/5 w-full border-t px-5 py-3.5 text-left text-sm font-light transition-colors"
                     data-value="Other"
                   >
                     Other
@@ -271,31 +253,29 @@ const disciplines = disciplinesData.map((d: any) => d.title);
           </div>
 
           {/* Custom Discipline Dropdown */}
-          <div class="flex flex-col gap-2 relative z-20">
-            <label
-              class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/50"
-            >
+          <div class="relative z-20 flex flex-col gap-2">
+            <label class="text-charcoal/50 text-[12px] font-bold tracking-[0.25em] uppercase">
               Discipline of Interest
             </label>
-            <div class="relative custom-dropdown" id="discipline-dropdown">
+            <div class="custom-dropdown relative" id="discipline-dropdown">
               <button
                 type="button"
-                class="dropdown-trigger w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-normal text-charcoal/90 flex items-center justify-between transition-colors hover:border-charcoal/30 cursor-pointer"
+                class="dropdown-trigger border-charcoal/20 text-charcoal hover:border-charcoal flex w-full cursor-pointer items-center justify-between border-b bg-transparent py-4 text-xl font-light transition-colors"
               >
-                <span class="selected-value"></span>
+                <span class="selected-value text-charcoal/40"></span>
                 <svg
                   viewBox="0 0 24 24"
-                  class="w-4 h-4 fill-none stroke-current stroke-1 transition-transform duration-300"
+                  class="h-5 w-5 fill-none stroke-current stroke-1 transition-transform duration-300"
                 >
                   <path d="M6 9l6 6 6-6"></path>
                 </svg>
               </button>
               <div
-                class="dropdown-menu absolute top-full left-0 w-full bg-white border border-charcoal/10 border-t-0 opacity-0 invisible translate-y-2 transition-all duration-300 z-50 shadow-xl overflow-hidden"
+                class="dropdown-menu border-charcoal/10 invisible absolute top-full left-0 z-50 w-full translate-y-2 overflow-hidden border border-t-0 bg-white opacity-0 shadow-xl transition-all duration-300"
               >
-                <div class="max-h-60 overflow-y-auto custom-scrollbar">
+                <div class="custom-scrollbar max-h-60 overflow-y-auto">
                   <div
-                    class="px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-charcoal/20 border-b border-charcoal/5"
+                    class="text-charcoal/20 border-charcoal/5 border-b px-5 py-3 text-[10px] font-bold tracking-widest uppercase"
                   >
                     Which Discipline are you enquiring about?
                   </div>
@@ -303,7 +283,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
                     disciplines.map((d: string) => (
                       <button
                         type="button"
-                        class="option w-full text-left px-5 py-3.5 text-sm font-light text-charcoal/60 hover:text-charcoal hover:bg-charcoal/2 transition-colors"
+                        class="option text-charcoal/60 hover:text-charcoal hover:bg-charcoal/2 w-full px-5 py-3.5 text-left text-sm font-light transition-colors"
                         data-value={d}
                       >
                         {d}
@@ -317,11 +297,11 @@ const disciplines = disciplinesData.map((d: any) => d.title);
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
-          <div class="flex flex-col gap-2">
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-10">
+          <div class="flex flex-col gap-2" data-field>
             <label
               for="phone"
-              class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/50 flex justify-between items-center"
+              class="text-charcoal/50 flex items-center justify-between text-[12px] font-bold tracking-[0.25em] uppercase"
             >
               Contact Number
               <span class="text-charcoal/30">*</span>
@@ -331,13 +311,18 @@ const disciplines = disciplinesData.map((d: any) => d.title);
               id="phone"
               name="phone"
               required
-              class="w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-normal text-charcoal/90 outline-none focus:border-charcoal/40 transition-colors"
+              class="border-charcoal/20 text-charcoal focus:border-charcoal w-full border-b bg-transparent py-4 text-xl font-light transition-all outline-none"
             />
+            <p
+              class="error-msg text-ink mt-1 hidden text-[10px] font-medium tracking-widest uppercase"
+            >
+              Please enter your contact number
+            </p>
           </div>
-          <div class="flex flex-col gap-2">
+          <div class="flex flex-col gap-2" data-field>
             <label
               for="organisation"
-              class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/60 flex justify-between items-center"
+              class="text-charcoal/60 flex items-center justify-between text-[12px] font-bold tracking-[0.25em] uppercase"
             >
               Organisation
               <span class="text-charcoal/30">*</span>
@@ -347,15 +332,20 @@ const disciplines = disciplinesData.map((d: any) => d.title);
               id="organisation"
               name="organisation"
               required
-              class="w-full bg-white border border-charcoal/10 px-5 py-4 text-base font-normal text-charcoal/90 outline-none focus:border-charcoal/40 transition-colors"
+              class="border-charcoal/20 text-charcoal focus:border-charcoal w-full border-b bg-transparent py-4 text-xl font-light transition-all outline-none"
             />
+            <p
+              class="error-msg text-ink mt-1 hidden text-[10px] font-medium tracking-widest uppercase"
+            >
+              Please enter your organisation
+            </p>
           </div>
         </div>
 
-        <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-3" data-field>
           <label
             for="message"
-            class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/60 flex justify-between items-center"
+            class="text-charcoal/60 flex items-center justify-between text-[12px] font-bold tracking-[0.25em] uppercase"
           >
             Your Enquiry
             <span class="text-charcoal/30">*</span>
@@ -363,48 +353,31 @@ const disciplines = disciplinesData.map((d: any) => d.title);
           <textarea
             id="message"
             name="message"
-            rows="4"
+            rows="2"
             required
-            placeholder="Briefly describe your project intent..."
-            class="w-full bg-white border border-charcoal/10 px-5 py-5 text-base font-normal text-charcoal/90 outline-none focus:border-charcoal/40 transition-colors resize-none placeholder:text-charcoal/20"
+            placeholder="Describe your project intent..."
+            class="border-charcoal/20 text-charcoal focus:border-charcoal placeholder:text-charcoal/20 w-full resize-none border-b bg-transparent py-4 text-xl font-light transition-all outline-none"
           ></textarea>
+          <p
+            class="error-msg text-ink mt-1 hidden text-[10px] font-medium tracking-widest uppercase"
+          >
+            Please provide a brief message
+          </p>
         </div>
 
-        <div
-          class="flex flex-col sm:flex-row items-center justify-between gap-10 pt-4"
-        >
-          <p
-            class="text-[9px] font-medium tracking-[0.2em] text-charcoal/30 uppercase max-w-xs"
-          >
-            A partner will review your enquiry and respond within two working
-            days.
+        <div class="flex flex-col items-center justify-between gap-10 pt-4 sm:flex-row">
+          <p class="text-charcoal/30 max-w-xs text-[9px] font-medium tracking-[0.2em] uppercase">
+            A partner will review your enquiry and respond within two working days. All enquiries
+            are treated confidentially.
           </p>
-          <div id="submit-wrapper" class="relative w-full sm:w-[240px]">
-            <div
-              id="submit-overlay"
-              class="absolute inset-0 z-10 cursor-not-allowed"
-            >
-            </div>
+          <div id="contact-modal-submit-wrapper" class="relative w-full sm:w-[240px]">
             <button
               type="submit"
-              id="submit-enquiry"
-              disabled
-              class="group relative inline-flex h-14 w-full items-center justify-center bg-charcoal text-bone text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-black transition-all duration-500 shrink-0 cursor-pointer disabled:cursor-not-allowed"
+              id="contact-modal-submit"
+              class="group bg-charcoal text-bone relative inline-flex h-14 w-full shrink-0 cursor-pointer items-center justify-center text-[10px] font-bold tracking-[0.4em] uppercase transition-all duration-500 hover:bg-black"
             >
               Send Enquiry
             </button>
-
-            {/* Validation Tooltip */}
-            <div
-              id="validation-tooltip"
-              class="absolute -top-12 left-1/2 -translate-x-1/2 px-4 py-2 bg-charcoal text-white text-[9px] font-bold uppercase tracking-widest whitespace-nowrap opacity-0 pointer-events-none transition-all duration-300 translate-y-2 z-200 shadow-2xl"
-            >
-              Pls enter all required info
-              <div
-                class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-charcoal rotate-45"
-              >
-              </div>
-            </div>
           </div>
         </div>
       </form>
@@ -418,21 +391,16 @@ const disciplines = disciplinesData.map((d: any) => d.title);
   const form = document.getElementById("contact-form") as HTMLFormElement;
   const content = document.getElementById("modal-content");
   const modalEyebrow = document.getElementById("modal-eyebrow");
-  const formHiddenContext = document.getElementById(
-    "form-context",
-  ) as HTMLInputElement;
-  const formHiddenOrigin = document.getElementById(
-    "form-origin",
-  ) as HTMLInputElement;
+  const formHiddenContext = document.getElementById("form-context") as HTMLInputElement;
+  const formHiddenOrigin = document.getElementById("contact-modal-origin") as HTMLInputElement;
 
-  function openModal(context = "General") {
+  function openModal(context = "General", preselectedSector: string | null = null) {
     if (!modal) return;
 
     // Handle broad section contexts or specific slugs
     let label = context;
     if (context === "Disciplines") label = "Studio Disciplines";
-    if (context === "Sectors" || context === "Specialised Sectors")
-      label = "Specialised Sectors";
+    if (context === "Sectors" || context === "Specialised Sectors") label = "Specialised Sectors";
     if (context === "General" || !context) label = "Direct Enquiry";
 
     if (modalEyebrow) {
@@ -441,6 +409,20 @@ const disciplines = disciplinesData.map((d: any) => d.title);
 
     if (formHiddenContext) formHiddenContext.value = context;
     if (formHiddenOrigin) formHiddenOrigin.value = window.location.pathname;
+
+    // Handle Preselection
+    if (preselectedSector) {
+      const sectorDropdown = document.getElementById("sector-dropdown");
+      const hiddenInput = sectorDropdown?.querySelector('input[type="hidden"]');
+      const selectedText = sectorDropdown?.querySelector(".selected-value");
+
+      if (hiddenInput instanceof HTMLInputElement && selectedText instanceof HTMLElement) {
+        hiddenInput.value = preselectedSector;
+        selectedText.textContent = preselectedSector;
+        selectedText.classList.remove("text-charcoal/40");
+        selectedText.classList.add("text-charcoal");
+      }
+    }
 
     modal.showModal();
     setTimeout(() => content?.classList.add("visible"), 10);
@@ -466,61 +448,97 @@ const disciplines = disciplinesData.map((d: any) => d.title);
   (window as any).openContactModal = openModal;
 
   const formHeader = document.getElementById("form-header");
-  const successState = document.getElementById("contact-success");
-  const resetBtn = document.getElementById("reset-form");
+  const successState = document.getElementById("contact-modal-success");
+  const resetBtn = document.getElementById("contact-modal-reset");
+  const submitBtn = document.getElementById("contact-modal-submit") as HTMLButtonElement | null;
+  const requiredFields = Array.from(
+    form?.querySelectorAll("input[required], textarea[required]") ?? [],
+  ).filter(
+    (field): field is HTMLInputElement | HTMLTextAreaElement =>
+      field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement,
+  );
 
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]');
-    if (btn) btn.textContent = "Sending...";
+  const getFieldWrap = (field: HTMLInputElement | HTMLTextAreaElement) =>
+    field.closest("[data-field]");
 
-    try {
-      const formData = new FormData(form);
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        body: formData,
-      });
+  const getErrorMessage = (field: HTMLInputElement | HTMLTextAreaElement) =>
+    getFieldWrap(field)?.querySelector(".error-msg");
 
-      const result = await response.json();
+  const getFieldMessage = (field: HTMLInputElement | HTMLTextAreaElement) => {
+    const authoredMessage =
+      getErrorMessage(field)?.textContent?.trim() || "Please complete this field";
 
-      if (result.success) {
-        // Show success state
-        if (form) form.classList.add("hidden");
-        if (formHeader) formHeader.classList.add("hidden");
-        if (successState) successState.classList.remove("hidden");
-        if (successState) successState.classList.add("flex");
+    if (field.validity.valueMissing) return authoredMessage;
 
-        form.reset();
-        if (btn) btn.textContent = "Send Enquiry";
-      } else {
-        if (btn) btn.textContent = "Error Sending";
-        setTimeout(() => {
-          if (btn) btn.textContent = "Send Enquiry";
-        }, 2000);
+    if (field.type === "email") {
+      if (
+        field.validity.typeMismatch ||
+        field.validity.patternMismatch ||
+        field.validity.customError
+      ) {
+        return "Please enter a valid email address";
       }
-    } catch (err) {
-      if (btn) btn.textContent = "Connection Error";
-      setTimeout(() => {
-        if (btn) btn.textContent = "Send Enquiry";
-      }, 2000);
     }
-  });
 
-  resetBtn?.addEventListener("click", () => {
-    if (form) form.classList.remove("hidden");
-    if (formHeader) formHeader.classList.remove("hidden");
-    if (successState) {
-      successState.classList.add("hidden");
-      successState.classList.remove("flex");
+    return "";
+  };
+
+  const showFieldState = (
+    field: HTMLInputElement | HTMLTextAreaElement,
+    shouldShowError: boolean,
+  ) => {
+    const errorMessage = getErrorMessage(field);
+    const message = getFieldMessage(field);
+
+    field.setAttribute("aria-invalid", shouldShowError ? "true" : "false");
+    field.classList.toggle("border-charcoal/40", shouldShowError);
+    field.classList.toggle("border-charcoal/10", !shouldShowError);
+
+    if (errorMessage instanceof HTMLElement) {
+      errorMessage.textContent = message;
+      errorMessage.classList.toggle("hidden", !shouldShowError);
     }
-    checkFormValidity();
-  });
+  };
+
+  const validateField = (field: HTMLInputElement | HTMLTextAreaElement) => {
+    field.value = field.value.trim();
+
+    // Manual bulletproof email check
+    if (field.type === "email" && field.value) {
+      const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      if (!emailRegex.test(field.value)) {
+        field.setCustomValidity("Invalid pattern");
+      } else {
+        field.setCustomValidity("");
+      }
+    } else {
+      field.setCustomValidity("");
+    }
+
+    const isValid = field.checkValidity();
+    showFieldState(field, !isValid);
+    return isValid;
+  };
+
+  const resetFieldState = (field: HTMLInputElement | HTMLTextAreaElement) => {
+    field.removeAttribute("aria-invalid");
+    field.classList.remove("border-charcoal/40");
+    field.classList.add("border-charcoal/10");
+
+    const errorMessage = getErrorMessage(field);
+    if (errorMessage instanceof HTMLElement) {
+      errorMessage.classList.add("hidden");
+    }
+  };
 
   document.addEventListener("click", (e) => {
     const btn = (e.target as HTMLElement).closest("[data-contact-modal]");
     if (btn) {
       e.preventDefault();
-      openModal(btn.getAttribute("data-contact-context") || "Direct Enquiry");
+      openModal(
+        btn.getAttribute("data-contact-context") || "Direct Enquiry",
+        btn.getAttribute("data-contact-sector"),
+      );
     }
   });
 
@@ -532,9 +550,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
     const menu = dropdown.querySelector(".dropdown-menu");
     const options = dropdown.querySelectorAll(".option");
     const selectedText = dropdown.querySelector(".selected-value");
-    const hiddenInput = dropdown.querySelector(
-      'input[type="hidden"]',
-    ) as HTMLInputElement;
+    const hiddenInput = dropdown.querySelector('input[type="hidden"]') as HTMLInputElement;
     const arrow = trigger?.querySelector("svg");
 
     trigger?.addEventListener("click", (e) => {
@@ -567,58 +583,113 @@ const disciplines = disciplinesData.map((d: any) => d.title);
 
         dropdown.classList.remove("active");
         arrow?.classList.remove("rotate-180");
-
-        // Trigger validation check on selection
-        checkFormValidity();
       });
     });
   });
 
-  // Form Validation Logic
-  const submitBtn = document.getElementById(
-    "submit-enquiry",
-  ) as HTMLButtonElement;
-  const tooltip = document.getElementById("validation-tooltip");
+  requiredFields.forEach((field) => {
+    resetFieldState(field);
 
-  function checkFormValidity() {
-    if (!form || !submitBtn) return;
-    const isValid = form.checkValidity();
-    submitBtn.disabled = !isValid;
+    field.addEventListener("blur", () => {
+      validateField(field);
+    });
 
-    const overlay = document.getElementById("submit-overlay");
-    if (overlay) {
-      if (isValid) overlay.classList.add("hidden");
-      else overlay.classList.remove("hidden");
-    }
-
-    // Reset tooltip if enabled
-    if (isValid && tooltip) {
-      tooltip.classList.remove("opacity-100", "-translate-y-1");
-      tooltip.classList.add("opacity-0", "translate-y-2");
-    }
-  }
-
-  // Tooltip Logic for Disabled State (Handled on wrapper to ensure reliability)
-  const submitWrapper = document.getElementById("submit-wrapper");
-
-  submitWrapper?.addEventListener("click", (e) => {
-    if (submitBtn && submitBtn.disabled && tooltip) {
-      tooltip.classList.remove("opacity-0", "translate-y-2");
-      tooltip.classList.add("opacity-100", "-translate-y-2");
-
-      // Auto-hide after delay
-      setTimeout(() => {
-        tooltip.classList.remove("opacity-100", "-translate-y-2");
-        tooltip.classList.add("opacity-0", "translate-y-2");
-      }, 2000);
-    }
+    field.addEventListener("input", () => {
+      if (field.getAttribute("aria-invalid") === "true") {
+        validateField(field);
+      }
+    });
   });
 
-  // Monitor all inputs for real-time validation
-  form?.addEventListener("input", checkFormValidity);
+  const resetModalForm = () => {
+    form?.reset();
+    requiredFields.forEach((field) => resetFieldState(field));
 
-  // Initial check in case of browser autocomplete
-  checkFormValidity();
+    dropdowns.forEach((dropdown) => {
+      dropdown.classList.remove("active");
+      dropdown.querySelector("svg")?.classList.remove("rotate-180");
+
+      const selectedText = dropdown.querySelector(".selected-value");
+      const hiddenInput = dropdown.querySelector('input[type="hidden"]');
+
+      if (selectedText instanceof HTMLElement) {
+        selectedText.textContent = "";
+      }
+
+      if (hiddenInput instanceof HTMLInputElement) {
+        hiddenInput.value = "";
+      }
+    });
+  };
+
+  const submitForm = async () => {
+    if (!form) return;
+
+    let firstInvalidField: HTMLInputElement | HTMLTextAreaElement | null = null;
+    const isFormValid = requiredFields.every((field) => {
+      const isValid = validateField(field);
+      if (!isValid && !firstInvalidField) firstInvalidField = field;
+      return isValid;
+    });
+
+    if (!isFormValid) {
+      firstInvalidField?.focus();
+      firstInvalidField?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+    }
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        body: new FormData(form),
+      });
+
+      const result = await response.json();
+
+      if (!result.success) throw new Error("Failed to send");
+
+      form.classList.add("hidden");
+      formHeader?.classList.add("hidden");
+      successState?.classList.remove("hidden");
+      successState?.classList.add("flex");
+
+      resetModalForm();
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Enquiry";
+      }
+    } catch (err) {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Connection Error";
+        setTimeout(() => {
+          if (submitBtn) submitBtn.textContent = "Send Enquiry";
+        }, 2000);
+      }
+    }
+  };
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    void submitForm();
+  });
+
+  resetBtn?.addEventListener("click", () => {
+    form?.classList.remove("hidden");
+    formHeader?.classList.remove("hidden");
+    successState?.classList.add("hidden");
+    successState?.classList.remove("flex");
+    resetModalForm();
+  });
 
   document.addEventListener("click", () => {
     dropdowns.forEach((d) => {

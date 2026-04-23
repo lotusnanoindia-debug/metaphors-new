@@ -1,10 +1,6 @@
 ---
 import Cta from "./Cta.astro";
-import {
-  client,
-  ALL_DISCIPLINES_WITH_AREA_QUERY,
-  imageUrl,
-} from "../lib/sanity";
+import { client, ALL_DISCIPLINES_WITH_AREA_QUERY, imageUrl } from "../lib/sanity";
 
 interface Props {
   section?: any;
@@ -18,14 +14,9 @@ const rawDisciplines = await client.fetch(ALL_DISCIPLINES_WITH_AREA_QUERY);
 // Aggregate Disciplines
 const disciplines = rawDisciplines
   .map((d: any) => {
-    const sqft =
-      d.projects?.reduce((sum: number, p: any) => sum + (p.areaSqFt || 0), 0) ??
-      0;
+    const sqft = d.projects?.reduce((sum: number, p: any) => sum + (p.areaSqFt || 0), 0) ?? 0;
     const lakhs = sqft / 100_000;
-    const metric =
-      lakhs >= 100
-        ? `${(lakhs / 100).toFixed(1)} Cr`
-        : `${lakhs.toFixed(0)} Lakh`;
+    const metric = lakhs >= 100 ? `${(lakhs / 100).toFixed(1)} Cr` : `${lakhs.toFixed(0)} Lakh`;
     const intl = `${(sqft / 1_000_000).toFixed(1)}M Sq Ft`;
 
     return {
@@ -40,39 +31,33 @@ const disciplines = rawDisciplines
   .sort((a, b) => b.sqft - a.sqft);
 ---
 
-<section class="relative w-full bg-bone py-24 lg:py-48 overflow-hidden">
-  {
-    /* Discipline Header - Constrained to 1440px to match Evidence/Sectors pattern */
-  }
-  <div
-    class="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10 mb-24 lg:mb-40"
-  >
+<section class="bg-bone relative w-full overflow-hidden py-24 lg:py-48">
+  {/* Discipline Header - Constrained to 1440px to match Evidence/Sectors pattern */}
+  <div class="relative z-10 mx-auto mb-24 max-w-[1440px] px-6 lg:mb-40 lg:px-12">
     <div
-      class="grid gap-16 lg:grid-cols-[1fr_0.6fr] lg:gap-32 reveal"
+      class="reveal grid gap-16 lg:grid-cols-[1fr_0.6fr] lg:gap-32"
       style="transition-delay: 450ms"
     >
       <div
-        class="flex flex-col items-center text-center lg:items-start lg:text-left justify-center"
+        class="flex flex-col items-center justify-center text-center lg:items-start lg:text-left"
       >
-        <p
-          class="mb-10 text-[10px] font-medium uppercase tracking-[0.5em] text-charcoal/30"
-        >
+        <p class="text-charcoal/30 mb-10 text-[10px] font-medium tracking-[0.5em] uppercase">
           {section?.eyebrow} ({disciplines.length.toString().padStart(2, "0")})
         </p>
         <h2
-          class="text-6xl leading-[0.99] tracking-tight text-charcoal lg:text-[6.5rem]"
+          class="text-charcoal text-6xl leading-[0.99] tracking-tight lg:text-[6.5rem]"
           set:html={section?.headline}
         />
       </div>
 
       <div
-        class="flex flex-col items-center text-center lg:items-end lg:text-right justify-center lg:pt-12 gap-10"
+        class="flex flex-col items-center justify-center gap-10 text-center lg:items-end lg:pt-12 lg:text-right"
       >
         <p
-          class="text-[10px] sm:text-xs font-semibold leading-loose tracking-[0.25em] text-charcoal/60 uppercase"
+          class="text-charcoal/60 text-[10px] leading-loose font-semibold tracking-[0.25em] uppercase sm:text-xs"
           set:html={section?.subheading}
         />
-        <div class="flex justify-center lg:justify-end w-full">
+        <div class="flex w-full justify-center lg:justify-end">
           <Cta
             text={section?.ctaLabel}
             invert={true}
@@ -85,38 +70,33 @@ const disciplines = rawDisciplines
   </div>
 
   {/* Discipline Cards Grid - Expanded to 1800px for breadth */}
-  <div class="max-w-[1800px] mx-auto px-6 lg:px-12 relative z-10">
+  <div class="relative z-10 mx-auto max-w-[1800px] px-6 lg:px-12">
     <div
-      class="w-full grid grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 text-left reveal delay-500ms"
+      class="reveal delay-500ms grid w-full grid-cols-2 gap-x-8 gap-y-16 text-left lg:grid-cols-3"
     >
       {
         disciplines.map((d: any) => (
-          <a
-            href={`/disciplines/${d.slug}`}
-            class="group relative block transition-all"
-          >
+          <a href={`/disciplines/${d.slug}`} class="group relative block transition-all">
             {/* Image Box - Square on mobile/tablet for improved verticality in 2-column grid, 16:9 on desktop */}
-            <div class="aspect-square w-full overflow-hidden bg-charcoal/5 mb-8 border border-charcoal/5">
+            <div class="bg-charcoal/5 border-charcoal/5 mb-8 aspect-square w-full overflow-hidden border">
               {d.image ? (
                 <img
                   src={imageUrl(d.image, { width: 800, height: 800 })}
                   alt={d.title}
-                  class="h-full w-full object-cover transition-all duration-1000 grayscale-65 saturate-88 contrast-104 group-hover:scale-105 group-hover:grayscale-0 group-hover:saturate-100 group-hover:contrast-100"
+                  class="h-full w-full object-cover contrast-104 grayscale-65 saturate-88 transition-all duration-1000 group-hover:scale-105 group-hover:contrast-100 group-hover:grayscale-0 group-hover:saturate-100"
                 />
               ) : (
-                <div class="flex h-full w-full items-center justify-center text-[10px] italic uppercase tracking-widest text-charcoal/20">
+                <div class="text-charcoal/20 flex h-full w-full items-center justify-center text-[10px] tracking-widest uppercase italic">
                   {d.title} Hero
                 </div>
               )}
             </div>
 
-            <div class="border-t-0 sm:border-t border-charcoal/10 pt-0 sm:pt-8 transition-all group-hover:border-charcoal/40 duration-1000">
-              <p class="mb-2 sm:text-[11px] text-[10px] font-bold uppercase tracking-widest text-charcoal/30 transition-all group-hover:text-charcoal/80">
+            <div class="border-charcoal/10 group-hover:border-charcoal/40 border-t-0 pt-0 transition-all duration-1000 sm:border-t sm:pt-8">
+              <p class="text-charcoal/30 group-hover:text-charcoal/80 mb-2 text-[10px] font-bold tracking-widest uppercase transition-all sm:text-[11px]">
                 {d.display}
               </p>
-              <h3 class="text-xl lg:text-3xl text-charcoal/80 hover:text-charcoal">
-                {d.title}
-              </h3>
+              <h3 class="text-charcoal/80 hover:text-charcoal text-xl lg:text-3xl">{d.title}</h3>
             </div>
           </a>
         ))

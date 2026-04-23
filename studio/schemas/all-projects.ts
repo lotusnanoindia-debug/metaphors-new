@@ -1,6 +1,6 @@
-import { defineType, defineField } from 'sanity'
-import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list'
-import { DisciplineCheckboxes } from '../components/DisciplineCheckboxes'
+import {defineType, defineField} from 'sanity'
+import {orderRankField, orderRankOrdering} from '@sanity/orderable-document-list'
+import {DisciplineCheckboxes} from '../components/DisciplineCheckboxes'
 
 export default defineType({
   name: 'project',
@@ -8,15 +8,15 @@ export default defineType({
   type: 'document',
   orderings: [orderRankOrdering],
   groups: [
-    { name: 'identity', title: 'Identity' },
-    { name: 'projectContext', title: 'Project Context' },
-    { name: 'narrative', title: 'Narrative' },
-    { name: 'media', title: 'Media' },
-    { name: 'settings', title: 'Settings' },
+    {name: 'identity', title: 'Identity'},
+    {name: 'projectContext', title: 'Project Context'},
+    {name: 'narrative', title: 'Narrative'},
+    {name: 'media', title: 'Media'},
+    {name: 'settings', title: 'Settings'},
   ],
   fields: [
     // Required by @sanity/orderable-document-list for drag-to-reorder
-    orderRankField({ type: 'project' }),
+    orderRankField({type: 'project'}),
 
     defineField({
       name: 'featured',
@@ -63,7 +63,7 @@ export default defineType({
       name: 'category',
       title: 'Sector',
       type: 'reference',
-      to: [{ type: 'sector' }],
+      to: [{type: 'sector'}],
       group: 'identity',
     }),
     defineField({
@@ -77,7 +77,7 @@ export default defineType({
       name: 'disciplines',
       title: 'Disciplines',
       type: 'array',
-      of: [{ type: 'reference', to: { type: 'discipline' } }],
+      of: [{type: 'reference', to: {type: 'discipline'}}],
       description: 'Select one or more core disciplines delivered for this project.',
       components: {
         input: DisciplineCheckboxes,
@@ -90,7 +90,7 @@ export default defineType({
       name: 'client',
       title: 'Project Client',
       type: 'reference',
-      to: [{ type: 'client' }],
+      to: [{type: 'client'}],
     }),
     defineField({
       name: 'showClientPublicly',
@@ -104,25 +104,25 @@ export default defineType({
       title: 'Location',
       type: 'object',
       fields: [
-        { name: 'city', title: 'City', type: 'string' },
-        { 
-          name: 'country', 
-          title: 'Country', 
+        {name: 'city', title: 'City', type: 'string'},
+        {
+          name: 'country',
+          title: 'Country',
           type: 'reference',
-          to: [{ type: 'locationCountry' }]
+          to: [{type: 'locationCountry'}],
         },
-        { 
-          name: 'indiaState', 
-          title: 'India State', 
+        {
+          name: 'indiaState',
+          title: 'India State',
           type: 'reference',
-          to: [{ type: 'indiaState' }],
-          hidden: ({ parent }) => parent?.country?._ref !== 'country-india'
+          to: [{type: 'indiaState'}],
+          hidden: ({parent}) => parent?.country?._ref !== 'country-india',
         },
-        { 
-          name: 'otherState', 
-          title: 'State/Region/Province', 
+        {
+          name: 'otherState',
+          title: 'State/Region/Province',
           type: 'string',
-          hidden: ({ parent }) => parent?.country?._ref === 'country-india'
+          hidden: ({parent}) => parent?.country?._ref === 'country-india',
         },
       ],
       group: 'projectContext',
@@ -151,10 +151,10 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Completed', value: 'Completed' },
-          { title: 'Ongoing', value: 'Ongoing' },
-          { title: 'On Hold', value: 'On Hold' },
-          { title: 'Concept', value: 'Concept' },
+          {title: 'Completed', value: 'Completed'},
+          {title: 'Ongoing', value: 'Ongoing'},
+          {title: 'On Hold', value: 'On Hold'},
+          {title: 'Concept', value: 'Concept'},
         ],
         layout: 'radio',
       },
@@ -185,7 +185,7 @@ export default defineType({
       name: 'highlights',
       title: 'Highlights',
       type: 'array',
-      of: [{ type: 'string' }],
+      of: [{type: 'string'}],
       validation: (Rule) => Rule.max(6),
       group: 'narrative',
     }),
@@ -194,9 +194,9 @@ export default defineType({
       title: 'Testimonial',
       type: 'object',
       fields: [
-        { name: 'quote', title: 'Quote', type: 'text' },
-        { name: 'attribution', title: 'Attribution', type: 'string' },
-        { name: 'showPublicly', title: 'Show Publicly', type: 'boolean', initialValue: false },
+        {name: 'quote', title: 'Quote', type: 'text'},
+        {name: 'attribution', title: 'Attribution', type: 'string'},
+        {name: 'showPublicly', title: 'Show Publicly', type: 'boolean', initialValue: false},
       ],
       group: 'narrative',
     }),
@@ -208,9 +208,9 @@ export default defineType({
         {
           type: 'object',
           fields: [
-            { name: 'awardName', title: 'Award Name', type: 'string' },
-            { name: 'awardingBody', title: 'Awarding Body', type: 'string' },
-            { name: 'year', title: 'Year', type: 'number' },
+            {name: 'awardName', title: 'Award Name', type: 'string'},
+            {name: 'awardingBody', title: 'Awarding Body', type: 'string'},
+            {name: 'year', title: 'Year', type: 'number'},
           ],
         },
       ],
@@ -222,10 +222,10 @@ export default defineType({
       name: 'coverImage',
       title: 'Cover Image',
       type: 'image',
-      options: { hotspot: true },
+      options: {hotspot: true},
       fields: [
-        { name: 'alt', title: 'Alternative Text', type: 'string' },
-        { name: 'caption', title: 'Caption', type: 'string' },
+        {name: 'alt', title: 'Alternative Text', type: 'string'},
+        {name: 'caption', title: 'Caption', type: 'string'},
       ],
       validation: (Rule) => Rule.required(),
       group: 'media',
@@ -237,10 +237,10 @@ export default defineType({
       of: [
         {
           type: 'image',
-          options: { hotspot: true },
+          options: {hotspot: true},
           fields: [
-            { name: 'alt', title: 'Alternative Text', type: 'string' },
-            { name: 'caption', title: 'Caption', type: 'string' },
+            {name: 'alt', title: 'Alternative Text', type: 'string'},
+            {name: 'caption', title: 'Caption', type: 'string'},
           ],
         },
       ],
@@ -273,7 +273,7 @@ export default defineType({
       isVisible: 'isVisible',
       featured: 'featured',
     },
-    prepare({ title, subtitle, media, isVisible, featured }) {
+    prepare({title, subtitle, media, isVisible, featured}) {
       const visibilityIcon = isVisible ? '🟢' : '⚫'
       const featuredIcon = featured ? '⭐ ' : ''
       return {

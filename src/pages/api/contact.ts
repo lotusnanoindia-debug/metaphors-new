@@ -8,7 +8,7 @@ export const prerender = false;
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const data = await request.formData();
-    
+
     // Access Cloudflare bindings natively for v13
     const cloudflareEnv = typeof env !== "undefined" ? env : {};
     const db = (cloudflareEnv as any).DB;
@@ -20,18 +20,17 @@ export const POST: APIRoute = async ({ request, locals }) => {
     // SPAM / BOT PROTECTION (Honeypot)
     const gotcha = data.get("_gotcha");
     if (gotcha) {
-      return new Response(
-        JSON.stringify({ success: true, message: "Message sent" }),
-        { status: 200 },
-      );
+      return new Response(JSON.stringify({ success: true, message: "Message sent" }), {
+        status: 200,
+      });
     }
 
     const name = data.get("full-name") as string;
     const email = data.get("email") as string;
     const phone = data.get("phone") as string;
     const organisation = data.get("organisation") as string;
-    const sector = (data.get("sector") as string) || "Not specified";
-    const discipline = (data.get("discipline") as string) || "Not specified";
+    const sector = (data.get("sector") as string)?.trim() || "Not specified";
+    const discipline = (data.get("discipline") as string)?.trim() || "Not specified";
     const message = data.get("message") as string;
     const context = (data.get("contactContext") as string) || "General Enquiry";
     const originatingPage = (data.get("originatingPage") as string) || "Not specified";
@@ -42,9 +41,19 @@ export const POST: APIRoute = async ({ request, locals }) => {
         await db
           .prepare(
             `INSERT INTO enquiries (name, email, phone, organisation, sector, discipline, message, context, originating_page) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           )
-          .bind(name, email, phone, organisation, sector, discipline, message, context, originatingPage)
+          .bind(
+            name,
+            email,
+            phone,
+            organisation,
+            sector,
+            discipline,
+            message,
+            context,
+            originatingPage,
+          )
           .run();
       } catch (dbErr) {
         console.error("D1 Persistence Error:", dbErr);
@@ -64,7 +73,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
           <p style="margin: 0 0 16px 0; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.25em; color: rgba(17, 17, 17, 0.4);">Your Details</p>
           <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
             <tr><td style="padding: 4px 0; color: #666; width: 120px;">Name</td><td style="padding: 4px 0;">${name}</td></tr>
-            <tr><td style="padding: 4px 0; color: #666;">Organisation</td><td style="padding: 4px 0;">${organisation || (phone ? "N/A" : "")}</td></tr>
+            <tr><td style="padding: 4px 0; color: #666;">Email</td><td style="padding: 4px 0;">${email}</td></tr>
+            <tr><td style="padding: 4px 0; color: #666;">Organisation</td><td style="padding: 4px 0;">${organisation || "N/A"}</td></tr>
             ${phone ? `<tr><td style="padding: 4px 0; color: #666;">Phone</td><td style="padding: 4px 0;">${phone}</td></tr>` : ""}
             <tr><td style="padding: 4px 0; color: #666;">Sector</td><td style="padding: 4px 0;">${sector}</td></tr>
             <tr><td style="padding: 4px 0; color: #666;">Discipline</td><td style="padding: 4px 0;">${discipline}</td></tr>
@@ -92,10 +102,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     if (error) {
       console.error("Resend Error:", error);
-      return new Response(
-        JSON.stringify({ success: false, error: error.message }),
-        { status: 400 },
-      );
+      return new Response(JSON.stringify({ success: false, error: error.message }), {
+        status: 400,
+      });
     }
 
     return new Response(JSON.stringify({ success: true, data: resendData }), {
@@ -103,9 +112,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
     });
   } catch (err: any) {
     console.error("Server Internal Error:", err);
-    return new Response(
-      JSON.stringify({ success: false, error: err.message }),
-      { status: 500 },
-    );
+    return new Response(JSON.stringify({ success: false, error: err.message }), { status: 500 });
   }
 };

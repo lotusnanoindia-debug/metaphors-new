@@ -14,7 +14,9 @@ const client = createClient({
 })
 
 // Check for draft version of homepage which may still have the image refs
-const draft = await client.fetch('*[_id == "drafts.homepage"][0]{ statureImage, precisionImage, statureSection }')
+const draft = await client.fetch(
+  '*[_id == "drafts.homepage"][0]{ statureImage, precisionImage, statureSection }',
+)
 console.log('\n=== Draft homepage (image refs) ===')
 console.log(JSON.stringify(draft, null, 2))
 
@@ -28,6 +30,6 @@ const assets = await client.fetch(`
   }
 `)
 console.log('\n=== All image assets ===')
-assets.forEach(a => {
+assets.forEach((a) => {
   console.log(`${a._id}  |  ${a.originalFilename}  |  ${a._createdAt}`)
 })

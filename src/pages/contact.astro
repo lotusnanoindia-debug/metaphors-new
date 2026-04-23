@@ -2,13 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import {
-  client,
-  SECTORS_QUERY,
-  DISCIPLINES_QUERY,
-  HOMEPAGE_QUERY,
-  imageUrl,
-} from "../lib/sanity";
+import { client, SECTORS_QUERY, DISCIPLINES_QUERY, HOMEPAGE_QUERY, imageUrl } from "../lib/sanity";
 
 /**
  * CONTACT PAGE - METAPHOR DESIGN
@@ -28,445 +22,523 @@ const sectors = sectorsData.map((s: any) => s.title);
 const disciplines = disciplinesData.map((d: any) => d.title);
 
 const homepageData = await client.fetch(HOMEPAGE_QUERY);
-const statureImage = homepageData?.homepage?.statureSection?.statureImage;
+const contactHero = await client.fetch(
+  `*[_type == "sanity.imageAsset" && (originalFilename == "contact-head-metaphors.jpeg" || label == "contact-hero")][0]`,
+);
+const statureImage = contactHero || homepageData?.homepage?.statureSection?.statureImage;
 
 const email = "info@metaphors-design.com";
+
+// JSON-LD structured data
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  mainEntity: {
+    "@type": "ProfessionalService",
+    name: "Metaphors Design",
+    image: "https://metaphors.design/og-image.jpg",
+    telephon: ["+91 96653 55522", "+91 98222 79173"],
+    email: email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Pallod Farms 2, Shambhu Vihar Society, Nankude Vasti, Aundh",
+      addressLocality: "Pune",
+      postalCode: "411067",
+      addressRegion: "Maharashtra",
+      addressCountry: "IN",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "18.5561709",
+      longitude: "73.8018891",
+    },
+    url: "https://metaphors.design/contact",
+  },
+};
 ---
 
-<Layout
-  title={title}
-  description={description}
-  canonicalURL="https://metaphors.design/contact"
->
-  <div class="relative min-h-screen bg-bone">
+<Layout title={title} description={description} canonicalURL="https://metaphors.design/contact">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+  <div class="bg-bone relative min-h-screen">
     <Header />
 
     <main>
       <!-- ─── 1. HERO ─────────────────────────────────────────── -->
-      <section class="relative w-full py-48 lg:py-56 overflow-hidden">
-        <!-- Subtle Architectural Texture Background -->
-        <div class="absolute inset-0 z-0">
-          {
-            statureImage && (
-              <img
-                src={imageUrl(statureImage, { width: 1800, height: 600 })}
-                alt=""
-                class="w-full h-full object-cover opacity-[0.2] grayscale"
-              />
-            )
-          }
-          <div
-            class="absolute inset-0 bg-radial-[at_center] from-transparent via-bone/60 to-bone"
-          >
-          </div>
-        </div>
-
-        <div class="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
-          <div class="max-w-5xl mx-auto flex flex-col items-center text-center">
-            <h1
-              class="font-medium leading-[0.9] tracking-[-0.045em] text-[clamp(3.5rem,11vw,9rem)] lg:text-[clamp(3.5rem,9vw,8rem)] select-none reveal"
-            >
-              <span class="block text-charcoal">Begin The</span>
-              <span
-                class="block mt-4 lg:mt-6 text-transparent bg-clip-text animate-sheen will-change-[background-position] bg-[linear-gradient(105deg,#6b6b67_0%,#6b6b67_40%,#a8a8a2_48%,#a8a8a2_52%,#6b6b67_60%,#6b6b67_100%)] bg-size-[200%_auto] text-[clamp(1.5rem,6vw,3.5rem)] lg:text-[clamp(4rem,5.5vw,6.5rem)] tracking-[-0.03em] leading-tight"
+      <section class="bg-bone relative w-full overflow-hidden pt-48 pb-20 lg:pt-56 lg:pb-32">
+        <div class="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-12">
+          <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
+            <!-- Text Column -->
+            <div class="reveal">
+              <p
+                class="text-charcoal/30 mb-8 flex items-center gap-4 text-[10px] font-bold tracking-[0.5em] uppercase"
               >
-                Dialogue.
-              </span>
-            </h1>
+                <span class="bg-charcoal/20 h-px w-8"></span>
+                The Dialogue
+              </p>
+              <h1
+                class="text-[clamp(3.5rem,8vw,7rem)] leading-[0.5] font-medium tracking-[-0.045em] select-none"
+              >
+                <span class="text-charcoal block">Begin The</span>
+                <span
+                  class="animate-sheen mt-4 block bg-[linear-gradient(105deg,#111111_0%,#111111_40%,#a8a8a2_48%,#a8a8a2_52%,#111111_60%,#111111_100%)] bg-size-[200%_auto] bg-clip-text leading-tight tracking-[-0.03em] text-transparent will-change-[background-position] lg:mt-6"
+                >
+                  Dialogue.
+                </span>
+              </h1>
+              <p
+                class="text-charcoal/50 mt-12 max-w-md text-lg leading-relaxed font-light lg:text-xl"
+              >
+                Connect with Metaphors Design’s Studio in Pune today to discuss your architectural
+                vision.
+              </p>
+            </div>
+
+            <!-- Image Column -->
+            <div
+              class="reveal bg-charcoal/5 group relative aspect-square overflow-hidden delay-200 lg:aspect-4/5"
+            >
+              {
+                statureImage && (
+                  <img
+                    src={imageUrl(statureImage, { width: 1200, height: 1500 })}
+                    alt="Metaphors Design - Contact Hero"
+                    class="h-full w-full object-cover transition-transform duration-1800 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
+                    loading="eager"
+                    decoding="async"
+                  />
+                )
+              }
+            </div>
           </div>
         </div>
       </section>
 
-      <div class="max-w-7xl mx-auto px-6 lg:px-12 mb-24">
-        <!-- ─── 02 THE ENQUIRY ─────────────────────────────────── -->
-        <section
-          class="grid grid-cols-1 lg:grid-cols-12 gap-12 py-16 lg:py-32 border-t border-charcoal/10 reveal"
-          id="enquiry"
-        >
-          <div class="lg:col-span-4">
-            <h2
-              class="text-4xl lg:text-5xl tracking-tight text-charcoal lg:sticky lg:top-40"
-            >
-              Enquiry
-            </h2>
-          </div>
-          <div class="lg:col-span-8">
-            <form
-              id="contact-page-form"
-              class="flex flex-col gap-10 lg:gap-14"
-              action="#"
-              method="POST"
-            >
-              <input type="hidden" name="contactContext" value="Contact Form" />
-              <input
-                type="hidden"
-                name="originatingPage"
-                id="form-origin"
-                value=""
-              />
-
-              <!-- Spam Prevention -->
-              <div style="display:none" aria-hidden="true">
-                <input
-                  type="text"
-                  name="_gotcha"
-                  tabindex="-1"
-                  autocomplete="off"
-                />
+      <div class="mx-auto max-w-[1440px] px-6 pb-32 lg:px-12 lg:pb-48">
+        <!-- ─── 2. DIALOGUE CHANNELS (Timeline Pattern) ────────── -->
+        <section class="border-charcoal/10 relative border-t py-24 lg:py-48">
+          <div class="relative grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-24">
+            <!-- Left: Sticky Context -->
+            <div class="lg:col-span-5">
+              <div class="reveal lg:sticky lg:top-40">
+                <p
+                  class="text-charcoal/40 font-inter mb-10 text-[12px] font-bold tracking-[0.3em] uppercase"
+                >
+                  Direct Accessibility
+                </p>
+                <h2 class="mb-8 text-4xl leading-[1.05] font-light tracking-tight lg:text-7xl">
+                  Communication<br />
+                  Channels.
+                </h2>
+                <p
+                  class="text-charcoal/70 mb-12 max-w-md text-xl leading-relaxed font-light tracking-tight"
+                >
+                  Choose the channel that best suits the nature of your enquiry.
+                </p>
               </div>
+            </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
-                <div class="flex flex-col gap-3">
-                  <label
-                    for="full-name"
-                    class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
-                    >Full Name *</label
-                  >
-                  <input
-                    type="text"
-                    id="full-name"
-                    name="full-name"
-                    required
-                    class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal outline-none focus:border-charcoal transition-all"
-                  />
-                </div>
-                <div class="flex flex-col gap-3">
-                  <label
-                    for="email"
-                    class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
-                    >Email Address *</label
-                  >
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal outline-none focus:border-charcoal transition-all"
-                  />
-                </div>
-              </div>
+            <!-- Right: Vertical Timeline -->
+            <div class="relative pt-12 lg:col-span-7 lg:pt-0">
+              <!-- Timeline vertical hairline -->
+              <div class="bg-charcoal/10 absolute top-3 bottom-0 left-0 w-px"></div>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
-                <div class="flex flex-col gap-3">
-                  <label
-                    for="phone"
-                    class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
-                    >Contact Number *</label
-                  >
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    required
-                    class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal outline-none focus:border-charcoal transition-all"
-                  />
-                </div>
-                <div class="flex flex-col gap-3">
-                  <label
-                    for="organisation"
-                    class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
-                    >Organisation *</label
-                  >
-                  <input
-                    type="text"
-                    id="organisation"
-                    name="organisation"
-                    required
-                    class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal outline-none focus:border-charcoal transition-all"
-                  />
-                </div>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
-                <div class="flex flex-col gap-3 relative z-30">
-                  <label
-                    class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
-                    >Sector of Interest</label
-                  >
+              <div class="flex flex-col space-y-24 pl-12 sm:space-y-32 sm:pl-16 lg:pl-24">
+                <!-- Node 01: Project Enquiry Form -->
+                <article class="group reveal relative" id="enquiry">
                   <div
-                    class="relative"
-                    id="sector-dropdown"
-                    data-page-dropdown
-                    data-open="false"
+                    class="bg-charcoal ring-bone group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
                   >
-                    <button
-                      type="button"
-                      data-page-trigger
-                      class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal flex items-center justify-between transition-colors hover:border-charcoal cursor-pointer"
+                  </div>
+
+                  <div
+                    class="bg-charcoal/4 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
+                  >
+                    <p
+                      class="text-charcoal/40 font-inter group-hover:text-charcoal/80 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500"
                     >
-                      <span data-page-selected class="text-charcoal/40"></span>
-                      <svg
-                        viewBox="0 0 24 24"
-                        class="w-5 h-5 fill-none stroke-current stroke-1 transition-transform duration-300 shrink-0"
-                      >
-                        <path d="M6 9l6 6 6-6"></path>
-                      </svg>
-                    </button>
-                    <div
-                      data-page-menu
-                      class="absolute top-full left-0 w-full bg-bone border border-charcoal/10 border-t-0 z-50 shadow-xl overflow-hidden"
+                      CHANNEL 01
+                    </p>
+                    <h3 class="mb-12 text-3xl font-light tracking-tight lg:text-4xl">
+                      Form Enquiry
+                    </h3>
+
+                    <form
+                      id="contact-page-form"
+                      class="flex flex-col gap-10 lg:gap-14"
+                      action="#"
+                      method="POST"
+                      novalidate
                     >
-                      <div class="max-h-60 overflow-y-auto custom-scrollbar">
-                        <div
-                          class="px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-charcoal/30 border-b border-charcoal/5"
-                        >
-                          Which Sector are you enquiring about?
+                      <input type="hidden" name="contactContext" value="Contact Form" />
+                      <input type="hidden" name="originatingPage" id="form-origin" value="" />
+                      <div class="hidden" aria-hidden="true">
+                        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+                      </div>
+
+                      <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:gap-12">
+                        <div class="group/field flex flex-col gap-3" data-field>
+                          <label
+                            for="full-name"
+                            class="text-charcoal/40 text-[12px] font-bold tracking-[0.25em] uppercase"
+                            >Full Name *</label
+                          >
+                          <input
+                            type="text"
+                            id="full-name"
+                            name="full-name"
+                            required
+                            class="border-charcoal/20 text-charcoal focus:border-charcoal w-full border-b bg-transparent py-4 text-xl font-light transition-all outline-none"
+                          />
+                          <p
+                            class="error-msg text-ink mt-2 hidden text-[10px] font-medium tracking-widest uppercase"
+                          >
+                            Please enter your full name
+                          </p>
                         </div>
-                        {
-                          sectors.map((s: string) => (
+                        <div class="group/field flex flex-col gap-3" data-field>
+                          <label
+                            for="email"
+                            class="text-charcoal/40 text-[12px] font-bold tracking-[0.25em] uppercase"
+                            >Email Address *</label
+                          >
+                          <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            pattern="[^@\\s]+@[^@\\s]+\\.[^@\\s]+"
+                            class="border-charcoal/20 text-charcoal focus:border-charcoal w-full border-b bg-transparent py-4 text-xl font-light transition-all outline-none"
+                          />
+                          <p
+                            class="error-msg text-ink mt-2 hidden text-[10px] font-medium tracking-widest uppercase"
+                          >
+                            Please enter a valid email address
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:gap-12">
+                        <div class="group/field flex flex-col gap-3" data-field>
+                          <label
+                            for="phone"
+                            class="text-charcoal/40 text-[12px] font-bold tracking-[0.25em] uppercase"
+                            >Contact Number *</label
+                          >
+                          <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            required
+                            class="border-charcoal/20 text-charcoal focus:border-charcoal w-full border-b bg-transparent py-4 text-xl font-light transition-all outline-none"
+                          />
+                          <p
+                            class="error-msg text-ink mt-2 hidden text-[10px] font-medium tracking-widest uppercase"
+                          >
+                            Please enter your contact number
+                          </p>
+                        </div>
+                        <div class="group/field flex flex-col gap-3" data-field>
+                          <label
+                            for="organisation"
+                            class="text-charcoal/40 text-[12px] font-bold tracking-[0.25em] uppercase"
+                            >Organisation *</label
+                          >
+                          <input
+                            type="text"
+                            id="organisation"
+                            name="organisation"
+                            required
+                            class="border-charcoal/20 text-charcoal focus:border-charcoal w-full border-b bg-transparent py-4 text-xl font-light transition-all outline-none"
+                          />
+                          <p
+                            class="error-msg text-ink mt-2 hidden text-[10px] font-medium tracking-widest uppercase"
+                          >
+                            Please enter your organisation
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:gap-12">
+                        <div class="relative z-30 flex flex-col gap-3">
+                          <label
+                            class="text-charcoal/40 text-[12px] font-bold tracking-[0.25em] uppercase"
+                            >Sector of Interest</label
+                          >
+                          <div
+                            class="relative"
+                            id="sector-dropdown"
+                            data-page-dropdown
+                            data-open="false"
+                          >
                             <button
                               type="button"
-                              data-page-option
-                              class="w-full text-left px-5 py-4 text-base font-light text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 transition-colors"
-                              data-value={s}
+                              data-page-trigger
+                              class="border-charcoal/20 text-charcoal hover:border-charcoal flex w-full cursor-pointer items-center justify-between border-b bg-transparent py-4 text-xl font-light transition-colors"
                             >
-                              {s}
+                              <span data-page-selected class="text-charcoal/40"></span>
+                              <svg
+                                viewBox="0 0 24 24"
+                                class="h-5 w-5 shrink-0 fill-none stroke-current stroke-1 transition-transform duration-300"
+                                ><path d="M6 9l6 6 6-6"></path></svg
+                              >
                             </button>
-                          ))
-                        }
-                        <button
-                          type="button"
-                          data-page-option
-                          class="w-full text-left px-5 py-4 text-base font-light text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 transition-colors border-t border-charcoal/5"
-                          data-value="Other"
-                        >
-                          Other
-                        </button>
-                      </div>
-                    </div>
-                    <input type="hidden" name="sector" value="" />
-                  </div>
-                </div>
-
-                <div class="flex flex-col gap-3 relative z-20">
-                  <label
-                    class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
-                    >Discipline of Interest</label
-                  >
-                  <div
-                    class="relative"
-                    id="discipline-dropdown"
-                    data-page-dropdown
-                    data-open="false"
-                  >
-                    <button
-                      type="button"
-                      data-page-trigger
-                      class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal flex items-center justify-between transition-colors hover:border-charcoal cursor-pointer"
-                    >
-                      <span data-page-selected class="text-charcoal/40"></span>
-                      <svg
-                        viewBox="0 0 24 24"
-                        class="w-5 h-5 fill-none stroke-current stroke-1 transition-transform duration-300 shrink-0"
-                      >
-                        <path d="M6 9l6 6 6-6"></path>
-                      </svg>
-                    </button>
-                    <div
-                      data-page-menu
-                      class="absolute top-full left-0 w-full bg-bone border border-charcoal/10 border-t-0 z-50 shadow-xl overflow-hidden"
-                    >
-                      <div class="max-h-60 overflow-y-auto custom-scrollbar">
-                        <div
-                          class="px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-charcoal/30 border-b border-charcoal/5"
-                        >
-                          Which Discipline are you enquiring about?
+                            <div
+                              data-page-menu
+                              class="bg-bone border-charcoal/10 absolute top-full left-0 z-50 w-full overflow-hidden border border-t-0 shadow-xl"
+                            >
+                              <div class="custom-scrollbar max-h-60 overflow-y-auto">
+                                <div
+                                  class="text-charcoal/30 border-charcoal/5 border-b px-5 py-3 text-[10px] font-bold tracking-widest uppercase"
+                                >
+                                  Which Sector are you enquiring about?
+                                </div>
+                                {
+                                  sectors.map((s: string) => (
+                                    <button
+                                      type="button"
+                                      data-page-option
+                                      class="text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 w-full px-5 py-4 text-left text-base font-light transition-colors"
+                                      data-value={s}
+                                    >
+                                      {s}
+                                    </button>
+                                  ))
+                                }
+                                <button
+                                  type="button"
+                                  data-page-option
+                                  class="text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 border-charcoal/5 w-full border-t px-5 py-4 text-left text-base font-light transition-colors"
+                                  data-value="Other">Other</button
+                                >
+                              </div>
+                            </div>
+                            <input type="hidden" name="sector" value="" />
+                          </div>
                         </div>
-                        {
-                          disciplines.map((d: string) => (
+
+                        <div class="relative z-20 flex flex-col gap-3">
+                          <label
+                            class="text-charcoal/40 text-[12px] font-bold tracking-[0.25em] uppercase"
+                            >Discipline of Interest</label
+                          >
+                          <div
+                            class="relative"
+                            id="discipline-dropdown"
+                            data-page-dropdown
+                            data-open="false"
+                          >
                             <button
                               type="button"
-                              data-page-option
-                              class="w-full text-left px-5 py-4 text-base font-light text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 transition-colors"
-                              data-value={d}
+                              data-page-trigger
+                              class="border-charcoal/20 text-charcoal hover:border-charcoal flex w-full cursor-pointer items-center justify-between border-b bg-transparent py-4 text-xl font-light transition-colors"
                             >
-                              {d}
+                              <span data-page-selected class="text-charcoal/40"></span>
+                              <svg
+                                viewBox="0 0 24 24"
+                                class="h-5 w-5 shrink-0 fill-none stroke-current stroke-1 transition-transform duration-300"
+                                ><path d="M6 9l6 6 6-6"></path></svg
+                              >
                             </button>
-                          ))
-                        }
+                            <div
+                              data-page-menu
+                              class="bg-bone border-charcoal/10 absolute top-full left-0 z-50 w-full overflow-hidden border border-t-0 shadow-xl"
+                            >
+                              <div class="custom-scrollbar max-h-60 overflow-y-auto">
+                                <div
+                                  class="text-charcoal/30 border-charcoal/5 border-b px-5 py-3 text-[10px] font-bold tracking-widest uppercase"
+                                >
+                                  Which Discipline are you enquiring about?
+                                </div>
+                                {
+                                  disciplines.map((d: string) => (
+                                    <button
+                                      type="button"
+                                      data-page-option
+                                      class="text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 w-full px-5 py-4 text-left text-base font-light transition-colors"
+                                      data-value={d}
+                                    >
+                                      {d}
+                                    </button>
+                                  ))
+                                }
+                              </div>
+                            </div>
+                            <input type="hidden" name="discipline" value="" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="group/field flex flex-col gap-3" data-field>
+                        <label
+                          for="message"
+                          class="text-charcoal/40 text-[12px] font-bold tracking-[0.25em] uppercase"
+                          >How can we assist you? *</label
+                        >
+                        <textarea
+                          id="message"
+                          name="message"
+                          rows="2"
+                          required
+                          class="border-charcoal/20 text-charcoal focus:border-charcoal w-full resize-none border-b bg-transparent py-4 text-xl font-light transition-all outline-none"
+                        ></textarea>
+                        <p
+                          class="error-msg text-ink mt-2 hidden text-[10px] font-medium tracking-widest uppercase"
+                        >
+                          Please provide a brief message
+                        </p>
+                      </div>
+
+                      <div
+                        class="flex flex-col items-center justify-between gap-12 pt-8 sm:flex-row"
+                      >
+                        <p
+                          class="text-charcoal/50 max-w-[380px] text-xs leading-relaxed font-bold tracking-widest uppercase"
+                        >
+                          We respond within two working days. Your data is safe with us. Enquiries
+                          are treated with strict confidentiality.
+                        </p>
+                        <div
+                          id="submit-wrapper"
+                          class="group/submit relative w-full overflow-hidden sm:w-auto"
+                        >
+                          <button
+                            type="submit"
+                            id="submit-enquiry"
+                            class="group border-charcoal/20 text-bone hover:text-charcoal relative inline-flex h-16 w-full cursor-pointer items-center justify-center border bg-transparent px-16 text-[11px] font-medium uppercase transition-all duration-1500 ease-[cubic-bezier(0.19,1,0.22,1)] sm:w-auto lg:h-20"
+                          >
+                            <div
+                              class="bg-charcoal absolute inset-0 opacity-100 transition-all duration-1500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover/submit:opacity-0"
+                            >
+                            </div>
+                            <span
+                              class="relative z-10 tracking-[0.3em] transition-all duration-1500 ease-[cubic-bezier(0.19,1,0.22,1)]"
+                            >
+                              Submit
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+
+                    <!-- Success State -->
+                    <div
+                      id="contact-success"
+                      class="reveal hidden flex-col items-start gap-12 py-12"
+                    >
+                      <div class="space-y-6">
+                        <h3
+                          class="text-charcoal text-4xl leading-[1.1] font-light tracking-tight lg:text-5xl"
+                        >
+                          The dialogue has begun.
+                        </h3>
+                        <p class="text-charcoal/60 max-w-xl text-xl leading-relaxed font-light">
+                          Thank you for reaching out. We have received your enquiry. A senior member
+                          of our team will respond within two working days.
+                        </p>
+                      </div>
+                      <button
+                        id="reset-form"
+                        class="text-charcoal border-charcoal/20 reveal cursor-pointer border-b pb-1 text-[10px] font-bold tracking-[0.3em] uppercase transition-all hover:opacity-60"
+                      >
+                        Send another message
+                      </button>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Node 02: Direct Dialogue -->
+                <article class="group reveal relative">
+                  <div
+                    class="bg-charcoal ring-bone group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
+                  >
+                  </div>
+                  <div
+                    class="bg-charcoal/4 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
+                  >
+                    <p
+                      class="text-charcoal/40 font-inter group-hover:text-charcoal/80 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500"
+                    >
+                      CHANNEL 02
+                    </p>
+                    <h3 class="mb-8 text-3xl font-light tracking-tight lg:text-4xl">
+                      Direct Connect
+                    </h3>
+                    <div class="flex flex-col gap-12">
+                      <div class="space-y-4">
+                        <p class="text-charcoal/30 text-[9px] font-bold tracking-[0.3em] uppercase">
+                          Email Liaison
+                        </p>
+                        <a
+                          href={`mailto:${email}`}
+                          class="text-charcoal/60 hover:text-charcoal decoration-charcoal/10 hover:decoration-charcoal text-xl font-light underline decoration-1 underline-offset-8 transition-colors lg:text-2xl"
+                          >{email}</a
+                        >
+                      </div>
+                      <div class="space-y-4">
+                        <p class="text-charcoal/30 text-[9px] font-bold tracking-[0.3em] uppercase">
+                          Call Us
+                        </p>
+                        <div class="text-charcoal/60 space-y-2 text-xl font-light lg:text-2xl">
+                          <p>+91 96653 55522</p>
+                          <p>+91 98222 79173</p>
+                        </div>
+                        <p class="text-charcoal/40 text-[13px] font-light italic">
+                          9am – 6pm • Mon – Sat • IST
+                        </p>
                       </div>
                     </div>
-                    <input type="hidden" name="discipline" value="" />
                   </div>
-                </div>
-              </div>
+                </article>
 
-              <div class="flex flex-col gap-3">
-                <label
-                  for="message"
-                  class="text-[12px] font-bold uppercase tracking-[0.25em] text-charcoal/40"
-                  >How can we assist you? *</label
-                >
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="2"
-                  required
-                  class="w-full bg-bone border-b border-charcoal/20 py-4 text-xl font-light text-charcoal outline-none focus:border-charcoal transition-all resize-none"
-                ></textarea>
-              </div>
-
-              <div
-                class="flex flex-col sm:flex-row items-center justify-between gap-12 pt-8"
-              >
-                <p
-                  class="text-xs font-bold text-charcoal/50 tracking-widest uppercase max-w-[380px] leading-relaxed"
-                >
-                  - We respond within two working days.<br />- Your data is safe
-                  with us.
-                  <br />- Confidentiality assured.
-                </p>
-                <div id="submit-wrapper" class="relative w-full sm:w-auto">
+                <!-- Node 03: Studio Presence -->
+                <article class="group reveal relative">
                   <div
-                    id="submit-overlay"
-                    class="absolute inset-0 z-10 cursor-not-allowed"
+                    class="bg-charcoal ring-bone group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
                   >
                   </div>
-                  <button
-                    type="submit"
-                    id="submit-enquiry"
-                    disabled
-                    class="flex items-center justify-center h-16 lg:h-20 px-16 bg-charcoal text-white text-[11px] font-bold uppercase tracking-[0.5em] w-full sm:w-auto disabled:opacity-60 disabled:pointer-events-none transition-opacity duration-300 cursor-pointer"
-                  >
-                    Submit
-                  </button>
-
                   <div
-                    id="validation-tooltip"
-                    class="absolute -top-12 left-1/2 -translate-x-1/2 px-4 py-2 bg-charcoal text-white text-[9px] font-bold uppercase tracking-widest whitespace-nowrap opacity-0 pointer-events-none transition-all duration-300 translate-y-2 z-20 shadow-2xl"
+                    class="bg-charcoal/4 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
                   >
-                    Please enter all required info
-                    <div
-                      class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-charcoal rotate-45"
+                    <p
+                      class="text-charcoal/40 font-inter group-hover:text-charcoal/80 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500"
                     >
+                      CHANNEL 03
+                    </p>
+                    <h3 class="mb-8 text-3xl font-light tracking-tight lg:text-4xl">
+                      Studio Location
+                    </h3>
+                    <div class="space-y-8">
+                      <p class="text-charcoal/60 text-xl leading-relaxed font-light lg:text-2xl">
+                        Pallod Farms 2<br />Shambhu Vihar Society<br />Nankude Vasti, Aundh<br
+                        />Pune 411067, Maharashtra, India
+                      </p>
+                      <div class="flex items-center gap-4">
+                        <span class="bg-charcoal/20 h-px w-10"></span>
+                        <p class="text-charcoal/40 text-[14px] font-light italic">
+                          Prior appointment required
+                        </p>
+                      </div>
+
+                      <!-- Map Integration -->
+                      <div class="pt-8">
+                        <div
+                          class="bg-charcoal/5 border-charcoal/5 h-[350px] w-full overflow-hidden border grayscale transition-all duration-1000 hover:grayscale-0"
+                        >
+                          <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.3961421117187!2d73.8018891!3d18.556170899999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf779e0b9591%3A0x466769acab1adc5d!2sMetaphors%20Design!5e0!3m2!1sen!2sin!4v1776595619357!5m2!1sen!2sin"
+                            class="h-full w-full border-0"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Studio Directions"></iframe>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </article>
               </div>
-            </form>
-
-            <!-- Success State -->
-            <div
-              id="contact-success"
-              class="hidden flex-col items-start gap-12 py-12 reveal"
-            >
-              <div class="space-y-6">
-                <h3
-                  class="text-4xl lg:text-5xl tracking-tight text-charcoal font-light leading-[1.1]"
-                >
-                  The dialogue has begun.
-                </h3>
-                <p
-                  class="text-xl text-charcoal/60 font-light max-w-xl leading-relaxed"
-                >
-                  Thank you for reaching out. We have received your project
-                  intent and a confirmation has been sent to the email address
-                  you provided. A senior member of our team will review the
-                  details and respond within two working days.
-                </p>
-              </div>
-              <button
-                id="reset-form"
-                class="text-[11px] font-bold uppercase tracking-[0.4em] text-charcoal hover:text-black border-b border-charcoal/20 pb-2 transition-all cursor-pointer"
-              >
-                Send another message
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <!-- ─── 03 CONTACT ─────────────────────────── -->
-        <section
-          class="grid grid-cols-1 lg:grid-cols-12 gap-12 py-16 lg:py-32 border-t border-charcoal/10 reveal"
-        >
-          <div class="lg:col-span-4">
-            <h2
-              class="text-4xl lg:text-5xl tracking-tight text-charcoal lg:sticky lg:top-40"
-            >
-              Contact
-            </h2>
-          </div>
-          <div class="lg:col-span-8 flex flex-col gap-12 lg:gap-16">
-            <div class="space-y-4">
-              <p
-                class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/30"
-              >
-                Email Liaison
-              </p>
-              <a
-                href={`mailto:${email}`}
-                class="text-xl lg:text-2xl font-light text-charcoal/60 hover:text-charcoal transition-colors"
-              >
-                {email}
-              </a>
-            </div>
-            <div class="space-y-4">
-              <p
-                class="text-[10px] font-bold uppercase tracking-[0.4em] text-charcoal/30"
-              >
-                Call Us
-              </p>
-              <div class="flex flex-col gap-6">
-                <div class="flex flex-wrap gap-x-12 gap-y-4">
-                  <div
-                    class="text-xl lg:text-2xl font-light text-charcoal/60 hover:text-charcoal transition-colors"
-                  >
-                    +91 96653 55522<br />+91 98222 79173
-                  </div>
-                </div>
-                <p
-                  class="text-[14px] font-light text-charcoal/40 tracking-tight italic"
-                >
-                  9am - 6pm • Mon - Sat • IST
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ─── 04 ADDRESS ─────────────────────────────────── -->
-        <section
-          class="grid grid-cols-1 lg:grid-cols-12 gap-12 py-16 lg:py-32 border-t border-charcoal/10 reveal"
-        >
-          <div class="lg:col-span-4">
-            <h2
-              class="text-4xl lg:text-5xl tracking-tight text-charcoal lg:sticky lg:top-40"
-            >
-              Address
-            </h2>
-          </div>
-          <div class="lg:col-span-8">
-            <p
-              class="text-xl lg:text-2xl font-light text-charcoal/60 hover:text-charcoal transition-colors"
-            >
-              Pallod Farms 2<br />Shambhu Vihar Society<br />Nankude Vasti,
-              Aundh<br />Pune 411067<br />Maharashtra <br />India
-            </p>
-          </div>
-        </section>
-
-        <!-- ─── 05 DIRECTIONS ──────────────────────────────── -->
-        <section
-          class="grid grid-cols-1 lg:grid-cols-12 gap-12 py-16 lg:py-32 border-t border-charcoal/10 reveal"
-        >
-          <div class="lg:col-span-4">
-            <h2
-              class="text-4xl lg:text-5xl tracking-tight text-charcoal lg:sticky lg:top-40"
-            >
-              Directions
-            </h2>
-          </div>
-          <div class="lg:col-span-8">
-            <div
-              class="w-full h-[450px] lg:h-[550px] bg-stone-100 overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-1000"
-            >
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.3961421117187!2d73.8018891!3d18.556170899999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf779e0b9591%3A0x466769acab1adc5d!2sMetaphors%20Design!5e0!3m2!1sen!2sin!4v1776595619357!5m2!1sen!2sin"
-                class="w-full h-full border-0"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Studio Directions"></iframe>
             </div>
           </div>
         </section>
@@ -478,220 +550,315 @@ const email = "info@metaphors-design.com";
 </Layout>
 
 <script>
-  const form = document.getElementById("contact-page-form") as HTMLFormElement;
+  (() => {
+    const form = document.getElementById("contact-page-form");
+    if (!(form instanceof HTMLFormElement)) return;
 
-  // ─── Reveal Observer ───────────────────────────────────────────────────────
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
+    const formSection = form.closest("article");
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const successState = formSection?.querySelector("#contact-success");
+    const resetBtn = formSection?.querySelector("#reset-form");
+    const formHiddenOrigin = document.getElementById("form-origin");
+    const requiredFields = Array.from(
+      form.querySelectorAll("input[required], textarea[required]"),
+    ).filter(
+      (field): field is HTMLInputElement | HTMLTextAreaElement =>
+        field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement,
+    );
+    const pageDropdowns = Array.from(document.querySelectorAll("[data-page-dropdown]"));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      },
+      { threshold: 0.1 },
+    );
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+    if (formHiddenOrigin instanceof HTMLInputElement) {
+      formHiddenOrigin.value = window.location.pathname;
+    }
+
+    const getFieldWrap = (field: HTMLInputElement | HTMLTextAreaElement) =>
+      field.closest("[data-field]");
+
+    const getErrorMessage = (field: HTMLInputElement | HTMLTextAreaElement) =>
+      getFieldWrap(field)?.querySelector(".error-msg");
+
+    const getFieldMessage = (field: HTMLInputElement | HTMLTextAreaElement) => {
+      const authoredMessage =
+        getErrorMessage(field)?.textContent?.trim() || "Please complete this field";
+
+      if (field.validity.valueMissing) return authoredMessage;
+
+      if (field.type === "email") {
+        if (
+          field.validity.typeMismatch ||
+          field.validity.patternMismatch ||
+          field.validity.customError
+        ) {
+          return "Please enter a valid email address";
+        }
+      }
+
+      return "";
+    };
+
+    const showFieldState = (
+      field: HTMLInputElement | HTMLTextAreaElement,
+      shouldShowError: boolean,
+    ) => {
+      const errorMessage = getErrorMessage(field);
+      const message = getFieldMessage(field);
+
+      field.setAttribute("aria-invalid", shouldShowError ? "true" : "false");
+      field.classList.toggle("border-charcoal/40", shouldShowError);
+      field.classList.toggle("border-charcoal/20", !shouldShowError);
+
+      if (errorMessage instanceof HTMLElement) {
+        errorMessage.textContent = message;
+        errorMessage.classList.toggle("hidden", !shouldShowError);
+      }
+    };
+
+    const validateField = (field: HTMLInputElement | HTMLTextAreaElement) => {
+      const value = field.value.trim();
+      if (
+        field instanceof HTMLTextAreaElement ||
+        field.type === "text" ||
+        field.type === "email" ||
+        field.type === "tel"
+      ) {
+        field.value = value;
+      }
+
+      // Manual bulletproof email check
+      if (field.type === "email" && value) {
+        const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+        if (!emailRegex.test(value)) {
+          field.setCustomValidity("Invalid pattern");
+        } else {
+          field.setCustomValidity("");
+        }
+      } else {
+        field.setCustomValidity("");
+      }
+
+      const isValid = field.checkValidity();
+      showFieldState(field, !isValid);
+      return isValid;
+    };
+
+    const resetFieldState = (field: HTMLInputElement | HTMLTextAreaElement) => {
+      field.removeAttribute("aria-invalid");
+      field.classList.remove("border-charcoal/40");
+      field.classList.add("border-charcoal/20");
+
+      const errorMessage = getErrorMessage(field);
+      if (errorMessage instanceof HTMLElement) {
+        errorMessage.classList.add("hidden");
+      }
+    };
+
+    const closeAllPageDropdowns = () => {
+      pageDropdowns.forEach((dropdown) => {
+        const menu = dropdown.querySelector("[data-page-menu]");
+        const arrow = dropdown.querySelector("svg");
+
+        if (menu instanceof HTMLElement) {
+          menu.style.opacity = "0";
+          menu.style.visibility = "hidden";
+          menu.style.transform = "translateY(8px)";
+        }
+
+        dropdown.setAttribute("data-open", "false");
+        arrow?.classList.remove("rotate-180");
       });
-    },
-    { threshold: 0.1 },
-  );
-  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    };
 
-  // ─── Origin tracking ───────────────────────────────────────────────────────
-  const formHiddenOrigin = document.getElementById(
-    "form-origin",
-  ) as HTMLInputElement;
-  if (formHiddenOrigin) formHiddenOrigin.value = window.location.pathname;
+    pageDropdowns.forEach((dropdown) => {
+      const trigger = dropdown.querySelector("[data-page-trigger]");
+      const menu = dropdown.querySelector("[data-page-menu]");
+      const options = dropdown.querySelectorAll("[data-page-option]");
+      const selectedText = dropdown.querySelector("[data-page-selected]");
+      const hiddenInput = dropdown.querySelector('input[type="hidden"]');
+      const arrow = trigger?.querySelector("svg");
 
-  // ─── Contact Page Dropdowns (scoped to #contact-form, not .custom-dropdown) ─
-  // ContactModal's script also manages .custom-dropdown globally. We use
-  // [data-page-dropdown] to isolate the contact page dropdowns entirely.
-  const pageDropdowns = document.querySelectorAll("[data-page-dropdown]");
+      if (!(trigger instanceof HTMLElement) || !(menu instanceof HTMLElement)) return;
 
-  function closeAllPageDropdowns() {
-    pageDropdowns.forEach((dd) => {
-      const menu = dd.querySelector("[data-page-menu]") as HTMLElement;
-      const arrow = dd.querySelector("svg");
-      if (menu) {
-        menu.style.opacity = "0";
-        menu.style.visibility = "hidden";
-        menu.style.transform = "translateY(8px)";
-      }
-      dd.setAttribute("data-open", "false");
-      arrow?.classList.remove("rotate-180");
-    });
-  }
+      menu.style.transition = "opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease";
+      menu.style.opacity = "0";
+      menu.style.visibility = "hidden";
+      menu.style.transform = "translateY(8px)";
 
-  pageDropdowns.forEach((dd) => {
-    const trigger = dd.querySelector("[data-page-trigger]") as HTMLElement;
-    const menu = dd.querySelector("[data-page-menu]") as HTMLElement;
-    const options = dd.querySelectorAll("[data-page-option]");
-    const selectedText = dd.querySelector("[data-page-selected]");
-    const hiddenInput = dd.querySelector(
-      "input[type=hidden]",
-    ) as HTMLInputElement;
-    const arrow = trigger?.querySelector("svg");
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
 
-    if (!trigger || !menu) return;
-
-    // Set closed state via inline styles (bypasses any CSS scoping conflicts)
-    menu.style.transition =
-      "opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease";
-    menu.style.opacity = "0";
-    menu.style.visibility = "hidden";
-    menu.style.transform = "translateY(8px)";
-
-    trigger.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const isOpen = dd.getAttribute("data-open") === "true";
-      closeAllPageDropdowns();
-      if (!isOpen) {
-        menu.style.opacity = "1";
-        menu.style.visibility = "visible";
-        menu.style.transform = "translateY(0)";
-        dd.setAttribute("data-open", "true");
-        arrow?.classList.add("rotate-180");
-      }
-    });
-
-    options.forEach((option) => {
-      option.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const value = (option as HTMLElement).dataset.value || "";
-        const text = (option as HTMLElement).textContent?.trim() || "";
-        if (selectedText) {
-          selectedText.textContent = text;
-          selectedText.classList.remove("text-charcoal/40");
-          selectedText.classList.add("text-charcoal");
-        }
-        if (hiddenInput) {
-          hiddenInput.value = value;
-          // Trigger input event for validation
-          if (form) form.dispatchEvent(new Event("input"));
-        }
+        const isOpen = dropdown.getAttribute("data-open") === "true";
         closeAllPageDropdowns();
+
+        if (!isOpen) {
+          menu.style.opacity = "1";
+          menu.style.visibility = "visible";
+          menu.style.transform = "translateY(0)";
+          dropdown.setAttribute("data-open", "true");
+          arrow?.classList.add("rotate-180");
+        }
+      });
+
+      options.forEach((option) => {
+        option.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          const button = option instanceof HTMLElement ? option : null;
+          const value = button?.dataset.value ?? "";
+          const text = button?.textContent?.trim() ?? "";
+
+          if (selectedText instanceof HTMLElement) {
+            selectedText.textContent = text;
+            selectedText.classList.remove("text-charcoal/40");
+            selectedText.classList.add("text-charcoal");
+          }
+
+          if (hiddenInput instanceof HTMLInputElement) {
+            hiddenInput.value = value;
+          }
+
+          closeAllPageDropdowns();
+        });
       });
     });
-  });
 
-  // Close on outside click
-  document.addEventListener("click", closeAllPageDropdowns);
+    document.addEventListener("click", closeAllPageDropdowns);
 
-  // ─── Form Validation ────────────────────────────────────────────────────────
-  const submitBtn = document.getElementById(
-    "submit-enquiry",
-  ) as HTMLButtonElement;
-  const tooltip = document.getElementById("validation-tooltip");
-  const submitOverlay = document.getElementById("submit-overlay");
+    requiredFields.forEach((field) => {
+      resetFieldState(field);
 
-  function checkFormValidity() {
-    if (!form || !submitBtn) return;
-    const isValid = form.checkValidity();
-
-    submitBtn.disabled = !isValid;
-
-    if (submitOverlay) {
-      if (isValid) submitOverlay.classList.add("hidden");
-      else submitOverlay.classList.remove("hidden");
-    }
-
-    // Reset tooltip if form becomes valid
-    if (isValid && tooltip) {
-      tooltip.classList.remove("opacity-100", "-translate-y-2");
-      tooltip.classList.add("opacity-0", "translate-y-2");
-    }
-  }
-
-  // Tooltip Logic for Disabled State (Handled on wrapper to capture clicks)
-  const submitWrapper = document.getElementById("submit-wrapper");
-
-  submitWrapper?.addEventListener("click", () => {
-    if (submitBtn && submitBtn.disabled && tooltip) {
-      tooltip.classList.remove("opacity-0", "translate-y-2");
-      tooltip.classList.add("opacity-100", "-translate-y-2");
-
-      // Auto-hide after delay
-      setTimeout(() => {
-        tooltip.classList.remove("opacity-100", "-translate-y-2");
-        tooltip.classList.add("opacity-0", "translate-y-2");
-      }, 2000);
-    }
-  });
-
-  form?.addEventListener("input", checkFormValidity);
-
-  // ─── Form Submission ────────────────────────────────────────────────────────
-  const successState = document.getElementById("contact-success");
-  const resetBtn = document.getElementById("reset-form");
-
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]');
-    if (btn)
-      btn.innerHTML =
-        '<span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.5em]">Sending...</span>';
-
-    try {
-      const formData = new FormData(form);
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        body: formData,
+      field.addEventListener("blur", () => {
+        validateField(field);
       });
 
-      const result = await response.json();
+      field.addEventListener("input", () => {
+        if (field.getAttribute("aria-invalid") === "true") {
+          validateField(field);
+        }
+      });
+    });
 
-      if (result.success) {
-        if (form) form.classList.add("hidden");
-        if (successState) {
+    const submitForm = async () => {
+      let firstInvalidField = null as HTMLInputElement | HTMLTextAreaElement | null;
+      const isFormValid = requiredFields.every((field) => {
+        const isValid = validateField(field);
+        if (!isValid && !firstInvalidField) firstInvalidField = field;
+        return isValid;
+      });
+
+      if (!isFormValid) {
+        firstInvalidField?.focus();
+        firstInvalidField?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+        return;
+      }
+
+      if (submitBtn instanceof HTMLButtonElement) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML =
+          '<span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.5em] animate-pulse">Sending...</span>';
+      }
+
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          body: new FormData(form),
+        });
+
+        const result = await response.json();
+        if (!result.success) throw new Error("Failed to send");
+
+        form.classList.add("hidden");
+
+        if (successState instanceof HTMLElement) {
           successState.classList.remove("hidden");
-          successState.classList.add("flex");
-          successState.classList.add("reveal", "visible");
+          successState.classList.add("flex", "reveal", "visible");
         }
 
         form.reset();
-        document.querySelectorAll("[data-page-selected]").forEach((el) => {
-          el.textContent = "";
-          el.classList.add("text-charcoal/40");
-          el.classList.remove("text-charcoal");
+        requiredFields.forEach((field) => resetFieldState(field));
+
+        document.querySelectorAll("[data-page-selected]").forEach((selected) => {
+          if (selected instanceof HTMLElement) {
+            selected.textContent = "";
+            selected.classList.add("text-charcoal/40");
+          }
         });
-        document
-          .querySelectorAll("[data-page-dropdown] input[type=hidden]")
-          .forEach((input) => {
-            (input as HTMLInputElement).value = "";
-          });
 
-        checkFormValidity();
-
-        if (btn)
-          btn.innerHTML =
-            '<span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.5em]">Submit</span>';
-      } else {
-        if (btn)
-          btn.innerHTML =
+        form.querySelectorAll('[data-page-dropdown] input[type="hidden"]').forEach((input) => {
+          if (input instanceof HTMLInputElement) input.value = "";
+        });
+      } catch (error) {
+        if (submitBtn instanceof HTMLButtonElement) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML =
             '<span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.5em]">Error</span>';
-        setTimeout(() => {
-          if (btn)
-            btn.innerHTML =
-              '<span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.5em]">Submit</span>';
-        }, 3000);
+
+          window.setTimeout(() => {
+            submitBtn.innerHTML =
+              '<span class="relative z-10 tracking-[0.3em] transition-all duration-1500 ease-[cubic-bezier(0.19,1,0.22,1)]">Submit</span>';
+          }, 3000);
+        }
       }
-    } catch (err) {
-      if (btn)
-        btn.innerHTML =
-          '<span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.5em]">Error</span>';
-      setTimeout(() => {
-        if (btn)
-          btn.innerHTML =
-            '<span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.5em]">Submit</span>';
-      }, 3000);
-    }
-  });
+    };
 
-  resetBtn?.addEventListener("click", () => {
-    if (form) form.classList.remove("hidden");
-    if (successState) {
-      successState.classList.add("hidden");
-      successState.classList.remove("flex");
-    }
-    checkFormValidity();
-  });
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      void submitForm();
+    });
 
-  // Initial check
-  checkFormValidity();
+    if (submitBtn instanceof HTMLButtonElement) {
+      submitBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        void submitForm();
+      });
+    }
+
+    if (resetBtn instanceof HTMLButtonElement) {
+      resetBtn.addEventListener("click", () => {
+        form.reset();
+        form.classList.remove("hidden");
+
+        requiredFields.forEach((field) => resetFieldState(field));
+        closeAllPageDropdowns();
+
+        document.querySelectorAll("[data-page-selected]").forEach((selected) => {
+          if (selected instanceof HTMLElement) {
+            selected.textContent = "";
+            selected.classList.add("text-charcoal/40");
+          }
+        });
+
+        form.querySelectorAll('[data-page-dropdown] input[type="hidden"]').forEach((input) => {
+          if (input instanceof HTMLInputElement) input.value = "";
+        });
+
+        if (submitBtn instanceof HTMLButtonElement) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML =
+            '<span class="relative z-10 tracking-[0.3em] transition-all duration-1500 ease-[cubic-bezier(0.19,1,0.22,1)]">Submit</span>';
+        }
+
+        if (successState instanceof HTMLElement) {
+          successState.classList.add("hidden");
+          successState.classList.remove("flex");
+        }
+      });
+    }
+  })();
 </script>
 
 <style is:global>

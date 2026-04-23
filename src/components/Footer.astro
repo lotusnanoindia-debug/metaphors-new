@@ -28,13 +28,11 @@ const Legal = [
 ---
 
 <footer class="bg-charcoal text-bone pt-24 pb-12">
-  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-    <div
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 lg:gap-8 mb-24"
-    >
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
+    <div class="mb-24 grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-5 lg:gap-8">
       {/* Column 1: Studio Info */}
-      <div class="lg:col-span-2 pr-12">
-        <div class="flex items-center gap-3 mb-8">
+      <div class="pr-12 lg:col-span-2">
+        <div class="mb-8 flex items-center gap-3">
           <img
             alt="Metaphors Design Logo"
             class="h-7 w-auto transition-transform duration-500 hover:scale-105"
@@ -42,41 +40,32 @@ const Legal = [
             loading="lazy"
             decoding="async"
           />
-          <span class="text-xl font-medium tracking-tight text-bone"
-            >metaphors design</span
-          >
+          <span class="text-bone text-xl font-medium tracking-tight">metaphors design</span>
         </div>
-        <p class="text-sm text-bone/40 leading-relaxed max-w-sm mb-8">
-          Four decades of shaping India's corporate, civic, and residential
-          landscape. A practice built on architectural precision, long-term
-          stewardship, and measured ambition.
+        <p class="text-bone/40 mb-8 max-w-sm text-sm leading-relaxed">
+          Four decades of shaping India's corporate, civic, and residential landscape. A practice
+          built on architectural precision, long-term stewardship, and measured ambition.
         </p>
 
-        <div class="space-y-3 mb-8 mt-[2px]">
+        <div class="mt-[2px] mb-8 space-y-3">
           <div class="flex items-start gap-3">
-            <Icon
-              name="ph:map-pin-light"
-              class="w-[18px] h-[18px] text-bone/40 shrink-0"
-            />
+            <Icon name="ph:map-pin-light" class="text-bone/40 h-[18px] w-[18px] shrink-0" />
             <a
               href="https://maps.app.goo.gl/Pp2mLdzqZynSaU5b9"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-[13px] text-bone/60 hover:text-white transition-colors cursor-pointer"
+              class="text-bone/60 cursor-pointer text-[13px] transition-colors hover:text-white"
             >
               Studio: Pune, India
             </a>
           </div>
 
           <div class="flex items-start gap-3">
-            <Icon
-              name="ph:envelope-light"
-              class="w-[18px] h-[18px] text-bone/40 shrink-0"
-            />
+            <Icon name="ph:envelope-light" class="text-bone/40 h-[18px] w-[18px] shrink-0" />
             <a
               href="#"
               onclick="window.location.href='mailto:' + 'moc.ngised-srohpatem@ofni'.split('').reverse().join(''); return false;"
-              class="text-[13px] text-bone/60 hover:text-white inline-block transition-colors"
+              class="text-bone/60 inline-block text-[13px] transition-colors hover:text-white"
               aria-label="Email us"
             >
               <span style="unicode-bidi: bidi-override; direction: rtl;"
@@ -86,22 +75,13 @@ const Legal = [
           </div>
 
           <div class="flex items-start gap-3">
-            <Icon
-              name="ph:phone-light"
-              class="w-[18px] h-[18px] text-bone/40 shrink-0"
-            />
-            <div class="text-[13px] text-bone/60 flex flex-wrap gap-x-2">
-              <a
-                href="tel:+919665355522"
-                class="hover:text-white transition-colors"
-              >
+            <Icon name="ph:phone-light" class="text-bone/40 h-[18px] w-[18px] shrink-0" />
+            <div class="text-bone/60 flex flex-wrap gap-x-2 text-[13px]">
+              <a href="tel:+919665355522" class="transition-colors hover:text-white">
                 (+91) 96653 55522
               </a>
               <span class="text-bone/20">/</span>
-              <a
-                href="tel:+919822279173"
-                class="hover:text-white transition-colors"
-              >
+              <a href="tel:+919822279173" class="transition-colors hover:text-white">
                 (+91) 98222 79173
               </a>
             </div>
@@ -116,7 +96,7 @@ const Legal = [
             aria-label="Facebook"
             class="text-white/80 transition-colors duration-300 hover:text-[#1877F2]"
           >
-            <Icon name="ph:facebook-logo-fill" class="w-8 h-8" />
+            <Icon name="ph:facebook-logo-fill" class="h-8 w-8" />
           </a>
           <a
             href="https://linkedin.com/company/metaphors-design"
@@ -125,7 +105,7 @@ const Legal = [
             aria-label="LinkedIn"
             class="text-white/80 transition-colors duration-300 hover:text-[#0077B5]"
           >
-            <Icon name="ph:linkedin-logo-fill" class="w-8 h-8" />
+            <Icon name="ph:linkedin-logo-fill" class="h-8 w-8" />
           </a>
           <a
             href="https://instagram.com/metaphorspune"
@@ -134,16 +114,14 @@ const Legal = [
             aria-label="Instagram"
             class="text-white/80 transition-colors duration-300 hover:text-[#E4405F]"
           >
-            <Icon name="ph:instagram-logo-fill" class="w-8 h-8" />
+            <Icon name="ph:instagram-logo-fill" class="h-8 w-8" />
           </a>
         </div>
       </div>
 
       {/* Column 2: Portfolio (Sectors) */}
       <div>
-        <h4
-          class="text-[10px] font-medium uppercase tracking-[0.4em] text-white/50 mb-8"
-        >
+        <h4 class="mb-8 text-[10px] font-medium tracking-[0.4em] text-white/50 uppercase">
           Portfolio
         </h4>
         <ul class="space-y-4">
@@ -152,7 +130,7 @@ const Legal = [
               <li>
                 <a
                   href={link.href}
-                  class="text-sm text-bone/60 hover:text-white transition-colors duration-300 inline-block"
+                  class="text-bone/60 inline-block text-sm transition-colors duration-300 hover:text-white"
                 >
                   {link.name}
                 </a>
@@ -164,9 +142,7 @@ const Legal = [
 
       {/* Column 3: Expertise (Disciplines) */}
       <div>
-        <h4
-          class="text-[10px] font-medium uppercase tracking-[0.4em] text-white/50 mb-8"
-        >
+        <h4 class="mb-8 text-[10px] font-medium tracking-[0.4em] text-white/50 uppercase">
           Studio Disciplines
         </h4>
         <ul class="space-y-4">
@@ -175,7 +151,7 @@ const Legal = [
               <li>
                 <a
                   href={link.href}
-                  class="text-sm text-bone/60 hover:text-white transition-colors duration-300 inline-block"
+                  class="text-bone/60 inline-block text-sm transition-colors duration-300 hover:text-white"
                 >
                   {link.name}
                 </a>
@@ -187,9 +163,7 @@ const Legal = [
 
       {/* Column 4: Practice */}
       <div>
-        <h4
-          class="text-[10px] font-medium uppercase tracking-[0.4em] text-white/50 mb-8"
-        >
+        <h4 class="mb-8 text-[10px] font-medium tracking-[0.4em] text-white/50 uppercase">
           Practice
         </h4>
         <ul class="space-y-4">
@@ -198,7 +172,7 @@ const Legal = [
               <li>
                 <a
                   href={link.href}
-                  class="text-sm text-bone/60 hover:text-white transition-colors duration-300 inline-block"
+                  class="text-bone/60 inline-block text-sm transition-colors duration-300 hover:text-white"
                 >
                   {link.name}
                 </a>
@@ -211,14 +185,14 @@ const Legal = [
 
     {/* Footer Bottom Archive */}
     <div
-      class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8"
+      class="flex flex-col items-center justify-between gap-8 border-t border-white/5 pt-12 md:flex-row"
     >
       <div class="flex gap-8">
         {
           Legal.map((link) => (
             <a
               href={link.href}
-              class="text-[10px] font-medium uppercase tracking-[0.2em] text-white/30 hover:text-white/60 luxury-transition micro-hover pb-1"
+              class="luxury-transition micro-hover pb-1 text-[10px] font-medium tracking-[0.2em] text-white/30 uppercase hover:text-white/60"
             >
               {link.name}
             </a>
@@ -226,7 +200,7 @@ const Legal = [
         }
       </div>
       <p
-        class="text-[10px] font-medium uppercase tracking-[0.2em] text-white/20 text-center md:text-right"
+        class="text-center text-[10px] font-medium tracking-[0.2em] text-white/20 uppercase md:text-right"
       >
         © 2026 Metaphors Design.
       </p>

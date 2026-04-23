@@ -37,7 +37,7 @@ export default defineType({
       title: 'Hero Configuration',
       type: 'object',
       group: 'hero',
-      options: { collapsible: true, collapsed: false },
+      options: {collapsible: true, collapsed: false},
       fields: [
         defineField({
           name: 'headline',
@@ -66,7 +66,7 @@ export default defineType({
           initialValue:
             'Four decades of shaping the corporate, institutional, civic, and residential environments of modern India.',
         }),
-      ]
+      ],
     }),
 
     // ── STUDIO CONTEXT ──────────────────────────────────────────────────────
@@ -75,7 +75,7 @@ export default defineType({
       title: 'Studio Context Configuration',
       type: 'object',
       group: 'stature',
-      options: { collapsible: true, collapsed: false },
+      options: {collapsible: true, collapsed: false},
       fields: [
         defineField({
           name: 'contextEyebrow',
@@ -94,7 +94,7 @@ export default defineType({
               name: 'caption',
               title: 'Architectural Caption',
               type: 'string',
-              description: 'Tiny footnote below the image e.g. "Oracle Centre, Pune, India"'
+              description: 'Tiny footnote below the image e.g. "Oracle Centre, Pune, India"',
             },
           ],
         }),
@@ -129,7 +129,7 @@ export default defineType({
           type: 'string',
           initialValue: '/perspectives',
         }),
-      ]
+      ],
     }),
 
     // ── SECTORS ─────────────────────────────────────────────────────────────
@@ -138,7 +138,7 @@ export default defineType({
       title: 'Sectors Configuration',
       type: 'object',
       group: 'sectors',
-      options: { collapsible: true, collapsed: false },
+      options: {collapsible: true, collapsed: false},
       fields: [
         defineField({
           name: 'eyebrow',
@@ -157,7 +157,8 @@ export default defineType({
           title: 'Section Subheading',
           type: 'text',
           rows: 2,
-          initialValue: 'OUR PRACTICE SPANS EIGHT SECTORS. BUILT ACROSS FOUR DECADES OF DEMANDING COMMISSIONS ON THE SUB-CONTINENT.',
+          initialValue:
+            'OUR PRACTICE SPANS EIGHT SECTORS. BUILT ACROSS FOUR DECADES OF DEMANDING COMMISSIONS ON THE SUB-CONTINENT.',
         }),
         defineField({
           name: 'ctaLabel',
@@ -171,7 +172,7 @@ export default defineType({
           type: 'string',
           initialValue: '/contact',
         }),
-      ]
+      ],
     }),
 
     // ── SCALE ─────────────────────────────────────────────────────────────
@@ -180,7 +181,7 @@ export default defineType({
       title: 'Scale of Practice Configuration',
       type: 'object',
       group: 'scale',
-      options: { collapsible: true, collapsed: false },
+      options: {collapsible: true, collapsed: false},
       fields: [
         defineField({
           name: 'scaleEyebrow',
@@ -200,16 +201,15 @@ export default defineType({
           type: 'text',
           rows: 3,
         }),
-      ]
+      ],
     }),
-
 
     defineField({
       name: 'disciplinesSection',
       title: 'Studio Disciplines Configuration',
       type: 'object',
       group: 'disciplines',
-      options: { collapsible: true, collapsed: false },
+      options: {collapsible: true, collapsed: false},
       fields: [
         defineField({
           name: 'eyebrow',
@@ -244,7 +244,7 @@ export default defineType({
           type: 'string',
           initialValue: '/contact',
         }),
-      ]
+      ],
     }),
 
     // ── MAIN CTA ────────────────────────────────────────────────────────────
@@ -253,7 +253,7 @@ export default defineType({
       title: 'Editorial Closure Configuration',
       type: 'object',
       group: 'mainCta',
-      options: { collapsible: true, collapsed: false },
+      options: {collapsible: true, collapsed: false},
       fields: [
         defineField({
           name: 'eyebrow',
@@ -265,7 +265,8 @@ export default defineType({
           name: 'headline',
           title: 'Section Headline',
           type: 'text',
-          description: 'Use <br class="md:hidden" /> or similar HTML for tailored wrapping if needed.',
+          description:
+            'Use <br class="md:hidden" /> or similar HTML for tailored wrapping if needed.',
           rows: 2,
           initialValue: 'Your next landmark <br class="md:hidden" />begins here.',
         }),
@@ -274,7 +275,8 @@ export default defineType({
           title: 'Section Tagline',
           type: 'text',
           rows: 2,
-          initialValue: 'Precision-led architecture for clients who refuse to compromise.<br class=\'hidden md:block\' /> Every project begins with a focused conversation.',
+          initialValue:
+            "Precision-led architecture for clients who refuse to compromise.<br class='hidden md:block' /> Every project begins with a focused conversation.",
         }),
         defineField({
           name: 'ctaLabel',
@@ -288,7 +290,7 @@ export default defineType({
           type: 'string',
           initialValue: '/contact',
         }),
-      ]
+      ],
     }),
   ],
 

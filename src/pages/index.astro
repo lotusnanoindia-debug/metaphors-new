@@ -8,12 +8,7 @@ import ScaleOfPractice from "../components/ScaleOfPractice.astro";
 import Disciplines from "../components/Disciplines.astro";
 import MainCta from "../components/MainCta.astro";
 import Footer from "../components/Footer.astro";
-import {
-  client,
-  HOMEPAGE_QUERY,
-  HOME_SETTINGS_QUERY,
-  imageUrl,
-} from "../lib/sanity";
+import { client, HOMEPAGE_QUERY, HOME_SETTINGS_QUERY, imageUrl } from "../lib/sanity";
 
 const data = await client.fetch(HOMEPAGE_QUERY);
 const homepage = data?.homepage;
@@ -52,11 +47,7 @@ const schema = {
   title="Metaphors Design | Architectural Precision from Pune, India"
   description="Defining modern Indian architecture for four decades. Metaphors Design delivers precise, ROI-driven architectural solutions for corporate, civic, and residential environments."
 >
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify(schema)}
-    slot="head"
-  />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} slot="head" />
   <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
     <Header />
     <Hero

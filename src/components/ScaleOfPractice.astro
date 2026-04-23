@@ -15,9 +15,7 @@ const rawSectors = await client.fetch(SECTORS_QUERY);
 const sectors = rawSectors
   .map((s: any) => ({
     label: s.title,
-    sqft:
-      s.projects?.reduce((sum: number, p: any) => sum + (p.areaSqFt || 0), 0) ??
-      0,
+    sqft: s.projects?.reduce((sum: number, p: any) => sum + (p.areaSqFt || 0), 0) ?? 0,
   }))
   .filter((s: any) => s.sqft > 0);
 
@@ -27,70 +25,61 @@ const totalSqFt = sectors.reduce((sum: number, s: any) => sum + s.sqft, 0);
 // Formatting for monumental display
 const totalLakhs = totalSqFt / 100_000;
 const formattedTotal =
-  totalLakhs >= 100
-    ? `${(totalLakhs / 100).toFixed(2)} Crore`
-    : `${totalLakhs.toFixed(0)} Lakh`;
+  totalLakhs >= 100 ? `${(totalLakhs / 100).toFixed(2)} Crore` : `${totalLakhs.toFixed(0)} Lakh`;
 
 const intlTotalSqFt = `${(totalSqFt / 1_000_000).toFixed(1)} Million`;
 const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`;
 ---
 
-<section
-  class="relative w-full bg-[#f2f1ec] py-24 md:py-40 lg:py-56 overflow-hidden"
->
+<section class="relative w-full overflow-hidden bg-[#f2f1ec] py-24 md:py-40 lg:py-56">
   {/* Architectural Grid Layer */}
   <div
-    class="absolute inset-0 opacity-[0.03] pointer-events-none"
+    class="pointer-events-none absolute inset-0 opacity-[0.03]"
     style="background-image: radial-gradient(circle, #222 1px, transparent 1px); background-size: 80px 80px; transform: translateY(var(--grid-y, 0))"
     id="scale-grid"
   >
   </div>
 
-  <div class="max-w-[1800px] mx-auto px-6 lg:px-12 relative z-10">
+  <div class="relative z-10 mx-auto max-w-[1800px] px-6 lg:px-12">
     <div class="flex flex-col items-center text-center">
       <h2
-        class="text-6xl leading-[0.99] tracking-tight text-charcoal lg:text-[6.5rem] mb-28 max-w-5xl reveal"
+        class="text-charcoal reveal mb-28 max-w-5xl text-6xl leading-[0.99] tracking-tight lg:text-[6.5rem]"
         style="transition-delay: 100ms"
         set:html={section?.scaleHeadline}
       />
 
       {/* Monumental Counter */}
-      <div
-        class="mb-20 sm:mb-12 lg:mb-20 reveal"
-        style="transition-delay: 200ms"
-      >
+      <div class="reveal mb-20 sm:mb-12 lg:mb-20" style="transition-delay: 200ms">
         <div class="relative inline-block">
           <span
             id="monumental-value"
-            class="text-[140px] lg:text-[280px] leading-[0.7] tracking-tighter text-charcoal block"
+            class="text-charcoal block text-[140px] leading-[0.7] tracking-tighter lg:text-[280px]"
           >
             {formattedTotal.split(" ")[0]} +
           </span>
 
-          <p
-            class="mt-12 text-xs font-semibold uppercase tracking-[0.5em] text-charcoal/50"
-          >
+          <p class="text-charcoal/50 mt-12 text-xs font-semibold tracking-[0.5em] uppercase">
             {formattedTotal.split(" ").slice(1).join(" ")} Sq Ft - Delivered
           </p>
         </div>
       </div>
 
       <div
-        class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center w-full max-w-7xl mb-20 lg:mb-32"
+        class="mb-20 grid w-full max-w-7xl grid-cols-1 items-center gap-16 lg:mb-32 lg:grid-cols-10"
       >
         <div
-          class="order-2 lg:order-1 lg:col-span-6 text-center lg:text-left reveal"
+          class="reveal order-2 text-center lg:order-1 lg:col-span-6 lg:text-left"
           style="transition-delay: 300ms"
         >
           <div class="space-y-8">
             <p
-              class="text-base lg:text-2xl text-charcoal/60 font-light leading-relaxed max-w-2xl mx-auto lg:mx-0"
+              class="text-charcoal/60 mx-auto max-w-2xl text-base leading-relaxed font-light lg:mx-0 lg:text-2xl"
               set:html={section?.scaleBody}
             />
-            <div class="pt-4 flex flex-col items-center lg:items-start gap-8">
+            <div class="flex flex-col items-center gap-8 pt-4 lg:items-start">
               <a
                 href="/studio#partners"
-                class="lg:hidden group/partners font-semibold flex items-center gap-3 text-base text-charcoal/40 transition-all duration-300 hover:text-charcoal"
+                class="group/partners text-charcoal/40 hover:text-charcoal flex items-center gap-3 text-base font-semibold transition-all duration-300 lg:hidden"
               >
                 Meet the Partners
                 <svg
@@ -105,39 +94,35 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
         </div>
 
         <div
-          class="order-1 lg:order-2 lg:col-span-4 flex flex-col items-center lg:items-end gap-12 reveal"
+          class="reveal order-1 flex flex-col items-center gap-12 lg:order-2 lg:col-span-4 lg:items-end"
           style="transition-delay: 450ms"
         >
-          <div class="text-center lg:text-right space-y-4">
+          <div class="space-y-4 text-center lg:text-right">
             <div>
-              <p
-                class="text-[10px] uppercase tracking-widest text-charcoal/40 mb-1"
-              >
+              <p class="text-charcoal/40 mb-1 text-[10px] tracking-widest uppercase">
                 = Sq Ft + (Imperial)
               </p>
               <p
-                class="text-3xl text-charcoal/70 transition-all hover:text-charcoal cursor-default"
+                class="text-charcoal/70 hover:text-charcoal cursor-default text-3xl transition-all"
               >
                 {intlTotalSqFt}
               </p>
             </div>
             <div>
-              <p
-                class="text-[10px] uppercase tracking-widest text-charcoal/40 mb-1"
-              >
+              <p class="text-charcoal/40 mb-1 text-[10px] tracking-widest uppercase">
                 = Sq Metres + (Metric)
               </p>
               <p
-                class="text-3xl text-charcoal/70 transition-all hover:text-charcoal cursor-default"
+                class="text-charcoal/70 hover:text-charcoal cursor-default text-3xl transition-all"
               >
                 {intlTotalSqMt}
               </p>
             </div>
           </div>
-          <div class="hidden lg:flex flex-col items-center lg:items-end gap-8">
+          <div class="hidden flex-col items-center gap-8 lg:flex lg:items-end">
             <a
-              href="/studio#partners"
-              class="group/partners font-semibold flex items-center gap-3 text-base text-charcoal/40 transition-all duration-300 hover:text-charcoal"
+              href="/about"
+              class="group/partners text-charcoal/40 hover:text-charcoal flex items-center gap-3 text-base font-semibold transition-all duration-300"
             >
               Meet the Partners
               <svg
@@ -153,12 +138,10 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
 
       {/* Philosophy & CTA (Underneath all, Centred) */}
       <div
-        class="flex flex-col items-center text-center space-y-12 reveal"
+        class="reveal flex flex-col items-center space-y-12 text-center"
         style="transition-delay: 500ms"
       >
-        <p
-          class="text-xs font-semibold uppercase tracking-[0.3em] text-charcoal/50 max-w-xl"
-        >
+        <p class="text-charcoal/50 max-w-xl text-xs font-semibold tracking-[0.3em] uppercase">
           Every defining project begins with an idea.
         </p>
         <Cta
@@ -198,11 +181,7 @@ const intlTotalSqMt = `${((totalSqFt * 0.0929) / 1_000_000).toFixed(2)} Million`
           // 3. Drafting Dash Progress
           const progress = Math.min(
             100,
-            Math.max(
-              0,
-              (Math.abs(rect.top - window.innerHeight) / section.offsetHeight) *
-                100,
-            ),
+            Math.max(0, (Math.abs(rect.top - window.innerHeight) / section.offsetHeight) * 100),
           );
           dash.style.setProperty("--dash-width", `${progress * 0.8}%`);
         }

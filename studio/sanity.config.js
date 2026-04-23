@@ -43,7 +43,7 @@ export default defineConfig({
               S,
               context,
             }),
-            
+
             orderableDocumentListDeskItem({
               type: 'sector',
               title: 'Sectors (Ordered)',
@@ -63,9 +63,15 @@ export default defineConfig({
             // All other document types (excludes project, discipline, sector, employee, homepage, media.tag, settings)
             ...S.documentTypeListItems().filter(
               (listItem) =>
-                !['project', 'discipline', 'sector', 'employee', 'homepage', 'media.tag', 'settings'].includes(
-                  listItem.getId(),
-                ),
+                ![
+                  'project',
+                  'discipline',
+                  'sector',
+                  'employee',
+                  'homepage',
+                  'media.tag',
+                  'settings',
+                ].includes(listItem.getId()),
             ),
           ]),
     }),

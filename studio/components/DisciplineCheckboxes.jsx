@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import { Stack, Checkbox, Text, Flex, Spinner } from '@sanity/ui'
-import { set, unset, useClient } from 'sanity'
+import React, {useEffect, useState, useCallback} from 'react'
+import {Stack, Checkbox, Text, Flex, Spinner} from '@sanity/ui'
+import {set, unset, useClient} from 'sanity'
 
 export function DisciplineCheckboxes(props) {
-  const { onChange, value = [] } = props
-  const client = useClient({ apiVersion: '2024-03-01' })
+  const {onChange, value = []} = props
+  const client = useClient({apiVersion: '2024-03-01'})
   const [options, setOptions] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -45,7 +45,7 @@ export function DisciplineCheckboxes(props) {
       // If array is empty, unset the field, otherwise set the new array
       onChange(nextValue.length > 0 ? set(nextValue) : unset())
     },
-    [onChange, value]
+    [onChange, value],
   )
 
   if (loading) {

@@ -17,7 +17,7 @@ const client = createClient({
 // oracle-pune-dome-metaphors-design.jpeg  →  the large stature image
 // metaphors-detail.png                    →  the precision detail image
 
-const statureImageId   = 'image-dc1a4cf08cda82fa89fbeb800293dde0ee8980d0-1696x2528-jpg'
+const statureImageId = 'image-dc1a4cf08cda82fa89fbeb800293dde0ee8980d0-1696x2528-jpg'
 const precisionImageId = 'image-8d34a77e35acfaaa3a8cdf283a888590bb43a9e6-1024x1024-jpg'
 
 const result = await client

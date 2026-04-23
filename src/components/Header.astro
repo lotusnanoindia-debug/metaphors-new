@@ -1,22 +1,14 @@
 ---
 import Icon from "./Icon.astro";
 import Cta from "./Cta.astro";
-import {
-  client,
-  SECTORS_QUERY,
-  DISCIPLINES_QUERY,
-  imageUrl,
-} from "../lib/sanity";
+import { client, SECTORS_QUERY, DISCIPLINES_QUERY, imageUrl } from "../lib/sanity";
 
 const sectorsData = await client.fetch(SECTORS_QUERY);
 const disciplinesData = await client.fetch(DISCIPLINES_QUERY);
 
 const sectors = sectorsData.map((sector: any) => ({
   title: sector.title,
-  tagline:
-    sector.menuTagline ||
-    sector.homeHeadline ||
-    "Expert Architectural Solutions",
+  tagline: sector.menuTagline || sector.homeHeadline || "Expert Architectural Solutions",
   path: `/sectors/${sector.slug}`,
   image: sector.menuImage || sector.image,
 }));
@@ -37,65 +29,57 @@ const menuItems = [
 <!-- HEADER BAR -->
 <header
   id="site-header"
-  class="fixed top-0 left-0 w-full z-400 transition-all duration-700 bg-white/80 backdrop-blur-md border-b border-charcoal/5"
+  class="border-charcoal/5 fixed top-0 left-0 z-400 w-full border-b bg-white/80 backdrop-blur-md transition-all duration-700"
   aria-label="Site Header"
 >
-  <div class="max-w-[1440px] mx-auto px-6 lg:px-12 relative">
+  <div class="relative mx-auto max-w-[1440px] px-6 lg:px-12">
     <div class="flex h-20 items-center justify-between">
       <!-- Logo -->
       <a
         href="/"
-        class="relative z-10 flex items-center gap-3 group/logo"
+        class="group/logo relative z-10 flex items-center gap-3"
         aria-label="Metaphors Design — Home"
       >
         <img
           alt=""
           aria-hidden="true"
-          class="h-6 w-auto transition-transform duration-700 grayscale-30 group-hover/logo:scale-110 group-hover/logo:grayscale-0"
+          class="h-6 w-auto grayscale-30 transition-transform duration-700 group-hover/logo:scale-110 group-hover/logo:grayscale-0"
           src="/metaphors-design-logo.svg"
         />
-        <span class="text-xl font-medium tracking-tight text-black"
-          >metaphors design</span
-        >
+        <span class="text-xl font-medium tracking-tight text-black">metaphors design</span>
       </a>
 
       <!-- Desktop Navigation -->
-      <nav
-        class="hidden lg:flex items-center gap-12 h-full"
-        aria-label="Primary"
-      >
+      <nav class="hidden h-full items-center gap-12 lg:flex" aria-label="Primary">
         <!-- Sectors Trigger -->
-        <div
-          class="h-full flex items-center menu-trigger-container projects"
-          id="sectors-trigger"
-        >
+        <div class="menu-trigger-container projects flex h-full items-center" id="sectors-trigger">
           <button
-            class="relative flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/60 hover:text-black transition-colors duration-300 h-full cursor-pointer"
+            class="text-charcoal/60 relative flex h-full cursor-pointer items-center gap-2 text-[10px] font-medium tracking-[0.3em] uppercase transition-colors duration-300 hover:text-black"
             aria-haspopup="true"
             aria-expanded="false"
           >
             Portfolio
-            <Icon name="ph:caret-down" class="w-2.5 h-2.5" />
+            <Icon name="ph:caret-down" class="h-2.5 w-2.5" />
             <span
-              class="nav-underline absolute bottom-[28px] left-0 w-full h-[1.5px] bg-black scale-x-0 transition-transform duration-400 origin-left"
+              class="nav-underline absolute bottom-[28px] left-0 h-[1.5px] w-full origin-left scale-x-0 bg-black transition-transform duration-400"
             ></span>
           </button>
         </div>
 
         <!-- Disciplines Trigger -->
         <div
-          class="h-full flex items-center menu-trigger-container disciplines"
+          class="menu-trigger-container disciplines flex h-full items-center"
           id="disciplines-trigger"
         >
           <button
-            class="relative flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/60 hover:text-black transition-colors duration-300 h-full cursor-pointer"
+            class="text-charcoal/60 relative flex h-full cursor-pointer items-center gap-2 text-[10px] font-medium tracking-[0.3em] uppercase transition-colors duration-300 hover:text-black"
             aria-haspopup="true"
             aria-expanded="false"
           >
-            Expertise
-            <Icon name="ph:caret-down" class="w-2.5 h-2.5" />
+            Disciplines
+            <Icon name="ph:caret-down" class="h-2.5 w-2.5" />
             <span
-              class="nav-underline absolute bottom-[28px] left-0 w-full h-[1.5px] bg-black scale-x-0 transition-transform duration-400 origin-left"
+              class="nav-underline absolute bottom-[28px] left-0 h-[1.5px] w-full origin-left scale-x-0 bg-black transition-transform duration-400"
             ></span>
           </button>
         </div>
@@ -104,10 +88,10 @@ const menuItems = [
           menuItems.map((item) => (
             <a
               href={item.path}
-              class="relative text-[10px] font-medium uppercase tracking-[0.3em] text-charcoal/60 hover:text-black transition-colors py-2 group/nav h-full flex items-center"
+              class="text-charcoal/60 group/nav relative flex h-full items-center py-2 text-[10px] font-medium tracking-[0.3em] uppercase transition-colors hover:text-black"
             >
               {item.name}
-              <span class="absolute bottom-[28px] left-0 w-full h-[1.5px] bg-black scale-x-0 group-hover/nav:scale-x-100 transition-transform duration-400 origin-left" />
+              <span class="absolute bottom-[28px] left-0 h-[1.5px] w-full origin-left scale-x-0 bg-black transition-transform duration-400 group-hover/nav:scale-x-100" />
             </a>
           ))
         }
@@ -121,16 +105,16 @@ const menuItems = [
       <!-- Custom Drafting Burger Trigger -->
       <button
         id="burger-btn"
-        class="lg:hidden relative z-300 w-10 h-10 flex flex-col items-end justify-center gap-1.5 group/burger"
+        class="group/burger relative z-300 flex h-10 w-10 flex-col items-end justify-center gap-1.5 lg:hidden"
         aria-label="Open navigation menu"
         aria-expanded="false"
         aria-controls="mobile-nav"
       >
         <span
-          class="w-6 h-px bg-charcoal transition-all duration-500 group-[.is-active]/burger:rotate-45 group-[.is-active]/burger:translate-y-[3.5px]"
+          class="bg-charcoal h-px w-6 transition-all duration-500 group-[.is-active]/burger:translate-y-[3.5px] group-[.is-active]/burger:rotate-45"
         ></span>
         <span
-          class="w-4 h-px bg-charcoal transition-all duration-500 group-[.is-active]/burger:w-6 group-[.is-active]/burger:-rotate-45 group-[.is-active]/burger:-translate-y-[3.5px]"
+          class="bg-charcoal h-px w-4 transition-all duration-500 group-[.is-active]/burger:w-6 group-[.is-active]/burger:-translate-y-[3.5px] group-[.is-active]/burger:-rotate-45"
         ></span>
       </button>
     </div>
@@ -142,67 +126,56 @@ const menuItems = [
 ============================================================ -->
 <div
   id="mega-menu-sectors"
-  class="fixed top-0 left-0 w-full h-screen z-190 pointer-events-none"
+  class="pointer-events-none fixed top-0 left-0 z-190 h-screen w-full"
   aria-hidden="true"
 >
   <!-- Backdrop -->
-  <div
-    class="mm-backdrop absolute inset-0 bg-black/0 transition-colors duration-500"
-  >
-  </div>
+  <div class="mm-backdrop absolute inset-0 bg-black/0 transition-colors duration-500"></div>
 
   <!-- Panel -->
   <div
-    class="mm-panel absolute top-[80px] left-0 w-full bg-white shadow-[0_30px_80px_rgba(0,0,0,0.18)]
-              opacity-0 -translate-y-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+    class="mm-panel absolute top-[80px] left-0 w-full -translate-y-3 bg-white opacity-0 shadow-[0_30px_80px_rgba(0,0,0,0.18)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
   >
     <div
-      class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-[1fr_1.4fr] py-10 lg:py-16 gap-16 relative"
+      class="relative mx-auto grid max-w-[1440px] grid-cols-[1fr_1.4fr] gap-16 px-6 py-10 lg:px-12 lg:py-16"
     >
       <!-- Close Button -->
       <button
-        class="absolute top-10 right-12 text-[9px] font-medium uppercase tracking-[0.4em] text-charcoal/20 hover:text-black transition-all duration-300 flex items-center gap-3 mm-close-btn cursor-pointer group/close z-50"
+        class="text-charcoal/20 mm-close-btn group/close absolute top-10 right-12 z-50 flex cursor-pointer items-center gap-3 text-[9px] font-medium tracking-[0.4em] uppercase transition-all duration-300 hover:text-black"
         aria-label="Close menu"
       >
         <span>Close</span>
         <Icon
           name="ph:x"
-          class="w-3.5 h-3.5 transition-transform duration-500 group-hover/close:rotate-90"
+          class="h-3.5 w-3.5 transition-transform duration-500 group-hover/close:rotate-90"
         />
       </button>
 
       <!-- Left: Numbered List -->
       <div class="flex flex-col justify-between">
-        <p
-          class="text-[9px] font-medium uppercase tracking-[0.6em] text-charcoal/30 mb-10"
-        >
+        <p class="text-charcoal/30 mb-10 text-[9px] font-medium tracking-[0.6em] uppercase">
           Work by Industry
         </p>
-        <nav
-          class="flex flex-col gap-0 group/list flex-1 justify-center"
-          aria-label="Sectors"
-        >
+        <nav class="group/list flex flex-1 flex-col justify-center gap-0" aria-label="Sectors">
           {
             sectors.map((sector: any, i: number) => (
               <a
                 href={sector.path}
-                class="sector-item flex items-center gap-6 py-4 border-b border-charcoal/5 last:border-0
-                     text-charcoal/40 transition-all duration-500 group/item
-                     group-hover/list:opacity-50 hover:opacity-100! [&.is-active]:text-black [&.is-active]:opacity-100!"
+                class="sector-item border-charcoal/5 text-charcoal/40 group/item flex items-center gap-6 border-b py-4 transition-all duration-500 group-hover/list:opacity-50 last:border-0 hover:opacity-100! [&.is-active]:text-black [&.is-active]:opacity-100!"
                 data-image={imageUrl(sector.image)}
                 data-tagline={sector.tagline}
                 data-title={sector.title}
               >
-                <span class="text-[14px] tracking-widest w-8 shrink-0 tabular-nums opacity-20 group-hover/item:opacity-100 group-[.is-active]/item:opacity-100 transition-all duration-500">
+                <span class="w-8 shrink-0 text-[14px] tracking-widest tabular-nums opacity-20 transition-all duration-500 group-hover/item:opacity-100 group-[.is-active]/item:opacity-100">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span class="text-[22px] lg:text-[26px] font-medium leading-tight tracking-tight transition-transform duration-500 group-hover/item:translate-x-3 group-[.is-active]/item:translate-x-3">
+                <span class="text-[22px] leading-tight font-medium tracking-tight transition-transform duration-500 group-hover/item:translate-x-3 group-[.is-active]/item:translate-x-3 lg:text-[26px]">
                   {sector.title}
                 </span>
                 <div class="ml-auto flex items-center">
                   <Icon
                     name="ph:arrow-right"
-                    class="w-5 h-5 opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-[.is-active]/item:opacity-100 group-[.is-active]/item:translate-x-0 transition-all duration-400 shrink-0"
+                    class="h-5 w-5 shrink-0 -translate-x-2 opacity-0 transition-all duration-400 group-hover/item:translate-x-0 group-hover/item:opacity-100 group-[.is-active]/item:translate-x-0 group-[.is-active]/item:opacity-100"
                   />
                 </div>
               </a>
@@ -212,19 +185,17 @@ const menuItems = [
       </div>
 
       <!-- Right: Large Image (intent-driven, empty by default) -->
-      <div
-        class="mm-image-pane relative overflow-hidden bg-stone-100 group/pane p-4 lg:p-6"
-      >
+      <div class="mm-image-pane group/pane relative overflow-hidden bg-stone-100 p-4 lg:p-6">
         <a
           id="sectors-preview-link"
           href="#"
-          class="block w-full h-full relative overflow-hidden bg-stone-200 cursor-pointer"
+          class="relative block h-full w-full cursor-pointer overflow-hidden bg-stone-200"
         >
           <img
             id="sectors-preview-img"
             src=""
             alt=""
-            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-[8s] ease-out scale-100 [&.is-visible]:opacity-100 [&.is-visible]:scale-110"
+            class="absolute inset-0 h-full w-full scale-100 object-cover opacity-0 transition-all duration-[8s] ease-out [&.is-visible]:scale-110 [&.is-visible]:opacity-100"
           />
           <div
             class="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent opacity-0 transition-opacity duration-700 [&.is-visible]:opacity-100"
@@ -235,16 +206,16 @@ const menuItems = [
         <!-- Tagline: Elegant Footnote Style -->
         <div
           id="sectors-preview-caption"
-          class="absolute bottom-12 left-12 right-12 z-10 opacity-0 translate-y-2 transition-all duration-700 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+          class="absolute right-12 bottom-12 left-12 z-10 translate-y-2 opacity-0 transition-all duration-700 [&.is-visible]:translate-y-0 [&.is-visible]:opacity-100"
         >
-          <div class="border-l border-white/30 pl-6 py-2">
+          <div class="border-l border-white/30 py-2 pl-6">
             <h4
-              class="text-3xl lg:text-4xl text-white mb-3 leading-tight opacity-0 transition-opacity duration-700 [&.is-visible]:opacity-100"
+              class="mb-3 text-3xl leading-tight text-white opacity-0 transition-opacity duration-700 lg:text-4xl [&.is-visible]:opacity-100"
               id="sectors-caption-header"
             >
             </h4>
             <p
-              class="text-[10px] font-semibold uppercase tracking-[0.5em] text-white/90 leading-relaxed max-w-[80%]"
+              class="max-w-[80%] text-[10px] leading-relaxed font-semibold tracking-[0.5em] text-white/90 uppercase"
               id="sectors-caption-text"
             >
             </p>
@@ -260,67 +231,56 @@ const menuItems = [
 ============================================================ -->
 <div
   id="mega-menu-disciplines"
-  class="fixed top-0 left-0 w-full h-screen z-190 pointer-events-none"
+  class="pointer-events-none fixed top-0 left-0 z-190 h-screen w-full"
   aria-hidden="true"
 >
   <!-- Backdrop -->
-  <div
-    class="mm-backdrop absolute inset-0 bg-black/0 transition-colors duration-500"
-  >
-  </div>
+  <div class="mm-backdrop absolute inset-0 bg-black/0 transition-colors duration-500"></div>
 
   <!-- Panel -->
   <div
-    class="mm-panel absolute top-[80px] left-0 w-full bg-white shadow-[0_30px_80px_rgba(0,0,0,0.18)]
-              opacity-0 -translate-y-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+    class="mm-panel absolute top-[80px] left-0 w-full -translate-y-3 bg-white opacity-0 shadow-[0_30px_80px_rgba(0,0,0,0.18)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
   >
     <div
-      class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-[1fr_1.4fr] py-10 lg:py-16 gap-16 relative"
+      class="relative mx-auto grid max-w-[1440px] grid-cols-[1fr_1.4fr] gap-16 px-6 py-10 lg:px-12 lg:py-16"
     >
       <!-- Close Button -->
       <button
-        class="absolute top-10 right-12 text-[9px] font-medium uppercase tracking-[0.4em] text-charcoal/20 hover:text-black transition-all duration-300 flex items-center gap-3 mm-close-btn cursor-pointer group/close z-50"
+        class="text-charcoal/20 mm-close-btn group/close absolute top-10 right-12 z-50 flex cursor-pointer items-center gap-3 text-[9px] font-medium tracking-[0.4em] uppercase transition-all duration-300 hover:text-black"
         aria-label="Close menu"
       >
         <span>Close</span>
         <Icon
           name="ph:x"
-          class="w-3.5 h-3.5 transition-transform duration-500 group-hover/close:rotate-90"
+          class="h-3.5 w-3.5 transition-transform duration-500 group-hover/close:rotate-90"
         />
       </button>
 
       <!-- Left: Numbered List -->
       <div class="flex flex-col justify-between">
-        <p
-          class="text-[9px] font-medium uppercase tracking-[0.6em] text-charcoal/30 mb-10"
-        >
+        <p class="text-charcoal/30 mb-10 text-[9px] font-medium tracking-[0.6em] uppercase">
           Core Capabilities
         </p>
-        <nav
-          class="flex flex-col gap-0 group/list flex-1 justify-center"
-          aria-label="Disciplines"
-        >
+        <nav class="group/list flex flex-1 flex-col justify-center gap-0" aria-label="Disciplines">
           {
             disciplines.map((d: any, i: number) => (
               <a
                 href={d.path}
-                class="discipline-item flex items-center gap-6 py-4 border-b border-charcoal/5 last:border-0
-                     text-charcoal/40 transition-all duration-500 group/item
-                     group-hover/list:opacity-50 hover:opacity-100! [&.is-active]:text-black [&.is-active]:opacity-100!"
+                class="discipline-item border-charcoal/5 text-charcoal/40 group/item flex items-center gap-6 border-b py-4 transition-all duration-500 group-hover/list:opacity-50 last:border-0 hover:opacity-100! [&.is-active]:text-black [&.is-active]:opacity-100!"
                 data-image={imageUrl(d.image)}
                 data-tagline={d.tagline}
                 data-title={d.title}
               >
-                <span class="text-[14px] tracking-widest w-8 shrink-0 tabular-nums opacity-20 group-hover/item:opacity-100 group-[.is-active]/item:opacity-100 transition-all duration-500">
+                <span class="w-8 shrink-0 text-[14px] tracking-widest tabular-nums opacity-20 transition-all duration-500 group-hover/item:opacity-100 group-[.is-active]/item:opacity-100">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span class="text-[22px] lg:text-[26px] font-medium leading-tight tracking-tight transition-transform duration-500 group-hover/item:translate-x-3 group-[.is-active]/item:translate-x-3">
+                <span class="text-[22px] leading-tight font-medium tracking-tight transition-transform duration-500 group-hover/item:translate-x-3 group-[.is-active]/item:translate-x-3 lg:text-[26px]">
                   {d.title}
                 </span>
                 <div class="ml-auto flex items-center">
                   <Icon
                     name="ph:arrow-right"
-                    class="w-5 h-5 opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-[.is-active]/item:opacity-100 group-[.is-active]/item:translate-x-0 transition-all duration-400 shrink-0"
+                    class="h-5 w-5 shrink-0 -translate-x-2 opacity-0 transition-all duration-400 group-hover/item:translate-x-0 group-hover/item:opacity-100 group-[.is-active]/item:translate-x-0 group-[.is-active]/item:opacity-100"
                   />
                 </div>
               </a>
@@ -330,19 +290,17 @@ const menuItems = [
       </div>
 
       <!-- Right: Large Image -->
-      <div
-        class="mm-image-pane relative overflow-hidden bg-stone-100 group/pane p-4 lg:p-6"
-      >
+      <div class="mm-image-pane group/pane relative overflow-hidden bg-stone-100 p-4 lg:p-6">
         <a
           id="disciplines-preview-link"
           href="#"
-          class="block w-full h-full relative overflow-hidden bg-stone-200 cursor-pointer"
+          class="relative block h-full w-full cursor-pointer overflow-hidden bg-stone-200"
         >
           <img
             id="disciplines-preview-img"
             src=""
             alt=""
-            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-[8s] ease-out scale-100 [&.is-visible]:opacity-100 [&.is-visible]:scale-110"
+            class="absolute inset-0 h-full w-full scale-100 object-cover opacity-0 transition-all duration-[8s] ease-out [&.is-visible]:scale-110 [&.is-visible]:opacity-100"
           />
           <div
             class="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent opacity-0 transition-opacity duration-700 [&.is-visible]:opacity-100"
@@ -353,16 +311,16 @@ const menuItems = [
         <!-- Tagline: Elegant Footnote Style -->
         <div
           id="disciplines-preview-caption"
-          class="absolute bottom-12 left-12 right-12 z-10 opacity-0 translate-y-2 transition-all duration-700 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+          class="absolute right-12 bottom-12 left-12 z-10 translate-y-2 opacity-0 transition-all duration-700 [&.is-visible]:translate-y-0 [&.is-visible]:opacity-100"
         >
-          <div class="border-l border-white/30 pl-6 py-2">
+          <div class="border-l border-white/30 py-2 pl-6">
             <h4
-              class="text-3xl lg:text-4xl text-white mb-3 leading-tight opacity-0 transition-opacity duration-700 [&.is-visible]:opacity-100"
+              class="mb-3 text-3xl leading-tight text-white opacity-0 transition-opacity duration-700 lg:text-4xl [&.is-visible]:opacity-100"
               id="disciplines-caption-header"
             >
             </h4>
             <p
-              class="text-[10px] font-semibold uppercase tracking-[0.5em] text-white/90 leading-relaxed max-w-[80%]"
+              class="max-w-[80%] text-[10px] leading-relaxed font-semibold tracking-[0.5em] text-white/90 uppercase"
               id="disciplines-caption-text"
             >
             </p>
@@ -376,28 +334,20 @@ const menuItems = [
 <!-- MOBILE NAV -->
 <nav
   id="mobile-nav"
-  class="fixed inset-0 z-350 bg-white flex flex-col pointer-events-none opacity-0 transition-opacity duration-500 lg:hidden"
+  class="pointer-events-none fixed inset-0 z-350 flex flex-col bg-white opacity-0 transition-opacity duration-500 lg:hidden"
 >
-  <div class="flex h-20 items-center justify-end px-6 shrink-0">
+  <div class="flex h-20 shrink-0 items-center justify-end px-6">
     <!-- Hidden completely, the main burger in the header stays visible to close it -->
-    <button
-      id="mobile-nav-close"
-      class="hidden"
-      aria-label="Close navigation menu"
-    >
-    </button>
+    <button id="mobile-nav-close" class="hidden" aria-label="Close navigation menu"> </button>
   </div>
   <div class="flex-1 overflow-y-auto px-8 py-14">
     <div class="flex flex-col gap-10">
       <!-- Core Utility Index -->
-      <ul
-        class="flex flex-wrap gap-x-8 gap-y-4 mb-4 border-b border-charcoal/5 pb-10"
-        role="list"
-      >
+      <ul class="border-charcoal/5 mb-4 flex flex-wrap gap-x-8 gap-y-4 border-b pb-10" role="list">
         <li>
           <a
             href="/"
-            class="text-[10px] font-semibold uppercase tracking-[0.4em] text-charcoal/40 hover:text-black transition-colors"
+            class="text-charcoal/40 text-[10px] font-semibold tracking-[0.4em] uppercase transition-colors hover:text-black"
           >
             Home
           </a>
@@ -407,7 +357,7 @@ const menuItems = [
             <li>
               <a
                 href={item.path}
-                class="text-[10px] font-semibold uppercase tracking-[0.4em] text-charcoal/40 hover:text-black transition-colors"
+                class="text-charcoal/40 text-[10px] font-semibold tracking-[0.4em] uppercase transition-colors hover:text-black"
               >
                 {item.name}
               </a>
@@ -420,20 +370,18 @@ const menuItems = [
       <div class="flex flex-col gap-6">
         <div class="mobile-accordion group/accordion" id="mobile-sectors-acc">
           <button
-            class="flex items-center justify-between w-full text-4xl tracking-tight text-charcoal/40 hover:text-black transition-all duration-500 group-[.is-expanded]/accordion:text-black group-[.is-expanded]/accordion:mb-6"
+            class="text-charcoal/40 flex w-full items-center justify-between text-4xl tracking-tight transition-all duration-500 group-[.is-expanded]/accordion:mb-6 group-[.is-expanded]/accordion:text-black hover:text-black"
           >
             Portfolio
-            <div class="relative w-4 h-4 flex items-center justify-center">
+            <div class="relative flex h-4 w-4 items-center justify-center">
+              <span class="absolute h-px w-4 bg-current transition-transform duration-500"></span>
               <span
-                class="absolute w-4 h-px bg-current transition-transform duration-500"
-              ></span>
-              <span
-                class="absolute w-px h-4 bg-current transition-transform duration-500 group-[.is-expanded]/accordion:rotate-90"
+                class="absolute h-4 w-px bg-current transition-transform duration-500 group-[.is-expanded]/accordion:rotate-90"
               ></span>
             </div>
           </button>
           <div
-            class="hidden group-[.is-expanded]/accordion:block mt-8 animate-in fade-in slide-in-from-top-2 duration-500"
+            class="animate-in fade-in slide-in-from-top-2 mt-8 hidden duration-500 group-[.is-expanded]/accordion:block"
           >
             <ul class="flex flex-col gap-1" role="list">
               {
@@ -444,10 +392,9 @@ const menuItems = [
                   >
                     <a
                       href={sector.path}
-                      class="flex items-center gap-6 py-4 border-b border-charcoal/5 group/mobitem
-                             text-charcoal/60 hover:text-black transition-colors"
+                      class="border-charcoal/5 group/mobitem text-charcoal/60 flex items-center gap-6 border-b py-4 transition-colors hover:text-black"
                     >
-                      <span class="text-[9px] font-medium tracking-[0.2em] w-6 shrink-0 tabular-nums opacity-40">
+                      <span class="w-6 shrink-0 text-[9px] font-medium tracking-[0.2em] tabular-nums opacity-40">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span class="text-2xl font-medium tracking-tight capitalize">
@@ -455,7 +402,7 @@ const menuItems = [
                       </span>
                       <Icon
                         name="ph:arrow-right"
-                        class="ml-auto w-4 h-4 opacity-0 -translate-x-2 group-hover/mobitem:opacity-100 group-hover/mobitem:translate-x-0 transition-all duration-300"
+                        class="ml-auto h-4 w-4 -translate-x-2 opacity-0 transition-all duration-300 group-hover/mobitem:translate-x-0 group-hover/mobitem:opacity-100"
                       />
                     </a>
                   </li>
@@ -466,25 +413,20 @@ const menuItems = [
         </div>
 
         <!-- Disciplines Accordion -->
-        <div
-          class="mobile-accordion group/accordion"
-          id="mobile-disciplines-acc"
-        >
+        <div class="mobile-accordion group/accordion" id="mobile-disciplines-acc">
           <button
-            class="flex items-center justify-between w-full text-4xl tracking-tight text-charcoal/40 hover:text-black transition-all duration-500 group-[.is-expanded]/accordion:text-black group-[.is-expanded]/accordion:mb-6"
+            class="text-charcoal/40 flex w-full items-center justify-between text-4xl tracking-tight transition-all duration-500 group-[.is-expanded]/accordion:mb-6 group-[.is-expanded]/accordion:text-black hover:text-black"
           >
-            Expertise
-            <div class="relative w-4 h-4 flex items-center justify-center">
+            Disciplines
+            <div class="relative flex h-4 w-4 items-center justify-center">
+              <span class="absolute h-px w-4 bg-current transition-transform duration-500"></span>
               <span
-                class="absolute w-4 h-px bg-current transition-transform duration-500"
-              ></span>
-              <span
-                class="absolute w-px h-4 bg-current transition-transform duration-500 group-[.is-expanded]/accordion:rotate-90"
+                class="absolute h-4 w-px bg-current transition-transform duration-500 group-[.is-expanded]/accordion:rotate-90"
               ></span>
             </div>
           </button>
           <div
-            class="hidden group-[.is-expanded]/accordion:block mt-8 animate-in fade-in slide-in-from-top-2 duration-500"
+            class="animate-in fade-in slide-in-from-top-2 mt-8 hidden duration-500 group-[.is-expanded]/accordion:block"
           >
             <ul class="flex flex-col gap-1" role="list">
               {
@@ -495,18 +437,15 @@ const menuItems = [
                   >
                     <a
                       href={d.path}
-                      class="flex items-center gap-6 py-4 border-b border-charcoal/5 group/mobitem
-                             text-charcoal/60 hover:text-black transition-colors"
+                      class="border-charcoal/5 group/mobitem text-charcoal/60 flex items-center gap-6 border-b py-4 transition-colors hover:text-black"
                     >
-                      <span class="text-[9px] font-medium tracking-[0.2em] w-6 shrink-0 tabular-nums opacity-40">
+                      <span class="w-6 shrink-0 text-[9px] font-medium tracking-[0.2em] tabular-nums opacity-40">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span class="text-2xl font-medium tracking-tight capitalize">
-                        {d.title}
-                      </span>
+                      <span class="text-2xl font-medium tracking-tight capitalize">{d.title}</span>
                       <Icon
                         name="ph:arrow-right"
-                        class="ml-auto w-4 h-4 opacity-0 -translate-x-2 group-hover/mobitem:opacity-100 group-hover/mobitem:translate-x-0 transition-all duration-300"
+                        class="ml-auto h-4 w-4 -translate-x-2 opacity-0 transition-all duration-300 group-hover/mobitem:translate-x-0 group-hover/mobitem:opacity-100"
                       />
                     </a>
                   </li>
@@ -518,10 +457,10 @@ const menuItems = [
       </div>
 
       <!-- Contact CTA -->
-      <div class="mt-8 pt-8 border-t border-charcoal/5">
+      <div class="border-charcoal/5 mt-8 border-t pt-8">
         <a
           href="/contact"
-          class="inline-block text-[10px] font-semibold uppercase tracking-[0.4em] w-full text-center text-white bg-black px-10 py-5 hover:bg-charcoal transition-colors"
+          class="hover:bg-charcoal inline-block w-full bg-black px-10 py-5 text-center text-[10px] font-semibold tracking-[0.4em] text-white uppercase transition-colors"
         >
           Contact Us
         </a>
@@ -533,13 +472,9 @@ const menuItems = [
 <script>
   (() => {
     // ── Mobile Nav ──────────────────────────────────────────────
-    const burgerBtn = document.getElementById(
-      "burger-btn",
-    ) as HTMLButtonElement;
+    const burgerBtn = document.getElementById("burger-btn") as HTMLButtonElement;
     const mobileNav = document.getElementById("mobile-nav") as HTMLElement;
-    const closeBtn = document.getElementById(
-      "mobile-nav-close",
-    ) as HTMLButtonElement;
+    const closeBtn = document.getElementById("mobile-nav-close") as HTMLButtonElement;
 
     if (burgerBtn && mobileNav && closeBtn) {
       const toggle = () => {
@@ -586,21 +521,11 @@ const menuItems = [
       const trigger = document.getElementById(cfg.triggerId);
       const panel = document.getElementById(cfg.panelId);
       const previewImg = document.getElementById(cfg.imgId) as HTMLImageElement;
-      const previewLink = document.getElementById(
-        cfg.linkId,
-      ) as HTMLAnchorElement;
-      const previewGradient = document.getElementById(
-        cfg.gradientId,
-      ) as HTMLElement;
-      const previewCaption = document.getElementById(
-        cfg.captionId,
-      ) as HTMLElement;
-      const captionText = document.getElementById(
-        cfg.captionTextId,
-      ) as HTMLElement;
-      const captionHeader = document.getElementById(
-        cfg.captionHeaderId,
-      ) as HTMLElement;
+      const previewLink = document.getElementById(cfg.linkId) as HTMLAnchorElement;
+      const previewGradient = document.getElementById(cfg.gradientId) as HTMLElement;
+      const previewCaption = document.getElementById(cfg.captionId) as HTMLElement;
+      const captionText = document.getElementById(cfg.captionTextId) as HTMLElement;
+      const captionHeader = document.getElementById(cfg.captionHeaderId) as HTMLElement;
 
       if (!trigger || !panel) return;
 
@@ -651,9 +576,7 @@ const menuItems = [
           panel.classList.add("pointer-events-none");
           panel.setAttribute("aria-hidden", "true");
           // Underline
-          trigger
-            .querySelector(".nav-underline")
-            ?.classList.remove("scale-x-100");
+          trigger.querySelector(".nav-underline")?.classList.remove("scale-x-100");
           // Panel
           mmPanel.classList.add("opacity-0", "-translate-y-3");
           mmPanel.classList.remove("opacity-100", "translate-y-0");
@@ -665,12 +588,7 @@ const menuItems = [
         }, 150);
       };
 
-      const showImage = (
-        src: string,
-        tagline: string,
-        title: string,
-        href: string,
-      ) => {
+      const showImage = (src: string, tagline: string, title: string, href: string) => {
         if (src === currentImgSrc) return;
         currentImgSrc = src;
 
@@ -678,8 +596,8 @@ const menuItems = [
         if (previewLink) previewLink.href = href;
 
         // Remove 'is-visible' first to reset transition if needed
-        [previewImg, previewGradient, previewCaption, captionHeader].forEach(
-          (el) => el?.classList.remove("is-visible"),
+        [previewImg, previewGradient, previewCaption, captionHeader].forEach((el) =>
+          el?.classList.remove("is-visible"),
         );
 
         // Minor delay to ensure browser paints the removal if we wanted a per-image reset,
@@ -687,8 +605,8 @@ const menuItems = [
         previewImg.src = src;
 
         requestAnimationFrame(() => {
-          [previewImg, previewGradient, previewCaption, captionHeader].forEach(
-            (el) => el?.classList.add("is-visible"),
+          [previewImg, previewGradient, previewCaption, captionHeader].forEach((el) =>
+            el?.classList.add("is-visible"),
           );
           if (tagline && captionText) {
             captionText.textContent = tagline;
@@ -701,8 +619,8 @@ const menuItems = [
 
       const hideImage = () => {
         currentImgSrc = "";
-        [previewImg, previewGradient, previewCaption, captionHeader].forEach(
-          (el) => el?.classList.remove("is-visible"),
+        [previewImg, previewGradient, previewCaption, captionHeader].forEach((el) =>
+          el?.classList.remove("is-visible"),
         );
         // Also clear active item if image is hidden
         items.forEach((el) => el.classList.remove("is-active"));
