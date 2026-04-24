@@ -1,0 +1,101 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import MainCta from "../components/MainCta.astro";
+
+const title = "Terms of Engagement | Metaphors Design";
+const description = "Terms of Engagement for Metaphors Design, an architectural practice based in Pune, India.";
+---
+
+<Layout title={title} description={description} canonicalURL="https://metaphors.design/terms">
+  <div class="bg-bone relative min-h-screen overflow-x-hidden">
+    <Header />
+
+    <main>
+      <section class="relative w-full pt-48 pb-24 lg:pt-56 lg:pb-32">
+        <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
+          <div class="mx-auto max-w-4xl">
+            <h1 class="text-charcoal mb-8 text-5xl leading-[1.05] font-light tracking-tight lg:text-7xl">
+              Terms of Engagement
+            </h1>
+            <p class="text-charcoal/60 mb-16 text-lg">
+              Effective Date: January 1, 2026
+            </p>
+
+            <div class="prose prose-lg text-charcoal/80 prose-headings:text-charcoal prose-headings:font-light prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-p:leading-relaxed prose-a:text-charcoal prose-a:underline hover:prose-a:text-charcoal/60 max-w-none">
+              <p>
+                Welcome to Metaphors Design. These Terms of Engagement outline the standard principles and conditions under which our architectural, interior design, and masterplanning services are provided. These terms apply generally to our engagements, though specific project details will be formalized in an individual Client Agreement.
+              </p>
+
+              <h2>1. Scope of Services</h2>
+              <p>
+                Metaphors Design offers a range of design and consultancy services as agreed upon in a formal proposal or contract. Our services generally follow industry-standard phases including conceptual design, schematic design, design development, construction documentation, and construction administration. Any changes or additions to the scope of work will require written approval and may incur additional fees.
+              </p>
+
+              <h2>2. Client Responsibilities</h2>
+              <p>
+                To ensure a successful project, the Client agrees to:
+              </p>
+              <ul>
+                <li>Provide complete and accurate information regarding the project requirements, site conditions, and budget.</li>
+                <li>Make timely decisions to keep the project on schedule.</li>
+                <li>Appoint and coordinate with necessary specialized consultants or contractors when required, unless otherwise agreed upon.</li>
+                <li>Secure required permits, approvals, and variances from local authorities (e.g., Pune Municipal Corporation), with our assistance as outlined in the specific project agreement.</li>
+              </ul>
+
+              <h2>3. Professional Fees and Payment Terms</h2>
+              <p>
+                Fees are determined based on the scope, scale, and complexity of the project. They may be structured as a lump sum, a percentage of the construction cost, or an hourly rate, as detailed in the formal contract. Invoices are issued based on project milestones or monthly progress and are payable within the timeframe stipulated in the invoice.
+              </p>
+
+              <h2>4. Intellectual Property</h2>
+              <p>
+                All design concepts, drawings, models, specifications, and other documents prepared by Metaphors Design are instruments of our professional service and remain the intellectual property of Metaphors Design. Clients are granted a non-exclusive license to use these documents solely for the purpose of constructing, using, and maintaining the specific project for which they were created, provided that all fees owed have been paid in full.
+              </p>
+
+              <h2>5. Limitation of Liability</h2>
+              <p>
+                Metaphors Design performs its services with the reasonable standard of care expected of professionals practicing in Pune, India. However, we cannot guarantee the performance, quality, or timely completion of work by third-party contractors or consultants. Our liability for any claims arising from the project is limited as defined in the specific Client Agreement.
+              </p>
+
+              <h2>6. Termination</h2>
+              <p>
+                Either party may terminate the engagement with reasonable written notice should the other party fail substantially to perform in accordance with the agreed terms through no fault of the terminating party. In the event of termination, Metaphors Design shall be compensated for all services performed and expenses incurred up to the date of termination.
+              </p>
+
+              <h2>7. Governing Law</h2>
+              <p>
+                These terms, and any disputes arising out of or related to our services, shall be governed by and construed in accordance with the laws of India. Any legal proceedings shall be subject to the exclusive jurisdiction of the courts in Pune, Maharashtra.
+              </p>
+
+              <h2>8. Contact Us</h2>
+              <p>
+                If you have questions or require clarification regarding these terms, please contact us at:
+              </p>
+              <address class="not-italic mt-4">
+                <strong>Metaphors Design</strong><br />
+                Pune, Maharashtra, India<br />
+                Phone: (+91) 96653 55522 / (+91) 98222 79173<br />
+                Email: <a href="mailto:info@metaphors-design.com" class="text-charcoal underline">info@metaphors-design.com</a>
+              </address>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <MainCta
+      section={{
+        eyebrow: "Engagement",
+        headline: "Begin the Dialogue.",
+        tagline: "You don't need a finished brief. Ambition and intent are enough to start the conversation.",
+        ctaLabel: "Start the Conversation",
+        ctaUrl: "/contact",
+      }}
+      className="bg-bone border-charcoal/10 border-t"
+    />
+
+    <Footer />
+  </div>
+</Layout>
