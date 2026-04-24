@@ -30,9 +30,11 @@
   "devDependencies": {
     "@sanity/icons": "^3.7.4",
     "@sanity/orderable-document-list": "^1.5.1",
+    "@sanity/types": "^5.22.0",
     "@types/express": "^4.17.21",
     "@types/node": "^22.19.17",
     "autoprefixer": "^10.4.21",
+    "playwright": "^1.59.1",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
