@@ -232,7 +232,6 @@ export const SECTOR_DETAIL_QUERY = `{
       coverImage { ..., asset-> { ..., originalFilename } },
       completionYear
     },
-    frameworkDescription,
     customCTA,
     image { ..., asset-> { ..., originalFilename } }
   },

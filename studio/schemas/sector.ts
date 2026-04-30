@@ -138,15 +138,6 @@ export default defineType({
       group: 'landingContext',
     }),
     defineField({
-      name: 'frameworkDescription',
-      title: 'Success Factors Description',
-      description:
-        'The strategic intro copy beneath the "Success Factors" heading on the sector landing page. E.g. "Key principles we apply to balance architectural ambition with…"',
-      type: 'text',
-      rows: 3,
-      group: 'landingContext',
-    }),
-    defineField({
       name: 'customCTA',
       title: 'Custom CTA Text',
       description: 'Instead of "Contact Us", tailor the button: "Discuss Your Healthcare Project".',

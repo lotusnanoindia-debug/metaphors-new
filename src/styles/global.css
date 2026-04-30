@@ -29,10 +29,6 @@
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 80px;
-  }
   body {
     @apply bg-bone text-charcoal antialiased;
   }
