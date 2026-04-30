@@ -96,15 +96,15 @@ const jsonLd = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </Fragment>
 
-  <div class="bg-bone relative min-h-screen overflow-x-hidden">
+  <div class="bg-bone relative min-h-screen">
     <Header />
 
     <main>
-      <!-- ─── 1. MONUMENTAL HERO ──────────────────────────────── -->
+      {/* ─── 1. MONUMENTAL HERO ──────────────────────────────── */}
       <section class="relative w-full py-48 lg:py-56" aria-labelledby="sector-hero-heading">
         <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
           <div class="mx-auto flex max-w-5xl flex-col items-center text-center">
-            <!-- Breadcrumbs -->
+            {/* Breadcrumbs */}
             <nav class="reveal mb-12" aria-label="Breadcrumb">
               <ol
                 class="text-charcoal/30 flex items-center justify-center gap-3 text-[9px] font-bold tracking-[0.25em] uppercase"
@@ -124,7 +124,7 @@ const jsonLd = {
             </nav>
             <h1
               id="sector-hero-heading"
-              class="reveal text-[clamp(3.5rem,11vw,9rem)] leading-[0.9] font-medium tracking-[-0.045em] select-none lg:text-[clamp(3.5rem,9vw,7rem)]"
+              class="reveal text-[clamp(3.5rem,11vw,9rem)] leading-[1.04] font-medium tracking-[-0.045em] select-none lg:text-[clamp(3.5rem,9vw,7rem)]"
             >
               <span class="text-charcoal block">
                 {sector.homeHeadline}
@@ -141,7 +141,7 @@ const jsonLd = {
         </div>
       </section>
 
-      <!-- ─── 2. STATURE IMAGE GRID ──────────────────────────── -->
+      {/* ─── 2. STATURE IMAGE GRID ──────────────────────────── */}
       <section
         class="-mt-12 w-full px-6 pb-32 lg:mt-0 lg:px-12 lg:pb-48"
         aria-label="Sector stature imagery"
@@ -159,6 +159,41 @@ const jsonLd = {
                     <p class="text-charcoal/90 text-2xl leading-[1.15] font-light tracking-tight lg:text-4xl">
                       {sector.pageHeroSub}
                     </p>
+
+                    {/* Hero Index - Fast Track Navigation */}
+                    <nav class="reveal mt-12 lg:mt-16" aria-label="Page Index">
+                      <ul class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 text-[10px] font-bold tracking-[0.4em] uppercase lg:justify-start">
+                        <li>
+                          <a
+                            href="#intent"
+                            class="group text-charcoal/30 hover:text-charcoal relative py-2 transition-colors"
+                          >
+                            Approach
+                            <span class="bg-charcoal absolute bottom-0 left-0 h-px w-full opacity-10 transition-all duration-700 group-hover:opacity-100" />
+                          </a>
+                        </li>
+                        <li class="bg-charcoal/20 h-px w-3" />
+                        <li>
+                          <a
+                            href="#rigour"
+                            class="group text-charcoal/30 hover:text-charcoal relative py-2 transition-colors"
+                          >
+                            Standards
+                            <span class="bg-charcoal absolute bottom-0 left-0 h-px w-full opacity-10 transition-all duration-700 group-hover:opacity-100" />
+                          </a>
+                        </li>
+                        <li class="bg-charcoal/20 h-px w-3" />
+                        <li>
+                          <a
+                            href="#commissions"
+                            class="group text-charcoal/30 hover:text-charcoal relative py-2 transition-colors"
+                          >
+                            Commissions
+                            <span class="bg-charcoal absolute bottom-0 left-0 h-px w-full opacity-10 transition-all duration-700 group-hover:opacity-100" />
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
                   </div>
                 )
               }
@@ -184,7 +219,7 @@ const jsonLd = {
                   )
                 }
 
-                <!-- Footnote Badge -->
+                {/* Footnote Badge */}
                 <div class="pointer-events-none absolute bottom-0 left-0 z-10">
                   <div
                     class="bg-bone/50 group-hover/stature-lg:bg-bone/90 origin-bottom-left translate-x-10 -translate-y-10 border border-white/10 px-8 py-4 backdrop-blur-sm transition-all duration-1000 group-hover/stature-lg:border-white/20 group-hover/stature-lg:backdrop-blur-xl"
@@ -201,9 +236,9 @@ const jsonLd = {
 
             <!-- Right: Fixed Dark Column (consistent across all sector pages) -->
             <div
-              class="group/stature-sm bg-charcoal reveal relative mt-12 h-[50vh] overflow-hidden delay-200 lg:col-span-3 lg:mt-0 lg:h-[80vh]"
+              class="group/stature-sm bg-charcoal reveal relative mt-12 h-[70vh] overflow-hidden delay-200 lg:col-span-3 lg:mt-0 lg:h-[80vh]"
             >
-              <!-- Fixed architectural backdrop image from Sanity -->
+              {/* Fixed architectural backdrop image from Sanity */}
               {
                 precisionImage ? (
                   <img
@@ -257,10 +292,11 @@ const jsonLd = {
         </div>
       </section>
 
-      <!-- ─── 3. VALUE PROPOSITION ───────────────────────────── -->
+      {/* ─── 3. VALUE PROPOSITION ───────────────────────────── */}
       {
         sector.valueProposition && (
           <section
+            id="intent"
             class="text-charcoal relative overflow-hidden bg-[#f2f1ec] px-6 py-24 lg:px-12 lg:py-48"
             aria-labelledby="value-prop-heading"
           >
@@ -268,17 +304,17 @@ const jsonLd = {
               <div class="grid grid-cols-1 items-start gap-16 lg:grid-cols-12 lg:gap-24">
                 {/* Left sticky label */}
                 <div class="reveal lg:col-span-5">
-                  <div class="lg:sticky lg:top-40">
+                  <div class="sticky top-24 lg:top-40">
                     <p class="text-charcoal/40 mb-10 text-center text-[12px] font-bold tracking-[0.3em] uppercase lg:text-left">
-                      Sector Expertise
+                      {sector.title}
                     </p>
                     <h2
                       id="value-prop-heading"
                       class="mb-8 text-center text-4xl leading-[1.05] font-light tracking-tight lg:text-left lg:text-6xl"
                     >
-                      Strategic Intent.
+                      Rigour and Intent.
                       <br />
-                      <span class="text-charcoal/40">Meticulous Execution.</span>
+                      By Experience.
                     </h2>
                     <div class="flex justify-center lg:justify-start">
                       <Cta
@@ -296,32 +332,9 @@ const jsonLd = {
                 {/* Right: Proposition text + two editorial pillars */}
                 <div class="reveal delay-150 lg:col-span-7">
                   <div class="bg-charcoal/10 mb-16 h-px w-full" />
-                  <p class="text-charcoal/80 mb-20 text-xl leading-snug font-light tracking-tight lg:text-2xl">
+                  <p class="text-charcoal/80 mb-20 text-xl leading-snug font-light tracking-tight whitespace-pre-line lg:text-2xl">
                     {sector.valueProposition}
                   </p>
-
-                  <div class="border-charcoal/8 mt-12 grid grid-cols-1 gap-12 border-t pt-12 md:grid-cols-2 lg:gap-16">
-                    <div class="group space-y-5">
-                      <p class="text-charcoal/30 group-hover:text-charcoal text-[10px] font-bold tracking-[0.4em] uppercase transition-colors">
-                        Scale &amp; Complexity
-                      </p>
-                      <div class="bg-charcoal/8 h-px w-full" />
-                      <p class="text-charcoal/50 text-base leading-relaxed font-light">
-                        Managing intricate complexity at scale — from expansive urban masterplans to
-                        the focused intimacy of bespoke commissions.
-                      </p>
-                    </div>
-                    <div class="group space-y-5">
-                      <p class="text-charcoal/30 group-hover:text-charcoal text-[10px] font-bold tracking-[0.4em] uppercase transition-colors">
-                        Enduring Stewardship
-                      </p>
-                      <div class="bg-charcoal/8 h-px w-full" />
-                      <p class="text-charcoal/50 text-base leading-relaxed font-light">
-                        Approaching four decades of principal-led practice ensuring that the original
-                        architectural conviction survives the rigours of site reality.
-                      </p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -329,10 +342,11 @@ const jsonLd = {
         )
       }
 
-      <!-- ─── 4. KEY PILLARS ─────────────────────────────────── -->
+      {/* ─── 4. KEY PILLARS ─────────────────────────────────── */}
       {
         sector.keyPillars && sector.keyPillars.length > 0 && (
           <section
+            id="rigour"
             class="bg-bone border-charcoal/5 border-t py-24 lg:py-48"
             aria-labelledby="pillars-heading"
           >
@@ -340,28 +354,28 @@ const jsonLd = {
               <div class="relative grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-24">
                 {/* Left: Sticky Context & CTA */}
                 <div class="lg:col-span-5">
-                  <div class="lg:sticky lg:top-40">
+                  <div class="sticky top-24 lg:top-40">
                     <p class="text-charcoal/30 mb-8 flex items-center justify-center gap-4 text-[10px] font-bold tracking-[0.4em] uppercase lg:justify-start">
                       <span class="bg-charcoal/20 h-px w-8" />
-                      Strategic Framework
+                      Architectural PRINCIPLES
                     </p>
                     <h2
                       id="pillars-heading"
                       class="text-charcoal mb-8 text-center text-4xl leading-[0.95] font-light tracking-tighter lg:text-left lg:text-7xl"
                     >
-                      Success Parameters
+                      Enduring Standards
                       <br />
                       in {sector.title}.
                     </h2>
                     <p class="text-charcoal/40 mb-12 max-w-md text-center text-xl font-light tracking-tight lg:text-left">
-                      The non-negotiable conditions of architectural excellence in this sector.
+                      {sector.frameworkDescription}
                     </p>
                     <div class="flex justify-center lg:justify-start">
                       <Cta
-                        text="Discuss your success parameters"
+                        text="What is important to you?"
                         invert={true}
                         isContact={true}
-                        contactContext={`Which specific Success Parameters interest you?`}
+                        contactContext={`Which specific Spatial Standards interest you?`}
                         sector={sector.title}
                       />
                     </div>
@@ -371,29 +385,22 @@ const jsonLd = {
                 {/* Right: Vertical Timeline */}
                 <div class="relative pt-24 lg:col-span-7 lg:pt-0">
                   {/* Timeline vertical hairline */}
-                  <div class="bg-charcoal/10 absolute top-3 bottom-0 left-0 w-px"></div>
+                  <div class="bg-charcoal/10 absolute top-3 bottom-0 left-0 w-px" />
 
                   <div class="flex flex-col space-y-24 pl-12 sm:space-y-32 sm:pl-16 lg:pl-24">
                     {sector.keyPillars.map((pillar: any, idx: number) => (
                       <article class="group reveal relative">
                         {/* Timeline dot */}
-                        <div
-                          class="bg-charcoal group-hover:bg-charcoal/80 absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] ring-bone transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]"
-                        >
-                        </div>
+                        <div class="bg-charcoal group-hover:bg-charcoal/80 ring-bone absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]" />
 
-                        <div
-                          class="group-hover:bg-charcoal/4 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10"
-                        >
-                          <p
-                            class="text-charcoal/40 font-inter group-hover:text-charcoal/80 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500"
-                          >
-                            PARAMETER {String(idx + 1).padStart(2, "0")}
+                        <div class="group-hover:bg-charcoal/4 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10">
+                          <p class="text-charcoal/40 font-inter group-hover:text-charcoal/80 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500">
+                            Standard {String(idx + 1).padStart(2, "0")}
                           </p>
                           <h3 class="mb-6 text-3xl font-light tracking-tight lg:text-4xl">
                             {pillar.title}
                           </h3>
-                          <div class="text-charcoal/60 max-w-xl space-y-5 text-base leading-relaxed font-light lg:text-lg">
+                          <div class="text-charcoal/60 max-w-xl space-y-5 text-base leading-relaxed font-light whitespace-pre-line lg:text-lg">
                             <p>{pillar.description}</p>
                           </div>
                         </div>
@@ -407,11 +414,12 @@ const jsonLd = {
         )
       }
 
-      <!-- ─── 5. CURATED PROJECTS ────────────────────────────── -->
+      {/* ─── 5. CURATED PROJECTS ────────────────────────────── */}
       {
         ((sector.curatedProjects && sector.curatedProjects.length > 0) ||
           (sector.allProjects && sector.allProjects.length > 0)) && (
           <section
+            id="commissions"
             class="border-charcoal/5 border-t bg-[#f2f1ec] py-10 lg:py-24"
             aria-labelledby="projects-heading"
           >
@@ -558,7 +566,7 @@ const jsonLd = {
         )
       }
 
-      <!-- ─── 6. CLOSING CTA ─────────────────────────────────── -->
+      {/* ─── 6. CLOSING CTA ─────────────────────────────────── */}
       <MainCta
         section={{
           eyebrow: sector.title,

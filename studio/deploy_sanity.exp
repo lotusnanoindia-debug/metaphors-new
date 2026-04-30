@@ -1,0 +1,22 @@
+#!/usr/bin/expect
+set timeout -1
+spawn npm run deploy
+expect {
+    "hostname" {
+        send "\r"
+        exp_continue
+    }
+    "Project" {
+        send "\r"
+        exp_continue
+    }
+    "dataset" {
+        send "\r"
+        exp_continue
+    }
+    "? " {
+        send "\r"
+        exp_continue
+    }
+    eof
+}
