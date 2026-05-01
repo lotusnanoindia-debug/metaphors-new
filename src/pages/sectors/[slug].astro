@@ -104,23 +104,11 @@ const jsonLd = {
       <section class="relative w-full py-48 lg:py-56" aria-labelledby="sector-hero-heading">
         <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
           <div class="mx-auto flex max-w-5xl flex-col items-center text-center">
-            {/* Breadcrumbs */}
-            <nav class="reveal mb-12" aria-label="Breadcrumb">
-              <ol
-                class="text-charcoal/30 flex items-center justify-center gap-3 text-[9px] font-bold tracking-[0.25em] uppercase"
-              >
-                <li>
-                  <a href="/" class="hover:text-charcoal transition-all duration-500">Home</a>
-                </li>
-                <li class="bg-charcoal/50 h-px w-1.5"></li>
-                <li>
-                  <a href="/about#sectors" class="hover:text-charcoal transition-all duration-500"
-                    >Sectors</a
-                  >
-                </li>
-                <li class="bg-charcoal/50 h-px w-1.5"></li>
-                <li class="text-charcoal/60">{sector.title}</li>
-              </ol>
+            {/* Minimalist Page Identifier */}
+            <nav class="reveal mb-12">
+              <p class="text-charcoal/30 text-center text-sm font-bold tracking-[0.4em] uppercase">
+                {sector.title}
+              </p>
             </nav>
             <h1
               id="sector-hero-heading"
@@ -129,14 +117,66 @@ const jsonLd = {
               <span class="text-charcoal block">
                 {sector.homeHeadline}
               </span>
-              {
-                sector.menuTagline && (
-                  <span class="animate-sheen mt-4 block bg-[linear-gradient(105deg,#6b6b67_0%,#6b6b67_40%,#a8a8a2_48%,#a8a8a2_52%,#6b6b67_60%,#6b6b67_100%)] bg-size-[200%_auto] bg-clip-text text-[clamp(1.5rem,6vw,3.5rem)] leading-tight tracking-[-0.03em] text-transparent will-change-[background-position] lg:mt-6 lg:text-[clamp(2rem,4.5vw,4.5rem)]">
-                    {sector.menuTagline}
-                  </span>
-                )
-              }
             </h1>
+
+            {/* Fast-Track Navigation - Zero Friction */}
+            <nav class="reveal mt-10 w-full lg:mt-32" aria-label="Page Index">
+              <ul
+                class="flex items-center justify-center gap-x-8 text-[10px] font-bold tracking-widest uppercase sm:gap-x-12 sm:tracking-[0.2em] lg:text-[11px] lg:tracking-[0.4em]"
+              >
+                <li>
+                  <a
+                    href="#intent"
+                    class="group text-charcoal/60 hover:text-charcoal flex items-center transition-all duration-500"
+                  >
+                    <span
+                      class="text-charcoal/30 group-hover:text-charcoal/40 mr-3 hidden transition-colors duration-500 lg:inline"
+                      >01</span
+                    >
+                    <span class="relative py-1">
+                      Approach
+                      <span
+                        class="bg-charcoal/60 absolute -bottom-1 left-0 h-px w-0 transition-all duration-700 group-hover:w-full"
+                      ></span>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#rigour"
+                    class="group text-charcoal/60 hover:text-charcoal flex items-center transition-all duration-500"
+                  >
+                    <span
+                      class="text-charcoal/30 group-hover:text-charcoal/40 mr-3 hidden transition-colors duration-500 lg:inline"
+                      >02</span
+                    >
+                    <span class="relative py-1">
+                      Standards
+                      <span
+                        class="bg-charcoal/60 absolute -bottom-1 left-0 h-px w-0 transition-all duration-700 group-hover:w-full"
+                      ></span>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#commissions"
+                    class="group text-charcoal/60 hover:text-charcoal flex items-center transition-all duration-500"
+                  >
+                    <span
+                      class="group-hover:text-charcoal/40 text-charcoal/30 mr-3 hidden transition-colors duration-500 lg:inline"
+                      >03</span
+                    >
+                    <span class="relative py-1">
+                      Commissions
+                      <span
+                        class="bg-charcoal/60 absolute -bottom-1 left-0 h-px w-0 transition-all duration-700 group-hover:w-full"
+                      ></span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </section>
@@ -159,47 +199,12 @@ const jsonLd = {
                     <p class="text-charcoal/90 text-2xl leading-[1.15] font-light tracking-tight lg:text-4xl">
                       {sector.pageHeroSub}
                     </p>
-
-                    {/* Hero Index - Fast Track Navigation */}
-                    <nav class="reveal mt-12 lg:mt-16" aria-label="Page Index">
-                      <ul class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 text-[10px] font-bold tracking-[0.4em] uppercase lg:justify-start">
-                        <li>
-                          <a
-                            href="#intent"
-                            class="group text-charcoal/30 hover:text-charcoal relative py-2 transition-colors"
-                          >
-                            Approach
-                            <span class="bg-charcoal absolute bottom-0 left-0 h-px w-full opacity-10 transition-all duration-700 group-hover:opacity-100" />
-                          </a>
-                        </li>
-                        <li class="bg-charcoal/20 h-px w-3" />
-                        <li>
-                          <a
-                            href="#rigour"
-                            class="group text-charcoal/30 hover:text-charcoal relative py-2 transition-colors"
-                          >
-                            Standards
-                            <span class="bg-charcoal absolute bottom-0 left-0 h-px w-full opacity-10 transition-all duration-700 group-hover:opacity-100" />
-                          </a>
-                        </li>
-                        <li class="bg-charcoal/20 h-px w-3" />
-                        <li>
-                          <a
-                            href="#commissions"
-                            class="group text-charcoal/30 hover:text-charcoal relative py-2 transition-colors"
-                          >
-                            Commissions
-                            <span class="bg-charcoal absolute bottom-0 left-0 h-px w-full opacity-10 transition-all duration-700 group-hover:opacity-100" />
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
                   </div>
                 )
               }
 
               <div
-                class="group/stature-lg relative h-[60vh] overflow-hidden contrast-104 grayscale-65 saturate-88 transition-all duration-1000 hover:contrast-100 hover:grayscale-0 hover:saturate-100 lg:h-[80vh]"
+                class="group/stature-lg lg:aspect-none relative aspect-video h-auto overflow-hidden contrast-104 grayscale-65 saturate-88 transition-all duration-1000 hover:contrast-100 hover:grayscale-0 hover:saturate-100 lg:h-[80vh]"
               >
                 {
                   sector.image ? (
@@ -236,7 +241,7 @@ const jsonLd = {
 
             <!-- Right: Fixed Dark Column (consistent across all sector pages) -->
             <div
-              class="group/stature-sm bg-charcoal reveal relative mt-12 h-[70vh] overflow-hidden delay-200 lg:col-span-3 lg:mt-0 lg:h-[80vh]"
+              class="group/stature-sm bg-charcoal reveal relative mt-12 h-auto overflow-hidden delay-200 lg:col-span-3 lg:mt-0 lg:h-[80vh]"
             >
               {/* Fixed architectural backdrop image from Sanity */}
               {
@@ -259,7 +264,7 @@ const jsonLd = {
                 )
               }
               <div
-                class="from-charcoal via-charcoal/60 absolute inset-0 z-10 flex flex-col justify-end bg-linear-to-t to-transparent p-8 lg:p-12"
+                class="from-charcoal via-charcoal/60 relative z-10 flex flex-col justify-end bg-linear-to-t to-transparent p-8 lg:absolute lg:inset-0 lg:p-12"
               >
                 <div class="mb-12 space-y-12">
                   <div class="h-px w-12 bg-white/20"></div>
@@ -271,7 +276,9 @@ const jsonLd = {
                     }
                     {
                       (sector.homeIntro || sector.valueProposition) && (
-                        <span class="text-white/40 italic"> One standard. No exceptions.</span>
+                        <span class="mt-4 block text-lg text-white/40 italic">
+                          One standard. No exceptions.
+                        </span>
                       )
                     }
                   </p>
@@ -314,7 +321,7 @@ const jsonLd = {
                     >
                       Rigour and Intent.
                       <br />
-                      By Experience.
+                      Non-Negotiable.
                     </h2>
                     <div class="flex justify-center lg:justify-start">
                       <Cta
@@ -345,34 +352,102 @@ const jsonLd = {
       {/* ─── 4. KEY PILLARS ─────────────────────────────────── */}
       {
         sector.keyPillars && sector.keyPillars.length > 0 && (
-          <section
-            id="rigour"
-            class="bg-bone border-charcoal/5 border-t py-24 lg:py-48"
-            aria-labelledby="pillars-heading"
-          >
-            <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
-              <div class="relative grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-24">
-                {/* Left: Sticky Context & CTA */}
-                <div class="lg:col-span-5">
-                  <div class="sticky top-24 lg:top-40">
-                    <p class="text-charcoal/30 mb-8 flex items-center justify-center gap-4 text-[10px] font-bold tracking-[0.4em] uppercase lg:justify-start">
-                      <span class="bg-charcoal/20 h-px w-8" />
-                      Architectural PRINCIPLES
-                    </p>
-                    <h2
-                      id="pillars-heading"
-                      class="text-charcoal mb-8 text-center text-4xl leading-[0.95] font-light tracking-tighter lg:text-left lg:text-7xl"
+          <>
+            <section
+              id="rigour"
+              class="bg-bone border-charcoal/5 border-t py-24 lg:py-48"
+              aria-labelledby="pillars-heading"
+            >
+              <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
+                <div class="relative grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-24">
+                  {/* Left: Sticky Context & CTA */}
+                  <div class="lg:col-span-5">
+                    <div class="sticky top-24 lg:top-40">
+                      <p class="text-charcoal/30 mb-8 flex items-center justify-center gap-4 text-[10px] font-bold tracking-[0.4em] uppercase lg:justify-start">
+                        Architectural PRINCIPLES
+                      </p>
+                      <h2
+                        id="pillars-heading"
+                        class="text-charcoal mb-8 text-center text-4xl leading-[0.95] font-light tracking-tighter lg:text-left lg:text-7xl"
+                      >
+                        Enduring Standards
+                        <br />
+                        in {sector.title}.
+                      </h2>
+                      <p class="text-charcoal/40 mb-12 max-w-md text-center text-xl font-light tracking-tight lg:text-left">
+                        {sector.frameworkDescription}
+                      </p>
+                      <div class="hidden justify-center lg:flex lg:justify-start">
+                        <Cta
+                          text="What matters most to you?"
+                          invert={true}
+                          isContact={true}
+                          contactContext={`Which specific Spatial Standards interest you?`}
+                          sector={sector.title}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Mobile-only divider */}
+                  <div class="border-charcoal/10 w-full border-t lg:hidden" />
+
+                  {/* Right: Hybrid Layout (Mobile Carousel / Desktop Timeline) */}
+                  <div class="relative pt-4 lg:col-span-7 lg:pt-0">
+                    {/* Timeline vertical hairline (Desktop Only) */}
+                    <div class="bg-charcoal/10 absolute top-3 bottom-0 left-0 hidden w-px lg:block" />
+
+                    <div
+                      id="pillars-carousel"
+                      class="no-scrollbar -mx-6 flex snap-x snap-mandatory overflow-x-auto scroll-smooth pb-12 lg:mx-0 lg:flex-col lg:space-y-32 lg:overflow-visible lg:pl-24"
                     >
-                      Enduring Standards
-                      <br />
-                      in {sector.title}.
-                    </h2>
-                    <p class="text-charcoal/40 mb-12 max-w-md text-center text-xl font-light tracking-tight lg:text-left">
-                      {sector.frameworkDescription}
-                    </p>
-                    <div class="flex justify-center lg:justify-start">
+                      {sector.keyPillars.map((pillar: any, idx: number) => (
+                        <article class="group reveal relative w-full shrink-0 snap-center px-6 lg:w-auto lg:shrink lg:px-0">
+                          {/* Timeline dot (Desktop Only) */}
+                          <div class="bg-charcoal group-hover:bg-charcoal/80 ring-bone absolute top-1.5 left-[-100px] hidden h-2 w-2 rounded-full ring-[6px] transition-all duration-700 group-hover:scale-[1.8] lg:block" />
+
+                          <div class="lg:hover:bg-charcoal/4 text-center transition-colors duration-700 lg:-mx-10 lg:rounded-2xl lg:p-10 lg:text-left">
+                            <p class="text-charcoal/40 font-inter lg:group-hover:text-charcoal/80 mb-6 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500 lg:mb-4">
+                              Standard {String(idx + 1).padStart(2, "0")}
+                            </p>
+                            <h3 class="mb-6 text-2xl leading-snug tracking-tight lg:text-4xl">
+                              {pillar.title}
+                            </h3>
+                            <div class="text-charcoal/60 mx-auto max-w-sm space-y-4 text-sm leading-relaxed font-light whitespace-pre-line lg:mx-0 lg:max-w-none lg:space-y-5 lg:text-lg">
+                              <p>{pillar.description}</p>
+                            </div>
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+
+                    <div class="border-charcoal/10 flex items-center justify-center gap-10 border-t pt-5 lg:hidden">
+                      <button
+                        id="prev-pillar"
+                        class="text-charcoal/60 hover:text-charcoal transition-colors disabled:opacity-10"
+                        aria-label="Previous standard"
+                      >
+                        <Icon name="ph:arrow-left-light" class="h-6 w-6" />
+                      </button>
+
+                      <div class="text-charcoal/30 min-w-[60px] text-center text-[10px] font-bold tracking-[0.3em] uppercase">
+                        <span id="pillar-current">01</span>
+                        <span class="mx-2">/</span>
+                        <span>{String(sector.keyPillars.length).padStart(2, "0")}</span>
+                      </div>
+
+                      <button
+                        id="next-pillar"
+                        class="text-charcoal/60 hover:text-charcoal transition-colors disabled:opacity-10"
+                        aria-label="Next standard"
+                      >
+                        <Icon name="ph:arrow-right-light" class="h-6 w-6" />
+                      </button>
+                    </div>
+
+                    <div class="mt-20 flex justify-center lg:hidden">
                       <Cta
-                        text="What is important to you?"
+                        text="What matters most to you?"
                         invert={true}
                         isContact={true}
                         contactContext={`Which specific Spatial Standards interest you?`}
@@ -381,36 +456,9 @@ const jsonLd = {
                     </div>
                   </div>
                 </div>
-
-                {/* Right: Vertical Timeline */}
-                <div class="relative pt-24 lg:col-span-7 lg:pt-0">
-                  {/* Timeline vertical hairline */}
-                  <div class="bg-charcoal/10 absolute top-3 bottom-0 left-0 w-px" />
-
-                  <div class="flex flex-col space-y-24 pl-12 sm:space-y-32 sm:pl-16 lg:pl-24">
-                    {sector.keyPillars.map((pillar: any, idx: number) => (
-                      <article class="group reveal relative">
-                        {/* Timeline dot */}
-                        <div class="bg-charcoal group-hover:bg-charcoal/80 ring-bone absolute top-1.5 -left-[52px] h-2 w-2 rounded-full ring-[6px] transition-all duration-700 group-hover:scale-[1.8] sm:-left-[68px] lg:-left-[100px]" />
-
-                        <div class="group-hover:bg-charcoal/4 -mx-6 rounded-2xl p-6 transition-colors duration-700 sm:-mx-8 sm:p-8 lg:-mx-10 lg:p-10">
-                          <p class="text-charcoal/40 font-inter group-hover:text-charcoal/80 mb-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-colors duration-500">
-                            Standard {String(idx + 1).padStart(2, "0")}
-                          </p>
-                          <h3 class="mb-6 text-3xl font-light tracking-tight lg:text-4xl">
-                            {pillar.title}
-                          </h3>
-                          <div class="text-charcoal/60 max-w-xl space-y-5 text-base leading-relaxed font-light whitespace-pre-line lg:text-lg">
-                            <p>{pillar.description}</p>
-                          </div>
-                        </div>
-                      </article>
-                    ))}
-                  </div>
-                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </>
         )
       }
 
@@ -427,7 +475,6 @@ const jsonLd = {
               <div class="reveal mb-20 flex flex-col justify-between gap-12 lg:mb-32 lg:flex-row lg:items-end">
                 <div>
                   <p class="text-charcoal/30 mb-8 flex items-center justify-center gap-4 text-[10px] font-bold tracking-[0.4em] uppercase lg:justify-start">
-                    <span class="bg-charcoal/20 h-px w-8" />
                     Proven Stature
                   </p>
                   <h2
@@ -458,14 +505,8 @@ const jsonLd = {
               {/* Filter Bar — High-Stature Editorial Style */}
               {projectDisciplines.length > 0 && (
                 <div class="mx-auto mb-12 max-w-[1800px] px-4 md:px-8 lg:mb-20">
-                  <div class="border-charcoal/5 flex flex-col justify-between gap-6 border-t border-b py-8 lg:flex-row lg:items-center">
-                    <p class="text-charcoal/30 text-center text-[10px] font-bold tracking-[0.4em] uppercase lg:text-left">
-                      Filter by Discipline
-                    </p>
-                    <div
-                      class="flex flex-wrap justify-center gap-3 lg:justify-start lg:gap-4"
-                      id="project-filters"
-                    >
+                  <div class="border-charcoal/5 flex justify-center border-t border-b py-8">
+                    <div class="flex flex-wrap justify-center gap-3 lg:gap-4" id="project-filters">
                       <button
                         data-filter="all"
                         class="filter-btn active border-charcoal/10 hover:border-charcoal cursor-pointer border px-5 py-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-500"
@@ -584,6 +625,15 @@ const jsonLd = {
 </Layout>
 
 <style>
+  /* Hide scrollbar on carousel track — keep scroll functionality */
+  .no-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 11 */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+  }
+
   .filter-btn.active {
     background-color: var(--color-charcoal);
     color: var(--color-bone);
@@ -641,4 +691,38 @@ const jsonLd = {
 
   // Support for Astro View Transitions
   document.addEventListener("astro:after-swap", initFilters);
+
+  // Pillars Carousel Logic
+  function initPillars() {
+    const carousel = document.getElementById("pillars-carousel");
+    const prevBtn = document.getElementById("prev-pillar");
+    const nextBtn = document.getElementById("next-pillar");
+    const counter = document.getElementById("pillar-current");
+
+    if (carousel && prevBtn && nextBtn && counter) {
+      const updateCounter = () => {
+        const index = Math.round(carousel.scrollLeft / carousel.offsetWidth);
+        counter.textContent = String(index + 1).padStart(2, "0");
+
+        // Disable states
+        (prevBtn as HTMLButtonElement).disabled = index === 0;
+        (nextBtn as HTMLButtonElement).disabled = index === carousel.children.length - 1;
+      };
+
+      prevBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: -carousel.offsetWidth, behavior: "smooth" });
+      });
+
+      nextBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: carousel.offsetWidth, behavior: "smooth" });
+      });
+
+      carousel.addEventListener("scroll", updateCounter);
+      updateCounter(); // Initial check
+    }
+  }
+
+  // Initial execution
+  initPillars();
+  document.addEventListener("astro:after-swap", initPillars);
 </script>

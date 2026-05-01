@@ -60,7 +60,7 @@ const { section, subheading, quotes } = Astro.props;
 
       {/* Secondary Column - Dialogue & Pressed Context */}
       <div
-        class="group/stature-sm bg-charcoal reveal relative h-[50vh] overflow-hidden lg:col-span-3 lg:h-[65vh]"
+        class="group/stature-sm bg-charcoal reveal relative h-auto overflow-hidden lg:col-span-3 lg:h-[65vh]"
         style="transition-delay: 200ms"
       >
         {/* The Image (Backdrop) */}
@@ -78,20 +78,20 @@ const { section, subheading, quotes } = Astro.props;
 
         {/* The Dialogue Overlay */}
         <div
-          class="from-charcoal via-charcoal/60 absolute inset-0 z-10 flex flex-col justify-end gap-12 bg-linear-to-t to-transparent p-8 lg:p-10"
+          class="from-charcoal via-charcoal/60 relative z-10 flex flex-col justify-end gap-12 bg-linear-to-t to-transparent p-8 pt-16 lg:absolute lg:inset-0 lg:p-10"
         >
-          <div class="relative h-full overflow-hidden">
+          <div class="relative grid h-full overflow-hidden text-center">
             {
               quotes.map((item: any, idx: number) => (
                 <div
-                  class={`press-quote absolute inset-10 flex flex-col justify-end transition-opacity duration-1000 ${idx === 0 ? "opacity-100" : "opacity-0"}`}
+                  class={`press-quote col-start-1 row-start-1 flex flex-col justify-end transition-opacity duration-1000 ${idx === 0 ? "opacity-100" : "opacity-0"}`}
                   data-index={idx}
                 >
-                  <p class="mb-8 text-lg leading-relaxed font-light text-white md:text-3xl">
+                  <p class="mb-8 text-2xl leading-snug font-light tracking-tight text-white italic md:text-3xl">
                     "{item.quote}"
                   </p>
 
-                  <div class="h-5">
+                  <div class="flex h-5 items-center justify-center">
                     {item.logo ? (
                       <img
                         src={imageUrl(item.logo, { height: 40 })}
@@ -99,7 +99,7 @@ const { section, subheading, quotes } = Astro.props;
                         class="h-full w-auto opacity-60 brightness-0 grayscale invert"
                       />
                     ) : (
-                      <span class="text-[10px] font-bold tracking-[0.25em] text-white/40 uppercase">
+                      <span class="text-right text-[10px] font-bold tracking-[0.25em] text-white/60 uppercase">
                         {item.publication}
                       </span>
                     )}
