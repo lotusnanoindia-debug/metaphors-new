@@ -16,18 +16,19 @@
     "vite": "^7.3.2"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.1.10",
+    "@astrojs/cloudflare": "^13.3.0",
     "@astrojs/sitemap": "^3.7.2",
     "@fontsource-variable/inter": "^5.2.8",
     "@iconify-json/ph": "^1.2.2",
     "@sanity/client": "^7.20.0",
     "@sanity/image-url": "^2.1.1",
     "@tailwindcss/vite": "^4.1.14",
-    "astro": "^6.1.8",
+    "astro": "^6.2.1",
     "astro-icon": "^1.1.5",
     "resend": "^6.12.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
     "@sanity/icons": "^3.7.4",
     "@sanity/orderable-document-list": "^1.5.1",
     "@sanity/types": "^5.22.0",

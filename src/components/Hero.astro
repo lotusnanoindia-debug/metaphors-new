@@ -8,16 +8,16 @@ const { eyebrow, headline, headlineAccent, headlineTagline, ctaLabel, ctaUrl } =
       <h1
         class="reveal mb-16 text-[clamp(3.8rem,11vw,9rem)] leading-[0.88] font-medium tracking-[-0.045em] select-none lg:text-[clamp(3.8rem,9vw,8rem)]"
       >
-        <span class="block text-neutral-950">{headline}</span>
+        <span class="text-charcoal block">{headline}</span>
 
         <span
-          class="animate-sheen block bg-[linear-gradient(105deg,#6b6b67_0%,#6b6b67_40%,#a8a8a2_48%,#a8a8a2_52%,#6b6b67_60%,#6b6b67_100%)] bg-size-[200%_auto] bg-clip-text text-transparent will-change-[background-position]"
+          class="animate-sheen block bg-[linear-gradient(105deg,var(--color-charcoal)_0%,var(--color-charcoal)_40%,var(--color-charcoal-light)_48%,var(--color-charcoal-light)_52%,var(--color-charcoal)_60%,var(--color-charcoal)_100%)] bg-size-[200%_auto] bg-clip-text text-transparent will-change-[background-position]"
           >{headlineAccent}</span
         >
 
         {
           headlineTagline && (
-            <span class="mt-8 block text-2xl font-semibold tracking-normal text-black/30 lg:text-4xl">
+            <span class="text-charcoal/30 mt-8 block text-2xl font-semibold tracking-normal lg:text-4xl">
               {headlineTagline}
             </span>
           )

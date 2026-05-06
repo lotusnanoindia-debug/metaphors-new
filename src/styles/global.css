@@ -3,12 +3,24 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --color-charcoal: #111111;
+  --color-charcoal-light: #6b6b67;
   --color-bone: #fcfbf8;
+  --color-stone: #353533;
   --color-ink: #60a5fa; /* Lighter Architectural Blue for dark backgrounds */
   --z-200: 200;
   --z-300: 300;
 
   --animate-sheen: sheen-rtl 8s linear infinite;
+
+  /* Custom Luxury Durations */
+  --duration-1200: 1200ms;
+  --duration-1500: 1500ms;
+  --duration-2000: 2000ms;
+  --duration-2400: 2400ms;
+  --duration-3000: 3000ms;
+
+  /* Custom Architectural Easing */
+  --ease-luxury: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 @keyframes sheen-rtl {
@@ -115,4 +127,30 @@
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@layer components {
+  /* Secondary Button System (Non-CTAs) */
+  .btn-secondary {
+    @apply bg-stone/20 text-stone hover:bg-stone/90 hover:text-bone disabled:text-charcoal/20 flex items-center justify-center gap-3 px-5 py-4 text-[10px] font-bold tracking-[0.2em] whitespace-nowrap uppercase transition-all duration-500 disabled:pointer-events-none disabled:bg-transparent md:px-8 md:tracking-[0.4em];
+  }
+  .btn-secondary-outline {
+    @apply border-stone/40 text-stone hover:bg-charcoal hover:border-charcoal hover:text-bone disabled:text-charcoal/20 flex items-center justify-center gap-3 border px-5 py-4 text-[10px] font-bold tracking-[0.2em] whitespace-nowrap uppercase transition-all duration-500 disabled:pointer-events-none disabled:bg-transparent md:px-8 md:tracking-[0.4em];
+  }
+
+  /* Inverted variants for dark backgrounds */
+  .btn-secondary-inverted {
+    @apply bg-bone/20 text-bone hover:bg-bone hover:text-charcoal disabled:text-bone/20 flex items-center justify-center gap-3 px-5 py-4 text-[10px] font-bold tracking-[0.2em] whitespace-nowrap uppercase transition-all duration-500 disabled:pointer-events-none disabled:bg-transparent md:px-8 md:tracking-[0.4em];
+  }
+  .btn-secondary-outline-inverted {
+    @apply border-bone/30 text-bone/60 hover:bg-bone hover:border-bone hover:text-charcoal disabled:text-bone/20 flex items-center justify-center gap-3 border px-5 py-4 text-[10px] font-bold tracking-[0.2em] whitespace-nowrap uppercase transition-all duration-500 disabled:pointer-events-none disabled:bg-transparent md:px-8 md:tracking-[0.4em];
+  }
 }

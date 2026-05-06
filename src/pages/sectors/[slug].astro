@@ -10,14 +10,17 @@ import {
   SECTOR_DETAIL_QUERY,
   ALL_SECTORS_SLUGS_QUERY,
   imageUrl,
-} from "../../lib/sanity.js";
+} from "../../lib/sanity";
 
-export async function getStaticPaths() {
-  const sectors = await client.fetch(ALL_SECTORS_SLUGS_QUERY);
-  return sectors.map((sector: any) => ({
-    params: { slug: sector.slug },
-  }));
-}
+/* 
+  RESTORE FOR STATIC MODE:
+  export async function getStaticPaths() {
+    const sectors = await client.fetch(ALL_SECTORS_SLUGS_QUERY);
+    return sectors.map((sector: any) => ({
+      params: { slug: sector.slug },
+    }));
+  }
+*/
 
 const { slug } = Astro.params;
 const data = await client.fetch(SECTOR_DETAIL_QUERY, { slug });
@@ -368,7 +371,7 @@ const jsonLd = {
                       </p>
                       <h2
                         id="pillars-heading"
-                        class="text-charcoal mb-8 text-center text-4xl leading-[0.95] font-light tracking-tighter lg:text-left lg:text-7xl"
+                        class="text-charcoal mb-8 text-center text-4xl leading-[0.95] font-light tracking-tighter lg:text-left lg:text-6xl"
                       >
                         Enduring Standards
                         <br />
@@ -488,8 +491,8 @@ const jsonLd = {
                 </div>
                 <div class="flex flex-col items-center gap-10 lg:items-end">
                   <p class="text-charcoal/60 max-w-md text-center text-[10px] leading-loose font-semibold tracking-[0.25em] uppercase sm:text-xs lg:text-right">
-                    A curated list of recent commissions demonstrating rigour and commitment to
-                    delivering bespoke architectural solutions
+                    Commissions demonstrating rigour and commitment to delivering bespoke
+                    architectural solutions
                   </p>
                   <Cta
                     text="Start a Conversation"

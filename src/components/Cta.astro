@@ -31,23 +31,23 @@ const extraProps = isContact
 
 <Tag
   {...extraProps}
-  class={`group relative inline-flex h-12 items-center justify-center px-10 text-[11px] font-medium uppercase transition-all duration-1500 ease-[cubic-bezier(0.19,1,0.22,1)] cursor-pointer ${className} ${invert ? "text-bone hover:text-charcoal" : "text-charcoal hover:text-bone"}`}
+  class={`group relative inline-flex h-12 items-center justify-center px-10 text-[11px] font-medium uppercase transition-all duration-1500 ease-luxury cursor-pointer ${className} ${invert ? "text-bone hover:text-charcoal" : "text-charcoal hover:text-bone"}`}
 >
   {/* The Static Base Border */}
   <div
-    class={`absolute inset-0 border border-charcoal/20 transition-all duration-1500 ease-[cubic-bezier(0.19,1,0.22,1)]`}
+    class={`absolute inset-0 border border-charcoal/20 transition-all duration-1500 ease-luxury`}
   >
   </div>
 
   {/* The resolving background wash */}
   <div
-    class={`absolute inset-0 bg-charcoal transition-all duration-1500 ease-[cubic-bezier(0.19,1,0.22,1)] ${invert ? "opacity-100 group-hover:opacity-0" : "opacity-0 group-hover:opacity-100"}`}
+    class={`absolute inset-0 bg-charcoal transition-all duration-1500 ease-luxury ${invert ? "opacity-100 group-hover:opacity-0" : "opacity-0 group-hover:opacity-100"}`}
   >
   </div>
 
   {/* Typography */}
   <span
-    class={`relative z-10 tracking-[0.3em] transition-all duration-1500 ease-[cubic-bezier(0.19,1,0.22,1)] `}
+    class={`relative z-10 tracking-[0.3em] transition-all duration-1500 ease-luxury `}
   >
     {text}
   </span>

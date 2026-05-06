@@ -244,3 +244,40 @@ export const SECTOR_DETAIL_QUERY = `{
 }`;
 
 export const ALL_SECTORS_SLUGS_QUERY = `*[_type == "sector"]{ "slug": slug.current }`;
+
+export const DISCIPLINE_DETAIL_QUERY = `{
+  "discipline": *[_type == "discipline" && slug.current == $slug][0]{
+    title,
+    "slug": slug.current,
+    heroSubtitle,
+    valueProposition,
+    mainImage { ..., asset-> { ..., originalFilename } },
+    secondaryImage { ..., asset-> { ..., originalFilename } },
+    statureSubHeadline,
+    statureQuote,
+    positions[] {
+      title,
+      text
+    },
+    sectorContexts[] {
+      narrative,
+      "sectorTitle": sector->title,
+      "sectorSlug": sector->slug.current,
+      "sectorImage": sector->image { ..., asset-> { ..., originalFilename } },
+      "bespokeImage": image { ..., asset-> { ..., originalFilename } }
+    },
+    "projects": *[_type == "project" && references(^._id) && isVisible != false] | order(orderRank asc) {
+      "title": coalesce(projectName, title, headline),
+      "slug": slug.current,
+      "client": select(showClientPublicly != false => client->name, null),
+      "sector": category->title,
+      "sectorSlug": category->slug.current,
+      areaSqFt,
+      location,
+      completionYear,
+      coverImage { ..., asset-> { ..., originalFilename } }
+    }
+  }
+}`;
+
+export const ALL_DISCIPLINES_SLUGS_QUERY = `*[_type == "discipline"]{ "slug": slug.current }`;
