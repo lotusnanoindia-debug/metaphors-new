@@ -137,16 +137,16 @@ const principles = (discipline.positions || []).map((p, i) => ({
         aria-label={`${discipline.title} stature imagery`}
       >
         <div class="reveal relative mx-auto max-w-[1800px]">
-          <div class="grid grid-cols-1 gap-12 lg:grid-cols-10 lg:gap-4">
+          <div class="grid grid-cols-1 gap-12 xl:grid-cols-10 xl:gap-4">
             <!-- Right Column (Desktop): Sub-headline + Large Image -->
-            <div class="flex flex-col gap-12 lg:order-2 lg:col-span-7">
-              <div class="reveal mx-auto max-w-4xl text-center lg:mx-0 lg:p-12 lg:text-left">
+            <div class="flex flex-col gap-12 xl:order-2 xl:col-span-7">
+              <div class="reveal mx-auto max-w-4xl text-center xl:mx-0 xl:p-12 xl:text-left">
                 <p
                   class="text-charcoal/90 text-2xl leading-[1.15] font-light tracking-tight lg:text-4xl"
                 >
                   {discipline.statureSubHeadline}
                 </p>
-                <div class="mt-12 flex justify-center lg:justify-start">
+                <div class="mt-12 flex justify-center xl:justify-start">
                   <Cta
                     text="Discuss a Commission"
                     isContact={true}
@@ -157,7 +157,7 @@ const principles = (discipline.positions || []).map((p, i) => ({
               </div>
 
               <div
-                class="group/stature-lg lg:aspect-none relative h-[60vh] overflow-hidden contrast-104 grayscale-65 saturate-88 transition-all duration-1000 hover:contrast-100 hover:grayscale-0 hover:saturate-100 lg:h-[80vh]"
+                class="group/stature-lg xl:aspect-none relative h-[60vh] overflow-hidden contrast-104 grayscale-65 saturate-88 transition-all duration-1000 hover:contrast-100 hover:grayscale-0 hover:saturate-100 xl:h-[80vh]"
               >
                 {
                   discipline.mainImage && (
@@ -190,7 +190,7 @@ const principles = (discipline.positions || []).map((p, i) => ({
 
             <!-- Left Column (Desktop): Fixed Dark Column (Img 1) -->
             <div
-              class="group/stature-sm bg-charcoal reveal relative h-auto overflow-hidden delay-200 lg:order-1 lg:col-span-3 lg:h-[80vh]"
+              class="group/stature-sm bg-charcoal reveal relative h-auto overflow-hidden delay-200 xl:order-1 xl:col-span-3 xl:h-[80vh]"
             >
               {
                 discipline.secondaryImage && (
@@ -206,7 +206,7 @@ const principles = (discipline.positions || []).map((p, i) => ({
                 )
               }
               <div
-                class="from-charcoal via-charcoal/60 relative z-10 flex flex-col justify-end bg-linear-to-t to-transparent p-8 lg:absolute lg:inset-0 lg:p-12"
+                class="from-charcoal via-charcoal/60 relative z-10 flex flex-col justify-end bg-linear-to-t to-transparent p-8 xl:absolute xl:inset-0 xl:p-12"
               >
                 <div class="mb-12 space-y-12">
                   <div class="h-px w-12 bg-white/20"></div>
@@ -240,17 +240,17 @@ const principles = (discipline.positions || []).map((p, i) => ({
         aria-labelledby="positions-heading"
       >
         <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
-          <div class="grid grid-cols-1 gap-16 md:grid-cols-12 lg:gap-24">
-            <div class="md:col-span-5">
-              <div class="sticky top-24 md:top-40">
+          <div class="grid grid-cols-1 gap-16 xl:grid-cols-12 xl:gap-24">
+            <div class="xl:col-span-5">
+              <div class="sticky top-24 xl:top-40">
                 <h2
                   id="positions-heading"
-                  class="text-bone mb-8 text-center text-4xl font-light tracking-tight sm:text-5xl md:text-left md:text-7xl"
+                  class="text-bone mb-8 text-center text-4xl font-light tracking-tight sm:text-5xl xl:text-left xl:text-7xl"
                 >
                   Positions on<br />{discipline.title}.
                 </h2>
                 <p
-                  class="text-bone/60 text-center text-[10px] leading-loose font-semibold tracking-[0.25em] uppercase sm:text-xs md:text-left"
+                  class="text-bone/60 text-center text-[10px] leading-loose font-semibold tracking-[0.25em] uppercase sm:text-xs xl:text-left"
                 >
                   Not services. But standards of {discipline.title} applied to every commission, regardless
                   of sector, scale, or client brief.
@@ -258,17 +258,17 @@ const principles = (discipline.positions || []).map((p, i) => ({
               </div>
             </div>
 
-            <div class="relative md:col-span-7">
+            <div class="relative xl:col-span-7">
               <div class="relative w-full">
                 <div
                   id="positions-slider"
-                  class="no-scrollbar flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto scroll-smooth pb-8 sm:gap-6 md:flex md:flex-col md:gap-32 md:overflow-visible md:pb-0"
+                  class="no-scrollbar flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto scroll-smooth pb-8 sm:gap-6 xl:flex xl:flex-col xl:gap-32 xl:overflow-visible xl:pb-0 min-h-[350px] sm:min-h-[400px] xl:min-h-0"
                 >
                   {
                     principles.map((p) => (
-                      <article class="reveal group relative flex h-full w-[85vw] shrink-0 snap-center flex-col overflow-hidden border border-white/5 bg-white/3 p-8 transition-all duration-1000 ease-out sm:w-[60vw] md:w-full md:flex-row md:items-start md:gap-12 md:border-0 md:bg-transparent md:p-0">
+                      <article class="reveal group relative flex h-full w-[85vw] shrink-0 snap-center flex-col overflow-hidden border border-white/5 bg-white/3 p-8 transition-all duration-1000 ease-out sm:w-[60vw] xl:w-full xl:flex-row xl:items-start xl:gap-12 xl:border-0 xl:bg-transparent xl:p-0">
                         {/* Number Column (Desktop) */}
-                        <div class="hidden md:block md:w-24 md:shrink-0">
+                        <div class="hidden xl:block xl:w-24 xl:shrink-0">
                           <span class="text-bone/10 group-hover:text-bone/20 block text-7xl font-bold tracking-tighter transition-colors duration-700">
                             {p.number}
                           </span>
@@ -276,20 +276,20 @@ const principles = (discipline.positions || []).map((p, i) => ({
 
                         {/* Content Column */}
                         <div class="flex flex-col">
-                          <p class="text-bone/20 mb-6 text-[10px] font-bold tracking-[0.5em] uppercase transition-colors duration-700 md:hidden">
+                          <p class="text-bone/20 mb-6 text-[10px] font-bold tracking-[0.5em] uppercase transition-colors duration-700 xl:hidden">
                             Principle {p.number}
                           </p>
-                          <h3 class="text-bone mb-6 max-w-sm text-2xl font-light tracking-tight md:max-w-xl md:text-4xl lg:text-5xl">
+                          <h3 class="text-bone mb-6 max-w-sm text-2xl font-light tracking-tight xl:max-w-xl xl:text-4xl lg:text-5xl">
                             {p.title}
                           </h3>
-                          <p class="text-bone/55 group-hover:text-bone/80 max-w-md text-[15px] leading-relaxed font-light transition-colors duration-700 md:max-w-xl lg:text-lg">
+                          <p class="text-bone/55 group-hover:text-bone/80 max-w-md text-[15px] leading-relaxed font-light transition-colors duration-700 xl:max-w-xl lg:text-lg">
                             {p.text}
                           </p>
                         </div>
 
                         {/* Mobile Decorative Number */}
                         <span
-                          class="text-bone/4 pointer-events-none absolute right-6 bottom-2 leading-none font-bold italic transition-all duration-[2s] ease-out select-none group-hover:opacity-10 md:hidden"
+                          class="text-bone/4 pointer-events-none absolute right-6 bottom-2 leading-none font-bold italic transition-all duration-[2s] ease-out select-none group-hover:opacity-10 xl:hidden"
                           style="font-size: clamp(4rem, 7vw, 6rem);"
                         >
                           {p.number}
@@ -300,7 +300,7 @@ const principles = (discipline.positions || []).map((p, i) => ({
                 </div>
 
                 {/* Mobile Navigation Buttons */}
-                <div class="mt-8 flex w-full items-center justify-center gap-4 md:hidden">
+                <div class="mt-8 flex w-full items-center justify-center gap-4 xl:hidden">
                   <button
                     id="pos-prev"
                     class="bg-bone text-charcoal flex h-12 w-12 items-center justify-center transition-all duration-500 disabled:pointer-events-none disabled:opacity-20"
@@ -330,10 +330,10 @@ const principles = (discipline.positions || []).map((p, i) => ({
         aria-labelledby="commissions-heading"
       >
         <div class="mx-auto max-w-[1800px] px-6 lg:px-12">
-          <div class="grid grid-cols-1 items-start gap-2 md:gap-16 lg:grid-cols-12 lg:gap-24">
+          <div class="grid grid-cols-1 items-start gap-2 md:gap-16 xl:grid-cols-12 xl:gap-24">
             {/* ─── Sidebar: Context & Selection (Sticky) ─── */}
             <aside
-              class="lg:sticky lg:top-32 lg:col-span-4"
+              class="xl:sticky xl:top-32 xl:col-span-4"
               data-sectors={JSON.stringify(sectorBlocks)}
             >
               <div class="reveal mb-12">
@@ -347,20 +347,20 @@ const principles = (discipline.positions || []).map((p, i) => ({
 
               {/* Vertical Filter Index (Desktop) / Horizontal (Mobile) */}
               <nav
-                class="border-charcoal/5 mb-6 py-3 md:border-t md:border-b lg:py-8"
+                class="border-charcoal/5 mb-6 py-3 md:border-t md:border-b xl:py-8"
                 aria-label="Project filters"
               >
-                <div class="flex flex-wrap gap-2 md:gap-6 lg:flex-col" id="project-filters">
+                <div class="flex flex-wrap gap-2 md:gap-6 xl:flex-col" id="project-filters">
                   {
                     projectSectors.map((s, index) => (
                       <button
                         data-filter={s.slug}
-                        class={`filter-btn ${index === 0 ? "active" : ""} group/filter border-charcoal/5 flex items-center gap-4 py-1 text-left transition-all duration-500 focus:outline-none lg:border-b lg:py-3 lg:last:border-0`}
+                        class={`filter-btn ${index === 0 ? "active" : ""} group/filter border-charcoal/5 flex items-center gap-4 py-1 text-left transition-all duration-500 focus:outline-none xl:border-b xl:py-3 xl:last:border-0`}
                       >
-                        <span class="text-charcoal/20 group-[.active]/filter:text-charcoal/60 hidden text-[9px] font-bold tabular-nums lg:inline">
+                        <span class="text-charcoal/20 group-[.active]/filter:text-charcoal/60 hidden text-[9px] font-bold tabular-nums xl:inline">
                           {String(index + 1).padStart(2, "0")}
                         </span>
-                        <span class="text-charcoal/50 group-hover/filter:text-charcoal group-[.active]/filter:bg-charcoal group-[.active]/filter:text-bone group-[.active]/filter:border-charcoal border-charcoal/10 lg:group-[.active]/filter:text-charcoal cursor-pointer border px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase transition-all duration-500 group-[.active]/filter:font-bold md:tracking-[0.2em] lg:border-0 lg:p-0 lg:text-lg lg:font-light lg:tracking-tight lg:group-[.active]/filter:bg-transparent">
+                        <span class="text-charcoal/50 group-hover/filter:text-charcoal group-[.active]/filter:bg-charcoal group-[.active]/filter:text-bone group-[.active]/filter:border-charcoal border-charcoal/10 xl:group-[.active]/filter:text-charcoal cursor-pointer border px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase transition-all duration-500 group-[.active]/filter:font-bold md:tracking-[0.2em] xl:border-0 xl:p-0 xl:text-lg xl:font-light xl:tracking-tight xl:group-[.active]/filter:bg-transparent">
                           {s.title}
                         </span>
                       </button>
@@ -371,13 +371,13 @@ const principles = (discipline.positions || []).map((p, i) => ({
             </aside>
 
             {/* ─── Main Grid: The Evidence ─── */}
-            <div class="lg:col-span-8">
-              <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8" id="project-grid">
+            <div class="xl:col-span-8">
+              <div class="grid grid-cols-1 gap-4 2xl:grid-cols-2 xl:gap-8" id="project-grid">
                 {
                   /* ─── The Directive Cards (First Card for each Sector) ─── */
                   projectSectors.map((s) => (
                     <article
-                      class="project-item reveal flex flex-col justify-center p-4 md:col-span-2 lg:p-0 lg:py-24"
+                      class="project-item reveal flex flex-col justify-center p-4 2xl:col-span-2 xl:p-0 xl:py-24"
                       data-sector={s.slug}
                       style="display: none; opacity: 0; transform: scale(0.95);"
                     >
@@ -395,7 +395,7 @@ const principles = (discipline.positions || []).map((p, i) => ({
                             <p>{p}</p>
                           ))}
                         </div>
-                        <div class="mb-12 w-fit pt-8 md:mb-0">
+                        <div class="mb-12 w-fit pt-8 xl:mb-0">
                           <a href={`/sectors/${s.slug}`} class="btn-secondary-outline">
                             Explore {s.title} <Icon name="ph:arrow-right" class="h-3 w-3" />
                           </a>
@@ -408,54 +408,60 @@ const principles = (discipline.positions || []).map((p, i) => ({
                 {
                   placeholderProjects.map((project) => (
                     <article
-                      class="project-item group/project bg-charcoal/5 ease-luxury relative overflow-hidden transition-all duration-700"
+                      class="project-item group/project relative overflow-hidden transition-all duration-700"
                       data-sector={project.sectorSlug}
                     >
-                      <a
-                        href={`/projects/${project.slug}`}
-                        class="block aspect-square h-full w-full lg:aspect-4/3"
-                      >
-                        <div class="absolute inset-0 contrast-[1.04] grayscale-[0.65] saturate-[0.88] transition-all duration-1000 group-hover/project:contrast-100 group-hover/project:grayscale-0 group-hover/project:saturate-100">
-                          <img
-                            src={project.image}
-                            alt={project.title}
-                            width="1200"
-                            height="900"
-                            class="ease-luxury h-full w-full object-cover transition-transform duration-[1.5s] group-hover/project:scale-[1.05]"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </div>
+                      <a href={`/projects/${project.slug}`} class="block">
+                        <div class="relative overflow-hidden">
+                          {/* Image wrapper */}
+                          <div class="contrast-[1.04] grayscale-[0.65] saturate-[0.88] transition-all duration-1000 group-hover/project:contrast-100 group-hover/project:grayscale-0 group-hover/project:saturate-100">
+                            <img
+                              src={project.image}
+                              alt={project.title}
+                              width="1200"
+                              height="900"
+                              class="ease-luxury h-full w-full object-cover transition-transform duration-[1.5s] group-hover/project:scale-[1.05]"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </div>
 
-                        <div class="from-charcoal/90 via-charcoal/20 absolute inset-0 bg-linear-to-t to-transparent opacity-60 transition-opacity duration-1000 group-hover/project:opacity-100" />
+                          {/* Subtle Bottom Scrim for Title only */}
+                          <div class="from-charcoal/60 absolute inset-0 bg-linear-to-t to-transparent opacity-40 transition-opacity duration-1000 group-hover/project:opacity-60" />
 
-                        <div class="absolute top-6 left-6 z-20 flex gap-2 lg:top-10 lg:left-10">
-                          <span class="text-charcoal bg-white/90 px-3 py-1 text-[8px] font-bold tracking-[0.2em] uppercase backdrop-blur-sm">
-                            {project.sector}
-                          </span>
-                          <span class="bg-charcoal/80 text-bone px-3 py-1 text-[8px] font-bold tracking-[0.2em] uppercase backdrop-blur-sm">
-                            {discipline.title}
-                          </span>
-                        </div>
-
-                        <div class="absolute bottom-0 left-0 w-full p-8 lg:p-14">
-                          <div class="flex flex-col">
-                            <span class="text-bone/80 mb-2 text-[12px] font-bold tracking-[0.4em] uppercase">
-                              {project.client}
+                          {/* Top Left: Tags */}
+                          <div class="absolute top-6 left-6 z-20 flex gap-2">
+                            <span class="text-charcoal bg-white/90 px-3 py-1 text-[8px] font-bold tracking-[0.2em] uppercase backdrop-blur-sm">
+                              {project.sector}
                             </span>
-                            <h3 class="text-bone max-w-[85%] text-2xl leading-[1.1] font-light tracking-tight drop-shadow-md lg:text-3xl">
+                          </div>
+
+                          {/* Bottom Left: Title Overlay */}
+                          <div class="absolute bottom-0 left-0 w-full p-8 lg:p-10">
+                            <h3 class="text-bone text-2xl leading-tight font-light tracking-tight [text-shadow:0_2px_10px_rgba(0,0,0,0.3)] lg:text-3xl">
                               {project.title}
                             </h3>
-                            <div class="mt-6 flex flex-wrap items-center gap-6 lg:gap-8">
-                              <span class="text-bone/80 text-[10px] font-bold tracking-[0.4em] uppercase">
-                                {project.areaSqFt} sqft
-                              </span>
-                              <span class="text-bone/80 text-[10px] font-bold tracking-[0.4em] uppercase">
-                                {project.city}
-                              </span>
-                              <span class="text-bone/80 ml-auto hidden text-[10px] font-bold tracking-[0.4em] uppercase md:block">
-                                {project.year}
-                              </span>
+                          </div>
+                        </div>
+
+                        {/* ─── The Spec Sheet: Metadata Below ─── */}
+                        <div class="border-charcoal/10 flex flex-col border-b pt-8 pb-12 transition-colors duration-700 group-hover/project:border-charcoal/30">
+                          <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
+                            <div class="flex flex-col gap-1.5">
+                              <span class="text-charcoal/30 text-[8px] font-bold tracking-[0.3em] uppercase">Client</span>
+                              <span class="text-charcoal text-[11px] font-semibold tracking-wider uppercase">{project.client}</span>
+                            </div>
+                            <div class="flex flex-col gap-1.5">
+                              <span class="text-charcoal/30 text-[8px] font-bold tracking-[0.3em] uppercase">Location</span>
+                              <span class="text-charcoal text-[11px] font-semibold tracking-wider uppercase">{project.city}</span>
+                            </div>
+                            <div class="flex flex-col gap-1.5">
+                              <span class="text-charcoal/30 text-[8px] font-bold tracking-[0.3em] uppercase">Area</span>
+                              <span class="text-charcoal text-[11px] font-bold tabular-nums tracking-widest">{project.areaSqFt} SQFT</span>
+                            </div>
+                            <div class="flex flex-col gap-1.5 xl:items-end">
+                              <span class="text-charcoal/30 text-[8px] font-bold tracking-[0.3em] uppercase">Status</span>
+                              <span class="text-charcoal text-[11px] font-bold tabular-nums tracking-widest">COMPLETED {project.year}</span>
                             </div>
                           </div>
                         </div>
@@ -476,7 +482,7 @@ const principles = (discipline.positions || []).map((p, i) => ({
                         data-contact-modal="true"
                         data-contact-context={`Requesting Portfolio: ${s.title}`}
                         data-contact-sector={s.title}
-                        class="block aspect-square h-full w-full cursor-pointer text-left lg:aspect-4/3"
+                        class="block aspect-square h-full w-full cursor-pointer text-left xl:aspect-4/3"
                       >
                         <div class="absolute inset-0 contrast-[1.04] grayscale saturate-[0.88] transition-all duration-1000 group-hover/project:contrast-100 group-hover/project:grayscale-0 group-hover/project:saturate-100">
                           <img
@@ -602,18 +608,26 @@ const principles = (discipline.positions || []).map((p, i) => ({
 
         if (sector === filter) {
           itemEl.style.display = "block";
+          itemEl.style.filter = "blur(10px)";
+          itemEl.style.transform = "scale(0.98)";
+          itemEl.style.opacity = "0";
+          
           setTimeout(() => {
+            itemEl.style.transition = "all 0.8s cubic-bezier(0.19, 1, 0.22, 1)";
             itemEl.style.opacity = "1";
             itemEl.style.transform = "scale(1)";
+            itemEl.style.filter = "blur(0px)";
             itemEl.style.pointerEvents = "auto";
-          }, 10);
+          }, 50);
         } else {
+          itemEl.style.transition = "all 0.6s cubic-bezier(0.19, 1, 0.22, 1)";
           itemEl.style.opacity = "0";
-          itemEl.style.transform = "scale(0.95)";
+          itemEl.style.transform = "scale(1.02)";
+          itemEl.style.filter = "blur(10px)";
           itemEl.style.pointerEvents = "none";
           setTimeout(() => {
             if (itemEl.style.opacity === "0") itemEl.style.display = "none";
-          }, 700);
+          }, 600);
         }
       });
     };
