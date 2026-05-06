@@ -12,23 +12,35 @@ const StudioLeads = () => {
   useEffect(() => {
     const fetchLeads = async () => {
       try {
-        // Dynamically determine the API base URL
         const isLocal = window.location.hostname === 'localhost';
-        const apiBase = isLocal ? 'http://localhost:4321' : 'https://metaphors.design';
         
-        const response = await fetch(`${apiBase}/api/enquiries`, {
-          headers: {
-            'Authorization': `Bearer ${STUDIO_SECRET}`
+        // Priority order: Localhost -> Production -> Test Link
+        const bases = isLocal 
+          ? ['http://localhost:4321'] 
+          : ['https://metaphors-design.com', 'https://metaphors-new.tkb.workers.dev'];
+
+        let success = false;
+        let lastError = null;
+
+        for (const apiBase of bases) {
+          try {
+            const response = await fetch(`${apiBase}/api/enquiries`, {
+              headers: { 'Authorization': `Bearer ${STUDIO_SECRET}` }
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+              setLeads(data.results);
+              success = true;
+              break;
+            }
+          } catch (e) {
+            lastError = e;
+            continue; // Try next base
           }
-        });
-        
-        const data = await response.json();
-        
-        if (data.success) {
-          setLeads(data.results);
-        } else {
-          setError(data.error || 'Failed to load leads');
         }
+
+        if (!success) throw lastError || new Error('All connection attempts failed');
       } catch (err) {
         setError('Connection error. Is the website running?');
       } finally {
