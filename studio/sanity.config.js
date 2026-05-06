@@ -3,6 +3,7 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {media} from 'sanity-plugin-media'
 import {schemaTypes} from './schemas'
+import StudioLeads from './components/StudioLeads'
 
 import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 
@@ -77,6 +78,15 @@ export default defineConfig({
     }),
     visionTool(),
     media(),
+  ],
+
+  tools: (prev) => [
+    ...prev,
+    {
+      name: 'enquiries',
+      title: 'Enquiries',
+      component: StudioLeads,
+    },
   ],
 
   schema: {

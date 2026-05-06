@@ -18,7 +18,7 @@ export default defineConfig({
       },
     },
     ssr: {
-      noExternal: ["resend", "@sanity/client", "@sanity/image-url"],
+      noExternal: ["@sanity/client", "@sanity/image-url"],
     },
   },
   integrations: [sitemap()],

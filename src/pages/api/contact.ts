@@ -1,11 +1,10 @@
 import type { APIRoute } from "astro";
-import { Resend } from "resend";
 // @ts-ignore - Valid in Cloudflare context
 import { env } from "cloudflare:workers";
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.formData();
 
@@ -13,9 +12,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const cloudflareEnv = typeof env !== "undefined" ? env : {};
     const db = (cloudflareEnv as any).DB;
     const resendKey = (cloudflareEnv as any).RESEND_API_KEY || import.meta.env.RESEND_API_KEY;
-
-    // Create Resend instance using Cloudflare environment variable
-    const resend = new Resend(resendKey);
 
     // SPAM / BOT PROTECTION (Honeypot)
     const gotcha = data.get("_gotcha");
@@ -57,7 +53,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
           .run();
       } catch (dbErr) {
         console.error("D1 Persistence Error:", dbErr);
-        // We continue anyway so the email still tries to send
       }
     }
 
@@ -92,18 +87,28 @@ export const POST: APIRoute = async ({ request, locals }) => {
       </div>
     `;
 
-    const { data: resendData, error } = await resend.emails.send({
-      from: "Metaphors Design <info@metaphors-design.com>",
-      to: [email],
-      bcc: ["lotusnanoindia@gmail.com"],
-      subject: subject,
-      html: htmlContent,
+    // 2. SEND EMAIL VIA NATIVE FETCH (Resend API)
+    const resendResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "Metaphors Design <info@metaphors-design.com>",
+        to: [email],
+        bcc: ["lotusnanoindia@gmail.com"],
+        subject: subject,
+        html: htmlContent,
+      }),
     });
 
-    if (error) {
-      console.error("Resend Error:", error);
-      return new Response(JSON.stringify({ success: false, error: error.message }), {
-        status: 400,
+    const resendData = await resendResponse.json();
+
+    if (!resendResponse.ok) {
+      console.error("Resend API Error:", resendData);
+      return new Response(JSON.stringify({ success: false, error: (resendData as any).message }), {
+        status: resendResponse.status,
       });
     }
 
