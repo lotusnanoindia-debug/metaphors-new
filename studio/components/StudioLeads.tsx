@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Text, Stack, Flex, Box, Badge, Label, Spinner } from '@sanity/ui';
+import { Card, Text, Stack, Flex, Box, Badge, Label, Spinner, Grid } from '@sanity/ui';
 import { EnvelopeIcon, UserIcon, CalendarIcon, TagIcon } from '@sanity/icons';
 
 const getSecret = () => {
