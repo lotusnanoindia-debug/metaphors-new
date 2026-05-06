@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Text, Stack, Flex, Box, Badge, Label, Spinner, Grid } from '@sanity/ui';
-import { EnvelopeIcon, UserIcon, CalendarIcon, TagIcon } from '@sanity/icons';
+import { EnvelopeIcon, UserIcon, CalendarIcon, TagIcon, SearchIcon } from '@sanity/icons';
+import { TextInput, Button, Grid, Box, Flex, Stack, Text, Card, Badge, Spinner } from '@sanity/ui';
+import styled from 'styled-components';
 
 const getSecret = () => {
   try { return process.env.SANITY_STUDIO_LEADS_SECRET; } catch (e) {}
@@ -10,21 +10,52 @@ const getSecret = () => {
 
 const STUDIO_SECRET = getSecret();
 
+// PREMIUM ARCHITECTURAL STYLING
+const DashboardContainer = styled.div`
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 40px;
+  background: transparent;
+  color: #fff;
+`;
+
+const LeadCard = styled.div`
+  background: #111;
+  border-left: 1px solid #333;
+  padding: 30px;
+  transition: all 0.3s ease;
+  position: relative;
+  &:hover {
+    border-left-color: #fff;
+    background: #161616;
+  }
+`;
+
+const GroupHeader = styled.div`
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  color: #666;
+  padding: 20px 0;
+  border-bottom: 1px solid #222;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+`;
+
 const StudioLeads = () => {
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchLeads = async () => {
       try {
-        if (!STUDIO_SECRET) {
-          throw new Error('Missing Studio Secret in Environment');
-        }
-
+        if (!STUDIO_SECRET) throw new Error('Missing Studio Secret');
         const isLocal = window.location.hostname === 'localhost';
-        
-        // Priority order: Localhost -> Production -> Test Link
         const bases = isLocal 
           ? ['http://localhost:4321'] 
           : ['https://metaphors-design.com', 'https://metaphors-new.tkb.workers.dev'];
@@ -37,163 +68,137 @@ const StudioLeads = () => {
             const response = await fetch(`${apiBase}/api/enquiries`, {
               headers: { 'Authorization': `Bearer ${STUDIO_SECRET}` }
             });
-            
             const data = await response.json();
             if (data.success) {
               setLeads(data.results);
               success = true;
               break;
             } else {
-              throw new Error(data.error || 'Unknown API Error');
+              throw new Error(data.error);
             }
           } catch (e) {
             lastError = e;
-            continue; // Try next base
+            continue;
           }
         }
-
-        if (!success) throw lastError || new Error('All connection attempts failed');
+        if (!success) throw lastError;
       } catch (err) {
-        setError(err.message || 'Connection error.');
+        setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-
     fetchLeads();
   }, []);
 
-  if (loading) {
-    return (
-      <Flex align="center" justify="center" height="fill">
-        <Stack space={3} align="center">
-          <Spinner />
-          <Text size={1} muted>Synchronising with D1 Database...</Text>
-        </Stack>
-      </Flex>
-    );
-  }
+  // SEARCH LOGIC
+  const filteredLeads = leads.filter(l => 
+    l.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (l.organisation && l.organisation.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    l.message.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    l.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  if (error) {
-    return (
-      <Card padding={5} tone="critical">
-        <Text align="center">{error}</Text>
-      </Card>
-    );
-  }
+  // GROUPING LOGIC
+  const groupedLeads = filteredLeads.reduce((acc, lead) => {
+    const date = new Date(lead.created_at);
+    const monthYear = date.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+    if (!acc[monthYear]) acc[monthYear] = [];
+    acc[monthYear].push(lead);
+    return acc;
+  }, {});
+
+  if (loading) return (
+    <Flex align="center" justify="center" height="fill"><Spinner /></Flex>
+  );
 
   return (
-    <Box padding={5} style={{ maxWidth: '1400px', margin: '0 auto' }}>
-      <Stack space={5}>
-        <Flex align="center" justify="space-between" borderBottom paddingBottom={4}>
+    <DashboardContainer>
+      <Stack space={6}>
+        <Flex align="center" justify="space-between">
           <Stack space={3}>
-            <Text size={4} weight="bold" style={{ letterSpacing: '-0.02em' }}>Client CRM & Enquiries</Text>
-            <Text size={2} muted>Direct leads captured from the Metaphors Design ecosystem</Text>
+            <Text size={4} weight="bold" style={{ color: '#fff' }}>Metaphors CRM</Text>
+            <Text size={1} style={{ color: '#666' }}>Intelligence-led business capture</Text>
           </Stack>
-          <Flex align="center" gap={3}>
-            <Badge tone="primary" mode="outline" padding={3} fontSize={2}>
-              {leads.length} Total Leads
-            </Badge>
-          </Flex>
+          
+          <Box style={{ width: '400px' }}>
+            <TextInput
+              icon={SearchIcon}
+              placeholder="Search enquiries by name, company, or content..."
+              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchTerm}
+              fontSize={1}
+              padding={4}
+            />
+          </Box>
         </Flex>
 
-        {leads.length === 0 ? (
-          <Card padding={6} border radius={3} style={{ borderStyle: 'dashed' }}>
-            <Flex align="center" justify="center">
-              <Text size={2} muted>No enquiries found in the database yet.</Text>
-            </Flex>
-          </Card>
+        {Object.keys(groupedLeads).length === 0 ? (
+          <Box paddingY={6} style={{ textAlign: 'center' }}>
+            <Text size={2} muted>No matching enquiries found.</Text>
+          </Box>
         ) : (
-          <Grid columns={[1, 1, 1, 2]} gap={4}>
-            {leads.map((lead) => (
-              <Card 
-                key={lead.id} 
-                padding={4} 
-                border 
-                radius={3} 
-                shadow={1}
-                style={{ 
-                  transition: 'all 0.2s ease', 
-                  cursor: 'default',
-                }}
-              >
-                <Stack space={4}>
-                  <Flex align="center" justify="space-between">
-                    <Flex align="center" gap={3}>
-                      <Card radius={4} padding={2} tone="primary">
-                        <UserIcon style={{ fontSize: 24 }} />
-                      </Card>
-                      <Stack space={2}>
-                        <Text weight="bold" size={3} style={{ letterSpacing: '-0.01em' }}>
-                          {lead.name}
+          Object.keys(groupedLeads).map((month) => (
+            <div key={month}>
+              <GroupHeader>
+                <span>{month}</span>
+                <span>{groupedLeads[month].length} Leads</span>
+              </GroupHeader>
+              
+              <Grid columns={[1, 1, 2]} gap={4}>
+                {groupedLeads[month].map((lead) => (
+                  <LeadCard key={lead.id}>
+                    <Stack space={5}>
+                      <Flex justify="space-between" align="flex-start">
+                        <Stack space={2}>
+                          <Text weight="bold" size={3} style={{ color: '#fff' }}>{lead.name}</Text>
+                          {lead.organisation && <Text size={1} style={{ color: '#aaa' }}>{lead.organisation}</Text>}
+                        </Stack>
+                        <Text size={0} style={{ color: '#444' }}>
+                          {new Date(lead.created_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
                         </Text>
-                        {lead.organisation && (
-                          <Text size={1} muted weight="medium">{lead.organisation}</Text>
-                        )}
-                      </Stack>
-                    </Flex>
-                    <Flex align="flex-end" direction="column" gap={2}>
-                      <Text size={1} muted>
-                        {new Date(lead.created_at).toLocaleDateString('en-GB', {
-                          day: 'numeric', month: 'short', year: 'numeric'
-                        })}
-                      </Text>
-                      <Text size={1} muted>
-                        {new Date(lead.created_at).toLocaleTimeString('en-GB', {
-                          hour: '2-digit', minute: '2-digit'
-                        })}
-                      </Text>
-                    </Flex>
-                  </Flex>
-
-                  <Flex gap={2} wrap="wrap">
-                    <Badge tone="primary" padding={2} fontSize={1}>{lead.sector}</Badge>
-                    <Badge tone="caution" padding={2} fontSize={1}>{lead.discipline}</Badge>
-                    <Badge tone="default" padding={2} fontSize={1}>{lead.context}</Badge>
-                  </Flex>
-
-                  <Card padding={4} tone="transparent" radius={2} border style={{ backgroundColor: 'rgba(128, 128, 128, 0.05)' }}>
-                    <Text size={2} style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6, opacity: 0.9 }}>
-                      {lead.message}
-                    </Text>
-                  </Card>
-
-                  <Flex align="center" justify="space-between" paddingTop={2}>
-                    <Stack space={3}>
-                      <Flex align="center" gap={2}>
-                        <EnvelopeIcon style={{ opacity: 0.6 }} />
-                        <Text size={2} weight="medium">{lead.email}</Text>
                       </Flex>
-                      {lead.phone && (
-                        <Flex align="center" gap={2}>
-                          <TagIcon style={{ opacity: 0.6 }} />
-                          <Text size={2} weight="medium">{lead.phone}</Text>
-                        </Flex>
-                      )}
+
+                      <div style={{ color: '#ccc', fontSize: '15px', lineHeight: '1.7', borderLeft: '1px solid #222', paddingLeft: '15px' }}>
+                        {lead.message}
+                      </div>
+
+                      <Flex gap={2} wrap="wrap">
+                        <Badge fontSize={0} style={{ background: '#222', color: '#fff', border: 'none' }}>{lead.sector}</Badge>
+                        <Badge fontSize={0} style={{ background: '#222', color: '#fff', border: 'none' }}>{lead.discipline}</Badge>
+                      </Flex>
+
+                      <Flex align="center" justify="space-between">
+                        <Stack space={2}>
+                          <Text size={1} style={{ color: '#888' }}>{lead.email}</Text>
+                          {lead.phone && <Text size={1} style={{ color: '#888' }}>{lead.phone}</Text>}
+                        </Stack>
+                        
+                        <a 
+                          href={`mailto:${lead.email}?subject=Metaphors Design: Re: ${lead.sector}`}
+                          style={{ 
+                            textDecoration: 'none', 
+                            background: '#fff', 
+                            color: '#000', 
+                            padding: '10px 20px', 
+                            fontSize: '11px', 
+                            fontWeight: 'bold', 
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.1em'
+                          }}
+                        >
+                          Respond
+                        </a>
+                      </Flex>
                     </Stack>
-                    
-                    <a 
-                      href={`mailto:${lead.email}?subject=Re: Enquiry regarding ${lead.sector} - Metaphors Design`}
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <Card 
-                        padding={3} 
-                        radius={2} 
-                        tone="primary" 
-                        shadow={1}
-                        style={{ cursor: 'pointer', textAlign: 'center' }}
-                      >
-                        <Text size={2} weight="bold">Reply via Email</Text>
-                      </Card>
-                    </a>
-                  </Flex>
-                </Stack>
-              </Card>
-            ))}
-          </Grid>
+                  </LeadCard>
+                ))}
+              </Grid>
+            </div>
+          ))
         )}
       </Stack>
-    </Box>
+    </DashboardContainer>
   );
 };
 
