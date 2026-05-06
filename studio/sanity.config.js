@@ -4,12 +4,16 @@ import {visionTool} from '@sanity/vision'
 import {media} from 'sanity-plugin-media'
 import {schemaTypes} from './schemas'
 import StudioLeads from './components/StudioLeads'
+import StudioLogo from './components/StudioLogo'
+import {metaphorsTheme} from './theme'
 
 import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 
 export default defineConfig({
   name: 'default',
   title: 'Metaphors Design',
+  theme: metaphorsTheme,
+  icon: StudioLogo,
 
   projectId: 'h05maah4',
   dataset: 'production',
