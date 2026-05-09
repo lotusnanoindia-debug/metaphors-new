@@ -10,9 +10,7 @@ export default defineType({
   orderings: [orderRankOrdering],
   groups: [
     {name: 'identity', title: 'Identity', default: true},
-    {name: 'menuContext', title: 'Mega Menu Context'},
-    {name: 'homeContext', title: 'Homepage Context'},
-    {name: 'landingContext', title: 'Landing Page Context'},
+    {name: 'content', title: 'Landing Page Content'},
   ],
   fields: [
     // Required by @sanity/orderable-document-list for drag-to-reorder
@@ -34,88 +32,51 @@ export default defineType({
       group: 'identity',
       validation: (Rule) => Rule.required(),
     }),
-
-    // --- MEGA MENU CONTEXT ---
-    defineField({
-      name: 'menuTagline',
-      title: 'Menu Tagline',
-      description: 'A punchy 3-5 word hook for the mega menu.',
-      type: 'string',
-      group: 'menuContext',
-    }),
-    defineField({
-      name: 'menuCTA',
-      title: 'Mega Menu CTA text',
-      description: 'Dynamic button text tailored to the sector, e.g. "View Commercial Projects".',
-      type: 'string',
-      group: 'menuContext',
-    }),
-    defineField({
-      name: 'menuImage',
-      title: 'Menu Thumbnail',
-      description:
-        'A small, specific graphic or abstract crop to anchor the link visually in the menu.',
-      type: 'image',
-      options: {hotspot: true},
-      group: 'menuContext',
-    }),
-
-    // --- HOMEPAGE CONTEXT ---
     defineField({
       name: 'homeHeadline',
-      title: 'Homepage Headline',
-      description: 'A concise value proposition. e.g. "Your Sanctuary, Architected."',
+      title: 'Sector Hook / Sub-headline',
+      description: 'A concise value proposition. Used for Hero Sub and Mega Menu. e.g. "Your Sanctuary, Architected."',
       type: 'string',
-      group: 'homeContext',
+      group: 'identity',
     }),
     defineField({
-      name: 'homeIntro',
-      title: 'Homepage Intro Teaser',
-      description:
-        'Short text to show you understand their specific industry challenge (~150 chars).',
-      type: 'text',
-      rows: 3,
-      group: 'homeContext',
-    }),
-    defineField({
-      name: 'image', // Reusing the old field name for backward compatibility
-      title: 'Homepage Feature Image',
-      description:
-        'The absolute strongest hero piece for this sector. Also used as the main thumbnail in Sanity UI.',
+      name: 'image',
+      title: 'Feature Image',
+      description: 'The primary visual for this sector. Used in Hero and Mega Menu.',
       type: 'image',
       options: {hotspot: true},
-      group: 'homeContext',
+      group: 'identity',
     }),
 
-    // --- LANDING PAGE CONTEXT ---
+    // --- CONTENT ---
     defineField({
-      name: 'pageHeroHeadline',
-      title: 'Landing Page Hero Headline',
-      description: 'The primary pain-point solver.',
-      type: 'string',
-      group: 'landingContext',
+      name: 'statureQuote',
+      title: 'Anand Bhagat Quote',
+      description: 'A quote from the studio principal reflecting the philosophy for this sector.',
+      type: 'text',
+      rows: 3,
+      group: 'content',
     }),
     defineField({
       name: 'pageHeroSub',
-      title: 'Landing Page Sub-headline',
-      description: '1-2 sentences setting the scene under the main headline.',
+      title: 'Pivot Narrative',
+      description: '1-2 sentences next to the hero image (The "shell is given..." equivalent).',
       type: 'text',
       rows: 3,
-      group: 'landingContext',
+      group: 'content',
     }),
     defineField({
       name: 'valueProposition',
-      title: 'Value Proposition',
-      description: 'The core pitch proving Metaphors deep domain expertise in this exact sector.',
+      title: 'Rigour & Intent (Manifesto)',
+      description: 'The core long-form pitch proving domain expertise.',
       type: 'text',
       rows: 5,
-      group: 'landingContext',
+      group: 'content',
     }),
     defineField({
       name: 'keyPillars',
-      title: 'Key Capabilities / Pillars',
-      description:
-        'What are the 3 main pillars for this sector? (e.g. For Retail: 1. Footfall Flow, 2. Brand Identity...)',
+      title: 'Key Standards / Pillars',
+      description: 'The 3 main capabilities for this sector.',
       type: 'array',
       of: [
         {
@@ -126,32 +87,7 @@ export default defineType({
           ],
         },
       ],
-      group: 'landingContext',
-    }),
-    defineField({
-      name: 'curatedProjects',
-      title: 'Curated Sector Projects',
-      description:
-        'Manually pin specific showcase projects that perfectly capture the pitch for this sector. (Optional: You can also just dynamically fetch featured projects instead)',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'project'}}],
-      group: 'landingContext',
-    }),
-    defineField({
-      name: 'frameworkDescription',
-      title: 'Success Factors Description',
-      description:
-        'The strategic intro copy beneath the "Success Factors" heading on the sector landing page. E.g. "Key principles we apply to balance architectural ambition with…"',
-      type: 'text',
-      rows: 3,
-      group: 'landingContext',
-    }),
-    defineField({
-      name: 'customCTA',
-      title: 'Custom CTA Text',
-      description: 'Instead of "Contact Us", tailor the button: "Discuss Your Healthcare Project".',
-      type: 'string',
-      group: 'landingContext',
+      group: 'content',
     }),
   ],
   preview: {

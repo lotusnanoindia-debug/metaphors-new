@@ -4,9 +4,12 @@ import Cta from "./Cta.astro";
 interface Props {
   section?: any;
   className?: string;
+  isContact?: boolean;
+  contactContext?: string;
+  discipline?: string;
 }
 
-const { section, className = "" } = Astro.props;
+const { section, className = "", isContact = false, contactContext, discipline } = Astro.props;
 ---
 
 <section
@@ -32,7 +35,14 @@ const { section, className = "" } = Astro.props;
         <p class="text-charcoal/60 text-xl leading-relaxed" set:html={section?.tagline} />
 
         <div class="flex shrink-0 justify-center">
-          <Cta text={section?.ctaLabel} href={section?.ctaUrl} invert={true} />
+          <Cta
+            text={section?.ctaLabel}
+            href={section?.ctaUrl}
+            invert={true}
+            isContact={isContact}
+            contactContext={contactContext}
+            discipline={discipline}
+          />
         </div>
       </div>
     </div>

@@ -10,9 +10,8 @@ export default defineType({
   orderings: [orderRankOrdering],
   groups: [
     {name: 'identity', title: 'Identity', default: true},
-    {name: 'stature', title: 'Stature Section'},
-    {name: 'positions', title: 'Positions'},
-    {name: 'sectors', title: 'Sector Lens'},
+    {name: 'content', title: 'Landing Page Content'},
+    {name: 'sectorLens', title: 'Sector Contexts'},
   ],
   fields: [
     orderRankField({type: 'discipline'}),
@@ -39,64 +38,52 @@ export default defineType({
     }),
     defineField({
       name: 'heroSubtitle',
-      title: 'Hero Subtitle',
+      title: 'Discipline Hook / Sub-headline',
       type: 'string',
       group: 'identity',
       description: 'The short, punchy line under the title (e.g. "Form is the Consequence...")',
     }),
     defineField({
-      name: 'valueProposition',
-      title: 'Conversion Copy (Value Proposition)',
-      type: 'text',
-      group: 'identity',
-      rows: 4,
-      description: 'The prospect-focused pitch. Why should they hire the firm for this discipline?',
-    }),
-    defineField({
       name: 'mainImage',
-      title: 'Stature Image (Large)',
+      title: 'Feature Image (Large)',
       type: 'image',
       group: 'identity',
       options: {
         hotspot: true,
       },
-      description: 'The primary monumental shot in the stature grid.',
-    }),
-    defineField({
-      name: 'secondaryImage',
-      title: 'Stature Image (Small)',
-      type: 'image',
-      group: 'identity',
-      options: {
-        hotspot: true,
-      },
-      description: 'The smaller atmospheric shot used in the dark block/stature grid.',
+      description: 'The primary monumental shot used in the Hero.',
     }),
 
-    // --- STATURE SECTION ---
-    defineField({
-      name: 'statureSubHeadline',
-      title: 'Stature Sub-headline',
-      type: 'text',
-      group: 'stature',
-      rows: 3,
-      description: 'e.g. "The principles are fixed. What changes is how architecture..."',
-    }),
+    // --- CONTENT ---
     defineField({
       name: 'statureQuote',
-      title: 'Principal Quote',
+      title: 'Anand Bhagat Quote',
+      description: 'The authoritative quote reflecting the philosophy of this discipline.',
       type: 'text',
-      group: 'stature',
       rows: 3,
-      description: 'The authoritative quote from the principal.',
+      group: 'content',
     }),
-
-    // --- POSITIONS ---
+    defineField({
+      name: 'statureSubHeadline',
+      title: 'Pivot Narrative',
+      description: '1-2 sentences next to the stature image (The "principles are fixed..." equivalent).',
+      type: 'text',
+      rows: 3,
+      group: 'content',
+    }),
+    defineField({
+      name: 'valueProposition',
+      title: 'Rigour & Intent (Manifesto)',
+      type: 'text',
+      group: 'content',
+      rows: 5,
+      description: 'The prospect-focused pitch proving domain expertise.',
+    }),
     defineField({
       name: 'positions',
-      title: 'Positions',
+      title: 'Key Positions / Tenets',
       type: 'array',
-      group: 'positions',
+      group: 'content',
       of: [
         {
           type: 'object',
@@ -108,13 +95,23 @@ export default defineType({
       ],
       description: 'The core tenets of this discipline.',
     }),
+    defineField({
+      name: 'secondaryImage',
+      title: 'Secondary/Atmospheric Image',
+      type: 'image',
+      group: 'content',
+      options: {
+        hotspot: true,
+      },
+      description: 'A smaller atmospheric shot used to complement the narrative.',
+    }),
 
     // --- SECTOR LENS ---
     defineField({
       name: 'sectorContexts',
       title: 'Sector Lens',
       type: 'array',
-      group: 'sectors',
+      group: 'sectorLens',
       of: [
         {
           type: 'object',

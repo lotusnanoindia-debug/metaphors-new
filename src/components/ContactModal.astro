@@ -120,7 +120,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
           class="text-charcoal/90 text-3xl font-light tracking-tight lg:text-4xl"
           id="modal-eyebrow"
         >
-          Direct Enquiry
+          Start a Conversation
         </p>
       </div>
 
@@ -131,9 +131,8 @@ const disciplines = disciplinesData.map((d: any) => d.title);
             Acknowledged.
           </h3>
           <p class="text-charcoal/60 max-w-md text-base leading-relaxed font-light">
-            Your enquiry has been received and a confirmation has been sent to the email address you
-            provided. A senior member of our team will review the details and respond within two
-            working days.
+            Thank you for reaching out. We've received your message, and a member of our team will
+            be in touch shortly to continue the dialogue.
           </p>
         </div>
         <button
@@ -210,6 +209,8 @@ const disciplines = disciplinesData.map((d: any) => d.title);
               <button
                 type="button"
                 class="dropdown-trigger border-charcoal/20 text-charcoal hover:border-charcoal flex w-full cursor-pointer items-center justify-between border-b bg-transparent py-4 text-xl font-light transition-colors"
+                aria-haspopup="listbox"
+                aria-expanded="false"
               >
                 <span class="selected-value text-charcoal/40"></span>
                 <svg
@@ -221,6 +222,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
               </button>
               <div
                 class="dropdown-menu border-charcoal/10 invisible absolute top-full left-0 z-50 w-full translate-y-2 overflow-hidden border border-t-0 bg-white opacity-0 shadow-xl transition-all duration-300"
+                role="listbox"
               >
                 <div class="custom-scrollbar max-h-60 overflow-y-auto">
                   <div
@@ -234,6 +236,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
                         type="button"
                         class="option text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 w-full px-5 py-3.5 text-left text-sm font-light transition-colors"
                         data-value={s}
+                        role="option"
                       >
                         {s}
                       </button>
@@ -243,6 +246,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
                     type="button"
                     class="option text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 border-charcoal/5 w-full border-t px-5 py-3.5 text-left text-sm font-light transition-colors"
                     data-value="Other"
+                    role="option"
                   >
                     Other
                   </button>
@@ -261,6 +265,8 @@ const disciplines = disciplinesData.map((d: any) => d.title);
               <button
                 type="button"
                 class="dropdown-trigger border-charcoal/20 text-charcoal hover:border-charcoal flex w-full cursor-pointer items-center justify-between border-b bg-transparent py-4 text-xl font-light transition-colors"
+                aria-haspopup="listbox"
+                aria-expanded="false"
               >
                 <span class="selected-value text-charcoal/40"></span>
                 <svg
@@ -272,6 +278,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
               </button>
               <div
                 class="dropdown-menu border-charcoal/10 invisible absolute top-full left-0 z-50 w-full translate-y-2 overflow-hidden border border-t-0 bg-white opacity-0 shadow-xl transition-all duration-300"
+                role="listbox"
               >
                 <div class="custom-scrollbar max-h-60 overflow-y-auto">
                   <div
@@ -285,6 +292,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
                         type="button"
                         class="option text-charcoal/60 hover:text-charcoal hover:bg-charcoal/2 w-full px-5 py-3.5 text-left text-sm font-light transition-colors"
                         data-value={d}
+                        role="option"
                       >
                         {d}
                       </button>
@@ -366,8 +374,8 @@ const disciplines = disciplinesData.map((d: any) => d.title);
 
         <div class="flex flex-col items-center justify-between gap-10 pt-4 sm:flex-row">
           <p class="text-charcoal/30 max-w-xs text-[9px] font-medium tracking-[0.2em] uppercase">
-            A partner will review your enquiry and respond within two working days. All enquiries
-            are treated confidentially.
+            Your message goes directly to our studio in Pune. We read every enquiry and typically
+            respond within two working days.
           </p>
           <div id="contact-modal-submit-wrapper" class="relative w-full sm:w-[240px]">
             <button
@@ -375,7 +383,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
               id="contact-modal-submit"
               class="group bg-charcoal text-bone relative inline-flex h-14 w-full shrink-0 cursor-pointer items-center justify-center text-[10px] font-bold tracking-[0.4em] uppercase transition-all duration-500 hover:bg-black"
             >
-              Send Enquiry
+              Submit
             </button>
           </div>
         </div>
@@ -393,7 +401,11 @@ const disciplines = disciplinesData.map((d: any) => d.title);
   const formHiddenContext = document.getElementById("form-context") as HTMLInputElement;
   const formHiddenOrigin = document.getElementById("contact-modal-origin") as HTMLInputElement;
 
-  function openModal(context = "General", preselectedSector: string | null = null) {
+  function openModal(
+    context = "General",
+    preselectedSector: string | null = null,
+    preselectedDiscipline: string | null = null,
+  ) {
     if (!modal) return;
 
     // Handle broad section contexts or specific slugs
@@ -403,13 +415,13 @@ const disciplines = disciplinesData.map((d: any) => d.title);
     if (context === "General" || !context) label = "Direct Enquiry";
 
     if (modalEyebrow) {
-      modalEyebrow.textContent = label.includes("Enquiry") ? label : `${label}`;
+      modalEyebrow.textContent = label.includes("Enquiry") ? "Start a Conversation" : `${label}`;
     }
 
     if (formHiddenContext) formHiddenContext.value = context;
     if (formHiddenOrigin) formHiddenOrigin.value = window.location.pathname;
 
-    // Handle Preselection
+    // Handle Sector Preselection
     if (preselectedSector) {
       const sectorDropdown = document.getElementById("sector-dropdown");
       const hiddenInput = sectorDropdown?.querySelector('input[type="hidden"]');
@@ -418,6 +430,20 @@ const disciplines = disciplinesData.map((d: any) => d.title);
       if (hiddenInput instanceof HTMLInputElement && selectedText instanceof HTMLElement) {
         hiddenInput.value = preselectedSector;
         selectedText.textContent = preselectedSector;
+        selectedText.classList.remove("text-charcoal/40");
+        selectedText.classList.add("text-charcoal");
+      }
+    }
+
+    // Handle Discipline Preselection
+    if (preselectedDiscipline) {
+      const disciplineDropdown = document.getElementById("discipline-dropdown");
+      const hiddenInput = disciplineDropdown?.querySelector('input[type="hidden"]');
+      const selectedText = disciplineDropdown?.querySelector(".selected-value");
+
+      if (hiddenInput instanceof HTMLInputElement && selectedText instanceof HTMLElement) {
+        hiddenInput.value = preselectedDiscipline;
+        selectedText.textContent = preselectedDiscipline;
         selectedText.classList.remove("text-charcoal/40");
         selectedText.classList.add("text-charcoal");
       }
@@ -537,6 +563,7 @@ const disciplines = disciplinesData.map((d: any) => d.title);
       openModal(
         btn.getAttribute("data-contact-context") || "Direct Enquiry",
         btn.getAttribute("data-contact-sector"),
+        btn.getAttribute("data-contact-discipline"),
       );
     }
   });
@@ -544,44 +571,135 @@ const disciplines = disciplinesData.map((d: any) => d.title);
   // Custom Dropdown Logic
   const dropdowns = document.querySelectorAll(".custom-dropdown");
 
+  const closeAllModalDropdowns = () => {
+    dropdowns.forEach((dropdown) => {
+      const menu = dropdown.querySelector(".dropdown-menu");
+      const arrow = dropdown.querySelector("svg");
+      const trigger = dropdown.querySelector(".dropdown-trigger");
+
+      if (menu instanceof HTMLElement) {
+        menu.style.opacity = "0";
+        menu.style.visibility = "hidden";
+        menu.style.transform = "translateY(8px)";
+      }
+
+      dropdown.classList.remove("active");
+      trigger?.setAttribute("aria-expanded", "false");
+      arrow?.classList.remove("rotate-180");
+    });
+  };
+
   dropdowns.forEach((dropdown) => {
     const trigger = dropdown.querySelector(".dropdown-trigger");
     const menu = dropdown.querySelector(".dropdown-menu");
-    const options = dropdown.querySelectorAll(".option");
+    const options = Array.from(dropdown.querySelectorAll(".option")) as HTMLElement[];
     const selectedText = dropdown.querySelector(".selected-value");
     const hiddenInput = dropdown.querySelector('input[type="hidden"]') as HTMLInputElement;
     const arrow = trigger?.querySelector("svg");
 
-    trigger?.addEventListener("click", (e) => {
+    if (!(trigger instanceof HTMLElement) || !(menu instanceof HTMLElement)) return;
+
+    // Initial styles for the menu
+    menu.style.transition = "opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease";
+    menu.style.opacity = "0";
+    menu.style.visibility = "hidden";
+    menu.style.transform = "translateY(8px)";
+
+    let focusedIndex = -1;
+
+    const openDropdown = () => {
+      const isOpen = dropdown.classList.contains("active");
+      if (isOpen) return;
+
+      closeAllModalDropdowns();
+      dropdown.classList.add("active");
+      menu.style.opacity = "1";
+      menu.style.visibility = "visible";
+      menu.style.transform = "translateY(0)";
+      trigger.setAttribute("aria-expanded", "true");
+      arrow?.classList.add("rotate-180");
+    };
+
+    const closeDropdown = () => {
+      dropdown.classList.remove("active");
+      menu.style.opacity = "0";
+      menu.style.visibility = "hidden";
+      menu.style.transform = "translateY(8px)";
+      trigger.setAttribute("aria-expanded", "false");
+      arrow?.classList.remove("rotate-180");
+      focusedIndex = -1;
+    };
+
+    const selectOption = (option: HTMLElement) => {
+      const value = option.dataset.value ?? "";
+      const text = option.textContent?.trim() ?? "";
+
+      if (selectedText) {
+        selectedText.textContent = text.includes("General") ? "" : text;
+        selectedText.classList.remove("text-charcoal/40");
+        selectedText.classList.add("text-charcoal");
+      }
+      if (hiddenInput) {
+        hiddenInput.value = value;
+        if (hiddenInput.parentElement?.getAttribute("aria-invalid") === "true") {
+          hiddenInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+      }
+
+      closeDropdown();
+      trigger.focus();
+    };
+
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
       e.stopPropagation();
       const isOpen = dropdown.classList.contains("active");
+      if (isOpen) closeDropdown();
+      else openDropdown();
+    });
 
-      // Close all other dropdowns
-      dropdowns.forEach((d) => {
-        d.classList.remove("active");
-        d.querySelector("svg")?.classList.remove("rotate-180");
-      });
+    dropdown.addEventListener("keydown", (e) => {
+      const isOpen = dropdown.classList.contains("active");
 
-      if (!isOpen) {
-        dropdown.classList.add("active");
-        arrow?.classList.add("rotate-180");
+      if (e.key === "Escape") {
+        closeDropdown();
+        trigger.focus();
+        return;
+      }
+
+      if (isOpen) {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          focusedIndex = (focusedIndex + 1) % options.length;
+          options[focusedIndex].focus();
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          focusedIndex = (focusedIndex - 1 + options.length) % options.length;
+          options[focusedIndex].focus();
+        } else if (e.key === "Tab") {
+          closeDropdown();
+        }
+      } else {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openDropdown();
+        }
       }
     });
 
     options.forEach((option) => {
       option.addEventListener("click", (e) => {
+        e.preventDefault();
         e.stopPropagation();
-        const value = (option as HTMLElement).dataset.value || "";
-        const text = option.textContent || "";
+        selectOption(option);
+      });
 
-        // Use empty string for general selection
-        if (selectedText) {
-          selectedText.textContent = text.includes("General") ? "" : text;
+      option.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          e.stopPropagation();
+          selectOption(option);
         }
-        if (hiddenInput) hiddenInput.value = value;
-
-        dropdown.classList.remove("active");
-        arrow?.classList.remove("rotate-180");
       });
     });
   });
@@ -664,14 +782,14 @@ const disciplines = disciplinesData.map((d: any) => d.title);
 
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = "Send Enquiry";
+        submitBtn.textContent = "Submit";
       }
     } catch (err) {
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = "Connection Error";
         setTimeout(() => {
-          if (submitBtn) submitBtn.textContent = "Send Enquiry";
+          if (submitBtn) submitBtn.textContent = "Submit";
         }, 2000);
       }
     }

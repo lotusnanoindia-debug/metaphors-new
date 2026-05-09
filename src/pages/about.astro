@@ -302,10 +302,10 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
             (
               member: {
                 image: object;
-                name: unknown;
-                role: unknown;
-                experience: unknown;
-                body: unknown;
+                name: string;
+                role: string;
+                experience: string;
+                body: string;
                 sectors: any[];
                 disciplines: any[];
               },
@@ -404,10 +404,10 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
             team.map(
               (member: {
                 image: object;
-                name: unknown;
-                experience: unknown;
-                role: unknown;
-                body: unknown;
+                name: string;
+                experience: string;
+                role: string;
+                body: string;
                 sectors: any[];
                 disciplines: any[];
               }) => (
@@ -544,9 +544,9 @@ const quotes = (await client.fetch(PRESS_QUOTES_QUERY)) || [];
               s: {
                 slug: any;
                 image: any;
-                index: unknown;
-                title: unknown;
-                body: unknown;
+                index: string | number;
+                title: string;
+                body: string;
               },
               idx: number,
             ) => (

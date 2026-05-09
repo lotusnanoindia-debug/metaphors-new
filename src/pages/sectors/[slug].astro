@@ -40,14 +40,28 @@ const description =
   sector.valueProposition ||
   `Specialised ${sector.title} architectural expertise by Metaphors Design, Pune.`;
 
-// Extract unique disciplines from allProjects for the filter bar
+// Determine discipline density per sector
+const disciplineCounts = (sector.allProjects || []).reduce((acc: any, p: any) => {
+  p.disciplines?.forEach((d: any) => {
+    acc[d.slug] = (acc[d.slug] || 0) + 1;
+  });
+  return acc;
+}, {});
+
 const projectDisciplines = Array.from(
   new Set(
     sector.allProjects
       ?.flatMap((p: any) => p.disciplines || [])
       .map((d: any) => JSON.stringify({ title: d.title, slug: d.slug })) || [],
   ),
-).map((s: any) => JSON.parse(s));
+)
+  .map((s: any) => JSON.parse(s))
+  .sort((a: any, b: any) => {
+    const countA = disciplineCounts[a.slug] || 0;
+    const countB = disciplineCounts[b.slug] || 0;
+    if (countB !== countA) return countB - countA;
+    return a.title.localeCompare(b.title);
+  });
 
 const heroImageUrl = sector.image
   ? imageUrl(sector.image, { width: 1200, height: 900 })
@@ -107,20 +121,20 @@ const jsonLd = {
       <section class="relative w-full py-48 lg:py-56" aria-labelledby="sector-hero-heading">
         <div class="mx-auto max-w-[1440px] px-6 lg:px-12">
           <div class="mx-auto flex max-w-5xl flex-col items-center text-center">
-            {/* Minimalist Page Identifier */}
-            <nav class="reveal mb-12">
-              <p class="text-charcoal/30 text-center text-sm font-bold tracking-[0.4em] uppercase">
-                {sector.title}
-              </p>
-            </nav>
             <h1
               id="sector-hero-heading"
               class="reveal text-[clamp(3.5rem,11vw,9rem)] leading-[1.04] font-medium tracking-[-0.045em] select-none lg:text-[clamp(3.5rem,9vw,7rem)]"
             >
               <span class="text-charcoal block">
-                {sector.homeHeadline}
+                {sector.title}
               </span>
             </h1>
+
+            <p
+              class="reveal text-charcoal/50 mt-8 max-w-2xl text-lg font-light tracking-tight lg:text-xl"
+            >
+              {sector.homeHeadline}
+            </p>
 
             {/* Fast-Track Navigation - Zero Friction */}
             <nav class="reveal mt-10 w-full lg:mt-32" aria-label="Page Index">
@@ -190,16 +204,16 @@ const jsonLd = {
         aria-label="Sector stature imagery"
       >
         <div class="reveal relative mx-auto max-w-[1440px]">
-          <div class="grid grid-cols-1 gap-6 lg:grid-cols-10 lg:gap-4">
+          <div class="grid grid-cols-1 gap-12 lg:grid-cols-10 lg:gap-12">
             <!-- Left: Sector Image + Sub-headline -->
             <div class="flex flex-col gap-12 lg:col-span-7">
               {
                 sector.pageHeroSub && (
-                  <div class="reveal mx-auto max-w-4xl text-center lg:mx-0 lg:text-left">
+                  <div class="reveal mx-auto max-w-4xl text-center lg:mx-0 lg:p-16 lg:text-left xl:p-24">
                     <p class="text-charcoal/30 mb-4 hidden text-[10px] font-bold tracking-[0.4em] uppercase lg:block">
                       {sector.title} — Metaphors Design, Pune
                     </p>
-                    <p class="text-charcoal/90 text-2xl leading-[1.15] font-light tracking-tight lg:text-4xl">
+                    <p class="text-charcoal/90 text-2xl leading-[1.2] font-light tracking-tight lg:text-4xl">
                       {sector.pageHeroSub}
                     </p>
                   </div>
@@ -272,18 +286,13 @@ const jsonLd = {
                 <div class="mb-12 space-y-12">
                   <div class="h-px w-12 bg-white/20"></div>
                   <p class="text-2xl leading-snug font-light tracking-tight text-white lg:text-3xl">
-                    {
-                      sector.homeIntro ||
-                        sector.valueProposition?.slice(0, 180) ||
-                        `Deep ${sector.title} sector expertise, applied with architectural rigour from first brief to final handover.`
-                    }
-                    {
-                      (sector.homeIntro || sector.valueProposition) && (
-                        <span class="mt-4 block text-lg text-white/40 italic">
-                          One standard. No exceptions.
-                        </span>
-                      )
-                    }
+                    "{
+                      sector.statureQuote ||
+                        `Deep ${sector.title} sector expertise, applied with architectural rigour.`
+                    }"
+                    <span class="mt-4 block text-lg text-white/40 italic">
+                      Anand Bhagat<br />Co-Founder & Principal Architect<br />Metaphors Design
+                    </span>
                   </p>
                 </div>
 
@@ -328,12 +337,12 @@ const jsonLd = {
                     </h2>
                     <div class="flex justify-center lg:justify-start">
                       <Cta
-                        text="Begin the Dialogue"
+                        text="Discuss your project"
                         isContact={true}
-                        contactContext={`Your ${sector.title} Enquiry`}
-                        sector={sector.title}
+                        contactContext={`Let's discuss ${sector.title} architecture`}
+                        discipline={sector.title}
                         invert={true}
-                        className="mt-8"
+                        className="mt-12"
                       />
                     </div>
                   </div>
@@ -378,7 +387,7 @@ const jsonLd = {
                         in {sector.title}.
                       </h2>
                       <p class="text-charcoal/40 mb-12 max-w-md text-center text-xl font-light tracking-tight lg:text-left">
-                        {sector.frameworkDescription}
+                        {`Fundamental principles we apply to every ${sector.title} commission to ensure enduring value.`}
                       </p>
                       <div class="hidden justify-center lg:flex lg:justify-start">
                         <Cta
@@ -386,7 +395,7 @@ const jsonLd = {
                           invert={true}
                           isContact={true}
                           contactContext={`Which specific Spatial Standards interest you?`}
-                          sector={sector.title}
+                          discipline={sector.title}
                         />
                       </div>
                     </div>
@@ -454,7 +463,7 @@ const jsonLd = {
                         invert={true}
                         isContact={true}
                         contactContext={`Which specific Spatial Standards interest you?`}
-                        sector={sector.title}
+                        discipline={sector.title}
                       />
                     </div>
                   </div>
@@ -467,8 +476,7 @@ const jsonLd = {
 
       {/* ─── 5. CURATED PROJECTS ────────────────────────────── */}
       {
-        ((sector.curatedProjects && sector.curatedProjects.length > 0) ||
-          (sector.allProjects && sector.allProjects.length > 0)) && (
+        (sector.allProjects && sector.allProjects.length > 0) && (
           <section
             id="commissions"
             class="border-charcoal/5 border-t bg-[#f2f1ec] py-10 lg:py-24"
@@ -499,7 +507,7 @@ const jsonLd = {
                     invert={true}
                     isContact={true}
                     contactContext={`Your ${sector.title} Enquiry`}
-                    sector={sector.title}
+                    discipline={sector.title}
                   />
                 </div>
               </div>
@@ -512,14 +520,14 @@ const jsonLd = {
                     <div class="flex flex-wrap justify-center gap-3 lg:gap-4" id="project-filters">
                       <button
                         data-filter="all"
-                        class="filter-btn active border-charcoal/10 hover:border-charcoal cursor-pointer border px-5 py-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-500"
+                        class="filter-btn active border-charcoal/10 hover:border-charcoal hover:bg-charcoal/5 cursor-pointer border px-6 py-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-500"
                       >
                         All
                       </button>
                       {projectDisciplines.map((d: any) => (
                         <button
                           data-filter={d.slug}
-                          class="filter-btn border-charcoal/10 hover:border-charcoal cursor-pointer border px-5 py-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-500"
+                          class="filter-btn border-charcoal/10 hover:border-charcoal hover:bg-charcoal/5 cursor-pointer border px-6 py-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-500"
                         >
                           {d.title}
                         </button>
@@ -535,7 +543,7 @@ const jsonLd = {
                   <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8" id="project-grid">
                     {sector.allProjects.map((project: any, idx: number) => (
                       <article
-                        class="project-item group/project bg-charcoal/5 relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]"
+                        class="project-item group/project bg-charcoal/5 relative overflow-hidden transition-all duration-700 ease-luxury"
                         data-disciplines={JSON.stringify(
                           project.disciplines?.map((d: any) => d.slug) || [],
                         )}
@@ -612,14 +620,16 @@ const jsonLd = {
 
       {/* ─── 6. CLOSING CTA ─────────────────────────────────── */}
       <MainCta
+        isContact={true}
+        contactContext={`Let's discuss ${sector.title} architecture`}
+        discipline={sector.title}
         section={{
           eyebrow: sector.title,
-          headline: sector.customCTA || `Architect your ${sector.title} Vision.`,
+          headline: `Architect your ${sector.title} Vision.`,
           tagline: `You do not need a finished brief. Intent and ambition are sufficient. We bring the strategic clarity to carry your ${sector.title.toLowerCase()} commission from first conversation to final handover.`,
-          ctaLabel: "Initiate Dialogue",
-          ctaUrl: "/contact",
+          ctaLabel: "Discuss your project",
+          ctaUrl: "#",
         }}
-        className="bg-bone"
       />
     </main>
 
@@ -651,40 +661,52 @@ const jsonLd = {
 
     if (!filterBtns.length || !projectItems.length) return;
 
+    const applyFilter = (filter: string, shouldScroll = true) => {
+      projectItems.forEach((item) => {
+        const itemEl = item as HTMLElement;
+        const disciplines = JSON.parse(itemEl.dataset.disciplines || "[]");
+
+        if (filter === "all" || disciplines.includes(filter)) {
+          // Show item with animation
+          itemEl.style.display = "block";
+          // Wait for display:block to take effect
+          setTimeout(() => {
+            itemEl.style.opacity = "1";
+            itemEl.style.transform = "scale(1)";
+            itemEl.style.pointerEvents = "auto";
+          }, 10);
+        } else {
+          // Hide item with animation
+          itemEl.style.opacity = "0";
+          itemEl.style.transform = "scale(0.95)";
+          itemEl.style.pointerEvents = "none";
+          // Set display none after transition ends
+          setTimeout(() => {
+            if (itemEl.style.opacity === "0") {
+              itemEl.style.display = "none";
+            }
+          }, 700);
+        }
+      });
+
+      if (shouldScroll) {
+        const section = document.getElementById("commissions");
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    };
+
     filterBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
         const filter = (btn as HTMLElement).dataset.filter;
+        if (!filter) return;
 
         // Update active state
         filterBtns.forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
 
-        projectItems.forEach((item) => {
-          const itemEl = item as HTMLElement;
-          const disciplines = JSON.parse(itemEl.dataset.disciplines || "[]");
-
-          if (filter === "all" || disciplines.includes(filter)) {
-            // Show item with animation
-            itemEl.style.display = "block";
-            // Wait for display:block to take effect
-            setTimeout(() => {
-              itemEl.style.opacity = "1";
-              itemEl.style.transform = "scale(1)";
-              itemEl.style.pointerEvents = "auto";
-            }, 10);
-          } else {
-            // Hide item with animation
-            itemEl.style.opacity = "0";
-            itemEl.style.transform = "scale(0.95)";
-            itemEl.style.pointerEvents = "none";
-            // Set display none after transition ends
-            setTimeout(() => {
-              if (itemEl.style.opacity === "0") {
-                itemEl.style.display = "none";
-              }
-            }, 700);
-          }
-        });
+        applyFilter(filter, true);
       });
     });
   }

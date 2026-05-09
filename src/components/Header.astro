@@ -8,9 +8,9 @@ const disciplinesData = await client.fetch(DISCIPLINES_QUERY);
 
 const sectors = sectorsData.map((sector: any) => ({
   title: sector.title,
-  tagline: sector.menuTagline || sector.homeHeadline || "Expert Architectural Solutions",
+  tagline: sector.homeHeadline || "Expert Architectural Solutions",
   path: `/sectors/${sector.slug}`,
-  image: sector.menuImage || sector.image,
+  image: sector.image,
 }));
 
 const disciplines = disciplinesData.map((d: any) => ({

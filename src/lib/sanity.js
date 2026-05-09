@@ -64,32 +64,11 @@ export const SECTORS_QUERY = `*[_type == "sector"] | order(orderRank asc){
   _id,
   title,
   "slug": slug.current,
-  "projects": *[_type == "project" && category._ref == ^._id && defined(areaSqFt)]{ areaSqFt },
-  menuTagline,
-  menuCTA,
-  menuImage {
-    ...,
-    asset-> {
-      ...,
-      originalFilename
-    }
-  },
   homeHeadline,
-  homeIntro,
   image {
     ...,
-    asset-> {
-      ...,
-      originalFilename
-    }
-  },
-  "starredProjects": *[_type == "project" && category._ref == ^._id && featured == true && isVisible != false] | order(orderRank asc)[0...3]{
-    "title": coalesce(projectName, title, headline),
-    "slug": slug.current,
-    "city": location.city,
-    completionYear
-  },
-  "teaser": coalesce(teaser, homeIntro)
+    asset-> { ..., originalFilename }
+  }
 }`;
 
 export const ALL_DISCIPLINES_WITH_AREA_QUERY = `*[_type == "discipline"] | order(orderRank asc){
@@ -195,12 +174,9 @@ export const SECTOR_DETAIL_QUERY = `{
   "sector": *[_type == "sector" && slug.current == $slug][0]{
     title,
     "slug": slug.current,
-    menuTagline,
-    menuCTA,
     homeHeadline,
-    homeIntro,
-    "teaser": coalesce(teaser, homeIntro),
-    pageHeroHeadline,
+    "statureQuote": coalesce(statureQuote, homeIntro),
+    image,
     pageHeroSub,
     valueProposition,
     keyPillars[] {
@@ -244,6 +220,12 @@ export const SECTOR_DETAIL_QUERY = `{
 }`;
 
 export const ALL_SECTORS_SLUGS_QUERY = `*[_type == "sector"]{ "slug": slug.current }`;
+
+export const ALL_SECTORS_LIGHT_QUERY = `*[_type == "sector"] | order(orderRank asc){
+  title,
+  "slug": slug.current,
+  image { ..., asset-> { ..., originalFilename } }
+}`;
 
 export const DISCIPLINE_DETAIL_QUERY = `{
   "discipline": *[_type == "discipline" && slug.current == $slug][0]{
