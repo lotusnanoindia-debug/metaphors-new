@@ -24,16 +24,6 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      group: 'identity',
-      options: {
-        source: 'name',
-        maxLength: 96,
-      },
-    }),
-    defineField({
       name: 'logo',
       title: 'Client Logo',
       type: 'image',
@@ -224,14 +214,18 @@ export default defineType({
       media: 'logo',
       type: 'classification',
       city: 'city',
+      contactName: 'contactPerson.name',
     },
-    prepare({title, subtitle, media, type, city}) {
+    prepare({title, subtitle, media, type, city, contactName}) {
       const typeLabel = type ? type.toUpperCase() : ''
       const industryLabel = subtitle || ''
       const cityLabel = city || ''
+      const contactLabel = contactName || ''
 
-      // Filter out empty strings and join with a sophisticated divider
-      const details = [typeLabel, industryLabel, cityLabel].filter(Boolean).join(' | ')
+      // If it's a private client, prioritize the person's name in the subtitle
+      const details = type === 'hni' 
+        ? [contactLabel, cityLabel].filter(Boolean).join(' | ')
+        : [typeLabel, industryLabel, cityLabel].filter(Boolean).join(' | ')
 
       return {
         title: title || 'Unnamed Client',

@@ -71,6 +71,23 @@ export const SECTORS_QUERY = `*[_type == "sector"] | order(orderRank asc){
   }
 }`;
 
+export const SECTORS_WITH_PROJECTS_QUERY = `*[_type == "sector"] | order(orderRank asc){
+  _id,
+  title,
+  "slug": slug.current,
+  homeHeadline,
+  image {
+    ...,
+    asset-> { ..., originalFilename }
+  },
+  "projects": *[_type == "project" && references(^._id) && defined(areaSqFt)]{ areaSqFt },
+  "starredProjects": *[_type == "project" && references(^._id)] | order(completionYear desc)[0...3]{
+    "title": coalesce(projectName, title),
+    "slug": slug.current,
+    "city": location.city
+  }
+}`;
+
 export const ALL_DISCIPLINES_WITH_AREA_QUERY = `*[_type == "discipline"] | order(orderRank asc){
   _id,
   title,
@@ -263,3 +280,50 @@ export const DISCIPLINE_DETAIL_QUERY = `{
 }`;
 
 export const ALL_DISCIPLINES_SLUGS_QUERY = `*[_type == "discipline"]{ "slug": slug.current }`;
+
+export const PROJECT_DETAIL_QUERY = `*[_type == "project" && slug.current == $slug && isVisible != false][0]{
+  projectName,
+  "title": coalesce(projectName, title),
+  "slug": slug.current,
+  headline,
+  "sector": category->{ title, "slug": slug.current },
+  "disciplines": disciplines[]->{ title, "slug": slug.current },
+  "clientName": select(showClientPublicly != false => client->name, null),
+  location {
+    city,
+    country->{ name },
+    indiaState->{ name },
+    otherState
+  },
+  areaSqFt,
+  completionYear,
+  projectDuration,
+  projectStatus,
+  theBrief,
+  theDesignResponse,
+  theOutcome,
+  highlights,
+  testimonial {
+    quote,
+    attribution,
+    showPublicly
+  },
+  awards[] {
+    awardName,
+    awardingBody,
+    year
+  },
+  coverImage {
+    ...,
+    asset-> { ..., originalFilename }
+  },
+  gallery[] {
+    ...,
+    asset-> { ..., originalFilename }
+  },
+  seoTitle,
+  seoDescription
+}`;
+
+export const ALL_PROJECTS_SLUGS_QUERY = `*[_type == "project" && isVisible != false && defined(slug.current)]{ "slug": slug.current }`;
+

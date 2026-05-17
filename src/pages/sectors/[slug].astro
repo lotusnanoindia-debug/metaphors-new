@@ -42,8 +42,10 @@ const description =
 
 // Determine discipline density per sector
 const disciplineCounts = (sector.allProjects || []).reduce((acc: any, p: any) => {
-  p.disciplines?.forEach((d: any) => {
-    acc[d.slug] = (acc[d.slug] || 0) + 1;
+  p.disciplines?.filter(Boolean).forEach((d: any) => {
+    if (d.slug) {
+      acc[d.slug] = (acc[d.slug] || 0) + 1;
+    }
   });
   return acc;
 }, {});
@@ -52,6 +54,7 @@ const projectDisciplines = Array.from(
   new Set(
     sector.allProjects
       ?.flatMap((p: any) => p.disciplines || [])
+      .filter((d: any) => d && d.slug && d.title)
       .map((d: any) => JSON.stringify({ title: d.title, slug: d.slug })) || [],
   ),
 )
@@ -545,7 +548,7 @@ const jsonLd = {
                       <article
                         class="project-item group/project bg-charcoal/5 relative overflow-hidden transition-all duration-700 ease-luxury"
                         data-disciplines={JSON.stringify(
-                          project.disciplines?.map((d: any) => d.slug) || [],
+                          project.disciplines?.filter(Boolean).map((d: any) => d.slug) || [],
                         )}
                       >
                         <a
@@ -571,9 +574,9 @@ const jsonLd = {
                           <div class="from-charcoal/90 via-charcoal/20 absolute inset-0 bg-linear-to-t to-transparent opacity-60 transition-opacity duration-1000 group-hover/project:opacity-90" />
 
                           {/* Disciplines Pills (Top Left) */}
-                          {project.disciplines && project.disciplines.length > 0 && (
+                          {project.disciplines && project.disciplines.filter(Boolean).length > 0 && (
                             <div class="absolute top-6 left-6 z-20 flex flex-wrap gap-2 lg:top-10 lg:left-10">
-                              {project.disciplines.map((d: any) => (
+                              {project.disciplines.filter(Boolean).map((d: any) => (
                                 <span class="text-charcoal bg-white/90 px-3 py-1 text-[8px] font-bold tracking-[0.2em] uppercase backdrop-blur-sm">
                                   {d.title}
                                 </span>

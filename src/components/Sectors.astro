@@ -1,5 +1,5 @@
 ---
-import { client, SECTORS_QUERY, imageUrl } from "../lib/sanity";
+import { client, SECTORS_WITH_PROJECTS_QUERY, imageUrl } from "../lib/sanity";
 import Icon from "./Icon.astro";
 import Cta from "./Cta.astro";
 
@@ -9,7 +9,7 @@ interface Props {
 
 const { section } = Astro.props;
 
-const rawSectors = await client.fetch(SECTORS_QUERY);
+const rawSectors = await client.fetch(SECTORS_WITH_PROJECTS_QUERY);
 
 function formatSqFt(sqft: number): string | null {
   if (!sqft) return null;

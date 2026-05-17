@@ -1,6 +1,6 @@
 ---
 import Cta from "./Cta.astro";
-import { client, SECTORS_QUERY } from "../lib/sanity";
+import { client, SECTORS_WITH_PROJECTS_QUERY } from "../lib/sanity";
 
 interface Props {
   section?: any;
@@ -9,7 +9,7 @@ interface Props {
 const { section } = Astro.props;
 
 // Fetch data at build time
-const rawSectors = await client.fetch(SECTORS_QUERY);
+const rawSectors = await client.fetch(SECTORS_WITH_PROJECTS_QUERY);
 
 // 1. Aggregate Sectors
 const sectors = rawSectors
